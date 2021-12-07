@@ -162,4 +162,6 @@ define where the keys are located
 More extensive troubleshooting and even automated fixing can be done with:
 `ssh -vT git@github.com`
 
+- [Git flow] \
+` git remote -v` - get origins
 
