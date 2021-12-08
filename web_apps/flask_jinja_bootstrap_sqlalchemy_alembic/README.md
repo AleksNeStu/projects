@@ -1,11 +1,10 @@
-**Data-Driven Web App w/ Flask and SQLAlchemy**
+# Data-Driven Web App w/ Flask and SQLAlchemy
+*replica of https://pypi.org/*
 
-**Tech-stack**
-
+## Tech-stack
 <img src="assets/diagram.png" alt="Stairway test">
 
 > BE
-
 - Python3
 - [Jinja](https://github.com/pallets/jinja) <br>
   Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.
@@ -48,3 +47,50 @@
   TODO
 - [Query language]()
   TODO
+
+## Topics
+1) Setup and tools
+2) Introduction to Flask web framework
+3) Creating our first site
+4) HTML templates
+5) Mapping URLs to methods
+6) Bootstrap front-end framework
+7) Data access with SQLAlchemy ORM
+8) Database migrations with Alembic
+9) User input with HTML forms
+10) Server and client validation
+11) Testing
+12) Deployment
+13) MongoDB version
+
+## Requirements
+1) **Python 3.x**
+2) **poetry** - Dependency Management for Python.
+```
+# 1) Set Poetry always create virtual environment in the root directory. 
+poetry config virtualenvs.in-project true
+
+# 2) Navigate to the project dir
+cd <project_dir>
+
+# 3) Create a Virtual Environment (e.g. python = 3.10 - depends on os setup)
+poetry env use python
+#* Switching between environments
+poetry env use system
+poetry env use python3.10
+poetry env use /full/path/to/python
+
+# 4) Activate Vitual Environment
+poetry shell
+
+# 5) Show Information of the Vitual Environment
+which python
+poetry env info --path
+poetry env list --full-path
+
+# 6) Deleting the environments
+poetry env remove /full/path/to/python
+poetry env remove python3.10
+poetry env remove 3.10
+poetry env remove test-O3eWbxRl-py3.10
+```
