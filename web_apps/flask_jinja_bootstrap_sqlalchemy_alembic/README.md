@@ -94,3 +94,24 @@ poetry env remove python3.10
 poetry env remove 3.10
 poetry env remove test-O3eWbxRl-py3.10
 ```
+
+# Description
+<img src="assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
+
+**MVC (Model-View-Controller)** is a pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software’s business logic and display. This "separation of concerns" provides for a better division of labor and improved maintenance.<br>
+
+**Building Blocks of Flask**
+1) **Routes:** Map URL patterns to views
+   app.route maps URLs to views with a unique url pattern,
+   optional HTTP verb, and route data.
+   Static files will automatically be served from /static/...
+
+2) **Controllers (View methods):** Process request
+3) **Views (Templates):** Dynamic HTML
+   Data passed to templates are keyword arguments.
+   Can include data and methods.
+
+5) **Models:** Data and behavior passed to view
+
+5) **Static content:** Rich support for cached assets
+6) **Configuration:** Dev, test, prod configs
