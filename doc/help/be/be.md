@@ -76,8 +76,29 @@ Accessibility feedback
 
 **[F]**
 > Frameworks
-- 1
-- 2
+---
+**Microframeworks**
+- [bottle](https://github.com/bottlepy/bottle) \
+  Bottle is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.
+
+  Routing: Requests to function-call mapping with support for clean and dynamic URLs.
+Templates: Fast and pythonic *built-in template engine* and support for mako, jinja2 and cheetah templates.
+
+  Utilities: Convenient access to form data, file uploads, cookies, headers and other HTTP-related metadata.
+  Server: Built-in HTTP development server and support for paste, fapws3, bjoern, Google App Engine, cherrypy or any other WSGI capable HTTP server.
+
+- [flask](https://github.com/pallets/flask)
+
+  Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
+
+- [pyramid](https://github.com/Pylons/pyramid)
+
+  Pyramid is a small, fast, down-to-earth, open source Python web framework. It makes real-world web application development and deployment more fun, more predictable, and more productive.
+---
+**Building block frameworks**
+- [django](https://github.com/django/django)
+
+  Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
 
 **[G]**
 

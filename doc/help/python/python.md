@@ -105,6 +105,8 @@ Command line utility to show dependency tree of packages
   By default, Poetry create virtual environment in $HOME/.poetry for cahcing/sharing purpose.
   ```poetry config virtualenvs.in-project true``` - always create virtual environment in the root directory of a project.
   ```poetry config --local virtualenvs.in-project true``` - one time
+  https://www.yippeecode.com/topics/python-poetry-cheat-sheet/
+
 - [pdm](https://github.com/pdm-project/pdm) <br>
   A modern Python package manager with PEP 582 support.
   PDM is meant to be a next generation Python package management tool. It was originally built for personal use. If you feel you are going well with Pipenv or Poetry and don't want to introduce another package manager, just stick to it. But if you are missing something that is not present in those tools, you can probably find some goodness in pdm. <br>
