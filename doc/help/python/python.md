@@ -106,6 +106,77 @@ Command line utility to show dependency tree of packages
   ```poetry config virtualenvs.in-project true``` - always create virtual environment in the root directory of a project.
   ```poetry config --local virtualenvs.in-project true``` - one time
   https://www.yippeecode.com/topics/python-poetry-cheat-sheet/
+```
+# 1) Set Poetry always create virtual environment in the root directory. 
+poetry config virtualenvs.in-project true
+
+# 2) Navigate to the project dir
+cd <project_dir>
+
+# 3) Create a Virtual Environment (e.g. python = 3.10 - depends on os setup)
+poetry init - pyproject.toml interactively create
+
+poetry env use python
+#* Switching between environments
+poetry env use system
+poetry env use python3.10
+poetry env use /full/path/to/python
+
+poetry lock - poetry.lock file, locking the project to those specific versions.
+
+# 4) Activate Vitual Environment
+poetry shell
+
+# 5) Show env
+which python
+poetry env info --path
+poetry env list --full-path - Find the list of virtual environments including its full path.
+
+# 6) Remove env
+poetry env remove /full/path/to/python
+poetry env remove python3.10
+poetry env remove 3.10
+poetry env remove test-O3eWbxRl-py3.10
+
+# 7) Add
+poetry add "Flask==1.1.2"
+poetry add "Flask==1.1.2" --dev - Adding package in dev-dependencies.
+poetry add "/path/to/locallib" - Add local dependency by specifying the library path.
+poetry add pendulum@^2.0.5
+poetry add "pendulum>=2.0.5"
+poetry add pendulum@latest
+poetry add git+https://github.com/sdispater/pendulum.git
+
+--dev (-D): Add package as development dependency.
+--path: The path to a dependency.
+--optional : Add as an optional dependency.
+--dry-run : Outputs the operations but will not execute anything (implicitly enables –verbose).
+--lock : Do not perform install (only update the lockfile).
+
+
+# 8) Delete dependencies
+poetry remove Flask
+
+# 9) Update dependencies
+poetry update - Update all poetry packages that are defined in pyproject.toml.
+poetry update Flask - update individual packages by specifying the name.
+poetry show - Show the list of all packages installed with description.
+poetry show Flask - Show information about a specific package.
+
+--dry-run : Outputs the operations but will not execute anything (implicitly enables –verbose).
+--no-dev : Do not install dev dependencies.
+--lock : Do not perform install (only update the lockfile).
+
+# 10) Install dependencies
+poetry install - The install command reads the pyproject.toml file from the current project, resolves the dependencies, and installs them. If there is a poetry.lock file in the current directory, it will use the exact versions from there instead of resolving them.
+
+--no-dev: Do not install dev dependencies.
+--no-root: Do not install the root package (your project).
+--extras (-E): Features to install (multiple values allowed).
+
+# 11) Export
+poetry export -f requirements.txt --output requirements.txt
+```
 
 - [pdm](https://github.com/pdm-project/pdm) <br>
   A modern Python package manager with PEP 582 support.

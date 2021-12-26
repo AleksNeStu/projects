@@ -2,12 +2,20 @@
 *replica of https://pypi.org/*
 
 ## Setup
-- Clone the app project.
-- Install requirements using poetry.
+1) Clone the app project.
+2) Install requirements using poetry.
 ```
-poetry add flask
-poetry add pytest --dev
+cd <project_dir>
+poetry config virtualenvs.in-project true
+poetry shell
+poetry install
 ```
+3) Run app using `python app.py`
+
+## Tips
+1) Show project structure: `tree -I .env`
+2) Export requirements:
+`poetry export -f requirements.txt --output requirements.txt`
 
 ## Tech-stack
 <img src="assets/diagram.png" alt="Stairway test">
@@ -18,6 +26,8 @@ poetry add pytest --dev
   Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.
 - [flask](https://github.com/pallets/flask) <br>
   Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
+   [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/)
+
 
   - [Werkzeug](https://github.com/pallets/werkzeug) <br>
     Werkzeug is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
@@ -74,52 +84,6 @@ poetry add pytest --dev
 ## Requirements
 1) **Python 3.x**
 2) **poetry** - Dependency Management for Python.
-```
-# 1) Set Poetry always create virtual environment in the root directory. 
-poetry config virtualenvs.in-project true
-
-# 2) Navigate to the project dir
-cd <project_dir>
-
-# 3) Create a Virtual Environment (e.g. python = 3.10 - depends on os setup)
-poetry init - pyproject.toml interactively create
-
-poetry env use python
-#* Switching between environments
-poetry env use system
-poetry env use python3.10
-poetry env use /full/path/to/python
-
-poetry lock - poetry.lock file, locking the project to those specific versions.
-
-# 4) Activate Vitual Environment
-poetry shell
-
-# 5) Show env
-which python
-poetry env info --path
-poetry env list --full-path - Find the list of virtual environments including its full path.
-
-# 6) Remove env
-poetry env remove /full/path/to/python
-poetry env remove python3.10
-poetry env remove 3.10
-poetry env remove test-O3eWbxRl-py3.10
-
-# 7) Add
-poetry add "Flask==1.1.2"
-poetry add "Flask==1.1.2" --dev - Adding package in dev-dependencies.
-poetry add "/path/to/locallib" - Add local dependency by specifying the library path.
-
-# 8) Delete dependencies
-poetry remove Flask
-
-# 9) Update dependencies
-poetry update - Update all poetry packages that are defined in pyproject.toml.
-poetry update Flask - update individual packages by specifying the name.
-poetry show - Show the list of all packages installed with description.
-poetry show Flask - Show information about a specific package.
-```
 
 # Description
 <img src="assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
