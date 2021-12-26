@@ -10,7 +10,24 @@ poetry config virtualenvs.in-project true
 poetry shell
 poetry install
 ```
-3) Run app using `python app.py`
+3) Run app using:
+`cd <project_dir>`
+3.1) `python app.py`
+3.2) `scripts/run_app.sh`
+3.3) IDE debug mode (python app)
+<p align="center">
+<img src="assets/ide-flask-py-1.png" alt="IDE flask python run">
+<img src="assets/ide-flask-py-2.png" alt="IDE flask python run">
+</p>
+
+**NOTE:**
+Need plugin for IDE:
+[EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile) 
+
+3.4) IDE debug mode (flask framework)
+<p align="center">
+<img src="assets/ide-flask-fr.png" alt="IDE flask framework run">
+</p>
 
 ## Tips
 1) Show project structure: `tree -I .env`
@@ -18,7 +35,9 @@ poetry install
 `poetry export -f requirements.txt --output requirements.txt`
 
 ## Tech-stack
+<p align="center">
 <img src="assets/diagram.png" alt="Stairway test">
+</p>
 
 > BE
 - Python3
@@ -86,7 +105,9 @@ poetry install
 2) **poetry** - Dependency Management for Python.
 
 # Description
+<p align="center">
 <img src="assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
+</p>
 
 **MVC (Model-View-Controller)** is a pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software’s business logic and display. This "separation of concerns" provides for a better division of labor and improved maintenance.<br>
 

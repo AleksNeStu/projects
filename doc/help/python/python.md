@@ -338,7 +338,10 @@ hotshot was an experimental C module that focused on minimizing the overhead of 
 - [setuptools](https://setuptools.readthedocs.io/en/latest/) <br>
   Setuptools is a fully-featured, actively-maintained, and stable library designed to facilitate packaging Python projects.
 
-
+> Password
+- [passlib](https://github.com/glic3rinu/passlib)
+  
+  Passlib is a password hashing library for Python 2 & 3, which provides cross-platform implementations of over 30 password hashing algorithms, as well as a framework for managing existing password hashes. It's designed to be useful for a wide range of tasks, from verifying a hash found in /etc/shadow, to providing full-strength password hashing for multi-user application.
 
 
 **[Q]**
