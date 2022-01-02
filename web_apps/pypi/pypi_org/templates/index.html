@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Python Package Index (demo)</title>
+</head>
+
+<body>
+
+<style>
+    .name {
+        font-weight: bold;
+    }
+    .version {
+        text-transform: uppercase;
+    }
+</style>
+
+<h1>Python Packages Index</h1>
+
+<h2>Packages</h2>
+
+{% for p in packages %}
+<div>
+    <span class="name">
+        {{p.name.upper()}}
+    </span>
+    <span class="version">
+        {{p.version}}
+    </span>
+</div>
+{% endfor %}
+</body>
+
+</html>

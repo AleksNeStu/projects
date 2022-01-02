@@ -10,6 +10,7 @@ python = "^3.10"
 Flask = "^2.0.2"
 SQLAlchemy = "^1.4.29"
 passlib = "^1.7.4"
+Jinja2 = "^3.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
