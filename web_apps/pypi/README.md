@@ -22,11 +22,21 @@ poetry install --no-dev
 
 3) Run app:
 
-3.1) Run app via command interface:
+3.1) Setup IDE project structure
+<p align="center">
+<img src="assets/pr-1.png" alt="Project Settings / Project">
+<img src="assets/pr-2.png" alt="Project Settings / Modules tree">
+<img src="assets/pr-3.png" alt="Project Settings / Modules env">
+<img src="assets/pr-4.png" alt="Project Settings / Modules tree">
+<img src="assets/pr-5.png" alt="Project Settings / Modules env">
+<img src="assets/pr-6.png" alt="Platform Settings / SDKs">
+</p>
+
+3.2) Run app via command interface:
 `cd <project_dir>`
 `scripts/run_app.sh`
 
-3.2) Run app via IDE in debug mode:
+3.3) Run app via IDE in debug mode:
 
 **NOTE:**
 Need plugin for IDE:
