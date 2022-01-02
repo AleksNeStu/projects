@@ -1,1 +1,1 @@
-"""Infrastructure stuff (auth, utils, ...etc)."""
+"""Infra (Auth, Utils, ...)."""

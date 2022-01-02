@@ -1,1 +1,1 @@
-"""Static app content."""
+"""Static."""

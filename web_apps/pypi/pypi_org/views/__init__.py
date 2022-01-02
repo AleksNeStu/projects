@@ -1,1 +1,1 @@
-"""Decorated funs with views."""
+"""Views."""

@@ -1,1 +1,1 @@
-"""Templates for views with the same structure."""
+"""Templates for views."""
