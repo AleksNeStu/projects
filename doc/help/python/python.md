@@ -94,7 +94,8 @@ Twisted supports all major system event loops – select (all platforms), poll (
 Command line utility to show dependency tree of packages
 - [pip-tools](https://github.com/jazzband/pip-tools) <br>
   A set of command line tools to help you keep your pip-based packages fresh, even when you've pinned them. You do pin them, right? (In building your Python application and its dependencies for production, you want to make sure that your builds are predictable and deterministic.)
-- [poetry](https://pypi.org/project/poetry/) <br>
+- [poetry](https://pypi.org/project/poetry/) \
+  https://python-poetry.org/ \
   Poetry helps you declare, manage and install dependencies of Python projects, ensuring you have the right stack everywhere. <br>
   Packaging systems and dependency management in Python are rather convoluted and hard to understand for newcomers. Even for seasoned developers it might be cumbersome at times to create all files needed in a Python project: setup.py, requirements.txt, setup.cfg, MANIFEST.in and the newly added Pipfile. <br>
   So I wanted a tool that would limit everything to a single configuration file to do: dependency management, packaging and publishing. <br>
@@ -160,7 +161,7 @@ poetry remove Flask
 # 9) Update dependencies
 poetry update - Update all poetry packages that are defined in pyproject.toml.
 poetry update Flask - update individual packages by specifying the name.
-poetry show - Show the list of all packages installed with description.
+poetry show --tree - Show the list of all packages installed with description.
 poetry show Flask - Show information about a specific package.
 
 --dry-run : Outputs the operations but will not execute anything (implicitly enables –verbose).
@@ -176,6 +177,10 @@ poetry install - The install command reads the pyproject.toml file from the curr
 
 # 11) Export
 poetry export -f requirements.txt --output requirements.txt
+
+# 12) Build & Publish
+poetry build - Easily build and package your projects with a single command.
+poetry publish - Make your work known by publishing it to PyPI.
 ```
 
 - [pdm](https://github.com/pdm-project/pdm) <br>

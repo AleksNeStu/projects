@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "flask_jinja_bootstrap_sqlalchemy_alembic"
+name = "pypi"
 version = "0.1.0"
 description = "Data-Driven Web App w/ Flask and SQLAlchemy"
 authors = ["Alexander Nesterovich <a.v.nesterovich@gmail.com>"]

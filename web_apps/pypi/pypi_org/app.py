@@ -1,3 +1,4 @@
+"""Flask application run."""
 import flask
 
 

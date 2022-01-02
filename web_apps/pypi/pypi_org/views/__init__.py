@@ -1,0 +1,1 @@
+"""Decorated funs with views."""

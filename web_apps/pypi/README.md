@@ -1,5 +1,8 @@
 # Data-Driven Web App w/ Flask and SQLAlchemy
+**Flask / Jinja / Bootstrap / SQLAlchemy / Alembic** \
 *replica of https://pypi.org/*
+
+
 
 ## Setup
 1) Clone the app project.
