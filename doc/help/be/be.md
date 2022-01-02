@@ -216,7 +216,14 @@ Templates: Fast and pythonic *built-in template engine* and support for mako, ji
 - [DTP!](https://habr.com/ru/post/431854/)
 - [s](https://habr.com/ru/company/otus/blog/506072/)
 
-**[U]**
+> Tests
+
+- [webtest](https://github.com/Pylons/webtest) \
+This wraps any WSGI application and makes it easy to send test requests to that application, without starting up an HTTP server.
+- [pytest](https://github.com/pytest-dev/pytest) \
+  The pytest framework makes it easy to write small tests, yet scales to support complex functional testing for applications and libraries.
+
+- **[U]**
 
 **[V]**
 > VCS
