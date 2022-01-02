@@ -10,24 +10,41 @@ poetry config virtualenvs.in-project true
 poetry shell
 poetry install
 ```
+or to just install the added package(s) (and remove any dev packages that were already installed if you killed it too late):
+```
+poetry install --no-dev
+```
+
+[Creating a Flask Project](https://www.jetbrains.com/help/pycharm/creating-flask-project.html) \
+
 3) Run app using:
 `cd <project_dir>`
+
 3.1) `python app.py`
+
 3.2) `scripts/run_app.sh`
-3.3) IDE debug mode (python app)
+
+3.3.1) IDE debug mode (module flask)
 <p align="center">
-<img src="assets/ide-flask-py-1.png" alt="IDE flask python run">
-<img src="assets/ide-flask-py-2.png" alt="IDE flask python run">
+<img src="assets/ide-flask-py-1.png" alt="IDE debug mode (module flask)">
+<img src="assets/ide-flask-py-2.png" alt="IDE debug mode (module flask)">
+</p>
+
+3.3.2) IDE debug mode (Python script app.py)
+<p align="center">
+<img src="assets/ide-flask-py-3.png" alt="IDE debug mode (Python script app.py)">
+</p>
+
+3.3.3) IDE debug mode (framework flask) \
+[Run/Debug Configuration: Flask Server](https://www.jetbrains.com/help/pycharm/run-debug-configuration-flask-server.html)
+
+<p align="center">
+<img src="assets/ide-flask-py-4.png" alt="IDE debug mode (framework flask))">
 </p>
 
 **NOTE:**
 Need plugin for IDE:
-[EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile) 
-
-3.4) IDE debug mode (flask framework)
-<p align="center">
-<img src="assets/ide-flask-fr.png" alt="IDE flask framework run">
-</p>
+[EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
 
 ## Tips
 1) Show project structure: `tree -I .env`
