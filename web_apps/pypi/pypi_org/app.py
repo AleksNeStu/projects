@@ -11,10 +11,15 @@ def get_latest_packages():
         {'name': 'passlib', 'version': '1.4.0c'},
     ]
 
+TEST_PACKAGES = get_latest_packages()
+
 @app.route('/')
 def index():
-    test_packages = get_latest_packages()
-    return flask.render_template('index.html', packages=test_packages)
+    return flask.render_template('index.html', packages=TEST_PACKAGES)
+
+@app.route('/about')
+def about():
+    return flask.render_template('about.html')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

@@ -99,25 +99,38 @@ c) Flask framework \
 
 - [HTML/CSS]()
   TODO
-- [Bootstrap](https://github.com/twbs/bootstrap)
-  Sleek, intuitive, and powerful front-end framework for faster and easier web development. <br>
-- [JS]()
-  TODO
-- [Vue.js](https://github.com/vuejs/vue)
+- [Bootstrap](https://github.com/twbs/bootstrap) \
+  Sleek, intuitive, and powerful front-end framework for faster and easier web development. \
+  Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins. \
+  https://getbootstrap.com/docs/5.1/getting-started/download/ 
+- [JS] \
+  [jQuery](https://jquery.com/) \
+  jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript. \
+  [popper](https://popper.js.org/) \
+  Popper.js is a positioning engine, its purpose is to calculate the position of an element to make it possible to position it near a given reference element. \
+  Popper.js has zero dependencies. No jQuery, no LoDash, nothing.
+    It's used by big companies like Twitter in Bootstrap v4, Microsoft in WebClipper and Atlassian in AtlasKit. \
+  Some of the key points are:
+  - Position elements keeping them in their original DOM context (doesn't mess with your DOM!);
+  - Allows to export the computed information to integrate with React and other view libraries;
+  - Supports Shadow DOM elements;
+  - Completely customizable thanks to the modifiers based structure;
+
+- [Vue.js](https://github.com/vuejs/vue) \
   Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web. <br>
 
 > DB
 
-- [PostgreSQL](https://github.com/postgres/postgres)
+- [PostgreSQL](https://github.com/postgres/postgres) \
   This directory contains the source code distribution of the PostgreSQL
   database management system. <br>
   PostgreSQL is an advanced object-relational database management system
   that supports an extended subset of the SQL standard, including
   transactions, foreign keys, subqueries, triggers, user-defined types
   and functions.  This distribution also contains C language bindings. <br>
-- [Migrations]()
+- [Migrations]() \
   TODO
-- [Query language]()
+- [Query language]() \
   TODO
 
 ## Topics
