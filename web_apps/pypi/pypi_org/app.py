@@ -1,6 +1,7 @@
 """Flask application run."""
 import flask
-
+# from infra.view_modifiers import response
+from pypi_org.infra.view_modifiers import response
 
 app = flask.Flask(__name__)
 
@@ -14,12 +15,20 @@ def get_latest_packages():
 TEST_PACKAGES = get_latest_packages()
 
 @app.route('/')
+@response(template_file='home/index.html')
 def index():
-    return flask.render_template('home/index.html', packages=TEST_PACKAGES)
+    return {
+        'packages': TEST_PACKAGES
+    }
+    # return flask.render_template('home/index.html', packages=TEST_PACKAGES)
 
 @app.route('/about')
+@response(template_file='home/about.html')
 def about():
-    return flask.render_template('home/about.html')
+    return {
+
+    }
+    # return flask.render_template('home/about.html')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
