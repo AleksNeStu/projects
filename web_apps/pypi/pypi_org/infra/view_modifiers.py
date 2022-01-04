@@ -7,8 +7,8 @@ import werkzeug.wrappers
 
 def response(*, mimetype: str = None, template_file: str = None):
     def response_inner(func):
-        print("Wrapping in response func: {}".format(func.__name__),
-              flush=True)
+        # print("Wrapping in response func: {}".format(func.__name__),
+        #       flush=True)
 
         @wraps(func)
         def view_method(*args, **kwargs):
