@@ -15,11 +15,11 @@ TEST_PACKAGES = get_latest_packages()
 
 @app.route('/')
 def index():
-    return flask.render_template('index.html', packages=TEST_PACKAGES)
+    return flask.render_template('home/index.html', packages=TEST_PACKAGES)
 
 @app.route('/about')
 def about():
-    return flask.render_template('about.html')
+    return flask.render_template('home/about.html')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
