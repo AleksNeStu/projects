@@ -86,6 +86,20 @@ c) Flask framework \
 1) Show project structure: `tree -I .env`
 2) Export requirements:
 `poetry export -f requirements.txt --output requirements.txt`
+3) IDE tab hack for html code: 
+```html
+div.container>div.row>div.col-md-4*3
+```
+  to 
+```html
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+```
 
 ## Tech-stack
 <p align="center">
