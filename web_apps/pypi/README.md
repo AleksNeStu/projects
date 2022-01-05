@@ -7,8 +7,9 @@
 ## Setup
 1) Clone the app project.
 2) Install requirements using poetry.
-```
-cd <project_dir>
+2.1) Python
+```shell
+cd web_apps/pypi
 poetry config virtualenvs.in-project true
 poetry shell
 poetry install
@@ -19,6 +20,23 @@ poetry install --no-dev
 ```
 
 [Creating a Flask Project](https://www.jetbrains.com/help/pycharm/creating-flask-project.html) \
+
+2.2) JS
+```shell
+cd web_apps/pypi
+npm i or npm ci
+npm install --save-dev
+```
+
+To use local css and js of bootstrap /pypi_org/templates/shared/_layout.html
+```shell
+cd web_apps/pypi/pypi_org
+ln -s ../node_modules
+```
+```html
+    <link rel="stylesheet"
+          href="/node_modules/bootstrap/dist/css/bootstrap.css">
+```
 
 3) Run app:
 
@@ -86,7 +104,9 @@ c) Flask framework \
 - [flask](https://github.com/pallets/flask) \
   Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks. \
    [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/) \
-   [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html) 
+   [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html)
+   `FLASK_DEBUG=1` - auto-reload the flask app when a code change happens
+   `FLASK_DEBUG=0` - to debug via IDE instead of seeing stacktrace in browser
 
 
   - [Werkzeug](https://github.com/pallets/werkzeug) \
@@ -116,6 +136,10 @@ c) Flask framework \
   Sleek, intuitive, and powerful front-end framework for faster and easier web development. \
   Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins. \
   [Get Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/download/)
+  
+  **Alternatives:**
+  - https://github.com/semantic-org/semantic-ui
+  - 
 
 
 - [JS] 
