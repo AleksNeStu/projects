@@ -76,49 +76,65 @@ c) Flask framework \
 
 > BE
 - Python3
+
+
 - [Jinja](https://github.com/pallets/jinja) \
   Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document. \
-  https://jinja.palletsprojects.com/en/3.0.x/templates/
+  [Jinja Templates](https://jinja.palletsprojects.com/en/3.0.x/templates/)
+
+
 - [flask](https://github.com/pallets/flask) \
-  Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
-   [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/)
+  Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks. \
+   [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/) \
+   [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html) 
 
 
   - [Werkzeug](https://github.com/pallets/werkzeug) \
     Werkzeug is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
-- [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) \
-  SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. SQLAlchemy provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
-- Linux
-- [Nginx / uWSGI]()
 
-  <p>uWSGI is a software application that "aims at developing a full stack for building hosting services".[3] It is named after the Web Server Gateway Interface (WSGI), which was the first plugin supported by the project.[3]\
-  <p>uwsgi (all lowercase) is the native binary protocol that uWSGI uses to communicate with other servers.[4] \
-  <p> uWSGI is often used for serving Python web applications in conjunction with web servers such as Cherokee and Nginx, which offer direct support for uWSGI's native uwsgi protocol.[5] For example, data may flow like this: HTTP client ↔ Nginx ↔ uWSGI ↔ Python app.\
-  <p> Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.\
+
+  - [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) \
+    SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. SQLAlchemy provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
+
+
+  - Linux
+
+
+  - [Nginx / uWSGI]()
+
+    <p>uWSGI is a software application that "aims at developing a full stack for building hosting services".[3] It is named after the Web Server Gateway Interface (WSGI), which was the first plugin supported by the project.[3]\
+    <p>uwsgi (all lowercase) is the native binary protocol that uWSGI uses to communicate with other servers.[4] \
+    <p> uWSGI is often used for serving Python web applications in conjunction with web servers such as Cherokee and Nginx, which offer direct support for uWSGI's native uwsgi protocol.[5] For example, data may flow like this: HTTP client ↔ Nginx ↔ uWSGI ↔ Python app.\
+    <p> Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.\
 
 > FE
 
 - [HTML/CSS]()
-  TODO
+
+
 - [Bootstrap](https://github.com/twbs/bootstrap) \
   Sleek, intuitive, and powerful front-end framework for faster and easier web development. \
   Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins. \
-  https://getbootstrap.com/docs/5.1/getting-started/download/ 
-- [JS] \
-  [jQuery](https://jquery.com/) \
+  [Get Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/download/)
+
+
+- [JS] 
+  - [jQuery](https://jquery.com/) \
   jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript. \
-  [popper](https://popper.js.org/) \
+  
+  - [popper](https://popper.js.org/) \
   Popper.js is a positioning engine, its purpose is to calculate the position of an element to make it possible to position it near a given reference element. \
   Popper.js has zero dependencies. No jQuery, no LoDash, nothing.
     It's used by big companies like Twitter in Bootstrap v4, Microsoft in WebClipper and Atlassian in AtlasKit. \
   Some of the key points are:
-  - Position elements keeping them in their original DOM context (doesn't mess with your DOM!);
-  - Allows to export the computed information to integrate with React and other view libraries;
-  - Supports Shadow DOM elements;
-  - Completely customizable thanks to the modifiers based structure;
+    - Position elements keeping them in their original DOM context (doesn't mess with your DOM!);
+    - Allows to export the computed information to integrate with React and other view libraries;
+    - Supports Shadow DOM elements;
+    - Completely customizable thanks to the modifiers based structure;
 
-- [Vue.js](https://github.com/vuejs/vue) \
-  Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web. \
+  - [Vue.js](https://github.com/vuejs/vue) \
+    Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web. 
+
 
 > DB
 
@@ -128,11 +144,16 @@ c) Flask framework \
   PostgreSQL is an advanced object-relational database management system
   that supports an extended subset of the SQL standard, including
   transactions, foreign keys, subqueries, triggers, user-defined types
-  and functions.  This distribution also contains C language bindings. \
-- [Migrations]() \
-  TODO
-- [Query language]() \
-  TODO
+  and functions.  This distribution also contains C language bindings. 
+
+
+- [Migrations]() 
+
+
+
+- [Query language]() 
+
+
 
 ## Topics
 1) Setup and tools

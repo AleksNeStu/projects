@@ -1,22 +1,16 @@
 {% extends "shared/_layout.html" %}
 
 {% block title %}
-    About PyPi
-{% endblock %}
-
-{% block addition_css %}
-    <!-- CSS -->
+    About CMS
 {% endblock %}
 
 {% block main_content %}
     <div class="main_content">
 
-        <h1>About Python Packages Index</h1>
-
-        <h2>About</h2>
+        <h1>{{ page_title }}</h1>
 
         <div>
-            Demo app in Flask.
+            {{ page_details }}
         </div>
 
     </div>
