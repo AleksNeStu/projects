@@ -112,7 +112,7 @@ venv.bak/
 
 # Project
 node_modules
-db
+#db
 
 # Spyder project settings
 .spyderproject
