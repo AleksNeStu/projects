@@ -128,7 +128,9 @@ div.container>div.row>div.col-md-4*3
 
 
   - [sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) \
-    SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. SQLAlchemy provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
+    SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. SQLAlchemy provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language. \
+    [SQLAlchemy Docs](https://docs.sqlalchemy.org/en/14/) \
+    [Key Features of SQLAlchemy](https://www.sqlalchemy.org/features.html)
 
 
   - Linux
