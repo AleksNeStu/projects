@@ -2,8 +2,10 @@ import datetime
 
 import sqlalchemy as sa
 
+from data.modebase import SQLAlchemyBase
 
-class Package:
+
+class Package(SQLAlchemyBase):
     __tablename__ = 'packages'
 
     id = sa.Column(sa.String, primary_key=True)
