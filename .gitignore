@@ -110,7 +110,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# Project
 node_modules
+db
 
 # Spyder project settings
 .spyderproject
