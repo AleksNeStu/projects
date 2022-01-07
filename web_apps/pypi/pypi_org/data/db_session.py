@@ -3,7 +3,7 @@ import logging
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
-from data.modebase import SQLAlchemyBase
+from data.models.modebase import SQLAlchemyBase
 
 session = None
 

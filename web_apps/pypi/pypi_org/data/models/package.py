@@ -2,7 +2,7 @@ import datetime
 
 import sqlalchemy as sa
 
-from data.modebase import SQLAlchemyBase
+from data.models.modebase import SQLAlchemyBase
 
 
 class Package(SQLAlchemyBase):
