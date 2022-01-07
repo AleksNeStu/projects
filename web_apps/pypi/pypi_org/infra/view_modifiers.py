@@ -1,3 +1,4 @@
+import logging
 from functools import wraps
 
 import flask
@@ -7,8 +8,7 @@ import werkzeug.wrappers
 
 def response(*, mimetype: str = None, template_file: str = None):
     def response_inner(func):
-        # print("Wrapping in response func: {}".format(func.__name__),
-        #       flush=True)
+        logging.info("Wrapping in response func: {}".format(func.__name__))
 
         @wraps(func)
         def view_method(*args, **kwargs):
