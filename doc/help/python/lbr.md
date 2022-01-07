@@ -33,6 +33,8 @@ It is similar to the destructor of C++ and is also known as the finalizer. \
 **[H]**
 
 **[I]**
+> Import
+[How to dynamically import all classes in a python submodule](https://julienharbulot.com/python-dynamical-import.html)
 
 **[J]**
 

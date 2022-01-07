@@ -1,6 +1,7 @@
 import os
 
-from data import utils as data_utils
+from utils import data as data_utils
+
 
 # FLASK
 FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
