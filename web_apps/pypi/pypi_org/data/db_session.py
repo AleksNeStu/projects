@@ -4,7 +4,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 import sqlalchemy_utils as sa_utils
 
-from data.models.modebase import SQLAlchemyBase
+from data.models.modelbase import SqlAlchemyBase
 
 session = None
 
@@ -26,7 +26,7 @@ def global_init(conn_str: str):
 
     # noinspection PyUnresolvedReferences
     import data.models
-    SQLAlchemyBase.metadata.create_all(engine)
+    SqlAlchemyBase.metadata.create_all(engine)
 
 
 

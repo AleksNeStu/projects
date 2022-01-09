@@ -3,29 +3,29 @@ import datetime
 import sqlalchemy as sa
 
 import settings
-from data.models.modebase import SQLAlchemyBase
+from data.models.modelbase import SqlAlchemyBase
 
 
 STR_L = settings.STR_LENGTH
 
 
-class Package(SQLAlchemyBase):
+class Package(SqlAlchemyBase):
     __tablename__ = 'packages'
     
-    id = sa.Column(sa.String(STR_L), primary_key=True)
-    created_date = sa.Column(
+    id: str = sa.Column(sa.String(STR_L), primary_key=True)
+    created_date: datetime.datetime = sa.Column(
         sa.DateTime, default=datetime.datetime.now, index=True)
-    summary = sa.Column(sa.String(STR_L), nullable=False)
-    description = sa.Column(sa.String(STR_L), nullable=True)
+    summary: str = sa.Column(sa.String(STR_L), nullable=False)
+    description: str = sa.Column(sa.String(STR_L), nullable=True)
 
-    home_page = sa.Column(sa.String(STR_L))
-    docs_url = sa.Column(sa.String(STR_L))
-    package_url = sa.Column(sa.String(STR_L))
+    home_page: str = sa.Column(sa.String(STR_L))
+    docs_url: str = sa.Column(sa.String(STR_L))
+    package_url: str = sa.Column(sa.String(STR_L))
 
-    author_name = sa.Column(sa.String(STR_L))
-    author_email = sa.Column(sa.String(STR_L), index=True)
+    author_name: str = sa.Column(sa.String(STR_L))
+    author_email: str = sa.Column(sa.String(STR_L), index=True)
 
-    license = sa.Column(sa.String(STR_L), index=True)
+    license: str = sa.Column(sa.String(STR_L), index=True)
 
     # maintainers
     # releases

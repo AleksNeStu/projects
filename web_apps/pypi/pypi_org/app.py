@@ -15,6 +15,8 @@ app = flask.Flask(__name__)
 def main():
     # Logging
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+    # logging.getLogger("sqlalchemy.pool").setLevel(logging.DEBUG)
 
     register_blueprints()
     setup_db()
