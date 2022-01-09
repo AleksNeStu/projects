@@ -37,7 +37,7 @@ DB_CONNECTION_MYSQL = os.environ.get(
 #     'DB_CONNECTION_MYSQL',
 #     '{}://root:rootroot@localhost/{}'.format('mysql+pymysql', DB_NAME))
 # Active DB connection
-DB_CONNECTION = DB_CONNECTION_MYSQL
+DB_CONNECTION = DB_CONNECTION_SQLITE
 
 # SQLAlchemy
 # InvalidRequestError: VARCHAR requires a length on dialect mysql
