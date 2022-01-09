@@ -6,6 +6,8 @@ import sys
 
 import settings
 from data import db_session
+from utils import py as py_utils
+
 
 app = flask.Flask(__name__)
 
@@ -20,13 +22,17 @@ def main():
 
 
 def register_blueprints():
-    from views import (
-        home_views, packages_views, cms_views
-    )
-
-    app.register_blueprint(home_views.blueprint)
-    app.register_blueprint(packages_views.blueprint)
-    app.register_blueprint(cms_views.blueprint)
+    # from views import (
+    #     home_views, packages_views, cms_views
+    # )
+    #
+    # app.register_blueprint(home_views.blueprint)
+    # app.register_blueprint(packages_views.blueprint)
+    # app.register_blueprint(cms_views.blueprint)
+    views, _ = py_utils.import_modules(
+        'views/__init__.py', 'views', w_classes=False)
+    for view in views.values():
+        app.register_blueprint(view.blueprint)
 
 
 def setup_db():

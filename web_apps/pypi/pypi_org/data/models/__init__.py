@@ -1,4 +1,5 @@
 """ORM models."""
-from utils.py import import_all_modules_w_classes
+from utils import py as py_utils
 
-import_all_modules_w_classes(__file__, __name__)
+
+py_utils.import_modules(__file__, __name__, w_classes=True)
