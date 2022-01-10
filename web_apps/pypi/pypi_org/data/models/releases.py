@@ -20,3 +20,13 @@ class Release(SqlAlchemyBase):
     comment: str = sa.Column(sa.String)
     url: str = sa.Column(sa.String)
     size: int = sa.Column(sa.BigInteger)
+
+    # Package rel
+    # from data.models.package import Package
+    package_id: int = sa.Column(sa.Integer, sa.ForeignKey('packages.id'))
+    package = orm.relationship('Package')
+
+    @property
+    def version_text(self):
+        return '{}.{}.{}'.format(
+            self.major_ver, self.minor_ver, self.build_ver)

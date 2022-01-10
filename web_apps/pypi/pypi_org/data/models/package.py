@@ -1,10 +1,11 @@
 import datetime
+from typing import List
 
 import sqlalchemy as sa
+import sqlalchemy.orm as orm
 
 import settings
 from data.models.modelbase import SqlAlchemyBase
-
 
 STR_L = settings.STR_LENGTH
 
@@ -27,8 +28,16 @@ class Package(SqlAlchemyBase):
 
     license: str = sa.Column(sa.String(STR_L), index=True)
 
-    # maintainers
-    # releases
+    # Releases rel
+    from data.models.releases import Release
+    releases: List[Release] = orm.relationship(
+        Release.__name__, order_by=[
+            Release.major_ver.desc(),
+            Release.minor_ver.desc(),
+            Release.build_ver.desc(),
+        ],
+        # cls Package.package - rel attr name
+        back_populates='package')
 
     def __repr__(self):
         return '<Package {}>'.format(self.id)
