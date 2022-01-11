@@ -71,3 +71,8 @@ https://crunchify.com/shell-script-append-timestamp-to-file-name/
 https://stackoverflow.com/questions/8228047/adding-timestamp-to-a-filename-with-mv-in-bash/32452472
 
 mysqldump -u root -p --all-databases --skip-lock-tables > dbs_backup_$(date "+%Y.%m.%d-%H.%M.%S").sql
+
+12) DB CLIs \
+    [mycli - mysql](https://github.com/dbcli/mycli) 
+
+    [litecli - sqlite](https://github.com/dbcli/litecli) 

@@ -6,6 +6,7 @@ import sqlalchemy_utils as sa_utils
 
 from data.models.modelbase import SqlAlchemyBase
 
+# https://docs.sqlalchemy.org/en/14/orm/session_basics.html
 session = None
 
 def global_init(conn_str: str):
