@@ -31,6 +31,7 @@ class Package(SqlAlchemyBase):
     # Releases rel
     from data.models.releases import Release
     releases: List[Release] = orm.relationship(
+        # 'Release'
         Release.__name__, order_by=[
             Release.major_ver.desc(),
             Release.minor_ver.desc(),
@@ -38,6 +39,12 @@ class Package(SqlAlchemyBase):
         ],
         # cls Package.package - rel attr name
         back_populates='package')
+
+    # back_populates has the same meaning as backref, except that the
+    # complementing relationship property is not created automatically.
+    # Using back_populates makes the model code more explicit, with
+    # no hidden/implicit properties.
+    # releases = orm.relationship('Release', backref='package')
 
     def __repr__(self):
         return '<Package {}>'.format(self.id)
