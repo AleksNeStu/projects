@@ -49,7 +49,7 @@ PACKAGES = [
 
 def insert_package():
     # session: orm.Session = db_session.session()
-    with db_session.session() as session:
+    with db_session.create_session() as session:
 
         for package in PACKAGES:
             # package

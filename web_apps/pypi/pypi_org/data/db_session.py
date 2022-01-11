@@ -7,11 +7,11 @@ import sqlalchemy_utils as sa_utils
 from data.models.modelbase import SqlAlchemyBase
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
-session = None
+__session = None
 
 def global_init(conn_str: str):
-    global session
-    if session:
+    global __session
+    if __session:
         return
 
     # engine
@@ -23,11 +23,12 @@ def global_init(conn_str: str):
         sa_utils.create_database(engine.url)
 
     # session
-    session = orm.sessionmaker(bind=engine)
+    __session = orm.sessionmaker(bind=engine)
 
     # noinspection PyUnresolvedReferences
     import data.models
     SqlAlchemyBase.metadata.create_all(engine)
 
-
-
+def create_session() -> orm.Session:
+    global __session
+    return __session()
