@@ -16,11 +16,16 @@ def global_init(conn_str: str):
 
     # engine
     engine = sa.create_engine(conn_str, echo=True)
+    db_url = engine.url
     logging.info(
         "Engine created w/ a connection string: '{}'".format(conn_str))
     # DB create (not required for SQLite)
-    if not sa_utils.database_exists(engine.url):
-        sa_utils.create_database(engine.url)
+    # TODO: avoid delete DB every time
+    # if not sa_utils.database_exists(engine.url):
+    #     sa_utils.create_database(engine.url)
+    if sa_utils.database_exists(db_url):
+        sa_utils.drop_database(db_url)
+    sa_utils.create_database(engine.url)
 
     # session
     __session = orm.sessionmaker(bind=engine)

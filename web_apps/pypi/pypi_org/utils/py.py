@@ -3,6 +3,8 @@ from importlib import import_module
 from inspect import isclass
 from pkgutil import iter_modules
 
+import sys
+
 
 def import_modules(file, name, w_classes=True):
     # Iterate through the modules in the current package
@@ -25,3 +27,9 @@ def import_modules(file, name, w_classes=True):
                     imported_classes[attribute_name] = attribute
 
     return imported_modules, imported_classes
+
+
+def add_module_do_sys_path(file, dir_path_part):
+    directory = os.path.abspath(
+        os.path.join(os.path.dirname(file), *dir_path_part))
+    sys.path.insert(0, directory)

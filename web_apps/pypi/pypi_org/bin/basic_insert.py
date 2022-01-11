@@ -1,6 +1,12 @@
 import logging
+import os
 
 import sys
+
+# add_module_do_sys_path
+directory = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, directory)
 
 import settings
 from data import db_session
@@ -79,7 +85,6 @@ def insert_package():
             session.add(p)
 
         session.commit()
-
 
 
 def init_db():
