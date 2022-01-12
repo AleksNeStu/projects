@@ -23,7 +23,7 @@ poetry install --no-dev
 ```
 
 [Creating a Flask Project](https://www.jetbrains.com/help/pycharm/creating-flask-project.html)
-\
+
 
 2.2) JS
 
@@ -87,6 +87,14 @@ c) Flask framework \
 <p align="center">
 <img src="assets/ide-4.png" alt="Flask framework">
 </p>
+
+4) Run scripts:
+```sh
+cd projects/web_apps/pypi
+./scripts/run_app.sh
+./scripts/run_data_insert.sh
+...
+```
 
 ## Tips
 

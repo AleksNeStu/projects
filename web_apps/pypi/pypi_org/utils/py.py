@@ -33,3 +33,10 @@ def add_module_do_sys_path(file, dir_path_part):
     directory = os.path.abspath(
         os.path.join(os.path.dirname(file), *dir_path_part))
     sys.path.insert(0, directory)
+
+
+def convert_to_str(str) -> int:
+    try:
+        return int(str)
+    except:
+        return 0
