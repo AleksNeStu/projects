@@ -1,14 +1,14 @@
 import logging
 import os
-
 import sys
 
-# add_module_do_sys_path
+import settings
+
+# add_module_to_sys_path
 directory = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, directory)
 
-import settings
 from data import db_session
 from data.models.package import Package
 from data.models.releases import Release
@@ -53,6 +53,16 @@ PACKAGES = [
 ]
 
 
+def main():
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    init_db()
+
+
+def init_db():
+    db_session.global_init(settings.DB_CONNECTION)
+    insert_package()
+
+
 def insert_package():
     # session: orm.Session = db_session.session()
     with db_session.create_session() as session:
@@ -85,16 +95,6 @@ def insert_package():
             session.add(p)
 
         session.commit()
-
-
-def init_db():
-    db_session.global_init(settings.DB_CONNECTION)
-    insert_package()
-
-
-def main():
-    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-    init_db()
 
 
 if __name__ == '__main__':
