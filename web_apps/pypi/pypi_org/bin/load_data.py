@@ -1,13 +1,13 @@
 import json
 import logging
 import os
+import re
 import sys
 import time
-from typing import List, Optional, Dict
+from typing import List
 
 # noinspection PyPackageRequirements,PyPackageRequirements
 import progressbar
-from dateutil.parser import parse
 
 # add_module_to_sys_path
 directory = os.path.abspath(
@@ -15,15 +15,9 @@ directory = os.path.abspath(
 sys.path.insert(0, directory)
 
 import settings
-from utils import py as py_utils
 import data.db_session as db_session
-from data.models.languages import ProgrammingLanguage
-from data.models.licenses import License
-from data.models.maintainers import Maintainer
-from data.models.package import Package
-from data.models.releases import Release
 from data.models.users import User
-
+from utils import py as py_utils
 
 def main():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -37,8 +31,7 @@ def main():
         packages_data: List[dict] = load_top_packages_data_from_json_files(
             'top_packages')
 
-    #     users = find_users(packages_data)
-    #
+        users = get_users_data_from_packages_data(packages_data)
     #     db_users = do_user_import(users)
     #     do_import_packages(packages_data, db_users)
     #
@@ -53,11 +46,13 @@ def load_top_packages_data_from_json_files(
     top_packages_dir = os.path.abspath(
         os.path.join(os.path.dirname(__file__), packages_dir_path_part))
 
-    logging.info("Loading top packages json data from the dir: '{}'".format(
-        top_packages_dir))
+    logging.info(
+        "Loading top packages json data from the dir: '{}' ...".format(
+            top_packages_dir))
     file_paths = get_file_paths(top_packages_dir)
-    logging.info("Found {:,} files, loading ...".format(len(file_paths)))
-    time.sleep(.1)
+    logging.info("Found {:,} file paths, loading files data...".format(
+        len(file_paths)))
+    time.sleep(1)
 
     files_data = []
     with progressbar.ProgressBar(max_value=len(file_paths)) as bar:
@@ -67,6 +62,8 @@ def load_top_packages_data_from_json_files(
 
     sys.stderr.flush()
     sys.stdout.flush()
+    logging.info("Loaded {:,} top packages json files".format(
+        len(files_data)))
 
     return files_data
 
@@ -92,6 +89,53 @@ def load_file_data(file_path: str) -> dict:
                   file_path, err))
         raise err
 
+
+def get_users_data_from_packages_data(packages_data: List[dict]) -> dict:
+    logging.info("Getting users data from the packages data ...")
+    got_users_data = {}
+
+    with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
+        for package_id, package_data in enumerate(packages_data, start=1):
+            p_info = package_data.get('info')
+            email_name_map = {
+                'author_email': 'author',
+                'maintainer_email': 'maintainer',
+            }
+            got_users_data.update(
+                get_email_and_name_from_package_info(p_info, email_name_map))
+            bar.update(package_id)
+
+    sys.stderr.flush()
+    sys.stdout.flush()
+    logging.info("Got {:,} users data items".format(len(got_users_data)))
+
+    return got_users_data
+
+def get_email_and_name_from_package_info(
+        package_info: dict, email_name_map: dict) -> dict:
+    got_email_name = {}
+
+    for e, n in email_name_map.items():
+        email = package_info.get(e)
+        name = package_info.get(n)
+        if {email, name}.intersection({'', None}):
+            continue
+
+        else:
+            emails = re.split(', |;', email.strip().lower())
+            if all(py_utils.is_email_valid(e) for e in emails):
+                names = re.split(', |;', name.strip().lower())
+                if len(emails) > len(names):
+                    logging.error(
+                        "Error [Different length]: length of emails: '{}' should "
+                        "be >= names: '{}', package info: '{}'. ".format(
+                            emails, names, package_info))
+                    raise Exception
+
+                for email, name in zip(emails, names):
+                    got_email_name[email.strip()] = name.strip()
+
+    return got_email_name
 
 def init_db():
     db_session.global_init(settings.DB_CONNECTION)
