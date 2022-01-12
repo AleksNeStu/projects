@@ -34,8 +34,9 @@ def main():
     session.close()
 
     if user_count == 0:
-        packages_data = load_top_packages_data_from_json_files(
-            '../data/top_packages')
+        packages_data: List[dict] = load_top_packages_data_from_json_files(
+            'top_packages')
+
     #     users = find_users(packages_data)
     #
     #     db_users = do_user_import(users)
