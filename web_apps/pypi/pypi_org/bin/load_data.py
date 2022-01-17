@@ -17,6 +17,7 @@ sys.path.insert(0, directory)
 import settings
 import data.db_session as db_session
 from data.models.users import User
+from data.models.package import Package
 from utils import py as py_utils
 
 
@@ -33,9 +34,12 @@ def main():
 
         users_data: dict = get_users_data_from_packages_data(packages_data)
 
-        db_users = insert_users_data(users_data, in_bulk=False)
-        db_packages = insert_packages(db_users, packages_data)
-    #
+        db_users_map: Dict[str, User] = insert_users_data_to_db(
+            users_data, in_bulk=False)
+        # further will be skipped bulk processing
+        db_packages_map: Dict[str, Package] = insert_packages(
+            db_users_map, packages_data)
+
     #     do_import_languages(packages_data)
     #     do_import_licenses(packages_data)
     #
@@ -98,7 +102,7 @@ def get_users_data_from_packages_data(packages_data: List[dict]) -> dict:
     got_users_data = {}
 
     with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
-        for package_id, package_data in enumerate(packages_data, start=1):
+        for package_idx, package_data in enumerate(packages_data, start=1):
             p_info = package_data.get('info')
             email_name_map = {
                 'author_email': 'author',
@@ -106,7 +110,7 @@ def get_users_data_from_packages_data(packages_data: List[dict]) -> dict:
             }
             got_users_data.update(
                 get_email_and_name_from_package_info(p_info, email_name_map))
-            bar.update(package_id)
+            bar.update(package_idx)
 
     sys.stderr.flush()
     sys.stdout.flush()
@@ -141,8 +145,8 @@ def get_email_and_name_from_package_info(
     return got_email_name
 
 
-def insert_users_data(users_data: Dict[str, str],
-                      in_bulk:bool = False) -> Dict[str, User]:
+def insert_users_data_to_db(users_data: Dict[str, str],
+                            in_bulk:bool = False) -> Dict[str, User]:
     logging.info("Inserting users data to DB [in_bulk]={}...".format(in_bulk))
     num_users = len(users_data)
 
@@ -168,13 +172,41 @@ def insert_users_data(users_data: Dict[str, str],
 
     sys.stderr.flush()
     sys.stdout.flush()
-    logging.info("Inserted {:,} users to DB".format(num_users))
+    logging.info("Inserted {:,} users to DB".format(len(inserted_users)))
 
     return inserted_users
 
 
-def insert_packages(db_users, packages_data):
-    pass
+def insert_packages(db_users_map: Dict[str, User],
+                    packages_data: List[dict]) -> Dict[str, Package]:
+    logging.info("Inserting packages data to DB ...")
+    inserted_packages = {}
+    not_inserted_packages = []
+
+    with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
+        for package_idx, package_data in enumerate(packages_data, start=1):
+            try:
+                # TODO: implement
+                db_package_map = insert_package_data_to_db(
+                    package_data, db_users_map)
+                inserted_packages.update(db_package_map)
+                bar.update(package_idx)
+            except Exception as err:
+                logging.error(
+                    "Error on try to insert package data to DB: {}, "
+                    "details: {}".format(package_data, err))
+                not_inserted_packages.append(
+                    {package_data.get('package_name'): err})
+                raise err
+
+    sys.stderr.flush()
+    sys.stdout.flush()
+    logging.info("Not inserted {:,} packages to DB, details: {}".format(
+        len(not_inserted_packages), not_inserted_packages))
+    logging.info("Inserted {:,} packages to DB".format(
+        len(inserted_packages)))
+
+    return inserted_packages
 
 
 def init_db():
