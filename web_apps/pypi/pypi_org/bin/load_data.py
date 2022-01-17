@@ -19,6 +19,7 @@ import data.db_session as db_session
 from data.models.users import User
 from utils import py as py_utils
 
+
 def main():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     init_db()
@@ -32,8 +33,8 @@ def main():
 
         users_data: dict = get_users_data_from_packages_data(packages_data)
 
-        db_users = insert_users_data(users_data)
-    #     do_import_packages(packages_data, db_users)
+        db_users = insert_users_data(users_data, in_bulk=False)
+        db_packages = insert_packages(db_users, packages_data)
     #
     #     do_import_languages(packages_data)
     #     do_import_licenses(packages_data)
@@ -140,25 +141,40 @@ def get_email_and_name_from_package_info(
     return got_email_name
 
 
-def insert_users_data(users_data: Dict[str, str]) -> Dict[str, User]:
-    logging.info("Inserting users data to DB ...")
+def insert_users_data(users_data: Dict[str, str],
+                      in_bulk:bool = False) -> Dict[str, User]:
+    logging.info("Inserting users data to DB [in_bulk]={}...".format(in_bulk))
+    num_users = len(users_data)
 
-    with db_session.session(expire_on_commit=True) as session:
-        num_users = len(users_data)
-        with progressbar.ProgressBar(max_value=num_users) as bar:
+    inserted_users = {}
+    if not in_bulk:
+        with db_session.session(expire_on_commit=True) as session:
+            with progressbar.ProgressBar(max_value=num_users) as bar:
 
-            for user_data_idx, (u_email, u_name) in enumerate(
-                    users_data.items(), start=1):
-                u = User(name=u_name, email=u_email)
-                session.add(u)
-                session.commit()
-                bar.update(user_data_idx)
+                for user_data_idx, (u_email, u_name) in enumerate(
+                        users_data.items(), start=1):
+                    u = User(name=u_name, email=u_email)
+                    session.add(u)
+                    session.commit()
+                    inserted_users[u_email] = u
+                    bar.update(user_data_idx)
+    else:
+        with db_session.session() as session:
+            session.bulk_insert_mappings(
+                User, [dict(name=u_name, email=u_email)
+                       for u_email, u_name in users_data.items()])
+            session.commit()
+        inserted_users = {u.email: u for u in session.query(User)}
 
     sys.stderr.flush()
     sys.stdout.flush()
     logging.info("Inserted {:,} users to DB".format(num_users))
 
-    return {u.email: u for u in session.query(User)}
+    return inserted_users
+
+
+def insert_packages(db_users, packages_data):
+    pass
 
 
 def init_db():
