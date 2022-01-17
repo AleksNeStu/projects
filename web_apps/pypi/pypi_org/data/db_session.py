@@ -1,3 +1,4 @@
+import contextlib
 import logging
 
 import sqlalchemy as sa
@@ -15,6 +16,9 @@ def global_init(conn_str: str):
         return
 
     # engine
+    # debug sql queries
+    # logger = logging.getLogger('sqlalchemy.engine')
+    # logger.setLevel(logging.DEBUG)
     engine = sa.create_engine(conn_str, echo=True)
     db_url = engine.url
     logging.info(
@@ -34,6 +38,20 @@ def global_init(conn_str: str):
     import data.models
     SqlAlchemyBase.metadata.create_all(engine)
 
+#TODO: Add list of used sessions with state
 def create_session() -> orm.Session:
+    # With this configuration, each time we call our sessionmaker instance,
+    # we get a new Session instance back each time.
     global __session
     return __session()
+
+
+@contextlib.contextmanager
+def session(expire_on_commit=True):
+    session = create_session()
+    session.expire_on_commit = expire_on_commit
+    try:
+        yield session
+    finally:
+        session.expire_on_commit = True
+        session.close()

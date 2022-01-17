@@ -4,7 +4,7 @@ import os
 import re
 import sys
 import time
-from typing import List
+from typing import List, Dict
 
 # noinspection PyPackageRequirements,PyPackageRequirements
 import progressbar
@@ -23,16 +23,16 @@ def main():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     init_db()
 
-    session = db_session.create_session()
-    user_count = session.query(User).count()
-    session.close()
+    with db_session.session() as session:
+        user_count = session.query(User).count()
 
     if user_count == 0:
         packages_data: List[dict] = load_top_packages_data_from_json_files(
             'top_packages')
 
-        users = get_users_data_from_packages_data(packages_data)
-    #     db_users = do_user_import(users)
+        users_data: dict = get_users_data_from_packages_data(packages_data)
+
+        db_users = insert_users_data(users_data)
     #     do_import_packages(packages_data, db_users)
     #
     #     do_import_languages(packages_data)
@@ -50,15 +50,17 @@ def load_top_packages_data_from_json_files(
         "Loading top packages json data from the dir: '{}' ...".format(
             top_packages_dir))
     file_paths = get_file_paths(top_packages_dir)
+
     logging.info("Found {:,} file paths, loading files data...".format(
         len(file_paths)))
     time.sleep(1)
-
     files_data = []
+
     with progressbar.ProgressBar(max_value=len(file_paths)) as bar:
-        for file_id, file_path in enumerate(file_paths, start=1):
+
+        for file_idx, file_path in enumerate(file_paths, start=1):
             files_data.append(load_file_data(file_path))
-            bar.update(file_id)
+            bar.update(file_idx)
 
     sys.stderr.flush()
     sys.stdout.flush()
@@ -136,6 +138,28 @@ def get_email_and_name_from_package_info(
                     got_email_name[email.strip()] = name.strip()
 
     return got_email_name
+
+
+def insert_users_data(users_data: Dict[str, str]) -> Dict[str, User]:
+    logging.info("Inserting users data to DB ...")
+
+    with db_session.session(expire_on_commit=True) as session:
+        num_users = len(users_data)
+        with progressbar.ProgressBar(max_value=num_users) as bar:
+
+            for user_data_idx, (u_email, u_name) in enumerate(
+                    users_data.items(), start=1):
+                u = User(name=u_name, email=u_email)
+                session.add(u)
+                session.commit()
+                bar.update(user_data_idx)
+
+    sys.stderr.flush()
+    sys.stdout.flush()
+    logging.info("Inserted {:,} users to DB".format(num_users))
+
+    return {u.email: u for u in session.query(User)}
+
 
 def init_db():
     db_session.global_init(settings.DB_CONNECTION)
