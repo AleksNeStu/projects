@@ -52,3 +52,8 @@ def is_email_valid(email, check_if_email_existing=False):
 
     except email_validator.EmailNotValidError:
         return False
+
+# TODO: make attr_names with processors funcs to calc specific values
+def set_obj_attr_values(obj, obj_attrs_map, attr_names):
+    for attr_name in attr_names:
+        setattr(obj, attr_name, obj_attrs_map.get(attr_name))

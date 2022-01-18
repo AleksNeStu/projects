@@ -98,27 +98,35 @@ cd projects/web_apps/pypi
 
 ## Tips
 
-1) Show project structure: `tree -I .env`
-2) Export requirements:
-   `poetry export -f requirements.txt --output requirements.txt`
+1) Show project structure: \
+    `tree -I .env`
+2) Export requirements: \
+    `poetry export -f requirements.txt --output requirements.txt`
 3) IDE tab hack for html code:
 
-```html
-div.container>div.row>div.col-md-4*3
-```
+    ```html
+    div.container>div.row>div.col-md-4*3
+    ```
 
-to
+    to
+    
+    ```html
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>```
 
-```html
+4) **Errors:** \
+a) sqlite3.ProgrammingError in IDE debug mode
+    ```
+    sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 9744 and this is thread id 12712.
+    ```
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-    </div>
-</div>
-```
+    **Fix:** Play w/ `Allow parallel run` option for debug run config.
 
 ## Tech-stack
 

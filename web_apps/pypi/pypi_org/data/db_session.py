@@ -19,7 +19,7 @@ def global_init(conn_str: str):
     # debug sql queries
     # logger = logging.getLogger('sqlalchemy.engine')
     # logger.setLevel(logging.DEBUG)
-    engine = sa.create_engine(conn_str, echo=True)
+    engine = sa.create_engine(conn_str, echo=False)
 
     db_url = engine.url
     logging.info(
