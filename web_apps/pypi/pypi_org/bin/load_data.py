@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import time
+from dateutil import parser
 from typing import List, Dict
 
 # noinspection PyPackageRequirements,PyPackageRequirements
@@ -18,6 +19,8 @@ import settings
 import data.db_session as db_session
 from data.models.users import User
 from data.models.package import Package
+from data.models.maintainers import Maintainer
+from data.models.releases import Release
 from utils import py as py_utils
 
 
@@ -35,9 +38,9 @@ def main():
         users_data: dict = get_users_data_from_packages_data(packages_data)
 
         db_users_map: Dict[str, User] = insert_users_data_to_db(
-            users_data, in_bulk=False)
+                users_data, in_bulk=False)
         # further will be skipped bulk processing
-        db_packages_map: Dict[str, Package] = insert_packages(
+        db_packages_map: Dict[str, Package] = insert_packages_to_db(
             db_users_map, packages_data)
 
     #     do_import_languages(packages_data)
@@ -148,12 +151,12 @@ def get_email_and_name_from_package_info(
 def insert_users_data_to_db(users_data: Dict[str, str],
                             in_bulk:bool = False) -> Dict[str, User]:
     logging.info("Inserting users data to DB [in_bulk]={}...".format(in_bulk))
-    num_users = len(users_data)
+    users_count = len(users_data)
 
     inserted_users = {}
     if not in_bulk:
         with db_session.session(expire_on_commit=True) as session:
-            with progressbar.ProgressBar(max_value=num_users) as bar:
+            with progressbar.ProgressBar(max_value=users_count) as bar:
 
                 for user_data_idx, (u_email, u_name) in enumerate(
                         users_data.items(), start=1):
@@ -177,18 +180,18 @@ def insert_users_data_to_db(users_data: Dict[str, str],
     return inserted_users
 
 
-def insert_packages(db_users_map: Dict[str, User],
-                    packages_data: List[dict]) -> Dict[str, Package]:
-    logging.info("Inserting packages data to DB ...")
+def insert_packages_to_db(db_users_map: Dict[str, User],
+                          packages_data: List[dict]) -> Dict[str, Package]:
+    logging.info("Inserting packages to DB ...")
+    packages_count = len(packages_data)
     inserted_packages = {}
     not_inserted_packages = []
 
     with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
         for package_idx, package_data in enumerate(packages_data, start=1):
             try:
-                # TODO: implement
                 db_package_map = insert_package_data_to_db(
-                    package_data, db_users_map)
+                    db_users_map, package_data)
                 inserted_packages.update(db_package_map)
                 bar.update(package_idx)
             except Exception as err:
@@ -201,12 +204,73 @@ def insert_packages(db_users_map: Dict[str, User],
 
     sys.stderr.flush()
     sys.stdout.flush()
-    logging.info("Not inserted {:,} packages to DB, details: {}".format(
-        len(not_inserted_packages), not_inserted_packages))
-    logging.info("Inserted {:,} packages to DB".format(
-        len(inserted_packages)))
+    logging.info(
+        "All {:,}, inserted {:,}, not inserted {:,} packages to DB "
+        "[not inserted packages details: {}]".format(
+            packages_count, len(inserted_packages),
+            len(not_inserted_packages), not_inserted_packages))
 
     return inserted_packages
+
+
+def insert_package_data_to_db(db_users_map: Dict[str, User],
+                              package: Dict) -> Dict[str, Package]:
+    try:
+        p_info = package.get('info', {})
+        p = Package(id=package.get('package_name', '').strip())
+        p_id = p.id
+        if not p_id:
+            return {}
+        p.author = p_info.get('author')
+        p.author_email = p_info.get('author_email')
+
+        p_releases = insert_package_releases_data(
+            p_id, package.get("releases", {}))
+
+        g = 1
+
+        #TODO
+
+    except OverflowError:
+        # Arithmetic operation has exceeded the limits of the current Python
+        pass
+    except Exception as err:
+        raise err
+
+
+def insert_package_releases_data(package_id: str,
+                                 package_releases_data: dict) -> List[Release]:
+    return [
+        Release(
+            package_id=package_id,
+            created_date=parser.parse(r_ver_m.get('upload_time')),
+            comment=r_ver_m.get('comment_text'),
+            url=r_ver_m.get('url'),
+            size=int(r_ver_m.get('size', 0)),
+            **get_release_version_map(r_ver_num)
+        )
+        for r_ver_num, r_ver_meta in package_releases_data.items()
+        if (r_ver_meta and (r_ver_m := r_ver_meta[-1]))]
+
+
+def get_release_version_map(p_version_num: str) -> dict:
+    p_version_num = ''.join([p for p in p_version_num if p not in ['a', 'b']])
+    p_version_num_parts = p_version_num.split('.')
+    p_version_num_parts.extend([0, 0, 0])
+
+    return {
+        'major_ver': py_utils.str_to_int(p_version_num_parts[0]),
+        'minor_ver': py_utils.str_to_int(p_version_num_parts[1]),
+        'build_ver': py_utils.str_to_int(p_version_num_parts[2]),
+    }
+
+
+def get_email_and_name_from_text(param, param1):
+    return {}
+
+
+def detect_license(param):
+    pass
 
 
 def init_db():

@@ -37,7 +37,7 @@ def add_module_do_sys_path(file, dir_path_part):
     sys.path.insert(0, directory)
 
 
-def convert_to_str(str) -> int:
+def str_to_int(str) -> int:
     try:
         return int(str)
     except:
