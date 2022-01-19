@@ -25,6 +25,7 @@ def index():
         'name': r.package.id,
         'latest_version': r.version_text,
         'summary': r.package.summary,
+        'url': r.package.package_url,
     } for r in latest_releases]
 
     users = user_service.get_users()

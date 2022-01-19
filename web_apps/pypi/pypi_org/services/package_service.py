@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import sqlalchemy.orm as orm
 
@@ -14,3 +14,8 @@ def get_packages() -> orm.Query:
 def get_latest_packages(num, packages: orm.Query = None) -> List[Package]:
     packages = packages or get_packages()
     return packages.order_by(Package.created_date.desc()).limit(num).all()
+
+
+def  get_package(id: str, packages: orm.Query = None) -> Optional[Package]:
+    packages = packages or get_packages()
+    return packages.filter(Package.id == id).first()

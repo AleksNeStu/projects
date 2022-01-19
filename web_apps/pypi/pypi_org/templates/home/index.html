@@ -3,7 +3,8 @@
 
     <div class="hero">
         <div class="hero-inner">
-            <h1>Find, install and publish Python packages with the Python Package Index </h1>
+            <h1>Find, install and publish Python packages with the Python
+                Package Index </h1>
             <input type="text" placeholder=" Search projects"
                    class="form-control">
         </div>
@@ -31,7 +32,12 @@
                 {% for p in latest_releases %}
                     <div class="project">
                         <div class="title">
-                            <a href="#">{{ p.name }} {{ p.latest_version }}</a>
+                            <!-- Use '/project/<package_name>' calc or
+                            exact url (speediest) -->
+                            <a href="{{ "/project/{}".format(p.name)
+                            or p.url }}" target="_blank">
+                                {{ p.name }} {{ p.latest_version }}
+                            </a>
                             <div class="desc">{{ p.summary }}</div>
                         </div>
                     </div>
