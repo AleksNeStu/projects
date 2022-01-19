@@ -19,6 +19,7 @@ sys.path.insert(0, directory)
 import settings
 import data.db_session as db_session
 from data.models.users import User
+from data.models.licenses import License
 from data.models.maintainers import Maintainer
 from data.models.package import Package
 from data.models.languages import ProgrammingLanguage
@@ -48,7 +49,7 @@ def main():
         db_programming_packages_map: Dict[
             str, ProgrammingLanguage] = insert_programming_languages_to_db(
                 packages_data)
-    #     do_import_licenses(packages_data)
+        dp_licenses = insert_licenses_to_db(packages_data)
     #
     # do_summary()
 
@@ -356,14 +357,13 @@ def insert_programming_languages_to_db(
                         if len(language_id_parts) == 2:
                             language_id = ' '.join(language_id_parts)
                             if language_id not in processed_languages:
-                                processed_languages.add(language_id)
-
                                 p_l = ProgrammingLanguage(
                                     description=language_desc,
                                     id=language_id,
                                 )
                                 session.add(p_l)
                                 session.commit()
+                                processed_languages.add(language_id)
 
                 bar.update(package_idx)
 
@@ -377,6 +377,40 @@ def insert_programming_languages_to_db(
             len(inserted_languages)))
 
     return inserted_languages
+
+
+def insert_licenses_to_db(
+        packages_data: List[dict]) -> Dict[str, License]:
+    logging.info("Inserting licenses to DB ...")
+    processed_licenses = set()
+
+    with db_session.create_session() as session:
+        with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
+            for package_idx, package_data in enumerate(packages_data, start=1):
+
+                p_info = package_data.get('info')
+                license = get_license_from_license_txt(
+                    p_info.get('license'))
+                if license and license not in processed_licenses:
+                    l = License(
+                        id=license,
+                        description=p_info.get('license'),
+                    )
+                    session.add(l)
+                    session.commit()
+                    processed_licenses.add(license)
+
+                bar.update(package_idx)
+
+    sys.stderr.flush()
+    sys.stdout.flush()
+
+    inserted_licenses = {l.id: l for l in session.query(License)}
+    logging.info(
+        "Inserted {:,} licenses to DB".format(
+            len(inserted_licenses)))
+
+    return inserted_licenses
 
 
 def init_db():
