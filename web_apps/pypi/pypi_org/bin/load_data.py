@@ -49,9 +49,11 @@ def main():
         db_programming_packages_map: Dict[
             str, ProgrammingLanguage] = insert_programming_languages_to_db(
                 packages_data)
-        dp_licenses = insert_licenses_to_db(packages_data)
-    #
-    # do_summary()
+        dp_licenses_map: Dict[str, License] = insert_licenses_to_db(
+            packages_data)
+        # TODO: use introduced vars with dp maps
+
+    log_load_data_results()
 
 
 def load_top_packages_data_from_json_files(
@@ -411,6 +413,16 @@ def insert_licenses_to_db(
             len(inserted_licenses)))
 
     return inserted_licenses
+
+
+def log_load_data_results():
+    logging.info("Load data from JSON files to DB aggregation results...")
+    with db_session.create_session() as session:
+        for orm_cls in [Package, Release, User, Maintainer,
+                        ProgrammingLanguage, License]:
+            logging.info(
+                f"Inserted to DB {orm_cls.__name__}s: "
+                f"{session.query(orm_cls).count()}")
 
 
 def init_db():
