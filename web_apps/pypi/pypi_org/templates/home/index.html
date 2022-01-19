@@ -31,8 +31,8 @@
                 {% for p in latest_packages %}
                     <div class="project">
                         <div class="title">
-                            <a href="#">{{ p.name }} {{ p.version }}</a>
-                            <div class="desc">THE DESC</div>
+                            <a href="#">{{ p.name }} {{ p.latest_version }}</a>
+                            <div class="desc">{{ p.summary }}</div>
                         </div>
                     </div>
                 {% endfor %}
