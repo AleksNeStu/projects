@@ -1,14 +1,15 @@
+"""Load JSON packages data to DB. Can be run independently | inside of code."""
 import json
 import logging
 import os
 import re
-import sys
-import time
 from typing import List, Dict, Optional
 
 # noinspection PyPackageRequirements,PyPackageRequirements
 import progressbar
 import sqlalchemy.orm as orm
+import sys
+import time
 from dateutil import parser
 
 # add_module_to_sys_path
@@ -29,14 +30,16 @@ from utils import py as py_utils
 
 def main():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-    init_db()
+    logging.info("Loading packages JSON data to DB")
 
+    # setup_db()
+
+    # Load JSON data only if no previous load (based on User cls data)
     with db_session.create_session() as session:
         user_count = session.query(User).count()
-
     if user_count == 0:
-        packages_data: List[dict] = load_top_packages_data_from_json_files(
-            'top_packages')
+        packages_data: List[dict] = load_packages_data_from_json_files(
+            packages_dir_path_part='top_packages')
 
         users_data: dict = get_users_data_from_packages_data(packages_data)
 
@@ -52,17 +55,20 @@ def main():
         dp_licenses_map: Dict[str, License] = insert_licenses_to_db(
             packages_data)
         # TODO: use introduced vars with dp maps
+        logging.info("Loaded packages JSON data to DB")
 
-    log_load_data_results()
+    logging.info("JSON data were loaded to DB previously "
+                 "[no actions are required]")
+    get_db_data()
 
 
-def load_top_packages_data_from_json_files(
+def load_packages_data_from_json_files(
         packages_dir_path_part) -> List[dict]:
     top_packages_dir = os.path.abspath(
         os.path.join(os.path.dirname(__file__), packages_dir_path_part))
 
     logging.info(
-        "Loading top packages json data from the dir: '{}' ...".format(
+        "Loading packages json data from the dir: '{}' ...".format(
             top_packages_dir))
     file_paths = get_file_paths(top_packages_dir)
 
@@ -79,7 +85,7 @@ def load_top_packages_data_from_json_files(
 
     sys.stderr.flush()
     sys.stdout.flush()
-    logging.info("Loaded {:,} top packages json files".format(
+    logging.info("Loaded {:,} packages json files".format(
         len(files_data)))
 
     return files_data
@@ -415,17 +421,17 @@ def insert_licenses_to_db(
     return inserted_licenses
 
 
-def log_load_data_results():
-    logging.info("Load data from JSON files to DB aggregation results...")
+def get_db_data():
+    logging.info("DB data aggregation results:")
     with db_session.create_session() as session:
         for orm_cls in [Package, Release, User, Maintainer,
                         ProgrammingLanguage, License]:
             logging.info(
-                f"Inserted to DB {orm_cls.__name__}s: "
+                f"Existing on DB {orm_cls.__name__}s: "
                 f"{session.query(orm_cls).count()}")
 
 
-def init_db():
+def setup_db():
     db_session.global_init(settings.DB_CONNECTION)
 
 

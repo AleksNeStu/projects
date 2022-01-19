@@ -5,9 +5,9 @@ import flask
 import sys
 
 import settings
+from bin import load_data
 from data import db_session
 from utils import py as py_utils
-
 
 app = flask.Flask(__name__)
 
@@ -39,6 +39,7 @@ def register_blueprints():
 
 def setup_db():
     db_session.global_init(settings.DB_CONNECTION)
+    load_data.main()
 
 
 if __name__ in ('__main__', 'pypi_org.app'):

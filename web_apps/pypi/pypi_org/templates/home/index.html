@@ -12,9 +12,9 @@
     </div>
 
     <div class="pypi-stats">
-        <div class="stat">348,412 projects</div>
-        <div class="stat">3,131,457 releases</div>
-        <div class="stat">561,668 users</div>
+        <div class="stat">{{ "{:,}".format(package_count) }} projects</div>
+        <div class="stat">{{ "{:,}".format(release_count) }} releases</div>
+        <div class="stat">{{ "{:,}".format(user_count) }} users</div>
     </div>
 
     <div class="container project-list">
@@ -28,7 +28,7 @@
                     Hot off the press: the newest project releases
                 </div>
 
-                {% for p in packages %}
+                {% for p in latest_packages %}
                     <div class="project">
                         <div class="title">
                             <a href="#">{{ p.name }} {{ p.version }}</a>

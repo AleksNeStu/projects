@@ -152,9 +152,10 @@ a) sqlite3.ProgrammingError in IDE debug mode
   applications. It began as a simple wrapper around Werkzeug and Jinja and has
   become one of the most popular Python web application frameworks. \
   [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/) \
-  [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html)
+  [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html) \
   `FLASK_DEBUG=1` - auto-reload the flask app when a code change happens
-  `FLASK_DEBUG=0` - to debug via IDE instead of seeing stacktrace in browser
+  `FLASK_DEBUG=0` - to debug via IDE instead of seeing stacktrace in browser \
+  [Flask 2 time run issue](https://stackoverflow.com/questions/25504149/why-does-running-the-flask-dev-server-run-itself-twice)
 
 
 - [Werkzeug](https://github.com/pallets/werkzeug) \
