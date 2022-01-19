@@ -19,8 +19,9 @@ sys.path.insert(0, directory)
 import settings
 import data.db_session as db_session
 from data.models.users import User
-from data.models.package import Package
 from data.models.maintainers import Maintainer
+from data.models.package import Package
+from data.models.languages import ProgrammingLanguage
 from data.models.releases import Release
 from utils import py as py_utils
 
@@ -44,7 +45,9 @@ def main():
         db_packages_map: Dict[str, Package] = insert_packages_to_db(
             db_users_map, packages_data)
 
-    #     do_import_languages(packages_data)
+        db_programming_packages_map: Dict[
+            str, ProgrammingLanguage] = insert_programming_languages_to_db(
+                packages_data)
     #     do_import_licenses(packages_data)
     #
     # do_summary()
@@ -152,11 +155,10 @@ def get_email_and_name_from_package_info(
 def insert_users_data_to_db(users_data: Dict[str, str],
                             in_bulk:bool = False) -> Dict[str, User]:
     logging.info("Inserting users data to DB [in_bulk]={}...".format(in_bulk))
-    users_count = len(users_data)
 
     if not in_bulk:
         with db_session.create_session() as session:
-            with progressbar.ProgressBar(max_value=users_count) as bar:
+            with progressbar.ProgressBar(max_value=len(users_data)) as bar:
 
                 for user_data_idx, (u_email, u_name) in enumerate(
                         users_data.items(), start=1):
@@ -191,18 +193,15 @@ def insert_packages_to_db(db_users_map: Dict[str, User],
                           packages_data: List[dict]) -> Dict[str, Package]:
     logging.info("Inserting packages to DB ...")
     packages_count = len(packages_data)
-    inserted_packages = {}
     not_inserted_packages = []
 
     with db_session.create_session() as session:
-        with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
+        with progressbar.ProgressBar(max_value=packages_count) as bar:
             for package_idx, package_data in enumerate(packages_data, start=1):
                 try:
                     db_package_map = insert_package_data_to_db(
                         session, db_users_map, package_data)
-                    if db_package_map:
-                        inserted_packages.update(db_package_map)
-                    else:
+                    if not db_package_map:
                         not_inserted_packages.append(package_data)
                     bar.update(package_idx)
                 except Exception as err:
@@ -232,7 +231,9 @@ def insert_package_data_to_db(
     try:
         # Package start
         p_info = package.get('info', {})
-        p = Package(id=package.get('package_name', '').strip())
+        p = Package(
+            id=package.get('package_name', '').strip()
+        )
         p_id = p.id
         if not p_id:
             return {}
@@ -254,7 +255,7 @@ def insert_package_data_to_db(
                 'summary', 'description', 'home_page', 'docs_url',
                 'package_url', 'author', 'author_email', 'license',
             ])
-        p.license = detect_license(p_info.get('license'))
+        p.license = get_license_from_license_txt(p_info.get('license'))
 
         session.add(p)
         session.add_all(p_releases)
@@ -315,28 +316,67 @@ def build_package_maintainers(
         if (maintainer_user := db_users_map.get(p_maintainer_email))]
 
 
-# TODO: Refactor
-def detect_license(license_text: str) -> Optional[str]:
-    if not license_text:
-        return None
+# Optional[str]: specific type is required, or None is required
+def get_license_from_license_txt(license_txt: str) -> Optional[str]:
+    if not license_txt:
+        return
 
-    license_text = license_text.strip()
+    if len(license_txt) > 100 or '\n' in license_txt:
+        return 'CUSTOM'
 
-    if len(license_text) > 100 or '\n' in license_text:
-        return "CUSTOM"
+    license_txt = license_txt.replace(
+        'Software License', '').replace('License', '')
 
-    license_text = license_text \
-        .replace('Software License', '') \
-        .replace('License', '')
-
-    if '::' in license_text:
+    if '::' in license_txt:
         # E.g. 'License :: OSI Approved :: Apache Software License'
-        return license_text \
-            .split(':')[-1] \
-            .replace('  ', ' ') \
-            .strip()
+        return license_txt.split(':')[-1].replace('  ', ' ').strip()
 
-    return license_text.strip()
+    return license_txt.strip()
+
+
+def insert_programming_languages_to_db(
+        packages_data: List[dict]) -> Dict[str, ProgrammingLanguage]:
+    logging.info("Inserting programming languages to DB ...")
+    processed_languages = set()
+
+    with db_session.create_session() as session:
+        with progressbar.ProgressBar(max_value=len(packages_data)) as bar:
+            for package_idx, package_data in enumerate(packages_data, start=1):
+
+                p_info = package_data.get('info')
+                for classifier in p_info.get('classifiers', []):
+                    classifier = classifier.replace(
+                        'Implementation :: ', '').replace(' :: Only', '')
+                    p_l_str = 'Programming Language'
+                    if p_l_str in classifier:
+                        language_desc = classifier
+                        language_id_parts = [
+                            cl for cl in classifier.split(' :: ')
+                            if cl not in [p_l_str]][-2:]
+                        if len(language_id_parts) == 2:
+                            language_id = ' '.join(language_id_parts)
+                            if language_id not in processed_languages:
+                                processed_languages.add(language_id)
+
+                                p_l = ProgrammingLanguage(
+                                    description=language_desc,
+                                    id=language_id,
+                                )
+                                session.add(p_l)
+                                session.commit()
+
+                bar.update(package_idx)
+
+    sys.stderr.flush()
+    sys.stdout.flush()
+
+    inserted_languages = {
+        p_l.id: p_l for p_l in session.query(ProgrammingLanguage)}
+    logging.info(
+        "Inserted {:,} programming languages to DB".format(
+            len(inserted_languages)))
+
+    return inserted_languages
 
 
 def init_db():
