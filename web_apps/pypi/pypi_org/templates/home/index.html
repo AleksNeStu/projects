@@ -29,16 +29,17 @@
                     Hot off the press: the newest project releases
                 </div>
 
-                {% for p in latest_releases %}
+                {% for r in latest_releases %}
                     <div class="project">
                         <div class="title">
-                            <!-- Use '/project/<package_name>' calc or
-                            exact url (speediest) -->
-                            <a href="{{ "/project/{}".format(p.name)
-                            or p.url }}" target="_blank">
-                                {{ p.name }} {{ p.latest_version }}
+{#                            <a href="{{ "/project/{}".format(p.name)#}
+{#                            or p.url }}" target="_blank">#}
+{#                                {{ p.name }} {{ p.latest_version }}#}
+{#                            </a>#}
+                            <a href="/project/{{ r.package.id }}"
+                               target="_blank">{{ r.package.id }} {{ r.version_text }}
                             </a>
-                            <div class="desc">{{ p.summary }}</div>
+                            <div class="desc">{{ r.package.summary }}</div>
                         </div>
                     </div>
                 {% endfor %}

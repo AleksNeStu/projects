@@ -31,7 +31,7 @@ def index():
     users = user_service.get_users()
 
     return {
-        'latest_releases': latest_releases_map,
+        'latest_releases': latest_releases,
         'package_count': packages.count(),
         'release_count': releases.count(),
         'user_count': users.count(),
