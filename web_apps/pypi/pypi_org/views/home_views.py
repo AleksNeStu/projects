@@ -19,10 +19,18 @@ def index():
     } for p in latest_packages]
 
     releases = release_service.get_releases()
+    latest_releases = release_service.get_latest_releases(10, releases)
+    # releases ordered by relationship in data.models.package.Package
+    latest_releases_map = [{
+        'name': r.package.id,
+        'latest_version': r.version_text,
+        'summary': r.package.summary,
+    } for r in latest_releases]
+
     users = user_service.get_users()
 
     return {
-        'latest_packages': latest_packages_map,
+        'latest_releases': latest_releases_map,
         'package_count': packages.count(),
         'release_count': releases.count(),
         'user_count': users.count(),
