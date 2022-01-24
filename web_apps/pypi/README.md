@@ -181,6 +181,11 @@ a) sqlite3.ProgrammingError in IDE debug mode
   <p align="center">
   <img src="assets/sqla_engine_arch.png" alt="Engine Configuration">
   </p>
+  
+  **ORM queries**
+  <p align="center">
+  <img src="assets/sql-1.png" alt="ORM queries">
+  </p>
 
 - Linux
 
@@ -251,7 +256,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
 
 
 - [Migrations]()
-
+  [alembic](https://github.com/sqlalchemy/alembic) \
+  
 
 - [Query language]()
 
