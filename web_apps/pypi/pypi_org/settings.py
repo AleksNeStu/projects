@@ -21,17 +21,19 @@ DB_CONNECTION_SQLITE = os.environ.get(
 DB_CONNECTION_MYSQL = os.environ.get(
     'DB_CONNECTION_MYSQL',
     '{}://root:rootroot@localhost/{}'.format(DB_MYSQL_CLIENT, DB_NAME))
-# # Default
-# # Py2: https://pypi.org/project/MySQL-python/
+
+# 1) Py2 (Default): https://pypi.org/project/MySQL-python/
 # DB_CONNECTION_MYSQL = os.environ.get(
 #     'DB_CONNECTION_MYSQL',
 #     '{}://root:rootroot@localhost/{}'.format('mysql', DB_NAME))
-# # mysqlclient (a maintained fork of MySQL-Python)
+
+# 2) mysqlclient (a maintained fork of MySQL-Python)
 # # Py3: https://github.com/PyMySQL/mysqlclient
 # DB_CONNECTION_MYSQL = os.environ.get(
 #     'DB_CONNECTION_MYSQL',
 #     '{}://root:rootroot@localhost/{}'.format('mysql+mysqldb', DB_NAME))
-# # PyMySQL
+
+# 3) PyMySQL
 # # https://github.com/PyMySQL/PyMySQL
 # DB_CONNECTION_MYSQL = os.environ.get(
 #     'DB_CONNECTION_MYSQL',

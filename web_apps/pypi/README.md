@@ -96,10 +96,17 @@ cd projects/web_apps/pypi
 ...
 ```
 
-5) Alembic:
+5) DB
+```sh
+sudo yum install python3-devel mysql-devel
+```
+
+6) Alembic:
 ```sh
 cd web_apps/pypi/pypi_org/
 alembic init alembic
+sudo dnf install -y python3-alembic
+alembic current
 ```
 
 ## Tips
