@@ -96,6 +96,12 @@ cd projects/web_apps/pypi
 ...
 ```
 
+5) Alembic:
+```sh
+cd web_apps/pypi/pypi_org/
+alembic init alembic
+```
+
 ## Tips
 
 1) Show project structure: \
