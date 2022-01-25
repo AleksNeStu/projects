@@ -8,7 +8,7 @@ from sqlalchemy import pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-import settings
+from pypi_org import settings
 
 config = context.config
 
@@ -20,7 +20,7 @@ fileConfig(config.config_file_name)
 # METADATA
 # add_module_to_sys_path
 directory = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), '..'))
+    os.path.join(os.path.dirname(__file__), '../../pypi_org'))
 sys.path.insert(0, directory)
 # noinspection PyUnresolvedReferences
 import data.models
@@ -38,8 +38,8 @@ config.set_main_option("sqlalchemy.url", settings.DB_CONNECTION)
 
 
 # MOD
-migration_context = context.get_context()
-migration_current_rev = migration_context.get_current_revision()
+# migration_context = context.get_context()
+# migration_current_rev = migration_context.get_current_revision()
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.

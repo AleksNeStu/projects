@@ -1,6 +1,6 @@
 import os
 
-from utils import data as data_utils
+from pypi_org.utils import data as data_utils
 
 
 # FLASK
@@ -8,8 +8,10 @@ FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
 
 # APP
 APP_ROOT_DIR = os.getenv('APP_ROOT_DIR', os.path.dirname(__file__))
+PROJECT_ROOT_DIR = os.getenv(
+    'PROJECT_ROOT_DIR', os.path.join(APP_ROOT_DIR, '../'))
 ALEMBIC_INI = os.getenv(
-    'ALEMBIC_INI', os.path.join(APP_ROOT_DIR, 'alembic.ini'))
+    'ALEMBIC_INI', os.path.join(PROJECT_ROOT_DIR, 'alembic.ini'))
 
 # DB
 DB_NAME = os.getenv('DB_NAME', 'pypi_org')
