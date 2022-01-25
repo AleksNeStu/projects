@@ -50,12 +50,12 @@ ln -s ../node_modules
 
 3.1) Setup IDE project structure
 <p align="center">
-<img src="assets/pr-1.png" alt="Project Settings / Project">
-<img src="assets/pr-2.png" alt="Project Settings / Modules tree">
-<img src="assets/pr-3.png" alt="Project Settings / Modules env">
-<img src="assets/pr-4.png" alt="Project Settings / Modules tree">
-<img src="assets/pr-5.png" alt="Project Settings / Modules env">
-<img src="assets/pr-6.png" alt="Platform Settings / SDKs">
+<img src="assets/pr-1.png" alt="Project Settings / Project" width="70%">
+<img src="assets/pr-2.png" alt="Project Settings / Modules tree" width="70%">
+<img src="assets/pr-3.png" alt="Project Settings / Modules env" width="70%">
+<img src="assets/pr-4.png" alt="Project Settings / Modules tree" width="70%">
+<img src="assets/pr-5.png" alt="Project Settings / Modules env" width="70%">
+<img src="assets/pr-6.png" alt="Platform Settings / SDKs" width="70%">
 </p>
 
 3.2) Run app via command interface:
@@ -68,24 +68,24 @@ ln -s ../node_modules
 Need plugin for IDE:
 [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
 <p align="center">
-<img src="assets/ide-1.png" alt="EnvFile plugin for IDE">
+<img src="assets/ide-1.png" alt="EnvFile plugin for IDE" width="70%">
 </p>
 
 a) Flask module
 <p align="center">
-<img src="assets/ide-2.png" alt="Flask module">
+<img src="assets/ide-2.png" alt="Flask module" width="70%">
 </p>
 
 b) Python script app.py
 <p align="center">
-<img src="assets/ide-3.png" alt="Python script">
+<img src="assets/ide-3.png" alt="Python script" width="70%">
 </p>
 
 c) Flask framework \
 [Run/Debug Configuration: Flask Server](https://www.jetbrains.com/help/pycharm/run-debug-configuration-flask-server.html)
 
 <p align="center">
-<img src="assets/ide-4.png" alt="Flask framework">
+<img src="assets/ide-4.png" alt="Flask framework" width="70%">
 </p>
 
 4) Run scripts:
@@ -107,6 +107,9 @@ cd web_apps/pypi/pypi_org/
 alembic init alembic
 sudo dnf install -y python3-alembic
 alembic current
+# make model changes
+# https://alembic.sqlalchemy.org/en/latest/autogenerate.html
+alembic revision --autogenerate -m "Added last_updated column to Package cls"
 ```
 
 ## Tips
@@ -140,6 +143,10 @@ a) sqlite3.ProgrammingError in IDE debug mode
     ```
 
     **Fix:** Play w/ `Allow parallel run` option for debug run config.
+
+5) **IDE:**\
+- debug flask, alembic and rest of the modules using python module with parameters;
+- 
 
 ## Tech-stack
 
@@ -197,7 +204,7 @@ a) sqlite3.ProgrammingError in IDE debug mode
   
   **ORM queries**
   <p align="center">
-  <img src="assets/sql-1.png" alt="ORM queries">
+  <img src="assets/sql-1.png" alt="ORM queries" width="90%">
   </p>
 
 - Linux
