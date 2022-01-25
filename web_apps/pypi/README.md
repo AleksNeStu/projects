@@ -110,6 +110,7 @@ alembic current
 # make model changes
 # https://alembic.sqlalchemy.org/en/latest/autogenerate.html
 alembic revision --autogenerate -m "Added last_updated column to Package cls"
+alembic upgrade head 
 ```
 
 ## Tips
