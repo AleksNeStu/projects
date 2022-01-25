@@ -16,7 +16,7 @@ import data.db_session as db_session
 
 def run():
     alembic_cfg = config.Config(settings.ALEMBIC_INI)
-    if not alembic_utils.is_migration_latest_rev():
+    if not alembic_utils.is_current_rev_is_latest():
         command.upgrade(alembic_cfg, 'head')
 
 

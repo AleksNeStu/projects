@@ -103,8 +103,8 @@ sudo yum install python3-devel mysql-devel
 
 6) Alembic:
 ```sh
-cd web_apps/pypi/pypi_org/
-alembic init alembic
+cd web_apps/pypi/
+alembic init migrations/alembic
 sudo dnf install -y python3-alembic
 alembic current
 # make model changes
@@ -112,6 +112,7 @@ alembic current
 alembic revision --autogenerate -m "Added last_updated column to Package cls"
 
 alembic upgrade head
+alembic downgrade base
 ```
 
 Alternative for `alembic upgrade head`:
