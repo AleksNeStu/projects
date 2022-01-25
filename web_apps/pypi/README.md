@@ -110,8 +110,19 @@ alembic current
 # make model changes
 # https://alembic.sqlalchemy.org/en/latest/autogenerate.html
 alembic revision --autogenerate -m "Added last_updated column to Package cls"
-alembic upgrade head 
+
+alembic upgrade head
 ```
+
+Alternative for `alembic upgrade head`:
+```Python
+# or https://alembic.sqlalchemy.org/en/latest/api/commands.html
+from alembic.config import Config
+from alembic import command
+alembic_cfg = Config("/pypi_org/alembic.ini")
+command.upgrade(alembic_cfg, "head")
+```
+
 
 ## Tips
 
@@ -147,7 +158,9 @@ a) sqlite3.ProgrammingError in IDE debug mode
 
 5) **IDE:**\
 - debug flask, alembic and rest of the modules using python module with parameters;
-- 
+
+6) **APP:**\
+- In case flask app is executed in debug mode, then adding new model cls will automatically reflect the changes to DB without involving alembic migration revision.
 
 ## Tech-stack
 

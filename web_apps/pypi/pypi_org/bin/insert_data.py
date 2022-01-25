@@ -53,7 +53,7 @@ PACKAGES = [
 ]
 
 
-def main():
+def run():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     init_db()
 
@@ -98,4 +98,4 @@ def insert_package():
 
 
 if __name__ == '__main__':
-    main()
+    run()

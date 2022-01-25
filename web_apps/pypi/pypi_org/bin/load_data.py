@@ -28,7 +28,7 @@ from data.models.releases import Release
 from utils import py as py_utils
 
 
-def main():
+def run():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     logging.info("Loading packages JSON data to DB")
 
@@ -436,4 +436,4 @@ def setup_db():
 
 
 if __name__ == '__main__':
-    main()
+    run()
