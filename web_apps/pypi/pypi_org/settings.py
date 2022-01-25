@@ -6,6 +6,11 @@ from utils import data as data_utils
 # FLASK
 FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
 
+# APP
+APP_ROOT_DIR = os.getenv('APP_ROOT_DIR', os.path.dirname(__file__))
+ALEMBIC_INI = os.getenv(
+    'ALEMBIC_INI', os.path.join(APP_ROOT_DIR, 'alembic.ini'))
+
 # DB
 DB_NAME = os.getenv('DB_NAME', 'pypi_org')
 DB_MYSQL_CLIENT = os.getenv('DB_MYSQL_CLIENT', 'mysql+mysqldb')
@@ -14,7 +19,7 @@ DB_MYSQL_CLIENT = os.getenv('DB_MYSQL_CLIENT', 'mysql+mysqldb')
 DB_SQLITE_FILE_NAME = os.environ.get(
     'DB_SQLITE_FILE_NAME', '{}.db'.format(DB_NAME))
 DB_SQLITE_FILE = os.environ.get('DB_SQLITE_FILE', os.path.join(
-    os.path.dirname(__file__), 'db', DB_SQLITE_FILE_NAME))
+    APP_ROOT_DIR, 'db', DB_SQLITE_FILE_NAME))
 DB_CONNECTION_SQLITE = os.environ.get(
     'DB_CONNECTION_SQLITE', data_utils.get_sql_lite_conn_str(DB_SQLITE_FILE))
 # MySQL

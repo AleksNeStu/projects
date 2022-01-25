@@ -6,6 +6,7 @@ import sys
 
 import settings
 from bin import load_data
+from bin import run_migrations
 from data import db_session
 from utils import py as py_utils
 
@@ -39,7 +40,9 @@ def register_blueprints():
 
 def setup_db():
     db_session.global_init(settings.DB_CONNECTION)
-    load_data.main()
+    load_data.run()
+    # enable for flask app not in debug mode to avoid auto apply
+    # run_migrations.run()
 
 
 if __name__ in ('__main__', 'pypi_org.app'):
