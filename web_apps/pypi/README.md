@@ -205,7 +205,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
   designed for efficient and high-performing database access, adapted into a
   simple and Pythonic domain language. \
   [SQLAlchemy Docs](https://docs.sqlalchemy.org/en/14/) \
-  [Key Features of SQLAlchemy](https://www.sqlalchemy.org/features.html)
+  [Key Features of SQLAlchemy](https://www.sqlalchemy.org/features.html) \
+  [Engine, Connection, Session](https://stackoverflow.com/questions/34322471/sqlalchemy-engine-connection-and-session-difference) \
 
   <p align="center">
   <img src="assets/orm_core.png" alt="ORM and Core">

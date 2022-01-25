@@ -42,7 +42,7 @@ def setup_db():
     db_session.global_init(settings.DB_CONNECTION)
     load_data.run()
     # enable for flask app not in debug mode to avoid auto apply
-    # run_migrations.run()
+    run_migrations.run()
 
 
 if __name__ in ('__main__', 'pypi_org.app'):
