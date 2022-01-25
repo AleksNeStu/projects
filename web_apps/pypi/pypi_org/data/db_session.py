@@ -3,12 +3,14 @@ import logging
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+import sqlalchemy.engine as engine
 import sqlalchemy_utils as sa_utils
 
 from data.models.modelbase import SqlAlchemyBase
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
 __session = None
+__engine = None
 
 def global_init(conn_str: str):
     global __session
@@ -33,6 +35,8 @@ def global_init(conn_str: str):
     # sa_utils.create_database(engine.url)
 
     # session
+    global __engine
+    __engine = engine
     __session = orm.sessionmaker(bind=engine)
 
     # noinspection PyUnresolvedReferences
@@ -47,8 +51,13 @@ def create_session() -> orm.Session:
     return __session()
 
 
+def create_engine() -> engine.Engine:
+    global __engine
+    return __engine
+
+
 @contextlib.contextmanager
-def session(expire_on_commit=True):
+def expire_session(expire_on_commit=True):
     session = create_session()
     session.expire_on_commit = expire_on_commit
     try:
