@@ -1,4 +1,4 @@
-"""Added last_updated column to Package cls
+"""Add last_updated column to Package cls
 
 Revision ID: ffd2e0438799
 Revises: 
