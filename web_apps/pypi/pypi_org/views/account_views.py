@@ -26,18 +26,32 @@ def register_post():
     r: flask.Request = flask.request
 
     # <input type="text" class="form-control" placeholder=" Email"
-    #  name="email" value="">
+    #  name="email" value="{{ email }}">
     # key: name attribute of input tag
-    # value: post data from end user (filed via UI)
+    # value: email = post_form_dict.get('email', '') post data from end user (filed via UI)
+    # value_resp: value_got (email) returned
     post_form: ImmutableMultiDict = r.form
     # ImmutableMultiDict([('name', '_n'), ('email', '_e'), ('password', '_p ')])
     post_form_dict: dict = post_form.to_dict()
     # {'name': '_n', 'email': '_e', 'password': '_p'}
-    return {
-        'name': post_form_dict.get('name'),
-        'email': post_form_dict.get('email').lower().strip(),
-        'password': post_form_dict.get('password').strip(),
+    resp_dict = {
+        'name': post_form_dict.get('name', ''),
+        'email': post_form_dict.get('email', '').lower().strip(),
+        'password': post_form_dict.get('password', '').strip(),
     }
+    empty_reg_fields = [
+        name for name, value in resp_dict.items() if not value]
+    if empty_reg_fields:
+        resp_dict.update({
+            'error': f'{empty_reg_fields} are empty, but should be filled to'
+                     f' pass the registration procedure.',
+        })
+    else:
+        #TODO: create the user in DB
+        #TODO: login in browser as a session
+        pass
+
+    return resp_dict
 
 
 # ################### LOGIN #################################

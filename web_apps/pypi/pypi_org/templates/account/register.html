@@ -8,14 +8,19 @@
         <form action="" method="POST" class="account-form">
             <h1>Register at PyPi2</h1>
             <input type="text" class="form-control" placeholder=" Name"
-                   name="name" value="">
+                   name="name" value="{{ name }}">
             <input type="text" class="form-control" placeholder=" Email"
-                   name="email" value="">
+                   name="email" value="{{ email }}">
             <input type="password" class="form-control"
-                   placeholder=" Password" name="password" value="">
-            <button type="submit" class="btn btn-danger"
-                    placeholder="Register">Register
+                   placeholder=" Password" name="password"
+                   value="{{ password }}">
+            <button type="submit" class="btn btn-danger">Register
             </button>
+
+            {% if error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+
             <div style="clear: both;"></div>
         </form>
     </div>

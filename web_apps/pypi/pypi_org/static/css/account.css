@@ -25,3 +25,8 @@ form.account-form {
     border-radius: 5px;
     padding: 10px;
 }
+
+.error-msg {
+    color: red;
+    text-align: center;
+}
