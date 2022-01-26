@@ -5,9 +5,16 @@ Revises:
 Create Date: 2022-01-25 16:37:17.581161
 
 """
+import imp
+import os
+
 import sqlalchemy as sa
 from alembic import op
-from migrations.alembic import utils as alembic_utils
+
+# from migrations.alembic import utils as alembic_utils
+alembic_utils = imp.load_package(
+    'utils', os.path.abspath(os.path.join(
+        os.path.dirname(__file__), '..', 'utils.py')))
 
 # revision identifiers, used by Alembic.
 revision = 'ffd2e0438799'
