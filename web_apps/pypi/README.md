@@ -180,7 +180,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
   Jinja is a fast, expressive, extensible templating engine. Special
   placeholders in the template allow writing code similar to Python syntax.
   Then the template is passed data to render the final document. \
-  [Jinja Templates](https://jinja.palletsprojects.com/en/3.0.x/templates/)
+  [Jinja Templates](https://jinja.palletsprojects.com/en/3.0.x/templates/) \
+  [jinja cheatsheet](https://devhints.io/jinja)
 
 
 - [flask](https://github.com/pallets/flask) \

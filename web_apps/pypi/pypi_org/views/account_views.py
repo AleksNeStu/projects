@@ -2,6 +2,7 @@ import flask
 from werkzeug.datastructures import ImmutableMultiDict
 
 from infra.view_modifiers import response
+from services import user_service
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -34,24 +35,30 @@ def register_post():
     # ImmutableMultiDict([('name', '_n'), ('email', '_e'), ('password', '_p ')])
     post_form_dict: dict = post_form.to_dict()
     # {'name': '_n', 'email': '_e', 'password': '_p'}
+
+    # Registration error
+    name = post_form_dict.get('name', '')
+    email = post_form_dict.get('email', '').lower().strip()
+    password = post_form_dict.get('password', '').strip()
     resp_dict = {
-        'name': post_form_dict.get('name', ''),
-        'email': post_form_dict.get('email', '').lower().strip(),
-        'password': post_form_dict.get('password', '').strip(),
+        'name': name,
+        'email': email,
+        'password': password,
     }
     empty_reg_fields = [
         name for name, value in resp_dict.items() if not value]
+    #TODO: add email format validation and password strong policy
     if empty_reg_fields:
         resp_dict.update({
             'error': f'{empty_reg_fields} are empty, but should be filled to'
                      f' pass the registration procedure.',
         })
-    else:
-        #TODO: create the user in DB
-        #TODO: login in browser as a session
-        pass
+        return resp_dict
 
-    return resp_dict
+    # Success registration
+    user = user_service.create_user(name, email, password)
+    #TODO: login in browser as a session
+    return flask.redirect('/account')
 
 
 # ################### LOGIN #################################
