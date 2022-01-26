@@ -3,17 +3,20 @@
 
 
 {% block main_content %}
-    <form action="" method="POST">
-        <h1>Register at PyPi</h1>
-        <input type="text" class="name" placeholder="Name">
-        <input type="text" class="email" placeholder="Email">
-        <input type="password" class="password" placeholder="Password">
-        <button type="submit">Register</button>
-    </form>
+
+    <div class="form-container">
+        <form action="" method="POST" class="account-form">
+            <h1>Register at PyPi2</h1>
+            <input type="text" class="name" placeholder="Name">
+            <input type="text" class="email" placeholder="Email">
+            <input type="password" class="password" placeholder="Password">
+            <button type="submit">Register</button>
+        </form>
+    </div>
 
 {% endblock %}
 
 
 {% block additional_css %}
-    <!-- this would be css from about.html -->
+    <link rel="stylesheet" href="/static/css/account.css">
 {% endblock %}
