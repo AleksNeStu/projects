@@ -2,6 +2,7 @@
 import flask
 from werkzeug.datastructures import ImmutableMultiDict
 
+from infra import auth
 from infra.view_modifiers import response
 from services import user_service
 
@@ -62,8 +63,10 @@ def register_post():
             f'A user with an email: {email} is already exists.')
         return resp_dict
 
-    #TODO: login in browser as a session
-    return flask.redirect('/account')
+    resp = flask.redirect('/account')
+    auth.set_auth_cookie_to_resp(resp, user.id)
+
+    return resp
 
 
 # ################### LOGIN #################################
@@ -103,8 +106,10 @@ def login_post():
             f'The account does not exist or the password is wrong.')
         return resp_dict
 
-    #TODO: login in browser as a session
-    return flask.redirect('/account')
+    resp = flask.redirect('/account')
+    auth.set_auth_cookie_to_resp(resp, user.id)
+
+    return resp
 
 
 # ################### LOGOUT #################################

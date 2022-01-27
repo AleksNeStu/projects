@@ -242,6 +242,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
 
 - [HTML/CSS]()
 
+- [Cookies](https://developer.chrome.com/docs/devtools/storage/cookies/) \
+
 
 - [Bootstrap](https://github.com/twbs/bootstrap) \
   Sleek, intuitive, and powerful front-end framework for faster and easier web

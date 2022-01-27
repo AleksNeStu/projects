@@ -13,6 +13,6 @@ def is_pass_hash_correct(hash: str, txt: str) -> bool:
 
 
 def txt_to_hash(txt: str) -> str:
-    txt = 'salty__' + txt + '__text'
+    txt = 'py__{}__pi'.format(txt)
     # res will be the same every calc
     return hashlib.sha512(txt.encode('utf-8')).hexdigest()
