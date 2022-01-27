@@ -63,5 +63,6 @@ def get_models(outfile: Optional[str] = None) -> List[codegen.Model]:
         if isinstance(outfile, str):
             outfile = io.open(outfile, 'w', encoding='utf-8')
         code_generator.render(outfile)
+        outfile.close()
 
     return code_generator.models

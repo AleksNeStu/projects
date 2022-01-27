@@ -1,5 +1,6 @@
 """Flask application run."""
 import logging
+import os
 
 import flask
 import sys
@@ -8,6 +9,7 @@ import settings
 from bin import load_data
 from bin import run_migrations
 from data import db_session
+from migrations import utils as migrations_utils
 from utils import py as py_utils
 
 app = flask.Flask(__name__)
@@ -21,6 +23,7 @@ def main():
 
     register_blueprints()
     setup_db()
+    all_db_models = generate_all_db_models()
     app.run(port=5000, debug=True)
 
 
@@ -43,6 +46,11 @@ def setup_db():
     load_data.run()
     # enable for flask app not in debug mode to avoid auto apply
     run_migrations.run()
+
+def generate_all_db_models():
+    db_models = migrations_utils.get_models(os.path.join(
+        os.path.dirname(__file__), 'data', 'generated_all_db_models.py'))
+    return db_models
 
 
 if __name__ in ('__main__', 'pypi_org.app'):
