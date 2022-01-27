@@ -4,7 +4,7 @@ import sqlalchemy.orm as orm
 
 from data import db_session
 from data.models.users import User
-from utils import data as data_utils
+from utils import sec as sec_utils
 
 
 def get_users() -> orm.Query:
@@ -18,7 +18,8 @@ def get_user(email: str, password: str = None,
     user = users.filter(User.email == email).first()
     if (password and
             user and
-            not data_utils.is_hash_correct(user.hashed_password, password)):
+            not sec_utils.is_pass_hash_correct(
+                user.hashed_password, password)):
         return
 
     users.session.close()
@@ -30,7 +31,7 @@ def create_user(name: str, email: str, password: str) -> Optional[User]:
         return
 
     with db_session.create_session() as session:
-        pass_hash = data_utils.to_hash(password)
+        pass_hash = sec_utils.pass_to_hash(password)
         user = User(
             name=name,
             email=email,

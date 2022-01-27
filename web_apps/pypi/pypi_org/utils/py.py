@@ -2,8 +2,6 @@ import os
 from importlib import import_module
 from inspect import isclass
 from pkgutil import iter_modules
-import email_validator as email_validator
-import validate_email
 
 import sys
 
@@ -42,16 +40,6 @@ def str_to_int(str) -> int:
         return int(str)
     except:
         return 0
-
-def is_email_valid(email, check_if_email_existing=False):
-    try:
-        normalized_email = email_validator.validate_email(email).email
-        if check_if_email_existing:
-            return validate_email.validate_email(normalized_email)
-        return True
-
-    except email_validator.EmailNotValidError:
-        return False
 
 # TODO: make attr_names with processors funcs to calc specific values
 def set_obj_attr_values(obj, obj_attrs_map, attr_names):

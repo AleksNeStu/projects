@@ -25,6 +25,7 @@ from data.models.maintainers import Maintainer
 from data.models.package import Package
 from data.models.languages import ProgrammingLanguage
 from data.models.releases import Release
+from utils import validation as validation_utils
 from utils import py as py_utils
 
 
@@ -146,7 +147,7 @@ def get_email_and_name_from_package_info(
 
         else:
             emails = re.split(', |;', email.strip().lower())
-            if all(py_utils.is_email_valid(e) for e in emails):
+            if all(validation_utils.is_email_valid(e) for e in emails):
                 names = re.split(', |;', name.strip().lower())
                 if len(emails) > len(names):
                     logging.error(
