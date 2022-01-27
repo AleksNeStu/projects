@@ -113,6 +113,7 @@ venv.bak/
 # Project
 node_modules
 #db
+generated_all_db_models.py
 
 # Spyder project settings
 .spyderproject
