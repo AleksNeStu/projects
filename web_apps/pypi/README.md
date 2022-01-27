@@ -211,7 +211,9 @@ a) sqlite3.ProgrammingError in IDE debug mode
   [SQLAlchemy Docs](https://docs.sqlalchemy.org/en/14/) \
   [Key Features of SQLAlchemy](https://www.sqlalchemy.org/features.html) \
   [Engine, Connection, Session](https://stackoverflow.com/questions/34322471/sqlalchemy-engine-connection-and-session-difference) \
-
+  [sqlacodegen](https://github.com/agronholm/sqlacodegen) \
+  This is a tool that reads the structure of an existing database and generates the appropriate SQLAlchemy model code, using the declarative style if possible. \
+- 
   <p align="center">
   <img src="assets/orm_core.png" alt="ORM and Core">
   </p>

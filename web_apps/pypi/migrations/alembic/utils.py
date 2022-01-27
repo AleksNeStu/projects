@@ -1,6 +1,10 @@
+import io
+from typing import Optional, List
+
 import sqlalchemy as sa
 from alembic import migration
 from alembic import op
+from sqlacodegen import codegen
 
 import pypi_org.data.db_session as db_session
 
@@ -42,3 +46,24 @@ def table_has_column(table, column):
 def has_table(table):
     insp = get_insp()
     return insp.has_table(table)
+
+
+def get_models(outfile: Optional[str] = None) -> List[codegen.Model]:
+    # https://github.com/agronholm/sqlacodegen
+    # sqlacodegen postgresql:///some_local_db
+    # sqlacodegen --outfile models.py postgresql:///some_local_db
+    # sqlacodegen --generator tables mysql+pymysql://user:password@localhost/dbname
+    # sqlacodegen --generator dataclasses sqlite:///database.db
+    engine = db_session.create_engine()
+    metadata = sa.MetaData(bind=engine)
+    metadata.reflect()
+    code_generator = codegen.CodeGenerator(metadata, ignored_tables=[])
+    # python file or std.out = None
+    if outfile:
+        if isinstance(outfile, str):
+            outfile = io.open(outfile, 'w', encoding='utf-8')
+        code_generator.render(outfile)
+
+    return code_generator.models
+    
+get_models('go.py')
