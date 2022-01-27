@@ -23,8 +23,16 @@ def get_user(email: str, password: str = None,
         return
 
     users.session.close()
+    return user
+
+
+def get_user_by_id(user_id: int, users: orm.Query = None) -> Optional[User]:
+    users = users or get_users()
+    user = users.filter(User.id == user_id).first()
+    users.session.close()
 
     return user
+
 
 def create_user(name: str, email: str, password: str) -> Optional[User]:
     if get_user(email=email):

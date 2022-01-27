@@ -9,14 +9,23 @@ from services import user_service
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
 
-# ################### INDEX #################################
+# INDEX
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    return {}
+    r: flask.Request = flask.request
+    user_id = auth.get_user_id_from_cookies(r)
+    if not user_id:
+        return flask.redirect('/account/login')
+
+    user = user_service.get_user_by_id(user_id)
+    if not user:
+        return flask.redirect('/account/login')
+
+    return {'user': user}
 
 
-# ################### REGISTER #################################
+# REG
 @blueprint.route('/account/register', methods=['GET'])
 @response(template_file='account/register.html')
 def register_get():
@@ -69,7 +78,7 @@ def register_post():
     return resp
 
 
-# ################### LOGIN #################################
+# LOGIN
 @blueprint.route('/account/login', methods=['GET'])
 @response(template_file='account/login.html')
 def login_get():
@@ -112,7 +121,7 @@ def login_post():
     return resp
 
 
-# ################### LOGOUT #################################
+# LOGOUT
 @blueprint.route('/account/logout')
 def logout():
     resp = flask.redirect('/')

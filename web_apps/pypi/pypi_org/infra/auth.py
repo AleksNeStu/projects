@@ -28,18 +28,20 @@ def get_user_id_from_cookies(request: flask.Request) -> Optional[int]:
     auth_cookie_val = request.cookies.get(_AUTH_COOKIE_KEY)
 
     if not auth_cookie_val:
-        logging.info("No user id in cookies")
+        logging.warning("No user id in cookies")
         return
 
     auth_cookie_val_p = auth_cookie_val.split(':::')
     if len(auth_cookie_val_p) != 2:
-        logging.info("User id in cookies has wrong format")
+        logging.warning("User id in cookies has wrong format")
         return
 
     act_user_id, act_user_hash = auth_cookie_val_p
     exp_user_hash = sec_utils.txt_to_hash(act_user_id)
     if exp_user_hash != act_user_hash:
-        logging.info("Warning: Hash mismatch, invalid cookie value")
+        logging.warning(
+            f"Actual user id: {act_user_id} hash from cookies: {exp_user_hash}"
+            f" is mismatched to expected")
         return
 
     return py_utils.str_to_int(act_user_id)
