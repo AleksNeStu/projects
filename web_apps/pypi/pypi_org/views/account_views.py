@@ -35,8 +35,6 @@ def register_post():
     # ImmutableMultiDict([('name', '_n'), ('email', '_e'), ('password', '_p ')])
     post_form_dict: dict = post_form.to_dict()
     # {'name': '_n', 'email': '_e', 'password': '_p'}
-
-    # Registration error
     name = post_form_dict.get('name', '')
     email = post_form_dict.get('email', '').lower().strip()
     password = post_form_dict.get('password', '').strip()
@@ -45,18 +43,24 @@ def register_post():
         'email': email,
         'password': password,
     }
+
+    # Validate required fields
     empty_reg_fields = [
         name for name, value in resp_dict.items() if not value]
     #TODO: add email format validation and password strong policy
     if empty_reg_fields:
-        resp_dict.update({
-            'error': f'{empty_reg_fields} are empty, but should be filled to'
-                     f' pass the registration procedure.',
-        })
+        resp_dict['error'] = (
+            f'{empty_reg_fields} are empty, but should be filled to '
+            f'pass the registration procedure.')
         return resp_dict
 
-    # Success registration
+    # Validate user existing
     user = user_service.create_user(name, email, password)
+    if not user:
+        resp_dict['error'] = (
+            f'A user with an email: {email} is already exists.')
+        return resp_dict
+
     #TODO: login in browser as a session
     return flask.redirect('/account')
 
