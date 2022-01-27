@@ -1,3 +1,4 @@
+#TODO: Refactor the same code parts
 import flask
 from werkzeug.datastructures import ImmutableMultiDict
 
@@ -75,7 +76,35 @@ def login_get():
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
-    return {}
+    r: flask.Request = flask.request
+    post_form: ImmutableMultiDict = r.form
+    post_form_dict: dict = post_form.to_dict()
+    email = post_form_dict.get('email', '').lower().strip()
+    password = post_form_dict.get('password', '').strip()
+    resp_dict = {
+        'email': email,
+        'password': password,
+    }
+
+    # Validate required fields
+    empty_reg_fields = [
+        name for name, value in resp_dict.items() if not value]
+    if empty_reg_fields:
+        resp_dict['error'] = (
+            f'{empty_reg_fields} are empty, but should be filled to '
+            f'pass the login procedure.')
+        return resp_dict
+
+    # Validate user existing
+    user = user_service.get_user(email, password)
+    if not user:
+        # Do not check exact error due to sec purposes
+        resp_dict['error'] = (
+            f'The account does not exist or the password is wrong.')
+        return resp_dict
+
+    #TODO: login in browser as a session
+    return flask.redirect('/account')
 
 
 # ################### LOGOUT #################################

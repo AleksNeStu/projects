@@ -250,7 +250,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
   the world’s most popular front-end open source toolkit, featuring Sass
   variables and mixins, responsive grid system, extensive prebuilt components,
   and powerful JavaScript plugins. \
-  [Get Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/download/)
+  [Get Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/download/) \
+  [Buttons](https://getbootstrap.com/docs/4.0/components/buttons/) \ 
 
   **Alternatives:**
     - https://github.com/semantic-org/semantic-ui

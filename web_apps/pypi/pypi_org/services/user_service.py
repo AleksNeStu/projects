@@ -12,12 +12,18 @@ def get_users() -> orm.Query:
         return session.query(User)
 
 
-def get_user(email: str, users: orm.Query = None) -> Optional[User]:
+def get_user(email: str, password: str = None,
+             users: orm.Query = None) -> Optional[User]:
     users = users or get_users()
-    res = users.filter(User.email == email).first()
+    user = users.filter(User.email == email).first()
+    if (password and
+            user and
+            not data_utils.is_hash_correct(user.hashed_password, password)):
+        return
+
     users.session.close()
 
-    return res
+    return user
 
 def create_user(name: str, email: str, password: str) -> Optional[User]:
     if get_user(email=email):
@@ -25,12 +31,12 @@ def create_user(name: str, email: str, password: str) -> Optional[User]:
 
     with db_session.create_session() as session:
         pass_hash = data_utils.to_hash(password)
-        u = User(
+        user = User(
             name=name,
             email=email,
             hashed_password=pass_hash
         )
-        session.add(u)
+        session.add(user)
         session.commit()
 
-    return u
+    return user
