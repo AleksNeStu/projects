@@ -5,7 +5,7 @@ from alembic import command
 from alembic import config
 
 # add_module_to_sys_path
-from migrations.alembic import utils as alembic_utils
+from migrations import utils as migrations_utils
 
 directory = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..'))
@@ -16,7 +16,7 @@ import data.db_session as db_session
 
 def run():
     alembic_cfg = config.Config(settings.ALEMBIC_INI)
-    if not alembic_utils.is_current_rev_is_latest():
+    if not migrations_utils.is_current_rev_is_latest():
         command.upgrade(alembic_cfg, 'head')
 
 

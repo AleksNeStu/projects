@@ -65,5 +65,3 @@ def get_models(outfile: Optional[str] = None) -> List[codegen.Model]:
         code_generator.render(outfile)
 
     return code_generator.models
-    
-get_models('go.py')

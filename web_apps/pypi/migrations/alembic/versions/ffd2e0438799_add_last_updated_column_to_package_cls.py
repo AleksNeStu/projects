@@ -11,10 +11,10 @@ import os
 import sqlalchemy as sa
 from alembic import op
 
-# from migrations.alembic import utils as alembic_utils
-alembic_utils = imp.load_package(
+# from migrations import utils as migrations_utils
+migrations_utils = imp.load_package(
     'utils', os.path.abspath(os.path.join(
-        os.path.dirname(__file__), '..', 'utils.py')))
+        os.path.dirname(__file__), '../..', 'utils.py')))
 
 # revision identifiers, used by Alembic.
 revision = 'ffd2e0438799'
@@ -26,7 +26,7 @@ TABLE, COLUMN = 'packages', 'last_updated_date'
 
 
 def upgrade():
-    if not alembic_utils.table_has_column(TABLE, COLUMN):
+    if not migrations_utils.table_has_column(TABLE, COLUMN):
         op.add_column(TABLE,
                       sa.Column(COLUMN, sa.DateTime(),
                                 nullable=True))
@@ -35,7 +35,7 @@ def upgrade():
 
 
 def downgrade():
-    if not alembic_utils.table_has_column(TABLE, COLUMN):
+    if not migrations_utils.table_has_column(TABLE, COLUMN):
         op.drop_index(op.f('ix_packages_last_updated_date'),
                       table_name=TABLE)
         op.drop_column(TABLE, COLUMN)
