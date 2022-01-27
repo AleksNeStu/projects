@@ -64,7 +64,7 @@ def register_post():
         return resp_dict
 
     resp = flask.redirect('/account')
-    auth.set_auth_cookie_to_resp(resp, user.id)
+    auth.set_auth_cookie(resp, user.id)
 
     return resp
 
@@ -107,7 +107,7 @@ def login_post():
         return resp_dict
 
     resp = flask.redirect('/account')
-    auth.set_auth_cookie_to_resp(resp, user.id)
+    auth.set_auth_cookie(resp, user.id)
 
     return resp
 
@@ -115,4 +115,7 @@ def login_post():
 # ################### LOGOUT #################################
 @blueprint.route('/account/logout')
 def logout():
-    return {}
+    resp = flask.redirect('/')
+    auth.del_auth_cookie(resp)
+
+    return resp
