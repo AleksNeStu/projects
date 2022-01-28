@@ -40,20 +40,18 @@ def register_get():
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    req: flask.Request = flask.request
+    req_data = request_data()
 
     # <input type="text" class="form-control" placeholder=" Email"
     #  name="email" value="{{ email }}">
     # key: name attribute of input tag
     # value: email = post_form_dict.get('email', '') post data from end user (filed via UI)
     # value_resp: value_got (email) returned
-    post_form: ImmutableMultiDict = req.form
     # ImmutableMultiDict([('name', '_n'), ('email', '_e'), ('password', '_p ')])
-    post_form_dict: dict = post_form.to_dict()
     # {'name': '_n', 'email': '_e', 'password': '_p'}
-    name = post_form_dict.get('name', '')
-    email = post_form_dict.get('email', '').lower().strip()
-    password = post_form_dict.get('password', '').strip()
+    name = req_data.name
+    email = req_data.email.lower().strip()
+    password = req_data.password.strip()
     resp_dict = {
         'name': name,
         'email': email,
@@ -95,11 +93,8 @@ def login_get():
 def login_post():
     req_data = request_data()
 
-    req: flask.Request = flask.request
-    post_form: ImmutableMultiDict = req.form
-    post_form_dict: dict = post_form.to_dict()
-    email = post_form_dict.get('email', '').lower().strip()
-    password = post_form_dict.get('password', '').strip()
+    email = req_data.email.lower().strip()
+    password = req_data.password.strip()
     resp_dict = {
         'email': email,
         'password': password,

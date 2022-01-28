@@ -7,8 +7,12 @@ import sys
 
 
 class DictToObj(dict):
+    def __init__(self, *args, default_val='', **kwargs):
+        self.default_val = default_val
+        super().__init__(*args, **kwargs)
+
     def __getattr__(self, key):
-        return self.get(key)
+        return self.get(key, self.default_val)
 
 
 def import_modules(file, name, w_classes=True):

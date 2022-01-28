@@ -3,6 +3,7 @@ from typing import Optional
 
 import flask
 
+from infra.request_mod import request_data
 from utils import py as py_utils
 from utils import sec as sec_utils
 
@@ -25,8 +26,9 @@ def del_auth_cookie(response: flask.Response):
 
 
 def get_user_id_from_cookies(request: flask.Request) -> Optional[int]:
-    auth_cookie_val = request.cookies.get(_AUTH_COOKIE_KEY)
-
+    req_data = request_data(request)
+    # auth_cookie_val = request.cookies.get(_AUTH_COOKIE_KEY)
+    auth_cookie_val = req_data.pypi_user
     if not auth_cookie_val:
         logging.warning("No user id in cookies")
         return
