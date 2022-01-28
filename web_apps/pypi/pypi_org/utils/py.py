@@ -6,6 +6,11 @@ from pkgutil import iter_modules
 import sys
 
 
+class DictToObj(dict):
+    def __getattr__(self, key):
+        return self.get(key)
+
+
 def import_modules(file, name, w_classes=True):
     # Iterate through the modules in the current package
     imported_modules = {}

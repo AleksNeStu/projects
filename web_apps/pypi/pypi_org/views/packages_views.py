@@ -1,6 +1,6 @@
 import flask
 
-from infra.view_modifiers import response
+from infra.response_mod import response
 from services import package_service
 
 blueprint = flask.Blueprint('packages', __name__, template_folder='templates')

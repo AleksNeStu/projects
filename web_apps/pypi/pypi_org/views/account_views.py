@@ -3,7 +3,7 @@ import flask
 from werkzeug.datastructures import ImmutableMultiDict
 
 from infra import auth
-from infra.view_modifiers import response
+from infra.response_mod import response
 from services import user_service
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
