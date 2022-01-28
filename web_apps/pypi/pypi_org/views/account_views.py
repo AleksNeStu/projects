@@ -14,15 +14,20 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @response(template_file='account/index.html')
 def index():
     r: flask.Request = flask.request
+    # No user auth cookies
     user_id = auth.get_user_id_from_cookies(r)
     if not user_id:
         return flask.redirect('/account/login')
 
+    # User id from auth cookies not in DB
     user = user_service.get_user_by_id(user_id)
     if not user:
         return flask.redirect('/account/login')
 
-    return {'user': user}
+    return {
+        'user': user,
+        'user_id': user.id, # identify user logged to app
+    }
 
 
 # REG
