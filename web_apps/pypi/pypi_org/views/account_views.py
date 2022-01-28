@@ -3,6 +3,7 @@ import flask
 from werkzeug.datastructures import ImmutableMultiDict
 
 from infra import auth
+from infra.request_mod import request_data
 from infra.response_mod import response
 from services import user_service
 
@@ -92,6 +93,8 @@ def login_get():
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
+    req_data = request_data()
+
     req: flask.Request = flask.request
     post_form: ImmutableMultiDict = req.form
     post_form_dict: dict = post_form.to_dict()
