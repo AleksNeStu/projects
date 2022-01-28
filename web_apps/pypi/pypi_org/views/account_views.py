@@ -13,9 +13,9 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    r: flask.Request = flask.request
+    req: flask.Request = flask.request
     # No user auth cookies
-    user_id = auth.get_user_id_from_cookies(r)
+    user_id = auth.get_user_id_from_cookies(req)
     if not user_id:
         return flask.redirect('/account/login')
 
@@ -26,7 +26,6 @@ def index():
 
     return {
         'user': user,
-        'user_id': user.id, # identify user logged to app
     }
 
 
@@ -40,14 +39,14 @@ def register_get():
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    r: flask.Request = flask.request
+    req: flask.Request = flask.request
 
     # <input type="text" class="form-control" placeholder=" Email"
     #  name="email" value="{{ email }}">
     # key: name attribute of input tag
     # value: email = post_form_dict.get('email', '') post data from end user (filed via UI)
     # value_resp: value_got (email) returned
-    post_form: ImmutableMultiDict = r.form
+    post_form: ImmutableMultiDict = req.form
     # ImmutableMultiDict([('name', '_n'), ('email', '_e'), ('password', '_p ')])
     post_form_dict: dict = post_form.to_dict()
     # {'name': '_n', 'email': '_e', 'password': '_p'}
@@ -93,8 +92,8 @@ def login_get():
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
-    r: flask.Request = flask.request
-    post_form: ImmutableMultiDict = r.form
+    req: flask.Request = flask.request
+    post_form: ImmutableMultiDict = req.form
     post_form_dict: dict = post_form.to_dict()
     email = post_form_dict.get('email', '').lower().strip()
     password = post_form_dict.get('password', '').strip()

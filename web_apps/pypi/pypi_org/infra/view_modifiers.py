@@ -5,8 +5,10 @@ import flask
 import werkzeug
 import werkzeug.wrappers
 
+from infra import auth
 
-def response(*, mimetype: str = None, template_file: str = None):
+
+def response(*, mimetype: str = None, template_file: str = None, **kwargs):
     def response_inner(func):
         logging.info("Wrapping in response func: {}".format(func.__name__))
 
@@ -21,8 +23,15 @@ def response(*, mimetype: str = None, template_file: str = None):
                 return resp_val
 
             is_resp_val_dict = isinstance(resp_val, dict)
-            model = dict(resp_val) if is_resp_val_dict else dict()
+            if is_resp_val_dict:
+                resp_val.update(kwargs)
+
+            model = resp_val if resp_val else {}
+
             if template_file:
+                # set user_id param from cookies to every template for auth purposes
+                req = flask.request
+                resp_val['user_id'] = auth.get_user_id_from_cookies(req)
                 if is_resp_val_dict:
                     resp_val = flask.render_template(
                         template_file, **resp_val)
