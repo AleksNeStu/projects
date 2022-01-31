@@ -1,6 +1,8 @@
 """Flask application run."""
 import logging
 import os
+from smtplib import SMTPNotSupportedError
+from ssl import SSLError
 
 import flask
 import sys
@@ -24,16 +26,14 @@ app = flask.Flask(__name__)
 # appmap = AppmapFlask(app)
 
 # CFG
-flask_cfg = app.config
 # flask_cfg.from_pyfile('settings.py') # no needed 'flask.py'
-flask_cfg.update({
+app.config.update({
     **settings.FLASK_ENV_CFG,
     **settings.FLASK_SEC_ENV_CFG
 })
 
-# Mail
-from flask_mail import Mail
-
+# MAIL
+from flask_mail import Mail, Message
 mail = Mail(app)
 #  If multiple applications running in the same process but with different
 #  configuration options.
@@ -50,6 +50,7 @@ def main():
     register_blueprints()
     setup_db()
     all_db_models = generate_all_db_models()
+    execute_flask_test_options()
     app.run(port=5000, debug=True)
 
 
@@ -77,6 +78,28 @@ def generate_all_db_models():
     db_models = migrations_utils.get_models(os.path.join(
         os.path.dirname(__file__), 'data', 'generated_all_db_models.py'))
     return db_models
+
+def execute_flask_test_options():
+    if settings.EXECUTE_FLASK_TEST_OPTIONS:
+        send_emails()
+
+def send_emails():
+    with app.app_context():
+        msg = Message(
+            subject='Test message from pypi_org demo web app',
+            sender=app.config.get('MAIL_USERNAME'),
+            recipients=[
+                'email1@gmail.com',
+            ],
+            body='Hi bro:) It\'s Test message from pypi_org demo web app.'
+        )
+        msg.add_recipient("email2@gmail.com")
+        # smtplib.SMTPNotSupportedError: STARTTLS extension not supported by server.
+        # [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:997)"
+        try:
+            mail.send(msg)
+        except (SMTPNotSupportedError, SSLError) as err:
+            logging.error(f'Email was not send due to "{err}"')
 
 
 if __name__ in ('__main__', 'pypi_org.app'):
