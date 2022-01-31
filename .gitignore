@@ -116,6 +116,7 @@ node_modules
 generated_all_db_models.py
 secret/*
 *.sec
+.sec
 
 # Spyder project settings
 .spyderproject
