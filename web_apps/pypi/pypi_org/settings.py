@@ -1,5 +1,6 @@
 import os
 from utils import db as db_utils
+import dotenv
 
 # APP
 APP_ROOT_DIR = os.getenv('APP_ROOT_DIR', os.path.dirname(__file__))
@@ -7,11 +8,17 @@ PROJECT_ROOT_DIR = os.getenv(
     'PROJECT_ROOT_DIR', os.path.join(APP_ROOT_DIR, '../'))
 ALEMBIC_INI = os.getenv(
     'ALEMBIC_INI', os.path.join(PROJECT_ROOT_DIR, 'alembic.ini'))
+LOCAL_ENV_PATH = os.getenv(
+    'LOCAL_ENV_PATH', os.path.join(PROJECT_ROOT_DIR, 'configs/local.env'))
+FLASK_ENV_PATH = os.getenv(
+    'FLASK_ENV_PATH', os.path.join(PROJECT_ROOT_DIR, 'configs/flask.env'))
+# Get dict of vars from .env and set to LOCAL_ENV_PATH.py
+LOCAL_ENV_CFG = dotenv.dotenv_values(LOCAL_ENV_PATH)
+locals().update(LOCAL_ENV_CFG)
+# for k, v in LOCAL_ENV_CFG.items():
+#     exec(k + '=v')
 # Make .env vars like os vars
-ENV_PATH = os.getenv(
-    'ENV_PATH', os.path.join(PROJECT_ROOT_DIR, 'configs/local.env'))
-from dotenv import load_dotenv
-load_dotenv(dotenv_path=ENV_PATH)
+dotenv.load_dotenv(LOCAL_ENV_PATH)
 
 # FLASK
 FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
