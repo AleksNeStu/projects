@@ -13,6 +13,7 @@ from migrations import utils as migrations_utils
 from utils import py as py_utils
 
 app = flask.Flask(__name__)
+# APPMAP
 #TODO: Fix an error if APPMAP=true and try to rec remote or local session
 # ```
 # File "projects/web_apps/pypi/.venv/lib/python3.10/site-packages/appmap/_implementation/recording.py", line 254, in do_import
@@ -21,6 +22,24 @@ app = flask.Flask(__name__)
 # ```
 # from appmap.flask import AppmapFlask
 # appmap = AppmapFlask(app)
+
+# CFG
+flask_cfg = app.config
+# flask_cfg.from_pyfile('settings.py') # no needed 'flask.py'
+flask_cfg.update({
+    **settings.FLASK_ENV_CFG,
+    **settings.FLASK_SEC_ENV_CFG
+})
+
+# Mail
+from flask_mail import Mail
+
+mail = Mail(app)
+#  If multiple applications running in the same process but with different
+#  configuration options.
+# mail = Mail()
+# app = Flask(__name__)
+# mail.init_app(app)
 
 def main():
     # Logging
