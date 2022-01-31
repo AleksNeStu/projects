@@ -1,10 +1,5 @@
 import os
-
 from utils import db as db_utils
-
-
-# FLASK
-FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
 
 # APP
 APP_ROOT_DIR = os.getenv('APP_ROOT_DIR', os.path.dirname(__file__))
@@ -12,6 +7,14 @@ PROJECT_ROOT_DIR = os.getenv(
     'PROJECT_ROOT_DIR', os.path.join(APP_ROOT_DIR, '../'))
 ALEMBIC_INI = os.getenv(
     'ALEMBIC_INI', os.path.join(PROJECT_ROOT_DIR, 'alembic.ini'))
+# Make .env vars like os vars
+ENV_PATH = os.getenv(
+    'ENV_PATH', os.path.join(PROJECT_ROOT_DIR, 'configs/local.env'))
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=ENV_PATH)
+
+# FLASK
+FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
 
 # DB
 DB_NAME = os.getenv('DB_NAME', 'pypi_org')
