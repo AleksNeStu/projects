@@ -4,15 +4,16 @@ import sys
 from alembic import command
 from alembic import config
 
-# add_module_to_sys_path
-from migrations import utils as migrations_utils
-
 directory = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, directory)
-
 import settings
 import data.db_session as db_session
+
+directory = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.insert(0, directory)
+from migrations import utils as migrations_utils
 
 def run():
     alembic_cfg = config.Config(settings.ALEMBIC_INI)

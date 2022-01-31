@@ -13,7 +13,14 @@ from migrations import utils as migrations_utils
 from utils import py as py_utils
 
 app = flask.Flask(__name__)
-
+#TODO: Fix an error if APPMAP=true and try to rec remote or local session
+# ```
+# File "projects/web_apps/pypi/.venv/lib/python3.10/site-packages/appmap/_implementation/recording.py", line 254, in do_import
+# mod = args[0]
+# IndexError: tuple index out of range
+# ```
+# from appmap.flask import AppmapFlask
+# appmap = AppmapFlask(app)
 
 def main():
     # Logging

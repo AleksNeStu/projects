@@ -1,6 +1,6 @@
 import os
 
-from pypi_org.utils import db as db_utils
+from utils import db as db_utils
 
 
 # FLASK

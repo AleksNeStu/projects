@@ -165,6 +165,23 @@ a) sqlite3.ProgrammingError in IDE debug mode
 6) **APP:**\
 - In case flask app is executed in debug mode, then adding new model cls will automatically reflect the changes to DB without involving alembic migration revision.
 
+7) **Utils:**\
+  [appmap](https://plugins.jetbrains.com/plugin/16701-appmap) \
+   AppMap is a free and open source visualization tool that allows you to see how your software works as it’s running.
+  a) [Install AppMap for IDE](https://plugins.jetbrains.com/plugin/16701-appmap) \ 
+  b) [Install the AppMap agent for Python](https://appland.com/docs/quickstart/pycharm/step-1) \
+  ```sh
+  npx @appland/appmap install-agent
+  ? AppMap is about to be installed. Confirm the details below.
+  Project type: poetry
+  Project directory: projects/web_apps/pypi
+  Git remote: origin    https://github.com/AleksNeStu/projects.git (fetch)
+  Python version: 3.10.2
+  Python package directory: projects/web_apps/pypi/.venv
+  c) [Record AppMaps](https://appland.com/docs/quickstart/pycharm/step-3) \
+    - [via tests](https://appland.com/docs/quickstart/pycharm/step-3-tests) \
+    - [remote](https://appland.com/docs/quickstart/pycharm/step-3-remote) \
+  ```   
 ## Tech-stack
 
 <p align="center">
