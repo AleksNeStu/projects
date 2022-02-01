@@ -18,6 +18,9 @@ FLASK_ENV_PATH = os.getenv(
 FLASK_SEC_ENV_PATH = os.getenv(
     'FLASK_SEC_ENV_PATH', os.path.join(
         PROJECT_ROOT_DIR, 'configs/flask.env.sec'))
+FLASK_SEC_ENV_PATH_ME = os.getenv(
+    'FLASK_SEC_ENV_PATH_ME', os.path.join(
+        PROJECT_ROOT_DIR, 'configs/flask.env.sec.me'))
 # LOCAL_ENV_CFG
 # Get dict of vars from .env and set to LOCAL_ENV_PATH.py
 LOCAL_ENV_CFG = dotenv.dotenv_values(LOCAL_ENV_PATH)
@@ -30,6 +33,7 @@ dotenv.load_dotenv(LOCAL_ENV_PATH)
 # FLASK_ENV_CFG
 FLASK_ENV_CFG = dotenv.dotenv_values(FLASK_ENV_PATH)
 FLASK_SEC_ENV_CFG = dotenv.dotenv_values(FLASK_SEC_ENV_PATH)
+FLASK_SEC_ENV_CFG_ME = dotenv.dotenv_values(FLASK_SEC_ENV_PATH_ME)
 
 # DB
 DB_NAME = os.getenv('DB_NAME', 'pypi_org')

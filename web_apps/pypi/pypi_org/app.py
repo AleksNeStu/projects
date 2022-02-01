@@ -99,6 +99,7 @@ def updaet_cfg():
     app_cfg.update({
         **settings.FLASK_ENV_CFG,
         **settings.FLASK_SEC_ENV_CFG
+        **settings.FLASK_SEC_ENV_CFG_ME
     })
 
 def add_appmap():
