@@ -114,10 +114,7 @@ venv.bak/
 node_modules
 #db
 generated_all_db_models.py
-secret/*
-*.sec
-.sec
-flask.env.sec
+flask.env.sec.me
 
 # Spyder project settings
 .spyderproject
