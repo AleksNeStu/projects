@@ -206,6 +206,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
   getting started quick and easy, with the ability to scale up to complex
   applications. It began as a simple wrapper around Werkzeug and Jinja and has
   become one of the most popular Python web application frameworks. \
+  Flask is better for quick development use cases and is perfect for prototyping.
+  It is apt for developing microservices or serverless applications. \
   [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/) \
   [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html) \
   `FLASK_DEBUG=1` - auto-reload the flask app when a code change happens
@@ -216,6 +218,13 @@ a) sqlite3.ProgrammingError in IDE debug mode
   [flask-admin](https://github.com/flask-admin/flask-admin) \
   [Flask-AppBuilder](https://github.com/dpgaspar/Flask-AppBuilder) \
   [Flask-Social](https://github.com/mattupstate/flask-social/) \
+  [WTForms](https://github.com/wtforms/flask-wtf/) \
+  [Flask-MongoEngine](https://github.com/MongoEngine/flask-mongoengine) \ 
+  **API:**
+  https://flask-restful.readthedocs.io/en/latest/
+  https://flask-restx.readthedocs.io/en/latest/
+  https://github.com/zalando/connexion
+  [Flask-DebugToolbar](https://flask-debugtoolbar.readthedocs.io/en/latest/) \
 
 - [Werkzeug](https://github.com/pallets/werkzeug) \
   Werkzeug is a comprehensive WSGI web application library. It began as a

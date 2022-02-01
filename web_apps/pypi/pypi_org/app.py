@@ -140,6 +140,9 @@ def add_admin():
 
     return admin
 
+def add_debug_toolbar():
+    pass
+
 
 if __name__ in ('__main__', 'pypi_org.app'):
     main()

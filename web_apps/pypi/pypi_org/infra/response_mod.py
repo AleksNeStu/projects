@@ -29,6 +29,8 @@ def response(*, mimetype: str = None, template_file: str = None, **kwargs):
             model = resp_val if resp_val else {}
 
             if template_file:
+                # TODO: consider flask session
+                # https://pythonise.com/series/learning-flask/flask-session-object
                 # set user_id param from cookies to every template for auth purposes
                 req = flask.request
                 resp_val['user_id'] = auth.get_user_id_from_cookies(req)

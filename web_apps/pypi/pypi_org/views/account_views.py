@@ -1,6 +1,6 @@
 #TODO: Refactor the same code parts
+#TODO: Consider Flask-WTF
 import flask
-from werkzeug.datastructures import ImmutableMultiDict
 
 from infra import auth
 from infra.request_mod import request_data
