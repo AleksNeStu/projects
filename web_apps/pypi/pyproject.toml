@@ -28,6 +28,7 @@ python-dotenv = "^0.19.2"
 Flask-Sijax = "^0.4.1"
 requests = "^2.27.1"
 Flask-Admin = "^1.6.0"
+Flask-DebugToolbar = "^0.11.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

@@ -3,6 +3,7 @@ import logging
 import os
 
 import flask
+import flask_debugtoolbar
 import flask_mail
 import sys
 
@@ -31,6 +32,7 @@ def main():
     add_sijax()
     email = add_email()
     admin = add_admin()
+    toolbar = add_debug_toolbar()
 
     run_actions()
 
@@ -98,8 +100,8 @@ def updaet_cfg():
     # flask_cfg.from_pyfile('settings.py') # no needed 'flask.py'
     app_cfg.update({
         **settings.FLASK_ENV_CFG,
-        **settings.FLASK_SEC_ENV_CFG
-        **settings.FLASK_SEC_ENV_CFG_ME
+        **settings.FLASK_SEC_ENV_CFG,
+        **settings.FLASK_SEC_ENV_CFG_ME,
     })
 
 def add_appmap():
@@ -142,7 +144,8 @@ def add_admin():
     return admin
 
 def add_debug_toolbar():
-    pass
+    toolbar = flask_debugtoolbar.DebugToolbarExtension(app)
+    return toolbar
 
 
 if __name__ in ('__main__', 'pypi_org.app'):
