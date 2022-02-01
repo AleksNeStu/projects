@@ -1,6 +1,7 @@
 import flask
 import flask_sijax
 
+from infra.request_mod import request_data
 from infra.response_mod import response
 from services import package_service, release_service, user_service
 
@@ -16,6 +17,14 @@ def index():
             'SIJAX', lambda resp: resp.alert('SIJAX'))
         return flask.g.sijax.process_request()
     # sijax example
+
+    # get query string example
+    req = flask.request
+    req_data = request_data(req)
+    # DONOT uncomment to avoid loop back
+    # requests.get('http://localhost:5000/?arg1=val1&arg2=val2')
+    # req_data.arg1, req_data.arg2
+    # get query string example
 
     packages = package_service.get_packages()
     latest_packages = package_service.get_latest_packages(3, packages)
