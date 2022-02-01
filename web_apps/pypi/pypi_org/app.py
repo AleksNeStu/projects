@@ -127,13 +127,16 @@ def add_sijax():
     flask_sijax.Sijax(app)
 
 
+# http://localhost:5000/admin/audit/
 def add_admin():
     import flask_admin
     from flask_admin.contrib.sqla import ModelView
     admin = flask_admin.Admin(
         app, name='pypi_org', template_mode='bootstrap3')
-    # admin.add_view(ModelView(User, db.session))
-    # admin.add_view(ModelView(Post, db.session))
+
+    from data.models.audit import Audit
+    with db_session.create_session() as session:
+        admin.add_view(ModelView(Audit, session))
 
     return admin
 

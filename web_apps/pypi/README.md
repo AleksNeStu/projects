@@ -215,6 +215,7 @@ a) sqlite3.ProgrammingError in IDE debug mode
   [flask-sijax](https://github.com/spantaleev/flask-sijax) \
   [flask-admin](https://github.com/flask-admin/flask-admin) \
   [Flask-AppBuilder](https://github.com/dpgaspar/Flask-AppBuilder) \
+  [Flask-Social](https://github.com/mattupstate/flask-social/) \
 
 - [Werkzeug](https://github.com/pallets/werkzeug) \
   Werkzeug is a comprehensive WSGI web application library. It began as a
