@@ -31,9 +31,6 @@ dotenv.load_dotenv(LOCAL_ENV_PATH)
 FLASK_ENV_CFG = dotenv.dotenv_values(FLASK_ENV_PATH)
 FLASK_SEC_ENV_CFG = dotenv.dotenv_values(FLASK_SEC_ENV_PATH)
 
-# FLASK
-FLASK_DEBUG = int(os.getenv('FLASK_DEBUG', 0))
-
 # DB
 DB_NAME = os.getenv('DB_NAME', 'pypi_org')
 DB_MYSQL_CLIENT = os.getenv('DB_MYSQL_CLIENT', 'mysql+mysqldb')
@@ -72,3 +69,9 @@ DB_CONNECTION = DB_CONNECTION_SQLITE
 # SQLAlchemy
 # InvalidRequestError: VARCHAR requires a length on dialect mysql
 STR_LENGTH = os.environ.get('STR_LENGTH', 255)
+
+# FLASK UPDATE
+FLASK_ENV_CFG.update({
+    'SIJAX_STATIC_PATH': os.path.join(APP_ROOT_DIR, 'static/js/sijax/'),
+    'SIJAX_JSON_URI': os.path.join(APP_ROOT_DIR, 'static/js/sijax/json2.js')
+})

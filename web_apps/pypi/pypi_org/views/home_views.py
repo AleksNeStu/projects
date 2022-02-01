@@ -1,4 +1,5 @@
 import flask
+import flask_sijax
 
 from infra.response_mod import response
 from services import package_service, release_service, user_service
@@ -6,9 +7,16 @@ from services import package_service, release_service, user_service
 blueprint = flask.Blueprint('home', __name__, template_folder='templates')
 
 
-@blueprint.route('/')
+@flask_sijax.route(blueprint, '/')
 @response(template_file='home/index.html')
 def index():
+    # sijax example
+    if flask.g.sijax.is_sijax_request:
+        flask.g.sijax.register_callback(
+            'SIJAX', lambda resp: resp.alert('SIJAX'))
+        return flask.g.sijax.process_request()
+    # sijax example
+
     packages = package_service.get_packages()
     latest_packages = package_service.get_latest_packages(3, packages)
     # releases ordered by relationship in data.models.package.Package

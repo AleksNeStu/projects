@@ -3,7 +3,6 @@ import logging
 import os
 from smtplib import SMTPNotSupportedError
 from ssl import SSLError
-
 import flask
 import sys
 
@@ -33,13 +32,18 @@ app.config.update({
 })
 
 # MAIL
-from flask_mail import Mail, Message
-mail = Mail(app)
+import flask_mail
+mail = flask_mail.Mail(app)
 #  If multiple applications running in the same process but with different
 #  configuration options.
 # mail = Mail()
 # app = Flask(__name__)
 # mail.init_app(app)
+
+# SIJAX
+import flask_sijax
+flask_sijax.Sijax(app)
+
 
 def main():
     # Logging
@@ -85,7 +89,7 @@ def execute_flask_test_options():
 
 def send_emails():
     with app.app_context():
-        msg = Message(
+        msg = flask_mail.Message(
             subject='Test message from pypi_org demo web app',
             sender=app.config.get('MAIL_USERNAME'),
             recipients=[

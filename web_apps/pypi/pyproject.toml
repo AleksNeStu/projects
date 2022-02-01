@@ -25,6 +25,7 @@ sqlacodegen = "^2.3.0"
 pytest = "^6.2.5"
 Flask-Mail = "^0.9.1"
 python-dotenv = "^0.19.2"
+Flask-Sijax = "^0.4.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
