@@ -117,6 +117,7 @@ generated_all_db_models.py
 secret/*
 *.sec
 .sec
+flask.env.sec
 
 # Spyder project settings
 .spyderproject
