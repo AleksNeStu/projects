@@ -1,6 +1,6 @@
 import flask
 import flask_sijax
-
+from jinja2 import Template
 from infra.request_mod import request_data
 from infra.response_mod import response
 from services import package_service, release_service, user_service
@@ -61,3 +61,22 @@ def index():
 def about():
     return {}
     # return flask.render_template('home/about.html')
+
+# # http://exploreflask.com/en/latest/views.html
+# @blueprint.route('/examples/<string:param1>/<int:param2>/')
+# @response(template_file=Template(
+#     'Examples response params: {{ param1, param2 }}'))
+# def examples(param1: str, param2: int):
+#     return {
+#         'param1': param1,
+#         'param2': param2,
+#     }
+
+# http://exploreflask.com/en/latest/views.html
+@blueprint.route('/examples/<string:param1>/<int:param2>/')
+@response(template_file='home/examples.html')
+def examples(param1: str, param2: int):
+    return {
+        'param1': param1,
+        'param2': param2,
+    }
