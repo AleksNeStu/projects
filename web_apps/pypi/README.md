@@ -210,8 +210,11 @@ a) sqlite3.ProgrammingError in IDE debug mode
   [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html) \
   `FLASK_DEBUG=1` - auto-reload the flask app when a code change happens
   `FLASK_DEBUG=0` - to debug via IDE instead of seeing stacktrace in browser \
-  [Flask 2 time run issue](https://stackoverflow.com/questions/25504149/why-does-running-the-flask-dev-server-run-itself-twice)
-
+  [Flask 2 time run issue](https://stackoverflow.com/questions/25504149/why-does-running-the-flask-dev-server-run-itself-twice) \
+  [flask-mail](https://github.com/mattupstate/flask-mail) \
+  [flask-sijax](https://github.com/spantaleev/flask-sijax) \
+  [flask-admin](https://github.com/flask-admin/flask-admin) \
+  [Flask-AppBuilder](https://github.com/dpgaspar/Flask-AppBuilder) \
 
 - [Werkzeug](https://github.com/pallets/werkzeug) \
   Werkzeug is a comprehensive WSGI web application library. It began as a
