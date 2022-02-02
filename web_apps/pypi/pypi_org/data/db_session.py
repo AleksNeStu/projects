@@ -55,7 +55,8 @@ def create_session() -> orm.Session:
         global_init(settings.DB_CONNECTION)
 
     session: Session = __session()
-    # is not bound to a Session error
+    # views.account_views.register_post
+    # sqlalchemy.orm.exc.DetachedInstanceError: Instance <User at 0x7f5dc0a5afe0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/14/bhk3)
     session.expire_on_commit = False
 
     return session

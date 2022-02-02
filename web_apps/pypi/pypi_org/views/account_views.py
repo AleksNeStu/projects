@@ -39,22 +39,23 @@ def register_get():
 # Action method
 def register_post():
     # View method
-    vm = RegisterViewModel()
-    vm.validate()
+    vm = RegisterViewModel() # Imlicit request usage infra.request_mod.request_data
+    # Get user from DB
+    vm.validate() # Pull from request.form
 
     if vm.errors:
         return vm.to_dict()
 
-    # Create a new user
-    user = user_service.create_user(vm.name, vm.email, vm.password)
-    if not user:
-        #TODO: Add reason desc
-        vm.errors.append('The account can not be created. ')
+    try:
+        # Create a new user
+        vm.user = user_service.create_user(vm.name, vm.email, vm.password)
+        # vm.user_session.login(vm.user.id) # Implicit response.set_cookies()
+    except Exception as err:
+        vm.errors.append(f'The account can not be created. Reason: "{err}". ')
         return vm.to_dict()
 
-    # sqlalchemy.orm.exc.DetachedInstanceError: Instance <User at 0x7f5dc0a5afe0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/14/bhk3)
     resp = flask.redirect('/account')
-    auth.set_auth_cookie(resp, user.id)
+    auth.set_auth_cookie(resp, vm.user.id)
 
     return resp
 
