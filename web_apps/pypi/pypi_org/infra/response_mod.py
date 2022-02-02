@@ -32,8 +32,7 @@ def response(*, mimetype: str = None, template_file: str = None, **kwargs):
                 # TODO: consider flask session
                 # https://pythonise.com/series/learning-flask/flask-session-object
                 # set user_id param from cookies to every template for auth purposes
-                req = flask.request
-                resp_val['user_id'] = auth.get_user_id_from_cookies(req)
+                resp_val['user_id'] = auth.get_user_id_from_cookies()
                 if is_resp_val_dict:
                     resp_val = flask.render_template(
                         template_file, **resp_val)

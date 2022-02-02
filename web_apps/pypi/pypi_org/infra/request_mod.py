@@ -1,11 +1,14 @@
+from typing import Optional
+
 import flask
+from flask import Request
 from werkzeug.datastructures import MultiDict, CombinedMultiDict
 
 from utils.py import DictToObj
 
 
-def request_data(request=None, default_val='', **route_kwargs) -> DictToObj:
-    req = request or flask.request
+def request_data(req: Optional[Request] = None, default_val='', **route_kwargs) -> DictToObj:
+    req = req or flask.request
     data_src = [req.args, req.headers, req.cookies, req.form, route_kwargs]
     # args:  The key/value pairs in the URL query string
     # headers: Header items

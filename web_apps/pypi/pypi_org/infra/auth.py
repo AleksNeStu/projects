@@ -2,6 +2,7 @@ import logging
 from typing import Optional
 
 import flask
+from flask import Request
 
 from infra.request_mod import request_data
 from utils import py as py_utils
@@ -11,22 +12,23 @@ _AUTH_COOKIE_KEY = 'pypi_user'
 _AUTH_COOKIE_VAL_FORMAT = "{}:::{}" # user_id, user_hash
 
 
-def set_auth_cookie(response: flask.Response, user_id: int):
+def set_auth_cookie(resp: flask.Response, user_id: int):
     user_hash = sec_utils.txt_to_hash(str(user_id))
     auth_cookie_val = _AUTH_COOKIE_VAL_FORMAT.format(user_id, user_hash)
     # response.headers._list
     # ('Set-Cookie', 'pypi_user=86:::HASH; HttpOnly; Path=/; SameSite=Lax')]
-    response.set_cookie(
+    resp.set_cookie(
         key=_AUTH_COOKIE_KEY, value=auth_cookie_val, secure=False,
         httponly=True, samesite='Lax')
 
 
-def del_auth_cookie(response: flask.Response):
-    response.delete_cookie(_AUTH_COOKIE_KEY)
+def del_auth_cookie(resp: flask.Response):
+    resp.delete_cookie(_AUTH_COOKIE_KEY)
 
 
-def get_user_id_from_cookies(request: flask.Request) -> Optional[int]:
-    req_data = request_data(request)
+def get_user_id_from_cookies(req: Optional[Request] = None) -> Optional[int]:
+    req = req or flask.request
+    req_data = request_data(req)
     # auth_cookie_val = request.cookies.get(_AUTH_COOKIE_KEY)
     auth_cookie_val = req_data.pypi_user
     if not auth_cookie_val:

@@ -6,6 +6,7 @@ from infra import auth
 from infra.request_mod import request_data
 from infra.response_mod import response
 from services import user_service
+from viewmodels.account.index_viewmodel import IndexViewModel
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -14,20 +15,15 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    req: flask.Request = flask.request
+    vm = IndexViewModel()
     # No user auth cookies
-    user_id = auth.get_user_id_from_cookies(req)
-    if not user_id:
+    if not vm.user_id:
         return flask.redirect('/account/login')
-
     # User id from auth cookies not in DB
-    user = user_service.get_user_by_id(user_id)
-    if not user:
+    if not vm.user:
         return flask.redirect('/account/login')
 
-    return {
-        'user': user,
-    }
+    return vm.to_dict()
 
 
 # REG
