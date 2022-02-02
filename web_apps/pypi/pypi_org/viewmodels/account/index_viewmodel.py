@@ -10,5 +10,5 @@ class IndexViewModel(ViewModelBase):
     def validate(self):
         if not self.user_id:
             self.errors.append('No user id. ')
-        if not self.user:
+        if self.user_id and not self.user:
             self.errors.append('No user. ')

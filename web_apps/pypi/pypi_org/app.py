@@ -18,9 +18,10 @@ app = flask.Flask(__name__)
 app_cfg = app.config
 email = None
 admin = None
+toolbar = None
 
 def main():
-    global admin, email
+    global admin, email, toolbar
 
     init_logging()
     updaet_cfg()
