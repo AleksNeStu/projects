@@ -6,6 +6,7 @@ from services import package_service
 blueprint = flask.Blueprint('packages', __name__, template_folder='templates')
 
 
+#TODO: Use PackageDetailsViewModel
 @blueprint.route('/project/<package_name>')
 @response(template_file='packages/details.html')
 def package_details(package_name: str):
