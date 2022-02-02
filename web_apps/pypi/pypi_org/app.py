@@ -24,34 +24,36 @@ def main(for_testing=False):
 
     init_logging()
     update_cfg()
-    register_blueprints()
+    register_blueprints(for_testing)
     setup_db()
 
+    all_db_models = generate_all_db_models()
+    add_appmap()
+    add_sijax()
+    email = add_email()
+    admin = add_admin()
+    toolbar = add_debug_toolbar()
+    run_actions()
+
     if not for_testing:
-        all_db_models = generate_all_db_models()
-        add_appmap()
-        add_sijax()
-        email = add_email()
-        admin = add_admin()
-        toolbar = add_debug_toolbar()
-
-        run_actions()
-
         app.run(port=5000, debug=True)
 
 
-def register_blueprints():
-    # from views import (
-    #     home_views, packages_views, cms_views
-    # )
-    #
-    # app.register_blueprint(home_views.blueprint)
-    # app.register_blueprint(packages_views.blueprint)
-    # app.register_blueprint(cms_views.blueprint)
-    views, _ = py_utils.import_modules(
-        'views/__init__.py', 'views', w_classes=False)
-    for view in views.values():
-        app.register_blueprint(view.blueprint)
+def register_blueprints(for_testing=False):
+    if for_testing:
+        from views import (
+            home_views, packages_views, cms_views, account_views
+        )
+        app.register_blueprint(home_views.blueprint)
+        app.register_blueprint(packages_views.blueprint)
+        app.register_blueprint(cms_views.blueprint)
+        app.register_blueprint(account_views.blueprint)
+
+    else:
+        views, _ = py_utils.import_modules(
+            'views/__init__.py', 'views', w_classes=False)
+        for view in views.values():
+            app.register_blueprint(view.blueprint)
 
 
 def setup_db():
