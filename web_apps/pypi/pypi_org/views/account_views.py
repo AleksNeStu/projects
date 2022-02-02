@@ -29,7 +29,9 @@ def index():
 @blueprint.route('/account/register', methods=['GET'])
 @response(template_file='account/register.html')
 def register_get():
-    return {}
+    vm = RegisterViewModel()
+    return vm.to_dict()
+
 
 
 @blueprint.route('/account/register', methods=['POST'])
