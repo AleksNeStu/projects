@@ -16,14 +16,14 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 @pytest.yield_fixture(scope="session")
 def flask_app():
-    flask_app = app.app
-    flask_app.config.update({
+    app.app.config.update({
         'TESTING': True,
     })
     try:
         app.main(for_testing=True)
+        app.register_blueprints()
     except Exception as err:
         logging.error(f'Error: "{err}" on try to init flask app')
         raise err
 
-    yield flask_app
+    yield app

@@ -4,7 +4,13 @@
 # Consider Flask-Testing extension
 from unittest import mock
 
+from flask import Response
+
+from data.generated_all_db_models import User
+# from tests.src.conftest import client
+
 import pytest
+import flask
 
 from viewmodels.account.register_viewmodel import RegisterViewModel
 from views.account_views import register_post
@@ -25,19 +31,31 @@ class TestRegister:
     @mock.patch('services.user_service.get_user')
     def test_valid(self, get_user_mock, form_data, flask_app):
         get_user_mock.return_value = None
+        app = flask_app.app
 
-        with flask_app.test_request_context(
+        with app.test_request_context(
                 path='/account/register', data=form_data):
+            # Test view model
             vm = RegisterViewModel()
             vm.validate()
             assert vm.errors == []
-            # TODO: add test cases
-            resp = register_post()
+
+            # Test view method
+            reg_resp = register_post()
             # resp.status_code
             # resp.location
             # resp.data
 
-            # TODO: Add tests with test_client
-        # with flask_app.test_client() as c:
-        #     resp = c.get('/?arg1=77')
-        #     assert request.args['arg1'] == '77'
+            # Test views
+            # projects/web_apps/pypi/pypi_org/data/models
+
+
+        # Integrated tests
+        with app.test_client() as client:
+            resp: Response = client.get('/')
+            assert resp.status_code == 200
+            assert b'Find, install and publish Python packages' in resp.data
+
+            resp: Response = client.get('/account')
+            assert resp.status_code == 200
+            assert resp.location == 'http://localhost/None'
