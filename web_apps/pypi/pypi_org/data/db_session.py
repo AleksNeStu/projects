@@ -5,6 +5,7 @@ import sqlalchemy as sa
 import sqlalchemy.engine as engine
 import sqlalchemy.orm as orm
 import sqlalchemy_utils as sa_utils
+from sqlalchemy.orm import Session
 
 import settings
 from data.models.modelbase import SqlAlchemyBase
@@ -53,7 +54,11 @@ def create_session() -> orm.Session:
     if not __session:
         global_init(settings.DB_CONNECTION)
 
-    return __session()
+    session: Session = __session()
+    # is not bound to a Session error
+    session.expire_on_commit = False
+
+    return session
 
 
 def create_engine() -> engine.Engine:

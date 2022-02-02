@@ -43,10 +43,11 @@ def register_post():
 
     user = user_service.create_user(vm.name, vm.email, vm.password)
     if not user:
-        # TODO: add reason why
+        # TODO: add reason
         vm.errors.append('The account can not be created.')
         return vm.to_dict()
 
+    # sqlalchemy.orm.exc.DetachedInstanceError: Instance <User at 0x7f5dc0a5afe0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/14/bhk3)
     resp = flask.redirect('/account')
     auth.set_auth_cookie(resp, user.id)
 
