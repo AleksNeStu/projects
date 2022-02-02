@@ -8,12 +8,15 @@
         <form action="" method="POST" class="account-form">
             <h1>Register at PyPi</h1>
             <input type="text" class="form-control" placeholder=" Name"
-                   name="name" value="{{ name }}">
+                   name="name" value="{{ name }}" required>
             <input type="text" class="form-control" placeholder=" Email"
-                   name="email" value="{{ email }}">
+                   name="email" value="{{ email }}" required>
             <input type="password" class="form-control"
                    placeholder=" Password" name="password"
-                   value="{{ password }}">
+                   value="{{ password }}" required>
+            <input type="text" class="form-control"
+                   placeholder=" Age in years" name="age"
+                   value="{{ age }}" >
             <button type="submit" class="btn btn-danger">Register
             </button>
 

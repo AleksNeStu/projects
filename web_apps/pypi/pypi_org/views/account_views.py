@@ -36,7 +36,9 @@ def register_get():
 
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
+# Action method
 def register_post():
+    # View method
     vm = RegisterViewModel()
     vm.validate()
 

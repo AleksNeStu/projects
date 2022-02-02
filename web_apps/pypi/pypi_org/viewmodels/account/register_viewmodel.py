@@ -1,4 +1,5 @@
 from services import user_service
+from utils.validation import is_email_valid
 from viewmodels.shared.viewmodelbase import ViewModelBase
 
 
@@ -25,12 +26,21 @@ class RegisterViewModel(ViewModelBase):
                 f'A user with an email: {self.email} is already exists.')
         else:
             # Validate required fields
+            # name
             if not self.name or not self.name.strip():
                 self.errors.append('User name is required. ')
+
+            # email
             if not self.email or not self.email.strip():
                 self.errors.append('Email is required. ')
+            elif not is_email_valid(self.email):
+                self.errors.append('Email has not valid format. ')
+            # elif not is_email_valid(self.email, check_if_email_existing=True):
+            #     self.errors.append('Email is not registered on the Internet '
+            #                        'mail servers. ')
 
+            # password
             if not self.password:
                 self.errors.append('Password is required. ')
-            if self.password and len(self.password.strip()) < 8:
+            elif len(self.password.strip()) < 8:
                 self.errors.append('Password must be at least 8 characters. ')
