@@ -348,6 +348,11 @@ a) sqlite3.ProgrammingError in IDE debug mode
 9) User input with HTML forms
 10) Server and client validation
 11) Testing
+    [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/) \
+    [WebTest](https://docs.pylonsproject.org/projects/webtest/en/latest/) \
+    [pytest-clarity](https://github.com/darrenburns/pytest-clarity) \
+    [Testing Flask Applications with Pytest](https://testdriven.io/blog/flask-pytest/) \ 
+    [Flask-Testing](https://pythonhosted.org/Flask-Testing/) \
 12) Deployment
 13) MongoDB version
 

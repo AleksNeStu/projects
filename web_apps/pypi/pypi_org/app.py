@@ -19,24 +19,25 @@ email = None
 admin = None
 toolbar = None
 
-def main():
+def main(for_testing=False):
     global admin, email, toolbar
 
     init_logging()
-    updaet_cfg()
+    update_cfg()
     register_blueprints()
     setup_db()
 
-    all_db_models = generate_all_db_models()
-    add_appmap()
-    add_sijax()
-    email = add_email()
-    admin = add_admin()
-    toolbar = add_debug_toolbar()
+    if not for_testing:
+        all_db_models = generate_all_db_models()
+        add_appmap()
+        add_sijax()
+        email = add_email()
+        admin = add_admin()
+        toolbar = add_debug_toolbar()
 
-    run_actions()
+        run_actions()
 
-    app.run(port=5000, debug=True)
+        app.run(port=5000, debug=True)
 
 
 def register_blueprints():
@@ -94,7 +95,7 @@ def init_logging():
     # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
     # logging.getLogger("sqlalchemy.pool").setLevel(logging.DEBUG)
 
-def updaet_cfg():
+def update_cfg():
     global app
     # flask_cfg.from_pyfile('settings.py') # no needed 'flask.py'
     app.config.update({
