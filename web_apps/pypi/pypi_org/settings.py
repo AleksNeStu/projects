@@ -8,6 +8,7 @@ PROJECT_ROOT_DIR = os.getenv(
     'PROJECT_ROOT_DIR', os.path.join(APP_ROOT_DIR, '../'))
 ALEMBIC_INI = os.getenv(
     'ALEMBIC_INI', os.path.join(PROJECT_ROOT_DIR, 'alembic.ini'))
+RUN_ACTIONS = bool(int(os.getenv('RUN_ACTIONS', '0')))
 
 # ENV GLOBAL INIT
 # https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux

@@ -15,7 +15,6 @@ from migrations import utils as migrations_utils
 from utils import py as py_utils
 
 app = flask.Flask(__name__)
-app_cfg = app.config
 email = None
 admin = None
 toolbar = None
@@ -71,13 +70,12 @@ def run_actions():
         send_emails(email)
 
 def send_emails(email):
-    global app_cfg
     from smtplib import SMTPNotSupportedError
     from ssl import SSLError
     with app.app_context():
         msg = flask_mail.Message(
             subject='Test message from pypi_org demo web app',
-            sender=app_cfg.get('MAIL_USERNAME'),
+            sender=app.config.get('MAIL_USERNAME'),
             recipients=[
                 'email1@gmail.com',
             ],
@@ -97,9 +95,9 @@ def init_logging():
     # logging.getLogger("sqlalchemy.pool").setLevel(logging.DEBUG)
 
 def updaet_cfg():
-    global app_cfg
+    global app
     # flask_cfg.from_pyfile('settings.py') # no needed 'flask.py'
-    app_cfg.update({
+    app.config.update({
         **settings.FLASK_ENV_CFG,
         **settings.FLASK_SEC_ENV_CFG,
         **settings.FLASK_SEC_ENV_CFG_ME,
@@ -118,6 +116,7 @@ def add_appmap():
     pass
 
 def add_email():
+    global email
     mail = flask_mail.Mail(app)
     #  If multiple applications running in the same process but with different
     #  configuration options.
@@ -133,6 +132,7 @@ def add_sijax():
 
 # http://localhost:5000/admin/audit/
 def add_admin():
+    global admin
     import flask_admin
     from flask_admin.contrib.sqla import ModelView
     admin = flask_admin.Admin(
@@ -145,7 +145,9 @@ def add_admin():
     return admin
 
 def add_debug_toolbar():
+    global toolbar
     toolbar = flask_debugtoolbar.DebugToolbarExtension(app)
+
     return toolbar
 
 
