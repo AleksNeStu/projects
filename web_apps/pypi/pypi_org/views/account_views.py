@@ -7,6 +7,7 @@ from infra.request_mod import request_data
 from infra.response_mod import response
 from services import user_service
 from viewmodels.account.index_viewmodel import IndexViewModel
+from viewmodels.account.register_viewmodel import RegisterViewModel
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -16,11 +17,9 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @response(template_file='account/index.html')
 def index():
     vm = IndexViewModel()
-    # No user auth cookies
-    if not vm.user_id:
-        return flask.redirect('/account/login')
-    # User id from auth cookies not in DB
-    if not vm.user:
+    vm.validate()
+
+    if vm.errors:
         return flask.redirect('/account/login')
 
     return vm.to_dict()
@@ -36,40 +35,17 @@ def register_get():
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    req_data = request_data()
+    vm = RegisterViewModel()
+    vm.validate()
 
-    # <input type="text" class="form-control" placeholder=" Email"
-    #  name="email" value="{{ email }}">
-    # key: name attribute of input tag
-    # value: email = post_form_dict.get('email', '') post data from end user (filed via UI)
-    # value_resp: value_got (email) returned
-    # ImmutableMultiDict([('name', '_n'), ('email', '_e'), ('password', '_p ')])
-    # {'name': '_n', 'email': '_e', 'password': '_p'}
-    name = req_data.name
-    email = req_data.email.lower().strip()
-    password = req_data.password.strip()
-    resp_dict = {
-        'name': name,
-        'email': email,
-        'password': password,
-    }
+    if vm.errors:
+        return vm.to_dict()
 
-    # Validate required fields
-    empty_reg_fields = [
-        name for name, value in resp_dict.items() if not value]
-    #TODO: add email format validation and password strong policy
-    if empty_reg_fields:
-        resp_dict['error'] = (
-            f'{empty_reg_fields} are empty, but should be filled to '
-            f'pass the registration procedure.')
-        return resp_dict
-
-    # Validate user existing
-    user = user_service.create_user(name, email, password)
+    user = user_service.create_user(vm.name, vm.email, vm.password)
     if not user:
-        resp_dict['error'] = (
-            f'A user with an email: {email} is already exists.')
-        return resp_dict
+        # TODO: add reason why
+        vm.errors.append('The account can not be created.')
+        return vm.to_dict()
 
     resp = flask.redirect('/account')
     auth.set_auth_cookie(resp, user.id)

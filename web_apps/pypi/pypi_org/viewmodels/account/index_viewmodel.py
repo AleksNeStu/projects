@@ -6,3 +6,9 @@ class IndexViewModel(ViewModelBase):
     def __init__(self):
         super().__init__()
         self.user = user_service.get_user_by_id(self.user_id)
+
+    def validate(self):
+        if not self.user_id:
+            self.errors.append('No user id. ')
+        if not self.user:
+            self.errors.append('No user. ')
