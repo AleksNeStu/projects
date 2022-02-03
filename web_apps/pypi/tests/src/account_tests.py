@@ -1,16 +1,11 @@
-# TODO: 1)Add unit, functional, integration tests with dir structure
+# TODO: 1) Add more tests and structure
 # 2) Add tests runner script
-# 3) Cover by tests core cases
-# Consider Flask-Testing extension
 from unittest import mock
 
-from flask import Response
-
-from data.generated_all_db_models import User
-# from tests.src.conftest import client
-
 import pytest
-import flask
+import requests
+from flask import Response
+from flask_testing import LiveServerTestCase
 
 from viewmodels.account.register_viewmodel import RegisterViewModel
 from views.account_views import register_post
@@ -59,3 +54,15 @@ class TestRegister:
             resp: Response = client.get('/account')
             assert resp.status_code == 200
             assert resp.location == 'http://localhost/None'
+
+
+class TestFlaskTesting(LiveServerTestCase):
+
+    def create_app(self):
+        from tests.src.conftest import app
+        return app.app
+
+    def test_server_is_up_and_running(self):
+        url = self.get_server_url()
+        resp1 = requests.get(url)
+        self.assertEquals(resp1.status_code, 200)

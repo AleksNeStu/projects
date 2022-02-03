@@ -18,6 +18,10 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 def flask_app():
     app.app.config.update({
         'TESTING': True,
+        # Default port is 5000
+        'LIVESERVER_PORT': 7777,
+        # Default timeout is 5 seconds
+        'LIVESERVER_TIMEOUT': 10,
     })
     try:
         app.main(for_testing=True)

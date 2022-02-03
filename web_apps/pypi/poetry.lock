@@ -251,6 +251,17 @@ Flask = ">=0.7.0"
 Sijax = ">=0.3.0"
 
 [[package]]
+name = "flask-testing"
+version = "0.8.1"
+description = "Unit testing for Flask"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Flask = "*"
+
+[[package]]
 name = "future"
 version = "0.18.2"
 description = "Clean single-source support for Python 3 and 2"
@@ -834,7 +845,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "5cf6ab693e2153a84fa0c83aa5761ead00ba67d428e84ae1fce934b8638bcbec"
+content-hash = "0437faf8745a1f2900b3c058eec337f45fd2694b97dcebcf9d514df4edab5c2e"
 
 [metadata.files]
 alembic = [
@@ -951,6 +962,9 @@ flask-mail = [
 ]
 flask-sijax = [
     {file = "Flask-Sijax-0.4.1.tar.gz", hash = "sha256:fb2bf2d4f75408185102195055d75549fee8d9c9e954dca2427186925cdc429f"},
+]
+flask-testing = [
+    {file = "Flask-Testing-0.8.1.tar.gz", hash = "sha256:0a734d7b68e63a9410b413cd7b1f96456f9a858bd09a6222d465650cc782eb01"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
