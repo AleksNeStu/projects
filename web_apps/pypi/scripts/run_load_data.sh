@@ -1,8 +1,10 @@
-set -x
+#set -x
 
-set -o allexport && source configs/local.env && set +o allexport
+cd ../pypi_org
+pwd
+set -o allexport && source ../configs/local.env && source ../configs/flask.env && set +o allexport
 
 source .venv/bin/activate
-python3 pypi_org/bin/load_data.py
+python3 bin/load_data.py
 
-set +x
+#set +x
