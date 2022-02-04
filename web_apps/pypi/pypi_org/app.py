@@ -42,12 +42,13 @@ def main(for_testing=False):
 def register_blueprints(for_testing=False):
     if for_testing:
         from views import (
-            home_views, packages_views, cms_views, account_views
+            home_views, packages_views, cms_views, account_views, seo_views
         )
         app.register_blueprint(home_views.blueprint)
         app.register_blueprint(packages_views.blueprint)
         app.register_blueprint(cms_views.blueprint)
         app.register_blueprint(account_views.blueprint)
+        app.register_blueprint(seo_views.blueprint)
 
     else:
         views, _ = py_utils.import_modules(

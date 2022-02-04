@@ -1,5 +1,4 @@
 # TODO: 1) Add more tests and structure
-# 2) Add tests runner script
 from unittest import mock
 
 import pytest
@@ -11,7 +10,7 @@ from viewmodels.account.register_viewmodel import RegisterViewModel
 from views.account_views import register_post
 
 
-class TestRegister:
+class TestModels:
 
     @pytest.mark.parametrize(
         'form_data', [
@@ -56,7 +55,7 @@ class TestRegister:
             assert resp.location == 'http://localhost/None'
 
 
-class TestFlaskTesting(LiveServerTestCase):
+class TestLiveServer(LiveServerTestCase):
 
     def create_app(self):
         from tests.src.conftest import app
