@@ -4,6 +4,10 @@ from services import package_service
 from viewmodels.shared.viewmodelbase import ViewModelBase
 
 
+#TODO: Consider pytlon libs:
+# https://github.com/inveniosoftware/flask-sitemap
+# https://pypi.org/project/ultimate-sitemap-parser/
+# https://pypi.org/search/?q=sitemap
 class SiteMapViewModel(ViewModelBase):
     def __init__(self, limit: int):
         super().__init__()
