@@ -8,8 +8,6 @@ from sqlalchemy import pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-from pypi_org import settings
-
 config = context.config
 
 # Interpret the config file for Python logging.
@@ -23,7 +21,7 @@ directory = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '../../pypi_org'))
 sys.path.insert(0, directory)
 # noinspection PyUnresolvedReferences
-import data.models
+import settings
 from data.models.modelbase import SqlAlchemyBase
 target_metadata = SqlAlchemyBase.metadata
 

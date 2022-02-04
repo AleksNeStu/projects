@@ -4,7 +4,6 @@ from typing import Optional, List
 import sqlalchemy as sa
 from alembic import migration
 from alembic import op
-from sqlacodegen import codegen
 
 import pypi_org.data.db_session as db_session
 
@@ -31,10 +30,11 @@ def is_current_rev_is_latest():
     current_rev = context.get_current_revision()
     current_heads = context.get_current_heads()
 
-    alembic_version_row = conn.execute('SELECT * FROM alembic_version').one()
-    current_rev_sa = alembic_version_row['version_num']
-
-    assert current_rev == current_rev_sa
+    if current_heads:
+        alembic_version_row = conn.execute(
+            'SELECT * FROM alembic_version').one()
+        current_rev_sa = alembic_version_row['version_num']
+        assert current_rev == current_rev_sa
 
     return current_rev in current_heads
 
@@ -48,12 +48,13 @@ def has_table(table):
     return insp.has_table(table)
 
 
-def get_models(outfile: Optional[str] = None) -> List[codegen.Model]:
+def get_models(outfile: Optional[str] = None):
     # https://github.com/agronholm/sqlacodegen
     # sqlacodegen postgresql:///some_local_db
     # sqlacodegen --outfile models.py postgresql:///some_local_db
     # sqlacodegen --generator tables mysql+pymysql://user:password@localhost/dbname
     # sqlacodegen --generator dataclasses sqlite:///database.db
+    from sqlacodegen import codegen
     engine = db_session.create_engine()
     metadata = sa.MetaData(bind=engine)
     metadata.reflect()
@@ -65,4 +66,5 @@ def get_models(outfile: Optional[str] = None) -> List[codegen.Model]:
         code_generator.render(outfile)
         outfile.close()
 
-    return code_generator.models
+    res: List[codegen.Model] = code_generator.models
+    return res
