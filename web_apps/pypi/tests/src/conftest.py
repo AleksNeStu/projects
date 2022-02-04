@@ -16,16 +16,15 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 @pytest.yield_fixture(scope="session")
 def flask_app():
-    app.app.config.update({
-        'TESTING': True,
-        # Default port is 5000
-        'LIVESERVER_PORT': 7777,
-        # Default timeout is 5 seconds
-        'LIVESERVER_TIMEOUT': 10,
-    })
     try:
-        app.main(for_testing=True)
-        app.register_blueprints()
+        app.app.config.update({
+            'TESTING': True,
+            # Default port is 5000
+            'LIVESERVER_PORT': 7777,
+            # Default timeout is 5 seconds
+            'LIVESERVER_TIMEOUT': 10,
+        })
+        app.main()
     except Exception as err:
         logging.error(f'Error: "{err}" on try to init flask app')
         raise err
