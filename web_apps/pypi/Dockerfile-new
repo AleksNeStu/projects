@@ -1,0 +1,5 @@
+# https://hub.docker.com/_/python
+FROM pypi-org_os:latest
+MAINTAINER AlexNeStu
+
+RUN cd /pypi_run && pwd

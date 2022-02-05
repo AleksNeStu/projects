@@ -126,13 +126,86 @@ alembic_cfg = Config("/pypi_org/alembic.ini")
 command.upgrade(alembic_cfg, "head")
 ```
 
+7) Run app inside of docker container:
+7.1) Install docker:
+```sh
+# a) https://docs.docker.com/engine/install/
+# e.g. https://docs.docker.com/engine/install/fedora/
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io
+
+# b) https://docs.docker.com/engine/install/linux-postinstall/
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+# if err `connect EACCES /var/run/docker.sock`
+sudo chmod o+rw /var/run/docker.sock
+
+sudo systemctl start docker.service
+sudo netstat -lntp | grep dockerd
+```
+7.2) Install docker-compose:
+```sh
+# https://docs.docker.com/compose/install/
+# https://developer.fedoraproject.org/tools/docker/compose.html
+# https://computingforgeeks.com/install-and-use-docker-compose-on-fedora/
+```
+7.3) Enable Command-line completion for docker:
+```sh
+#https://docs.docker.com/compose/completion/
+# With oh-my-zsh shell
+kate ~/.zshrc
+# add to plugins=(... docker docker-compose)
+source ~/.zshrc
+```
+
+7.4) Install GUI-For-Docker:
+```sh
+# https://appfleet.com/blog/top-gui-for-docker/
+# e.g. https://dockstation.io/
+# or use IDE plugins
+# or https://github.com/jesseduffield/lazydocker#usage
+```
+
+7.5) Dockerfile or Docker Compose desc:
+_Use long term support Ubuntu image: https://wiki.ubuntu.com/Releases_
+
+**Dockerfile**
+```yml
+# https://runnable.com/docker/python/dockerize-your-flask-application
+# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+# https://runnable.com/docker/python/dockerize-your-flask-application
+# https://www.digitalocean.com/community/tutorials/how-to-build-and-deploy-a-flask-application-using-docker-on-ubuntu-18-04#step-2-setting-up-docker
+```
+
+**Docker compose**
+```sh
+# https://runnable.com/docker/python/docker-compose-with-flask-apps
+# https://docs.docker.com/compose/gettingstarted/
+# https://www.tutorialworks.com/why-containers-stop/#what-if-my-docker-container-dies-immediately
+tty=True
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml up
+# to use increments
+docker-compose -f docker-compose-new.yml build
+docker-compose -f docker-compose-new.yml up
+```
+
+7.6) Connect to docker:
+```sh
+# https://phoenixnap.com/kb/how-to-ssh-into-docker-container
+sudo docker exec –it os zsh
+sudo docker attach os
+```
 
 ## Tips
 
 1) Show project structure: \
     `tree -I .env`
 2) Export requirements: \
-    `poetry export -f requirements.txt --output requirements.txt`
+    `poetry export -f requirements.txt --output requirements.txt --without-hashes`
 3) IDE tab hack for html code:
 
     ```html

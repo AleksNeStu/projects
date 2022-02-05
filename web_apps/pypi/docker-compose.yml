@@ -1,0 +1,23 @@
+version: '3'
+services:
+  os:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: os
+    environment:
+      - IS_DEPLOY=1
+      # apt-get install tzdata noninteractive
+      - DEBIAN_FRONTEND=noninteractive
+    volumes:
+      - './:/pypi'
+    depends_on:
+      - redis
+    ports:
+      - '8080:5000'
+    restart: always
+    tty: true
+
+  redis:
+    container_name: db
+    image: 'redis:alpine'
