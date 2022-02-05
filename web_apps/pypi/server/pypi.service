@@ -1,0 +1,16 @@
+[Unit]
+Description=uWSGI PyPI server instance
+After=syslog.target
+
+[Service]
+# https://uwsgi-docs.readthedocs.io/en/latest/Snippets.html
+ExecStart=/pypi_run/.venv/bin/uwsgi -H /pypi_run/.venv/ --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path /pypi_run/ --mount /=wsgi:app
+RuntimeDirectory=/pypi_run/
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
