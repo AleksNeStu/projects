@@ -30,7 +30,7 @@ RUN apt update
 #update-alternatives --config python3
 RUN apt install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa -y && \
-    apt install -y python3.10 python3-pip python3-dev python3-venv && \
+    apt install -y python3.10 python3-pip python3-dev python3-venv \
     python3.10-dev python3.10-venv python-is-python3 && \
     # ln -sfn /usr/bin/python3.10 /usr/bin/python && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
@@ -57,6 +57,7 @@ RUN apt install -y build-essential libpcre3-dev libz-dev \
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/\
 ohmyzsh/master/tools/install.sh)" "" --unattended \
     && chsh -s $(which zsh)
+SHELL ["/bin/zsh", "-c"]
 
 # Security
 # https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-20-04
@@ -72,9 +73,24 @@ RUN git config --global credential.helper cache && \
 
 
 # Dependencies Python
-RUN pip install --upgrade setuptools glances poetry
+RUN sh -c "curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10" && \
+    pip install --upgrade setuptools glances poetry
 RUN cd /pypi_run && poetry config virtualenvs.in-project true && \
     rm -rf .venv && poetry install && poetry add httpie uwsgi
+
+
+# Run Flask app
+# python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
+# test: python -m http.server 80
+SHELL ["/bin/zsh", "-c"]
+# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+CMD . .venv/bin/activate && cd pypi_org && \
+    exec python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
+#RUN python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
+#SHELL ["/bin/bash", "-c"]
+#RUN ["python3", "./app.py", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
+#CMD python app.py run --port=5000 --host=0.0.0.0 --without-threads
+#RUN ["python3", "-m", "flask", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
 
 ## Venv
 ##RUN poetry export -f requirements.txt --output requirements.txt --without-hashes

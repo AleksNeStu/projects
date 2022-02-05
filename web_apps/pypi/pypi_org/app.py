@@ -24,7 +24,7 @@ toolbar = None
 def main():
     configure()
     if not app.testing and not app.deploying:
-        app.run(port=5000, debug=True)
+        app.run(port=5000, debug=True, host='0.0.0.0')
 
 
 def configure():

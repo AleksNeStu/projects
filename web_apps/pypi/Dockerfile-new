@@ -2,4 +2,18 @@
 FROM pypi-org_os:latest
 MAINTAINER AlexNeStu
 
-RUN cd /pypi_run && pwd
+WORKDIR /pypi_run
+EXPOSE 5000
+
+
+# Dependencies Python
+#SHELL ["/bin/bash", "-c"]
+#RUN cd /pypi_run/pypi_org && pwd && tail app.py
+SHELL ["/bin/zsh", "-c"]
+# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+CMD . .venv/bin/activate && cd pypi_org && exec python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
+#RUN python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
+#SHELL ["/bin/bash", "-c"]
+#RUN ["python3", "./app.py", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
+#CMD python app.py run --port=5000 --host=0.0.0.0 --without-threads
+#RUN ["python3", "-m", "flask", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
