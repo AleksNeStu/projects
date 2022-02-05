@@ -5,6 +5,8 @@
 
 ## Setup
 
+0) Use docker approach or even pull image:
+https://hub.docker.com/r/nestu/pypi_demo
 1) Clone the app project.
 2) Install requirements using poetry. 2.1) Python
 
@@ -199,6 +201,17 @@ docker-compose -f docker-compose-new.yml up
 # https://phoenixnap.com/kb/how-to-ssh-into-docker-container
 sudo docker exec –it os zsh
 sudo docker attach os
+```
+
+7.7) Push / pull docker image:
+```sh
+# create repo in docket hub
+docker logout
+docker login
+docker image tag pypi-org_os:latest nestu/pypi_demo:latest
+docker image push nestu/pypi_demo:latest
+
+docker pull nestu/pypi_demo
 ```
 
 ## Tips
