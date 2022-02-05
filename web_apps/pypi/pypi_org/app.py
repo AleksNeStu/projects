@@ -15,7 +15,7 @@ from migrations import utils as migrations_utils
 
 
 app = flask.Flask(__name__)
-app.deploying = False
+app.deploying = bool(int(os.getenv('IS_DEPLOY', '0')))
 
 email = None
 admin = None
@@ -23,6 +23,7 @@ toolbar = None
 
 def main():
     configure()
+
     if not app.testing and not app.deploying:
         app.run(port=5000, debug=True, host='0.0.0.0')
 
@@ -109,8 +110,6 @@ def update_cfg():
         **settings.FLASK_SEC_ENV_CFG,
         **settings.FLASK_SEC_ENV_CFG_ME,
     })
-    # fix case when IS_DEPLOY is string instead of bool
-    app.is_deploy = bool(int(settings.IS_DEPLOY))
 
 def add_appmap():
     # APPMAP
