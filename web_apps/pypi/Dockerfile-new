@@ -1,4 +1,5 @@
 # https://hub.docker.com/_/python
+# Inspired by https://github.com/gabimelo/flask-boilerplate
 FROM python:3.10
 MAINTAINER AlexNeStu
 
@@ -30,3 +31,14 @@ COPY pyproject.toml /tmp
 RUN poetry config virtualenvs.in-project true && cd /tmp && poetry install
 RUN echo "\nsource /tmp/.venv/bin/activate" >> ~/.zshrc
 RUN source /tmp/.venv/bin/activate
+
+# Server config
+RUN useradd --no-create-home nginx
+RUN rm /etc/nginx/sites-enabled/default
+RUN rm -r /root/.cache
+
+COPY server/nginx.conf /etc/nginx/
+COPY server/flask-site-nginx.conf /etc/nginx/conf.d/
+COPY server/uwsgi.ini /etc/uwsgi/
+COPY server/supervisord.conf /etc/supervisor/
+CMD ["/usr/bin/supervisord"]
