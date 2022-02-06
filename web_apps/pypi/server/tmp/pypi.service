@@ -4,8 +4,9 @@ After=syslog.target
 
 [Service]
 # https://uwsgi-docs.readthedocs.io/en/latest/Snippets.html
-ExecStart=/pypi/.venv/bin/uwsgi -H /pypi/.venv/ --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path /pypi/ --mount /=wsgi:app
-RuntimeDirectory=/pypi/
+ExecStart=uwsgi -H /pypi/.venv/ --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path /pypi/ --mount /=wsgi:app
+#ExecStart=uwsgi --ini /pypi/server/wsgi.ini
+RuntimeDirectory=/pypi/server/
 Restart=always
 KillSignal=SIGQUIT
 Type=notify
