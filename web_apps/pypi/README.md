@@ -25,6 +25,13 @@ docker-compose -f docker-compose.flask.yml up
 sudo docker exec –it os zsh
 ```
 
+**NOTES:**
+- Dirs desc:
+docker `/tmp/pypi` -> host `projects/web_apps/pypi`
+docker `/tmp/pypi_docker` -> `projects/web_apps/pypi_docker` - not git dir (
+   for docker app code on gly changes)
+docker `pypi` -> docker `/tmp/pypi_docker` - symlink
+
 **Using local version of application**
 
 1) Clone the app project.
@@ -254,6 +261,11 @@ docker run --rm nestu/pypi_demo:core
 docker pull nestu/pypi_demo:core
 ```
 
+7.8) Non root user:
+https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
+https://www.digitalocean.com/community/tutorials/how-to-share-data-between-the-docker-container-and-the-host
+https://stackoverflow.com/questions/27701930/how-to-add-users-to-docker-container
+
 ## Tips
 
 1) Show project structure: \
@@ -408,6 +420,8 @@ docker pull nestu/pypi_demo:core
   <p> uWSGI is often used for serving Python web applications in conjunction with web servers such as Cherokee and Nginx, which offer direct support for uWSGI's native uwsgi protocol.[5] For example, data may flow like this: HTTP client ↔ Nginx ↔ uWSGI ↔ Python app.\
   <p> Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.\
   [Deploy Flask app in Nginx using uWSGI — with architectural explanation](https://medium.com/@yekabotep/deploy-flask-app-in-nginx-using-uwsgi-with-architectural-explanation-2e24a41c030a)
+  [How To Serve Flask Applications with uWSGI and Nginx on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04) \
+  [Developing a Flask API in a Docker container with uWSGI and NGINX](https://gabimelo.medium.com/developing-a-flask-api-in-a-docker-container-with-uwsgi-and-nginx-e089e43ed90e) \
   
 
   <p align="center">
