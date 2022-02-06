@@ -1,19 +1,32 @@
 # https://hub.docker.com/_/python
-FROM pypi-org_os:latest
+FROM python:3.10
 MAINTAINER AlexNeStu
 
-WORKDIR /pypi_run
-EXPOSE 5000
+WORKDIR /pypi
 
+# OS dependencies
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+    software-properties-common sudo curl \
+    zsh git unzip zip nload tree mc lsof net-tools nano \
+    build-essential libpcre3-dev libz-dev default-libmysqlclient-dev \
+    libatlas-base-dev gfortran nginx supervisor
 
-# Dependencies Python
-#SHELL ["/bin/bash", "-c"]
-#RUN cd /pypi_run/pypi_org && pwd && tail app.py
+# ZSH
+RUN git config --global init.defaultBranch master
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/\
+ohmyzsh/master/tools/install.sh)" "" --unattended \
+    && chsh -s $(which zsh)
 SHELL ["/bin/zsh", "-c"]
-# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
-CMD . .venv/bin/activate && cd pypi_org && exec python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
-#RUN python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
-#SHELL ["/bin/bash", "-c"]
-#RUN ["python3", "./app.py", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
-#CMD python app.py run --port=5000 --host=0.0.0.0 --without-threads
-#RUN ["python3", "-m", "flask", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
+
+
+#  App dependencies
+RUN pip3 install --upgrade pip glances poetry uwsgi httpie
+
+
+# Poetry ,venv install
+COPY poetry.lock /tmp
+COPY pyproject.toml /tmp
+RUN poetry config virtualenvs.in-project true && cd /tmp && poetry install
+RUN echo "\nsource /tmp/.venv/bin/activate" >> ~/.zshrc
+RUN source /tmp/.venv/bin/activate
