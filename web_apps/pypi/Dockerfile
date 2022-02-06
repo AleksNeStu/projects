@@ -95,8 +95,11 @@ RUN cd /pypi && poetry config virtualenvs.in-project true && \
     rm -rf .venv && poetry install
 # Server specific dependencies
 RUN poetry add httpie uwsgi && poetry update
-RUN echo "source /pypi/.venv/bin/activate" >> ~/.zshrc
+RUN echo "\nsource /pypi/.venv/bin/activate" >> ~/.zshrc
 RUN source /pypi/.venv/bin/activate
+
+# Env for APP
+RUN echo "\nSECRET_KEY='$(python -c 'import secrets; print(secrets.token_hex())')'" >> configs/flask.env.sec
 
 #NOTE: Connect to the container shell: `docker exec -it os zsh`
 #NOTE: To access via browser: http://localhost:8080/
