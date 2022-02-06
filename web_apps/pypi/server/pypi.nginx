@@ -10,7 +10,7 @@ server {
         gzip_buffers    8 256k;
         uwsgi_buffers   8 256k;
 
-        alias /pypi_run/pypi_org/static;
+        alias /pypi/pypi_org/static;
         expires 365d;
     }
     location / {

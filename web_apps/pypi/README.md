@@ -8,6 +8,7 @@
 **Using container version of application**
 
 a) OS without run of app:
+
 ```sh
 docker-compose -f docker-compose.yml build
 docker-compose -f docker-compose.yml up
@@ -15,6 +16,7 @@ sudo docker exec –it os zsh
 ```
 
 b) OS wit run flask app:
+
 ```sh
 # a) docker-compose.flask.yml - inheritance
 # https://docs.docker.com/compose/extends/
@@ -43,7 +45,6 @@ poetry install --no-dev
 ```
 
 [Creating a Flask Project](https://www.jetbrains.com/help/pycharm/creating-flask-project.html)
-
 
 2.2) JS
 
@@ -109,6 +110,7 @@ c) Flask framework \
 </p>
 
 4) Run scripts:
+
 ```sh
 cd projects/web_apps/pypi
 ./scripts/run_app.sh
@@ -117,11 +119,13 @@ cd projects/web_apps/pypi
 ```
 
 5) DB
+
 ```sh
 sudo yum install python3-devel mysql-devel
 ```
 
 6) Alembic:
+
 ```sh
 cd web_apps/pypi/
 alembic init migrations/alembic
@@ -138,16 +142,19 @@ alembic downgrade base
 ```
 
 Alternative for `alembic upgrade head`:
+
 ```Python
 # or https://alembic.sqlalchemy.org/en/latest/api/commands.html
 from alembic.config import Config
 from alembic import command
+
 alembic_cfg = Config("/pypi_org/alembic.ini")
 command.upgrade(alembic_cfg, "head")
 ```
 
 7) Run app inside of docker container:
-7.1) Install docker:
+   7.1) Install docker:
+
 ```sh
 # a) https://docs.docker.com/engine/install/
 # e.g. https://docs.docker.com/engine/install/fedora/
@@ -166,13 +173,17 @@ sudo chmod o+rw /var/run/docker.sock
 sudo systemctl start docker.service
 sudo netstat -lntp | grep dockerd
 ```
+
 7.2) Install docker-compose:
+
 ```sh
 # https://docs.docker.com/compose/install/
 # https://developer.fedoraproject.org/tools/docker/compose.html
 # https://computingforgeeks.com/install-and-use-docker-compose-on-fedora/
 ```
+
 7.3) Enable Command-line completion for docker:
+
 ```sh
 #https://docs.docker.com/compose/completion/
 # With oh-my-zsh shell
@@ -182,6 +193,7 @@ source ~/.zshrc
 ```
 
 7.4) Install GUI-For-Docker:
+
 ```sh
 # https://appfleet.com/blog/top-gui-for-docker/
 # e.g. https://dockstation.io/
@@ -193,6 +205,7 @@ source ~/.zshrc
 _Use long term support Ubuntu image: https://wiki.ubuntu.com/Releases_
 
 **Dockerfile**
+
 ```yml
 # https://runnable.com/docker/python/dockerize-your-flask-application
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
@@ -201,6 +214,7 @@ _Use long term support Ubuntu image: https://wiki.ubuntu.com/Releases_
 ```
 
 **Docker compose**
+
 ```sh
 # https://runnable.com/docker/python/docker-compose-with-flask-apps
 # https://docs.docker.com/compose/gettingstarted/
@@ -215,6 +229,7 @@ docker-compose -f docker-compose-new.yml up
 ```
 
 7.6) Connect to docker:
+
 ```sh
 # https://phoenixnap.com/kb/how-to-ssh-into-docker-container
 sudo docker exec –it os zsh
@@ -222,6 +237,7 @@ sudo docker attach os
 ```
 
 7.7) Push / pull docker image:
+
 ```sh
 docker logout
 docker login --username=yourhubusername --email=youremail@company.com
@@ -241,17 +257,17 @@ docker pull nestu/pypi_demo:core
 ## Tips
 
 1) Show project structure: \
-    `tree -I .env`
+   `tree -I .env`
 2) Export requirements: \
-    `poetry export -f requirements.txt --output requirements.txt --without-hashes`
+   `poetry export -f requirements.txt --output requirements.txt --without-hashes`
 3) IDE tab hack for html code:
 
     ```html
     div.container>div.row>div.col-md-4*3
     ```
 
-    to
-    
+   to
+
     ```html
     
     <div class="container">
@@ -263,24 +279,33 @@ docker pull nestu/pypi_demo:core
     </div>```
 
 4) **Errors:** \
-a) sqlite3.ProgrammingError in IDE debug mode
+   a) sqlite3.ProgrammingError in IDE debug mode
     ```
     sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 9744 and this is thread id 12712.
     ```
 
-    **Fix:** Play w/ `Allow parallel run` option for debug run config.
+   **Fix:** Play w/ `Allow parallel run` option for debug run config.
 
 5) **IDE:**\
-- debug flask, alembic and rest of the modules using python module with parameters;
+
+- debug flask, alembic and rest of the modules using python module with
+  parameters;
 
 6) **APP:**\
-- In case flask app is executed in debug mode, then adding new model cls will automatically reflect the changes to DB without involving alembic migration revision.
+
+- In case flask app is executed in debug mode, then adding new model cls will
+  automatically reflect the changes to DB without involving alembic migration
+  revision.
 
 7) **Utils:**\
-  [appmap](https://plugins.jetbrains.com/plugin/16701-appmap) \
-   AppMap is a free and open source visualization tool that allows you to see how your software works as it’s running.
-  a) [Install AppMap for IDE](https://plugins.jetbrains.com/plugin/16701-appmap) \ 
-  b) [Install the AppMap agent for Python](https://appland.com/docs/quickstart/pycharm/step-1) \
+   [appmap](https://plugins.jetbrains.com/plugin/16701-appmap) \
+   AppMap is a free and open source visualization tool that allows you to see
+   how your software works as it’s running.
+   a) [Install AppMap for IDE](https://plugins.jetbrains.com/plugin/16701-appmap)
+   \
+   b) [Install the AppMap agent for Python](https://appland.com/docs/quickstart/pycharm/step-1)
+   \
+
   ```sh
   npx @appland/appmap install-agent
   ? AppMap is about to be installed. Confirm the details below.
@@ -293,6 +318,7 @@ a) sqlite3.ProgrammingError in IDE debug mode
     - [via tests](https://appland.com/docs/quickstart/pycharm/step-3-tests) \
     - [remote](https://appland.com/docs/quickstart/pycharm/step-3-remote) \
   ```   
+
 ## Tech-stack
 
 <p align="center">
@@ -317,8 +343,9 @@ a) sqlite3.ProgrammingError in IDE debug mode
   getting started quick and easy, with the ability to scale up to complex
   applications. It began as a simple wrapper around Werkzeug and Jinja and has
   become one of the most popular Python web application frameworks. \
-  Flask is better for quick development use cases and is perfect for prototyping.
-  It is apt for developing microservices or serverless applications. \
+  Flask is better for quick development use cases and is perfect for
+  prototyping. It is apt for developing microservices or serverless
+  applications. \
   [Flask layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/) \
   [Advanced patterns for views and routing](http://exploreflask.com/en/latest/views.html) \
   `FLASK_DEBUG=1` - auto-reload the flask app when a code change happens
@@ -330,7 +357,7 @@ a) sqlite3.ProgrammingError in IDE debug mode
   [Flask-AppBuilder](https://github.com/dpgaspar/Flask-AppBuilder) \
   [Flask-Social](https://github.com/mattupstate/flask-social/) \
   [WTForms](https://github.com/wtforms/flask-wtf/) \
-  [Flask-MongoEngine](https://github.com/MongoEngine/flask-mongoengine) \ 
+  [Flask-MongoEngine](https://github.com/MongoEngine/flask-mongoengine) \
   **API:**
   https://flask-restful.readthedocs.io/en/latest/
   https://flask-restx.readthedocs.io/en/latest/
@@ -353,21 +380,23 @@ a) sqlite3.ProgrammingError in IDE debug mode
   [Key Features of SQLAlchemy](https://www.sqlalchemy.org/features.html) \
   [Engine, Connection, Session](https://stackoverflow.com/questions/34322471/sqlalchemy-engine-connection-and-session-difference) \
   [sqlacodegen](https://github.com/agronholm/sqlacodegen) \
-  This is a tool that reads the structure of an existing database and generates the appropriate SQLAlchemy model code, using the declarative style if possible. \
-- 
-  <p align="center">
-  <img src="assets/orm_core.png" alt="ORM and Core">
-  </p>
+  This is a tool that reads the structure of an existing database and generates
+  the appropriate SQLAlchemy model code, using the declarative style if
+  possible. \
+-
+<p align="center">
+<img src="assets/orm_core.png" alt="ORM and Core">
+</p>
 
-  [Engine Configuration](https://docs.sqlalchemy.org/en/13/core/engines.html) 
-  <p align="center">
-  <img src="assets/sqla_engine_arch.png" alt="Engine Configuration">
-  </p>
-  
-  **ORM queries**
-  <p align="center">
-  <img src="assets/sql-1.png" alt="ORM queries" width="90%">
-  </p>
+[Engine Configuration](https://docs.sqlalchemy.org/en/13/core/engines.html)
+<p align="center">
+<img src="assets/sqla_engine_arch.png" alt="Engine Configuration">
+</p>
+
+**ORM queries**
+<p align="center">
+<img src="assets/sql-1.png" alt="ORM queries" width="90%">
+</p>
 
 - Linux
 
@@ -378,6 +407,12 @@ a) sqlite3.ProgrammingError in IDE debug mode
   <p>uwsgi (all lowercase) is the native binary protocol that uWSGI uses to communicate with other servers.[4] \
   <p> uWSGI is often used for serving Python web applications in conjunction with web servers such as Cherokee and Nginx, which offer direct support for uWSGI's native uwsgi protocol.[5] For example, data may flow like this: HTTP client ↔ Nginx ↔ uWSGI ↔ Python app.\
   <p> Nginx is a web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache.\
+  [Deploy Flask app in Nginx using uWSGI — with architectural explanation](https://medium.com/@yekabotep/deploy-flask-app-in-nginx-using-uwsgi-with-architectural-explanation-2e24a41c030a)
+  
+
+  <p align="center">
+        <img src="assets/uwsgi.jpeg" alt="uWSGI" width="90%">
+  </p>
 
 > FE
 
@@ -394,7 +429,7 @@ a) sqlite3.ProgrammingError in IDE debug mode
   variables and mixins, responsive grid system, extensive prebuilt components,
   and powerful JavaScript plugins. \
   [Get Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/download/) \
-  [Buttons](https://getbootstrap.com/docs/4.0/components/buttons/) \ 
+  [Buttons](https://getbootstrap.com/docs/4.0/components/buttons/) \
 
   **Alternatives:**
     - https://github.com/semantic-org/semantic-ui
@@ -442,7 +477,7 @@ a) sqlite3.ProgrammingError in IDE debug mode
 
 - [Migrations]()
   [alembic](https://github.com/sqlalchemy/alembic) \
-  
+
 
 - [Query language]()
 
@@ -462,7 +497,8 @@ a) sqlite3.ProgrammingError in IDE debug mode
     [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/) \
     [WebTest](https://docs.pylonsproject.org/projects/webtest/en/latest/) \
     [pytest-clarity](https://github.com/darrenburns/pytest-clarity) \
-    [Testing Flask Applications with Pytest](https://testdriven.io/blog/flask-pytest/) \ 
+    [Testing Flask Applications with Pytest](https://testdriven.io/blog/flask-pytest/)
+    \
     [Flask-Testing](https://pythonhosted.org/Flask-Testing/) \
 12) Deployment
 13) MongoDB version
