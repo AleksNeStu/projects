@@ -1,4 +1,4 @@
-from pypi_org.app import app, main
+from pypi_org import app
 
 if __name__ == '__main__':
-    main()
+    app.main()
