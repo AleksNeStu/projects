@@ -5,10 +5,28 @@
 
 ## Setup
 
-0) Use docker approach or even pull image:
-https://hub.docker.com/r/nestu/pypi_demo
+**Using container version of application**
+
+a) OS without run of app:
+```sh
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml up
+sudo docker exec –it os zsh
+```
+
+b) OS wit run flask app:
+```sh
+# a) docker-compose.flask.yml - inheritance
+# https://docs.docker.com/compose/extends/
+docker-compose -f docker-compose.flask.yml build
+docker-compose -f docker-compose.flask.yml up
+sudo docker exec –it os zsh
+```
+
+**Using local version of application**
+
 1) Clone the app project.
-2) Install requirements using poetry. 2.1) Python
+3) Install requirements using poetry. 2.1) Python
 
 ```shell
 cd web_apps/pypi
@@ -209,7 +227,7 @@ docker logout
 docker login --username=yourhubusername --email=youremail@company.com
 docker images
 
-# a) docker-compose.yml
+# docker-compose.yml
 docker image tag pypi-org_os:latest nestu/pypi_demo:core
 REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
 nestu/pypi_demo   core      54f70da6fd51   15 minutes ago   968MB
