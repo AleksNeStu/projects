@@ -205,13 +205,19 @@ sudo docker attach os
 
 7.7) Push / pull docker image:
 ```sh
-# create repo in docket hub
 docker logout
-docker login
-docker image tag pypi-org_os:latest nestu/pypi_demo:latest
-docker image push nestu/pypi_demo:latest
+docker login --username=yourhubusername --email=youremail@company.com
+docker images
 
-docker pull nestu/pypi_demo
+# a) docker-compose.yml
+docker image tag pypi-org_os:latest nestu/pypi_demo:core
+REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
+nestu/pypi_demo   core      54f70da6fd51   15 minutes ago   968MB
+
+docker image push nestu/pypi_demo:core
+
+docker run --rm nestu/pypi_demo:core
+docker pull nestu/pypi_demo:core
 ```
 
 ## Tips

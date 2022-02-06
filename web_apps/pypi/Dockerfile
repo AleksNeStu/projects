@@ -2,32 +2,33 @@
 FROM ubuntu:20.04
 MAINTAINER AlexNeStu
 
-# can be used mapped /pypi to realtime develpment end debugging
-ADD . /pypi_run
-WORKDIR /pypi_run
 
-#
+#TODO: Make possibility to chose approach:
+# 1) Real time 2) Copy projecet 3) Git clone (default)
+#TODO: Add SSH
+# Real time approach
+# WORKDIR /pypi
+
+
+# Copy approach
 #ADD . /pypi
-#WORKDIR /pypi
+
+
+# Git clone approach
+RUN mkdir /pypi && chmod 777 /pypi
+WORKDIR /pypi
+
 
 # Time zone
-# apt-get install tzdata noninteractive
 RUN ln -fs /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
+# for apt-get install tzdata noninteractive
 
 
-#RUN add-apt-repository ppa:deadsnakes/ppa && apt update
 RUN apt update
-#RUN apt upgrade -y
+RUN apt upgrade -y
 
 
 # Python 3.10
-# https://computingforgeeks.com/how-to-install-python-on-ubuntu-linux-system/
-# https://www.itsupportwale.com/blog/how-to-upgrade-to-python-3-10-on-ubuntu-18-04-and-20-04-lts/
-# python-is-python3
-#RUN apt install -y python3.10 && update-alternatives --install \
-#/usr/bin/python3 python3 /usr/bin/python3.10 1 && sudo update-alternatives \
-#--install /usr/bin/python3 python3 /usr/bin/python3.8 2 && \
-#update-alternatives --config python3
 RUN apt install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa -y && \
     apt install -y python3.10 python3-pip python3-dev python3-venv \
@@ -36,17 +37,24 @@ RUN apt install -y software-properties-common && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 2 && \
     update-alternatives --auto python3
-
+# https://computingforgeeks.com/how-to-install-python-on-ubuntu-linux-system/
+# https://www.itsupportwale.com/blog/how-to-upgrade-to-python-3-10-on-ubuntu-18-04-and-20-04-lts/
+# python-is-python3
+#RUN apt install -y python3.10 && update-alternatives --install \
+#/usr/bin/python3 python3 /usr/bin/python3.10 1 && sudo update-alternatives \
+#--install /usr/bin/python3 python3 /usr/bin/python3.8 2 && \
+#update-alternatives --config python3
 
 
 # Pip3
-RUN apt install -y python3.10-distutils
+RUN apt install -y python3.10-distutils curl
 RUN sh -c "curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10" && \
-    apt purge -y python-pip python3-pip
+#    apt purge -y python-pip python3-pip
+     apt reinstall -y python3-pip
 
 
 # Dependencies OS
-RUN apt install -y curl zsh ufw git unzip zip nload tree \
+RUN apt install -y zsh ufw git unzip zip nload tree \
     nginx fail2ban systemd
 # gzip support in uwsgi
 RUN apt install -y build-essential libpcre3-dev libz-dev \
@@ -68,40 +76,35 @@ SHELL ["/bin/zsh", "-c"]
 # Git
 RUN git config --global credential.helper cache && \
     git config --global credential.helper 'cache --timeout=720000' && \
+    #NOTE: Specify your account details
     git config --global user.email "git_user@gmail.com" && \
     git config --global user.name "Git User"
 
 
+
+# Clone project (partialy)
+RUN cd /tmp && git clone https://github.com/AleksNeStu/projects.git \
+    --no-checkout --depth 1 --filter=blob:none && cd projects && \
+    git sparse-checkout set web_apps/pypi
+RUN cp -rf /tmp/projects/web_apps/pypi/* /pypi && rm -rf /tmp/projects
+
+
 # Dependencies Python
-RUN sh -c "curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10" && \
-    pip install --upgrade setuptools glances poetry
-RUN cd /pypi_run && poetry config virtualenvs.in-project true && \
-    rm -rf .venv && poetry install && poetry add httpie uwsgi
+RUN pip install --upgrade setuptools glances poetry
+RUN cd /pypi && poetry config virtualenvs.in-project true && \
+    rm -rf .venv && poetry install
+# Server specific dependencies
+RUN poetry add httpie uwsgi && poetry update
+RUN echo "source /pypi/.venv/bin/activate" >> ~/.zshrc
+RUN source /pypi/.venv/bin/activate
 
+#NOTE: Connect to the container shell: `docker exec -it os zsh`
+#NOTE: To access via browser: http://localhost:8080/
 
-# Run Flask app
-# python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
-# test: python -m http.server 80
-SHELL ["/bin/zsh", "-c"]
-# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
-CMD . .venv/bin/activate && cd pypi_org && \
-    exec python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
-#RUN python3 app.py run --port=5000 --host=0.0.0.0 --without-threads
-#SHELL ["/bin/bash", "-c"]
-#RUN ["python3", "./app.py", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
-#CMD python app.py run --port=5000 --host=0.0.0.0 --without-threads
-#RUN ["python3", "-m", "flask", "run", "--port=5000", "--host=0.0.0.0", "--without-threads"]
+#NOTE: Docker commands:
+# docker-compose -f docker-compose.yml build
+# docker-compose -f docker-compose.yml build --no-cache
+# docker-compose -f docker-compose.yml up + CTRL-C
 
-## Venv
-##RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
-##RUN source .venv/bin/activate && pip3 install -r requirements.txt
-#
-#
-#### App daemon
-##RUN cp server/pypi.service /etc/systemd/system/pypi.service && \
-##    systemctl start pypi && systemctl enable pypi
-##
-##
-### Nginx
-##RUN cp server/pypi.nginx /etc/nginx/sites-enabled/pypi.nginx && \
-##    update-rc.d nginx enable && service nginx restart
+# docker-compose -f docker-compose.yml up -d +
+# docker-compose -f docker-compose.yml stop
