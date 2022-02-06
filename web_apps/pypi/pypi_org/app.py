@@ -25,7 +25,7 @@ def main():
     configure()
 
     if not app.testing and not app.deploying:
-        app.run(port=5000, debug=True, host='0.0.0.0')
+        app.run(debug=True, host='0.0.0.0')
 
 
 def configure():
@@ -43,6 +43,7 @@ def configure():
     admin = add_admin()
     toolbar = add_debug_toolbar()
     run_actions()
+
 
 def register_blueprints():
     from views import (
@@ -67,15 +68,18 @@ def setup_db():
     # enable for flask app not in debug mode to avoid auto apply
     run_migrations.run()
 
+
 def generate_all_db_models():
     db_models = migrations_utils.get_models(os.path.join(
         os.path.dirname(__file__), 'data', 'generated_all_db_models.py'))
     return db_models
 
+
 def run_actions():
     global email
     if settings.RUN_ACTIONS:
         send_emails(email)
+
 
 def send_emails(email):
     from smtplib import SMTPNotSupportedError
@@ -95,12 +99,14 @@ def send_emails(email):
         try:
             email.send(msg)
         except (SMTPNotSupportedError, SSLError) as err:
-            logging.error(f'Email was not send due to "{err}"')
+            logging.error('Email was not send due to "%s"', err)
+
 
 def init_logging():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
     # logging.getLogger("sqlalchemy.pool").setLevel(logging.DEBUG)
+
 
 def update_cfg():
     global app
@@ -110,6 +116,7 @@ def update_cfg():
         **settings.FLASK_SEC_ENV_CFG,
         **settings.FLASK_SEC_ENV_CFG_ME,
     })
+
 
 def add_appmap():
     # APPMAP
@@ -123,6 +130,7 @@ def add_appmap():
     # appmap = AppmapFlask(app)
     pass
 
+
 def add_email():
     global email
     mail = flask_mail.Mail(app)
@@ -132,6 +140,7 @@ def add_email():
     # app = Flask(__name__)
     # mail.init_app(app)
     return mail
+
 
 def add_sijax():
     import flask_sijax
@@ -151,6 +160,7 @@ def add_admin():
         admin.add_view(ModelView(Audit, session))
 
     return admin
+
 
 def add_debug_toolbar():
     global toolbar
