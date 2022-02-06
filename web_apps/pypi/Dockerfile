@@ -2,7 +2,7 @@
 FROM ubuntu:20.04
 MAINTAINER AlexNeStu
 
-
+#TODO: Redo to use no-root isntall
 #TODO: Make possibility to chose approach:
 # 1) Real time 2) Copy projecet 3) Git clone (default)
 #TODO: Add SSH
@@ -15,7 +15,7 @@ MAINTAINER AlexNeStu
 
 
 # Git clone approach
-RUN mkdir /pypi && chmod 777 /pypi
+RUN mkdir /pypi && chmod -R 777 /pypi
 WORKDIR /pypi
 
 
@@ -29,7 +29,7 @@ RUN apt upgrade -y
 
 
 # Python 3.10
-RUN apt install -y software-properties-common && \
+RUN apt install -y software-properties-common sudo && \
     add-apt-repository ppa:deadsnakes/ppa -y && \
     apt install -y python3.10 python3-pip python3-dev python3-venv \
     python3.10-dev python3.10-venv python-is-python3 && \
@@ -54,11 +54,11 @@ RUN sh -c "curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10" && \
 
 
 # Dependencies OS
-RUN apt install -y zsh ufw git unzip zip nload tree \
-    nginx fail2ban systemd
+RUN apt install -y zsh ufw git unzip zip nload tree mc lsof net-tools nano \
+    fail2ban systemd
 # gzip support in uwsgi
-RUN apt install -y build-essential libpcre3-dev libz-dev \
-    default-libmysqlclient-dev
+RUN apt install -y --no-install-recommends build-essential libpcre3-dev libz-dev \
+    default-libmysqlclient-dev libatlas-base-dev gfortran nginx supervisor
 
 
 # Shell ZSH
@@ -90,16 +90,18 @@ RUN cp -rf /tmp/projects/web_apps/pypi/* /pypi && rm -rf /tmp/projects
 
 
 # Dependencies Python
-RUN pip install --upgrade setuptools glances poetry
+RUN pip install --upgrade setuptools glances poetry uwsgi httpie
 RUN cd /pypi && poetry config virtualenvs.in-project true && \
     rm -rf .venv && poetry install
 # Server specific dependencies
-RUN poetry add httpie uwsgi && poetry update
+#RUN poetry add httpie uwsgi && poetry update
 RUN echo "\nsource /pypi/.venv/bin/activate" >> ~/.zshrc
 RUN source /pypi/.venv/bin/activate
 
 # Env for APP
 RUN echo "\nSECRET_KEY='$(python -c 'import secrets; print(secrets.token_hex())')'" >> configs/flask.env.sec
+RUN cd /pypi && set -o allexport && source configs/local.env && \
+    source configs/flask.env && set +o allexport
 
 #NOTE: Connect to the container shell: `docker exec -it os zsh`
 #NOTE: To access via browser: http://localhost:8080/
