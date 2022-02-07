@@ -9,7 +9,7 @@ services:
       - IS_DEPLOY=1
     ports:
       - '8080:5000'
-    restart: always
+    restart: 'no'
     tty: true
     volumes:
       - '.:/pypi'

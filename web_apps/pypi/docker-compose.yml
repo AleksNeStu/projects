@@ -14,7 +14,7 @@ services:
       - redis
     ports:
       - '8080:5000'
-    restart: always
+    restart: 'no'
     tty: true
   redis:
     container_name: db

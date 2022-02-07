@@ -266,6 +266,11 @@ https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
 https://www.digitalocean.com/community/tutorials/how-to-share-data-between-the-docker-container-and-the-host
 https://stackoverflow.com/questions/27701930/how-to-add-users-to-docker-container
 
+7.9) Restart policy:
+```
+docker update --restart=no ba758b878e7c
+```
+
 ## Tips
 
 1) Show project structure: \
