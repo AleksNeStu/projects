@@ -7,22 +7,42 @@
 
 **Using container version of application**
 
-a) OS without run of app:
-
+a) OS without run of app :
+**core**:`docker pull nestu/pypi_demo:core`
 ```sh
+# from host
 docker-compose -f docker-compose.yml build
 docker-compose -f docker-compose.yml up
 sudo docker exec –it os zsh
 ```
 
-b) OS wit run flask app:
+b) OS with run flask app:
 
+**flask**:`docker pull nestu/pypi_demo:flask`
 ```sh
-# a) docker-compose.flask.yml - inheritance
-# https://docs.docker.com/compose/extends/
+# from host
 docker-compose -f docker-compose.flask.yml build
 docker-compose -f docker-compose.flask.yml up
 sudo docker exec –it os zsh
+# from container
+httpp 127.0.0.1:5000
+
+# from host:
+# http://localhost:8080/
+```
+
+c) Python with run uwsgi app (using nginx):
+**uwsgi**`docker pull nestu/pypi_demo:uwsgi`
+```sh
+# from host
+docker-compose -f docker-compose-uwsgi.yml build
+docker-compose -f docker-compose-uwsgi.yml up
+sudo docker exec –it app zsh
+# from container
+httpp 127.0.0.1:80
+
+# from host:
+# http://localhost:8080/
 ```
 
 **NOTES:**
