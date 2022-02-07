@@ -4,7 +4,7 @@ services:
     container_name: app
     build:
       context: .
-      dockerfile: Dockerfile-new
+      dockerfile: Dockerfile-uwsgi
     environment:
       - IS_DEPLOY=1
     ports:
