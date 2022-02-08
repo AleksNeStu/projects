@@ -1,5 +1,6 @@
 import contextlib
 import logging
+import os
 import ssl
 
 import mongoengine
@@ -9,29 +10,32 @@ import sqlalchemy.orm as orm
 import sqlalchemy_utils as sa_utils
 from sqlalchemy.orm import Session
 
+import app
 import settings
 from data.models.modelbase import SqlAlchemyBase
+
+app.is_sql_ver = bool(int(os.getenv('IS_SQL_VERSION', '0')))
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
 __session = None
 __engine = None
 
 
-def global_init_no_sql(**conn_data):
+def init_no_sql(**conn):
     formed_conn_data = {
         'alias': 'core',
-        'name': conn_data.get('MONGODB_DB'),
+        'name': conn.get('MONGODB_DB'),
     }
-    user = conn_data.get('MONGODB_USERNAME')
-    password = conn_data.get('MONGODB_PASSWORD')
+    user = conn.get('MONGODB_USERNAME')
+    password = conn.get('MONGODB_PASSWORD')
 
     if user or password:
         formed_conn_data.update({
             'username': user,
             'password': password,
-            'host': conn_data.get('MONGODB_HOST'),
-            'port': conn_data.get('MONGODB_PORT'),
-            'ssl': conn_data.get('MONGODB_SSL'),
+            'host': conn.get('MONGODB_HOST'),
+            'port': conn.get('MONGODB_PORT'),
+            'ssl': conn.get('MONGODB_SSL'),
             'ssl_cert_reqs': ssl.CERT_NONE,
             'authentication_source': 'admin',
             'authentication_mechanism': 'SCRAM-SHA-1',
@@ -43,7 +47,7 @@ def global_init_no_sql(**conn_data):
     logging.info("NoSQL DB connection: {}".format(formed_conn_data))
 
 
-def global_init_sql(conn_str: str):
+def init_sql(conn):
     global __session
     if __session:
         return
@@ -52,11 +56,11 @@ def global_init_sql(conn_str: str):
     # debug sql queries
     # logger = logging.getLogger('sqlalchemy.engine')
     # logger.setLevel(logging.DEBUG)
-    engine = sa.create_engine(conn_str, echo=True)
+    engine = sa.create_engine(conn, echo=True)
 
     db_url = engine.url
     logging.info(
-        "Engine created w/ a connection string: '{}'".format(conn_str))
+        "Engine created w/ a connection string: '{}'".format(conn))
     # DB create (not required for SQLite)
     # TODO: avoid delete DB every time
     if not sa_utils.database_exists(db_url):
@@ -74,14 +78,15 @@ def global_init_sql(conn_str: str):
     import data.models
     SqlAlchemyBase.metadata.create_all(engine)
 
+
 #TODO: Add list of used sessions with state
 def create_session() -> orm.Session:
     # With this configuration, each time we call our sessionmaker instance,
     # we get a new Session instance back each time.
     global __session
 
-    if not __session:
-        global_init_sql(settings.DB_CONNECTION)
+    if not __session and app.is_sql_ver:
+        init_sql(settings.DB_CONNECTION)
 
     session: Session = __session()
     # views.account_views.register_post
@@ -94,8 +99,8 @@ def create_session() -> orm.Session:
 def create_engine() -> engine.Engine:
     global __engine
 
-    if not __engine:
-        global_init_sql(settings.DB_CONNECTION)
+    if not __engine and app.is_sql_ver:
+        init_sql(settings.DB_CONNECTION)
 
     return __engine
 

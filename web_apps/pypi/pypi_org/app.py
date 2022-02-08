@@ -37,11 +37,13 @@ def configure():
     register_blueprints()
     setup_db()
 
-    all_db_models = generate_all_db_models()
+    if app.is_sql_ver:
+        all_db_models = generate_all_db_models()
+        admin = add_admin()
+
     add_appmap()
     add_sijax()
     email = add_email()
-    admin = add_admin()
     toolbar = add_debug_toolbar()
     #TODO: Add http://docs.mongoengine.org/projects/flask-mongoengine/
     run_actions()
@@ -66,12 +68,12 @@ def register_blueprints():
 
 def setup_db():
     if app.is_sql_ver:
-        db_session.global_init_sql(settings.DB_CONNECTION)
+        db_session.init_sql(settings.DB_CONNECTION)
         # enable for flask app not in debug mode to avoid auto apply
         run_migrations.run()
         load_data.run()
     else:
-        db_session.global_init_no_sql(**settings.NOSQL_DB_CONNECTION)
+        db_session.init_no_sql(**settings.NOSQL_DB_CONNECTION)
 
 
 def generate_all_db_models():

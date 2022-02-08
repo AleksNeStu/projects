@@ -83,7 +83,7 @@ NO_SQL_ENV_PATH = os.getenv(
     'NO_SQL_ENV_PATH', os.path.join(
         PROJECT_ROOT_DIR, 'configs/no_sql.env'))
 NOSQL_DB_CONNECTION = dotenv.dotenv_values(NO_SQL_ENV_PATH)
-#TODO: If IS_DEPLOY=1 udpdate NOSQL_DB_CONNECTION by {MONGODB_USERNAME: ..., MONGODB_PASSWORD: ...}
+#TODO: If IS_DEPLOY=1 update NOSQL_DB_CONNECTION by {MONGODB_USERNAME: ..., MONGODB_PASSWORD: ...}
 
 # FLASK UPDATE
 FLASK_ENV_CFG.update({
