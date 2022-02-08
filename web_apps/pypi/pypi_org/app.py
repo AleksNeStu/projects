@@ -16,6 +16,7 @@ from migrations import utils as migrations_utils
 
 app = flask.Flask(__name__)
 app.deploying = bool(int(os.getenv('IS_DEPLOY', '0')))
+app.is_sql_ver = bool(int(os.getenv('IS_SQL_VERSION', '0')))
 
 email = None
 admin = None
@@ -42,6 +43,7 @@ def configure():
     email = add_email()
     admin = add_admin()
     toolbar = add_debug_toolbar()
+    #TODO: Add http://docs.mongoengine.org/projects/flask-mongoengine/
     run_actions()
 
 
@@ -63,10 +65,13 @@ def register_blueprints():
 
 
 def setup_db():
-    db_session.global_init(settings.DB_CONNECTION)
-    load_data.run()
-    # enable for flask app not in debug mode to avoid auto apply
-    run_migrations.run()
+    if app.is_sql_ver:
+        db_session.global_init_sql(settings.DB_CONNECTION)
+        # enable for flask app not in debug mode to avoid auto apply
+        run_migrations.run()
+        load_data.run()
+    else:
+        db_session.global_init_no_sql(**settings.NOSQL_DB_CONNECTION)
 
 
 def generate_all_db_models():

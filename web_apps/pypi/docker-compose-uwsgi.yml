@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile-uwsgi
     environment:
       - IS_DEPLOY=1
+      - IS_SQL_VERSION=0
     ports:
       - '8080:80'
     restart: 'no'

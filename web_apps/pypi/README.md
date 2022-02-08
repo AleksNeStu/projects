@@ -1,11 +1,12 @@
-# Data-Driven Web App w/ Flask and SQLAlchemy
+# Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja
 
-**Flask / Jinja / Bootstrap / SQLAlchemy / Alembic** \
+**Python 3 / Poetry / Flask (Flask Extensions) / Werkzeug / Jinja (CSS, HTML, Cookies, auth) / Bootstrap / SQLAlchemy / Alembic / SQLite / MongoDB / Pytest / Docker / Linux / NGINX/ uWSGI / IntelliJ** \
 *replica of https://pypi.org/*
 
 ## Setup
 
 **Using container version of application**
+https://hub.docker.com/r/nestu/pypi_demo/tags
 
 a) OS without run of app :
 **core**:`docker pull nestu/pypi_demo:core`
@@ -541,6 +542,13 @@ docker update --restart=no ba758b878e7c
     [Flask-Testing](https://pythonhosted.org/Flask-Testing/) \
 12) Deployment
 13) MongoDB version
+[Install](https://citizix.com/how-to-install-mongodb-5-on-fedora-34-35/) 
+```sh
+sudo rm -rf /tmp/mongodb-27017.sock
+sudo service mongod start
+ ```    
+[RPM](https://repo.mongodb.org/yum/redhat/8Server/mongodb-org/5.0/x86_64/RPMS/) 
+[ORM mongoengine](http://mongoengine.org/)
 
 ## Requirements
 

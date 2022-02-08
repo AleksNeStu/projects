@@ -1,6 +1,8 @@
 import contextlib
 import logging
+import ssl
 
+import mongoengine
 import sqlalchemy as sa
 import sqlalchemy.engine as engine
 import sqlalchemy.orm as orm
@@ -14,7 +16,34 @@ from data.models.modelbase import SqlAlchemyBase
 __session = None
 __engine = None
 
-def global_init(conn_str: str):
+
+def global_init_no_sql(**conn_data):
+    formed_conn_data = {
+        'alias': 'core',
+        'name': conn_data.get('MONGODB_DB'),
+    }
+    user = conn_data.get('MONGODB_USERNAME')
+    password = conn_data.get('MONGODB_PASSWORD')
+
+    if user or password:
+        formed_conn_data.update({
+            'username': user,
+            'password': password,
+            'host': conn_data.get('MONGODB_HOST'),
+            'port': conn_data.get('MONGODB_PORT'),
+            'ssl': conn_data.get('MONGODB_SSL'),
+            'ssl_cert_reqs': ssl.CERT_NONE,
+            'authentication_source': 'admin',
+            'authentication_mechanism': 'SCRAM-SHA-1',
+
+        })
+
+    mongoengine.register_connection(**formed_conn_data)
+    formed_conn_data['password'] = '***'
+    logging.info("NoSQL DB connection: {}".format(formed_conn_data))
+
+
+def global_init_sql(conn_str: str):
     global __session
     if __session:
         return
@@ -52,7 +81,7 @@ def create_session() -> orm.Session:
     global __session
 
     if not __session:
-        global_init(settings.DB_CONNECTION)
+        global_init_sql(settings.DB_CONNECTION)
 
     session: Session = __session()
     # views.account_views.register_post
@@ -66,7 +95,7 @@ def create_engine() -> engine.Engine:
     global __engine
 
     if not __engine:
-        global_init(settings.DB_CONNECTION)
+        global_init_sql(settings.DB_CONNECTION)
 
     return __engine
 

@@ -22,7 +22,7 @@ def run():
 
 
 def setup_db():
-    db_session.global_init(settings.DB_CONNECTION)
+    db_session.global_init_sql(settings.DB_CONNECTION)
 
 
 if __name__ == '__main__':

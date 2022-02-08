@@ -59,7 +59,7 @@ def run():
 
 
 def init_db():
-    db_session.global_init(settings.DB_CONNECTION)
+    db_session.global_init_sql(settings.DB_CONNECTION)
     insert_package()
 
 

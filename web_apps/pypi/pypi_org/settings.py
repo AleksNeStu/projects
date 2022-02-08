@@ -10,6 +10,7 @@ ALEMBIC_INI = os.getenv(
     'ALEMBIC_INI', os.path.join(PROJECT_ROOT_DIR, 'alembic.ini'))
 RUN_ACTIONS = bool(int(os.getenv('RUN_ACTIONS', '0')))
 IS_DEPLOY = bool(int(os.getenv('IS_DEPLOY', '0')))
+IS_SQL_VERSION = bool(int(os.getenv('IS_SQL_VERSION', '1')))
 
 # ENV GLOBAL INIT
 # https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux
@@ -75,6 +76,14 @@ DB_CONNECTION = DB_CONNECTION_SQLITE
 # SQLAlchemy
 # InvalidRequestError: VARCHAR requires a length on dialect mysql
 STR_LENGTH = os.environ.get('STR_LENGTH', 255)
+
+# No SQL
+# 1) MongoDB
+NO_SQL_ENV_PATH = os.getenv(
+    'NO_SQL_ENV_PATH', os.path.join(
+        PROJECT_ROOT_DIR, 'configs/no_sql.env'))
+NOSQL_DB_CONNECTION = dotenv.dotenv_values(NO_SQL_ENV_PATH)
+#TODO: If IS_DEPLOY=1 udpdate NOSQL_DB_CONNECTION by {MONGODB_USERNAME: ..., MONGODB_PASSWORD: ...}
 
 # FLASK UPDATE
 FLASK_ENV_CFG.update({
