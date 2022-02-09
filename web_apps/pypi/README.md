@@ -549,6 +549,15 @@ sudo service mongod start
  ```    
 [RPM](https://repo.mongodb.org/yum/redhat/8Server/mongodb-org/5.0/x86_64/RPMS/) 
 [ORM mongoengine](http://mongoengine.org/)
+MongoEngine is an Object-Document Mapper, written in Python for working with MongoDB.
+**Alternatives:**
+MongoKit vs MongoEngine vs Flask-MongoAlchemy for Flask
+[Flask-MongoAlchemy](https://github.com/cobrateam/flask-mongoalchemy) \
+```sh
+# get db dir
+grep -i dbPath /etc/mongod.conf
+# dbPath: /var/lib/mongo
+```
 
 ## Requirements
 
