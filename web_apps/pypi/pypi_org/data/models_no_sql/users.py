@@ -6,7 +6,7 @@ import mongoengine as me
 class User(me.Document):
 
     # no id as in sql ver
-    # required=False is default
+    # NO SQL: required=False ~ SQL: nullable=True
     name: str = me.StringField(required=False)
     email: str = me.StringField(unique=True) # index=True
     hashed_password: str = me.StringField(unique=True) # index=True
@@ -17,8 +17,8 @@ class User(me.Document):
         default=datetime.datetime.now) # index=True
 
     meta = {
-        'collection': 'users',
         'db_alias': 'core', # data.db_session.init_no_sql
+        'collection': 'users',
         'indexes': [
             'email',
             'hashed_password',
