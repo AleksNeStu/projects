@@ -5,14 +5,15 @@ import os
 import flask
 import flask_debugtoolbar
 import flask_mail
+import mongoengine as me
 import sys
 
 import settings
 from bin import load_data
 from bin import run_migrations
 from data import db_session
+from data.models_no_sql.users import User
 from migrations import utils as migrations_utils
-
 
 app = flask.Flask(__name__)
 app.deploying = bool(int(os.getenv('IS_DEPLOY', '0')))
@@ -74,6 +75,15 @@ def setup_db():
         load_data.run()
     else:
         db_session.init_no_sql(**settings.NOSQL_DB_CONNECTION)
+        # user = User(name='Fie Sds2', email='lol@gmail.com')
+        # try:
+        #     user.save()
+        #     #TODO:  load_data_no_sql.run()
+        # except me.errors.NotUniqueError as err:
+        #     logging.error(
+        #         f'Error: "{err}" on try to save duplicate unique keys. '
+        #         f'Possible reason 2 time app load in debug mode')
+        #     # raise err
 
 
 def generate_all_db_models():

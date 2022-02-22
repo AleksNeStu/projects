@@ -1,9 +1,11 @@
 import logging
-from typing import Optional
+from typing import Optional, Union
 
+import bson
 import flask
 from flask import Request
 
+import app
 from infra.request_mod import request_data
 from utils import py as py_utils
 from utils import sec as sec_utils
@@ -26,7 +28,8 @@ def del_auth_cookie(resp: flask.Response):
     resp.delete_cookie(_AUTH_COOKIE_KEY)
 
 
-def get_user_id_from_cookies(req: Optional[Request] = None) -> Optional[int]:
+def get_user_id_from_cookies(
+        req: Optional[Request] = None) -> Union[int, bson.ObjectId, None]:
     req = req or flask.request
     req_data = request_data(req)
     # auth_cookie_val = request.cookies.get(_AUTH_COOKIE_KEY)
@@ -48,4 +51,15 @@ def get_user_id_from_cookies(req: Optional[Request] = None) -> Optional[int]:
             f" is mismatched to expected")
         return
 
-    return py_utils.str_to_int(act_user_id)
+    if app.is_sql_ver:
+        return py_utils.str_to_int(act_user_id) or None
+    else:
+        # TypeError: id must be an instance of
+        # (bytes, str, ObjectId), not <class 'int'>
+        # e.g. bson.ObjectId(b'foo-bar-quux') 12 characters
+        # https://api.mongodb.com/python/3.2.2/api/bson/objectid.html#bson.objectid.ObjectId
+        try:
+            return bson.ObjectId(act_user_id)
+        except (bson.errors.InvalidId, ) as err:
+            logging.warning(f"No user for auth via no sql version: {err}")
+            return

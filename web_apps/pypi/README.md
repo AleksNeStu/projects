@@ -537,9 +537,8 @@ docker update --restart=no ba758b878e7c
     [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/) \
     [WebTest](https://docs.pylonsproject.org/projects/webtest/en/latest/) \
     [pytest-clarity](https://github.com/darrenburns/pytest-clarity) \
-    [Testing Flask Applications with Pytest](https://testdriven.io/blog/flask-pytest/)
-    \
-    [Flask-Testing](https://pythonhosted.org/Flask-Testing/) \
+    [Testing Flask Applications with Pytest](https://testdriven.io/blog/flask-pytest/) \
+    [Flask-Testing](https://pythonhosted.org/Flask-Testing/) 
 12) Deployment
 13) MongoDB version
 [Install](https://citizix.com/how-to-install-mongodb-5-on-fedora-34-35/) 
@@ -548,16 +547,51 @@ sudo rm -rf /tmp/mongodb-27017.sock
 sudo service mongod start
  ```    
 [RPM](https://repo.mongodb.org/yum/redhat/8Server/mongodb-org/5.0/x86_64/RPMS/) 
-[ORM mongoengine](http://mongoengine.org/)
-MongoEngine is an Object-Document Mapper, written in Python for working with MongoDB.
+[ORM mongoengine](http://mongoengine.org/) 
+MongoEngine is an Object-Document Mapper, written in Python for working with MongoDB. \
+[BSON](https://en.wikipedia.org/wiki/BSON) \
+[JSON and BSON](https://www.mongodb.com/json-and-bson) \
+JavaScript objects are simple associative containers, wherein a string key is mapped to a value (which can be a number, string, function, or even another object). This simple language trait allowed JavaScript objects to be represented remarkably simply in text: \
+
+JSON shows up in many different cases.
+```
+-APIs
+-Configuration files
+-Log messages
+-Database storage 
+```
+
+However, there are several issues that make JSON less than ideal for usage 
+inside of a database.
+```
+-JSON is a text-based format, and text parsing is very slow
+-JSON’s readable format is far from space-efficient, another database concern
+-JSON only supports a limited number of basic data types
+```
+
+**BSON** simply stands for “Binary JSON,” and that’s exactly what it was invented to be. BSON’s binary structure encodes type and length information, which allows it to be parsed much more quickly.
+```
+-Firstly, JSON documents are polymorphic – fields can vary from document to document within a single collection (analogous to table in a relational database). Documents make modeling diverse record attributes easy for developers, elegantly handling data of any structure.
+-Secondly, there is no need to declare the structure of documents to the database – documents are self-describing. Developers can start writing code and persist objects as they are created.
+-Thirdly, if a new field needs to be added to a document, it can be created without affecting all other documents in the collection, without updating a central system catalog and without taking the database offline. When you need to make changes to the data model, the document database continues to store the updated objects without the need to perform costly ALTER TABLE operations – or worse, having to redesign the schema from scratch.
+```
+
+
 **Alternatives:**
 MongoKit vs MongoEngine vs Flask-MongoAlchemy for Flask
-[Flask-MongoAlchemy](https://github.com/cobrateam/flask-mongoalchemy) \
+[Flask-MongoAlchemy](https://github.com/cobrateam/flask-mongoalchemy) 
 ```sh
 # get db dir
 grep -i dbPath /etc/mongod.conf
 # dbPath: /var/lib/mongo
 ```
+[Robo 3T is the MongoDB GUI for hobbyists](https://robomongo.org/) 
+```
+patchelf --replace-needed libcurl-gnutls.so.4 libcurl.so.4 robo3t
+ln -s /usr/lib64/libcurl.so.4 ~/robo3t-1.4.1.../lib/libcurl-gnutls.so.4
+sudo ln -s /opt/robo3t/bin/robo3t /usr/local/bin/robo3t
+```
+[Studio 3T is the MongoDB IDE for professionals](https://studio3t.com/download-studio-3t/) 
 
 ## Requirements
 

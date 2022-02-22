@@ -1,5 +1,6 @@
-from typing import Optional, List
+from typing import Optional, List, Union
 
+import bson
 import flask
 from flask import Request
 
@@ -15,7 +16,8 @@ class ViewModelBase():
         self.req_data: DictToObj = request_data()
 
         self.errors: Optional[List[str]] = []
-        self.user_id: Optional[int] = auth.get_user_id_from_cookies(self.req)
+        self.user_id: Union[
+            int, bson.ObjectId, None] = auth.get_user_id_from_cookies(self.req)
 
     def to_dict(self):
         return self.__dict__

@@ -14,7 +14,7 @@ def package_details(package_name: str):
         return flask.abort(status=404)
 
     package_id = package_name.strip().lower()
-    package = package_service.get_package(id=package_id)
+    package = package_service.get_package(p_id=package_id)
     if not package:
         return flask.abort(status=404)
 
