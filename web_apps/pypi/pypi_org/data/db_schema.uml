@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.alembic_version</OriginalElement>
+  <nodes>
+    <node x="-309.5971078080231" y="424.43123209169056">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.releases</node>
+    <node x="-34.171919770773684" y="496.4312320916906">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.downloads</node>
+    <node x="-46.0" y="148.30229226361033">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.packages</node>
+    <node x="-309.5971078080231" y="723.9383954154728">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.languages</node>
+    <node x="-34.171919770773684" y="723.9383954154728">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.audit</node>
+    <node x="604.9783757163325" y="148.30229226361033">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.sqlite_master</node>
+    <node x="241.25326826647574" y="723.9383954154728">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.licenses</node>
+    <node x="496.2335243553007" y="772.9383954154728">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.alembic_version</node>
+    <node x="241.25326826647574" y="593.4312320916906">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.maintainers</node>
+    <node x="318.85803187679085" y="148.30229226361033">bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.users</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.downloads" target="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.releases" relationship="REFERENCES">
+      <point x="53.5" y="-89.5" />
+      <point x="126.32808022922632" y="628.0" />
+      <point x="-202.5971078080231" y="628.0" />
+      <point x="0.0" y="125.5" />
+    </edge>
+    <edge source="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.maintainers" target="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.packages" relationship="REFERENCES">
+      <point x="-47.0" y="-41.0" />
+      <point x="288.25326826647574" y="325.0" />
+      <point x="84.0" y="325.0" />
+      <point x="0.0" y="149.5" />
+    </edge>
+    <edge source="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.downloads" target="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.packages" relationship="REFERENCES">
+      <point x="-53.5" y="-89.5" />
+      <point x="19.328080229226316" y="628.0" />
+      <point x="79.703125" y="628.0" />
+      <point x="79.703125" y="325.0" />
+      <point x="84.0" y="325.0" />
+      <point x="0.0" y="149.5" />
+    </edge>
+    <edge source="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.maintainers" target="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.users" relationship="REFERENCES">
+      <point x="47.0" y="-41.0" />
+      <point x="382.25326826647574" y="325.0" />
+      <point x="440.85803187679085" y="325.0" />
+      <point x="0.0" y="101.5" />
+    </edge>
+    <edge source="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.releases" target="bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.packages" relationship="REFERENCES">
+      <point x="0.0" y="-125.5" />
+      <point x="-202.5971078080231" y="325.0" />
+      <point x="84.0" y="325.0" />
+      <point x="0.0" y="149.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6945273631840796" showDependencies="false" x="505.0" y="492.5" />
+  <SelectedNodes>
+    <node>bd6f2767-6c60-4ed4-83a0-f49ccf17a842.TABLE:main.alembic_version</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

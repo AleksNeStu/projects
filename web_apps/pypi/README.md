@@ -3,6 +3,10 @@
 **Python 3 / Poetry / Flask (Flask Extensions) / Werkzeug / Jinja (CSS, HTML, Cookies, auth) / Bootstrap / SQLAlchemy / Alembic / SQLite / MongoDB / Pytest / Docker / Linux / NGINX/ uWSGI / IntelliJ** \
 *replica of https://pypi.org/*
 
+<p align="center">
+<img src="pypi_org/data/db_schema.png" alt="BE:DB" width="80%">
+</p>
+
 ## Setup
 
 **Using container version of application**
@@ -26,7 +30,7 @@ docker-compose -f docker-compose.flask.yml build
 docker-compose -f docker-compose.flask.yml up
 sudo docker exec –it os zsh
 # from container
-httpp 127.0.0.1:5000
+http 127.0.0.1:5000
 
 # from host:
 # http://localhost:8080/
@@ -56,7 +60,7 @@ docker `pypi` -> docker `/tmp/pypi_docker` - symlink
 **Using local version of application**
 
 1) Clone the app project.
-3) Install requirements using poetry. 2.1) Python
+2) Install requirements using poetry. 2.1) Python
 
 ```shell
 cd web_apps/pypi
@@ -74,7 +78,7 @@ poetry install --no-dev
 
 [Creating a Flask Project](https://www.jetbrains.com/help/pycharm/creating-flask-project.html)
 
-2.2) JS
+3) JS
 
 ```shell
 cd web_apps/pypi
@@ -94,49 +98,6 @@ ln -s ../node_modules
 <link rel="stylesheet"
       href="/node_modules/bootstrap/dist/css/bootstrap.css">
 ```
-
-3) Run app:
-
-3.1) Setup IDE project structure
-<p align="center">
-<img src="assets/pr-1.png" alt="Project Settings / Project" width="70%">
-<img src="assets/pr-2.png" alt="Project Settings / Modules tree" width="70%">
-<img src="assets/pr-3.png" alt="Project Settings / Modules env" width="70%">
-<img src="assets/pr-4.png" alt="Project Settings / Modules tree" width="70%">
-<img src="assets/pr-5.png" alt="Project Settings / Modules env" width="70%">
-<img src="assets/pr-6.png" alt="Platform Settings / SDKs" width="70%">
-</p>
-
-3.2) Run app via command interface:
-`cd <project_dir>`
-`scripts/run_app.sh`
-
-3.3) Run app via IDE in debug mode:
-
-**NOTE:**
-Need plugin for IDE:
-[EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
-<p align="center">
-<img src="assets/ide-1.png" alt="EnvFile plugin for IDE" width="70%">
-</p>
-
-a) Flask module
-<p align="center">
-<img src="assets/ide-2.png" alt="Flask module" width="70%">
-</p>
-
-b) Python script app.py
-<p align="center">
-<img src="assets/ide-3.png" alt="Python script" width="70%">
-</p>
-
-c) Flask framework \
-[Run/Debug Configuration: Flask Server](https://www.jetbrains.com/help/pycharm/run-debug-configuration-flask-server.html)
-
-<p align="center">
-<img src="assets/ide-4.png" alt="Flask framework" width="70%">
-</p>
-
 4) Run scripts:
 
 ```sh
@@ -290,6 +251,18 @@ https://stackoverflow.com/questions/27701930/how-to-add-users-to-docker-containe
 7.9) Restart policy:
 ```
 docker update --restart=no ba758b878e7c
+```
+
+7.10) Del images and containers
+```sh
+# Dir space
+du -sh /var/lib/docker/overlay2
+# All
+docker system prune -a
+# To delete all containers including its volumes use
+docker rm -vf $(docker ps -aq)
+# To delete all the images,
+docker rmi -f $(docker images -aq)
 ```
 
 ## Tips
@@ -631,3 +604,48 @@ of concerns" provides for a better division of labor and improved maintenance.\
 
 
 6) **Configuration:** Dev, test, prod configs
+
+
+**Additional notes for dev env setup**
+
+Run app:
+
+1) Setup IDE project structure
+<p align="center">
+<img src="assets/pr-1.png" alt="Project Settings / Project" width="70%">
+<img src="assets/pr-2.png" alt="Project Settings / Modules tree" width="70%">
+<img src="assets/pr-3.png" alt="Project Settings / Modules env" width="70%">
+<img src="assets/pr-4.png" alt="Project Settings / Modules tree" width="70%">
+<img src="assets/pr-5.png" alt="Project Settings / Modules env" width="70%">
+<img src="assets/pr-6.png" alt="Platform Settings / SDKs" width="70%">
+</p>
+
+2) Run app via command interface:
+`cd <project_dir>`
+`scripts/run_app.sh`
+
+3) Run app via IDE in debug mode:
+
+**NOTE:**
+Need plugin for IDE:
+[EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
+<p align="center">
+<img src="assets/ide-1.png" alt="EnvFile plugin for IDE" width="70%">
+</p>
+
+a) Flask module
+<p align="center">
+<img src="assets/ide-2.png" alt="Flask module" width="70%">
+</p>
+
+b) Python script app.py
+<p align="center">
+<img src="assets/ide-3.png" alt="Python script" width="70%">
+</p>
+
+c) Flask framework \
+[Run/Debug Configuration: Flask Server](https://www.jetbrains.com/help/pycharm/run-debug-configuration-flask-server.html)
+
+<p align="center">
+<img src="assets/ide-4.png" alt="Flask framework" width="70%">
+</p>
