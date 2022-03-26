@@ -1,0 +1,3 @@
+requests==2.27.1
+# https://developer.allegro.pl/about/
+allegro-pl-rest-api==2020.3.12
