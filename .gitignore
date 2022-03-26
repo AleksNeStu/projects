@@ -142,3 +142,7 @@ out
 gen
 .gitignore
 .idea/*
+
+
+# Sub modules
+/api/client/allegro_pl/entities/*
