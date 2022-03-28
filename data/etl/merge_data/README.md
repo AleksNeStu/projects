@@ -65,3 +65,17 @@ This is moment for to show your skills.
 - Add tests
 - Docker
 - Deploy
+
+### 2.3 Project run
+
+Project run:
+1) Clone repo.
+2) Install Python 3.x and pip3.
+3) Create venv:\
+   `virtualenv .venv & source .venv/bin/activate`
+   `pipreqs` - tools to generate deps based on project imports.
+4) Install deps: \
+   `pip3 install -r requirements.txt`
+5) Run:
+`python3 bin/load_data.py`
+#TODO: sh, web-handler
