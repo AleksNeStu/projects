@@ -62,10 +62,10 @@ def get_normalized_dicts_csv_3(csv_reader):
         row = py_utils.DictToObj(default_val=None, **row)
         normalized_dicts.append(dict(
             date=py_utils.parse_date(
-                row.date, settings.DATE_FORMAT_CSV_3),
+                row.date_readable, settings.DATE_FORMAT_CSV_3),
             operation_type=row.type,
-            currency_type=None,
-            money_amount=float(row.amount),
+            currency_type='euro' if hasattr(row, 'euro') else None,  # TODO: Make more strict
+            money_amount=float(f'{row.euro}.{row.cents}'),
             sender_id=int(getattr(row, 'from')),  # registered word from
             recipient_id=int(row.to),
         ))
