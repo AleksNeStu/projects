@@ -1,5 +1,9 @@
 # Test task: Application to merge input data from CSV files and store to DB w/ further conversion to CSV or any other format (JSON, XML, ...)
 
+<p align="center">
+<img src="assets/db_transactions.png" alt="DB Transactions" width="100%">
+</p>
+
 ## 1. Requirements
 
 ### SOBERS Assignment

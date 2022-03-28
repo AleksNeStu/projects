@@ -1,3 +1,4 @@
+import copy
 import csv
 import datetime
 import logging
@@ -19,6 +20,7 @@ import data.db_session as db_session
 from enums.sa import SyncStatus, SyncEndReason, SyncType
 from utils import py as py_utils
 from data.models.syncs import Sync
+from data.models.transactions import Transaction
 
 last_sync, actual_sync, errors, parsing_results = None, None, [], {}
 
@@ -86,6 +88,8 @@ CSV_NORMALIZATION_MAP = {
 
 
 def run(sync_type, forced=False):
+    global last_sync, actual_sync, errors, parsing_results
+
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     logging.info("Sync data from input source is started.")
     actual_sync_kwargs = {}
@@ -94,12 +98,54 @@ def run(sync_type, forced=False):
     setup_db()
 
     with db_session.create_session() as session:
-        input_data = get_input_data(session, forced, sync_type)
-    if input_data:
-        pass
+        normalized_input_data = get_normalized_input_data(
+            session, forced, sync_type)
+        if normalized_input_data:
+            transactions_synced = insert_data_to_transactions_db(
+                session, normalized_input_data)
 
+            actual_sync_kwargs.update(**dict(
+                end_date=datetime.datetime.now(),
+                status=SyncStatus.finished,
+                end_reason=SyncEndReason.data_parsing_end,
+                parsing_results=parsing_results))
+            py_utils.set_obj_attr_values(actual_sync, actual_sync_kwargs)
+            session.commit()
+
+    sync = copy.deepcopy(actual_sync)
+    # Set to None globals shares after each sync
+    last_sync, actual_sync, errors = None, None, []
 
     logging.info("Sync data from input source is finished.")
+    return sync
+
+
+def build_sync_transactions(session, normalized_input_data):
+    global actual_sync
+    transactions = []
+    # df_users_unique_kwargs = df_users.to_dict('records')
+    for transaction_dict in normalized_input_data:
+        transaction = Transaction(sync_id=actual_sync.id)
+        py_utils.set_obj_attr_values(
+            transaction, transaction_dict)
+
+        transactions.append(transaction)
+
+    return transactions
+
+
+@Timer(text=f"Time consumption for {'insert_data_to_transactions_db'}: {{:.3f}}")
+def insert_data_to_transactions_db(session, normalized_input_data):
+    logging.info("Inserting transactions data to DB")
+
+    # Inset new portion of unique transactions.
+    sync_transactions = build_sync_transactions(session, normalized_input_data)
+    session.add_all(sync_transactions)
+    session.commit()
+
+    logging.info("Inserting transactions data to DB is finished.")
+
+    return sync_transactions
 
 
 def get_file_paths(files_dir_path: str) -> List[str]:
@@ -136,7 +182,7 @@ def get_normalized_dicts_from_csv(file_path: str) -> List[dict]:
                 file_path, err))
         raise err
 
-
+# TODO: Implement not_synced items collection
 def get_normalized_dicts_from_input_csv_files(
         input_dir_path_part) -> List[dict]:
     input_data_dir = os.path.abspath(
@@ -183,7 +229,7 @@ def is_new_input_data(session, forced, sync_type):
 
 
 @Timer(text=f"Time consumption for {'get_input_data'}: {{:.3f}}")
-def get_input_data(session, forced, sync_type) -> Optional[List[dict]]:
+def get_normalized_input_data(session, forced, sync_type) -> Optional[List[dict]]:
     global last_sync, actual_sync, errors, parsing_results
 
     logging.info("Get input data is started.")
