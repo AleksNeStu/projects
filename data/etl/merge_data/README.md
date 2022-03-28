@@ -38,7 +38,16 @@ This is moment for to show your skills.
 
 ## 2. Solution
 
+### 2.0 Notes:
+- Consider do not use floating for finance data (because floats and doubles cannot accurately represent the base 10 multiples that we use for money. It's for any programming language that uses base 2 floating-point types)
+  https://en.wikipedia.org/wiki/Floating-point_arithmetic
+- `transactions` table columns: date: date, operation_type: enum, currency_type: enum, sender_id: int, recipient_id: int
+ * `date` can be migrated in future to datetime, for now not needed to make it complex and fill with some time part
+ * `currency_type`: euro or not_specified cause from input data not clear which currency is processing (to avoid make not strict conclusions)
+
 ### 2.1 Description
+
+
 
 ### 2.2 TODO
 **Planned**
