@@ -16,7 +16,9 @@ class Transaction(SqlAlchemyBase):
     id: int = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
     date: str = sa.Column(sa.DATE, nullable=False, index=True)
     operation_type: str = sa.Column(sa.Enum(OperationType))
-    currency_type: str = sa.Column(sa.Enum(CurrencyType))
+    money_amount: float = sa.Column(sa.Float, nullable=False, index=True)
+    # Can be None in case CSV data specific (not defined)
+    currency_type: str = sa.Column(sa.Enum(CurrencyType), index=True)
     sender_id: int = sa.Column(sa.Integer, nullable=False, index=True)
     recipient_id: int = sa.Column(sa.Integer, nullable=False, index=True)
 
