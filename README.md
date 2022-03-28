@@ -7,6 +7,7 @@ Project dir structure:
 
 **doc** - Documentations for developers (e.g. cheats, interview).\
 **api** - API clients and servers.\
+**data** - Data engineering stuff e.g. ETL \
 **migrations** - DB migrations stuff.\
 **web_apps** - Web applications (FE | BE or only BE).
 
