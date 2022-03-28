@@ -9,6 +9,7 @@ from enums.sa import CurrencyType, OperationType
 
 
 # TODO: Add hashes for transactions
+# TODO: Add check uniqnes of storing datasets (in case of trying rewrite existing unuque data) - write will be skipped
 @dataclass
 class Transaction(SqlAlchemyBase):
     __tablename__ = 'transactions'

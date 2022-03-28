@@ -90,5 +90,5 @@ SYNC_INTERVAL = dict(weeks=0, days=0, hours=0, minutes=30, seconds=0)
 
 # https://docs.python.org/3/library/datetime.html
 DATE_FORMAT_CSV_1 = '%b %d %Y' # Oct 1 2019
-# DATE_FORMAT_CSV_2 = '%H:%M:%S' # 3/10/2019
-# DATE_FORMAT_CSV_3 = '%H:%M:%S' # 6-Oct-19
+DATE_FORMAT_CSV_2 = '%d-%m-%Y' # 3/10/2019 converted by csv_dict_reader to 03-10-2019
+DATE_FORMAT_CSV_3 = '%d-%b-%y' # 6-Oct-19

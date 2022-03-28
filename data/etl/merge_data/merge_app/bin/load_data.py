@@ -24,11 +24,11 @@ last_sync, actual_sync, errors, parsing_results = None, None, [], {}
 
 # Not checked enums due to ORM SA is performing that
 # Not used parse module to parse expected date format to check data consistency
-def normalize_csv_w_format1(csv_reader):
-    normalized_dict = {}
+def get_normalized_dicts_csv_1(csv_reader):
+    normalized_dicts = []
     for row in csv_reader:
         row = py_utils.DictToObj(default_val=None, **row)
-        normalized_dict.update(**dict(
+        normalized_dicts.append(dict(
             date=py_utils.parse_date(
                 row.timestamp, settings.DATE_FORMAT_CSV_1),
             operation_type=row.type,
@@ -38,24 +38,50 @@ def normalize_csv_w_format1(csv_reader):
             recipient_id=int(row.to),
         ))
 
-    return normalized_dict
+    return normalized_dicts
 
-def normalize_csv_w_format2(csv_reader):
-    return {}
+def get_normalized_dicts_csv_2(csv_reader):
+    normalized_dicts = []
+    for row in csv_reader:
+        row = py_utils.DictToObj(default_val=None, **row)
+        normalized_dicts.append(dict(
+            date=py_utils.parse_date(
+                row.date, settings.DATE_FORMAT_CSV_2),
+            operation_type=row.transaction,
+            currency_type=None,
+            money_amount=float(row.amounts),
+            sender_id=int(getattr(row, 'from')),  # registered word from
+            recipient_id=int(row.to),
+        ))
 
-def normalize_csv_w_format3(csv_reader):
-    return {}
+    return normalized_dicts
+
+def get_normalized_dicts_csv_3(csv_reader):
+    normalized_dicts = []
+    for row in csv_reader:
+        row = py_utils.DictToObj(default_val=None, **row)
+        normalized_dicts.append(dict(
+            date=py_utils.parse_date(
+                row.date, settings.DATE_FORMAT_CSV_3),
+            operation_type=row.type,
+            currency_type=None,
+            money_amount=float(row.amount),
+            sender_id=int(getattr(row, 'from')),  # registered word from
+            recipient_id=int(row.to),
+        ))
+
+    return normalized_dicts
 
 CSV_NORMALIZATION_MAP = {
     # CSV1 format
     py_utils.get_unique_from_list_of_str(
-        ['timestamp', 'type', 'amount', 'to', 'from']): normalize_csv_w_format1,
+        ['timestamp', 'type', 'amount', 'to', 'from']): get_normalized_dicts_csv_1,
     # CSV2 format
     py_utils.get_unique_from_list_of_str(
-        ['date', 'transaction', 'amounts', 'to', 'from']): normalize_csv_w_format2,
+        ['date', 'transaction', 'amounts', 'to', 'from']): get_normalized_dicts_csv_2,
     # CSV3 format
     py_utils.get_unique_from_list_of_str(
-        ['date_readable', 'type', 'euro', 'cents', 'to', 'from']): normalize_csv_w_format3,
+        ['date_readable', 'type', 'euro', 'cents', 'to', 'from']): get_normalized_dicts_csv_3,
 }
 
 
@@ -87,21 +113,22 @@ def get_file_paths(files_dir_path: str) -> List[str]:
     return sorted(file_paths)
 
 
-def get_normalized_dict_from_csv_file(file_path: str) -> dict:
+def get_normalized_dicts_from_csv(file_path: str) -> List[dict]:
     try:
         with open(file_path, 'r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=',')
             columns_unique = py_utils.get_unique_from_list_of_str(
                 csv_reader.fieldnames)
-            normalize_csv_func = CSV_NORMALIZATION_MAP.get(columns_unique)
-            if not normalize_csv_func:
+            get_normalized_dicts_func = CSV_NORMALIZATION_MAP.get(
+                columns_unique)
+            if not get_normalized_dicts_func:
                 #TODO: Add data to failed syncs to DB
                 raise Exception(
                     f"Not recognized format of CSV columns, "
                     f"file: {file_path}, columns: {csv_reader.fieldnames}.")
 
-            normalized_dict = normalize_csv_func(csv_reader)
-            return normalized_dict
+            normalized_dicts_from_csv = get_normalized_dicts_func(csv_reader)
+            return normalized_dicts_from_csv
 
     except Exception as err:
         logging.error(
@@ -110,7 +137,7 @@ def get_normalized_dict_from_csv_file(file_path: str) -> dict:
         raise err
 
 
-def get_and_normalize_input_data_from_csv_files(
+def get_normalized_dicts_from_input_csv_files(
         input_dir_path_part) -> List[dict]:
     input_data_dir = os.path.abspath(
         os.path.join(os.path.dirname(__file__), '..', input_dir_path_part))
@@ -121,19 +148,20 @@ def get_and_normalize_input_data_from_csv_files(
 
     logging.info("Found {:,} file paths, loading files data...".format(
         len(file_paths)))
-    list_csv_dicts = []
+    all_normalized_dicts = []
 
     bar = progressbar.ProgressBar(maxval=len(file_paths)).start()
     for file_idx, file_path in enumerate(file_paths, start=1):
-        dict_from_csv = get_normalized_dict_from_csv_file(file_path)
-        list_csv_dicts.append(dict_from_csv)
+        csv_normalized_dicts = get_normalized_dicts_from_csv(file_path)
+        all_normalized_dicts.extend(csv_normalized_dicts)
         bar.update(file_idx)
 
     sys.stderr.flush()
     sys.stdout.flush()
-    logging.info("Loaded {:,} input data CSV files".format(len(list_csv_dicts)))
+    logging.info("Loaded {:,} input data CSV files".format(
+        len(all_normalized_dicts)))
 
-    return list_csv_dicts
+    return all_normalized_dicts
 
 
 def is_new_input_data(session, forced, sync_type):
@@ -166,14 +194,14 @@ def get_input_data(session, forced, sync_type) -> Optional[List[dict]]:
         })
         actual_sync_kwargs = {}
         try:
-            list_csv_dicts = get_and_normalize_input_data_from_csv_files(
+            all_normalized_dicts = get_normalized_dicts_from_input_csv_files(
                 input_dir_path_part=settings.INPUT_DATA_DIR)
             py_utils.set_obj_attr_values(
                 actual_sync, dict(status=SyncStatus.got_data))
             session.commit()
 
             logging.info("Get input data is finished.")
-            return list_csv_dicts
+            return all_normalized_dicts
 
         except Exception as err:
             error_msg = (
