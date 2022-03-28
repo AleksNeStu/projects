@@ -43,7 +43,7 @@ This is moment for to show your skills.
   https://en.wikipedia.org/wiki/Floating-point_arithmetic
 - `transactions` table columns: date: date, operation_type: enum, currency_type: enum, sender_id: int, recipient_id: int
  * `date` can be migrated in future to datetime, for now not needed to make it complex and fill with some time part
- * `currency_type`: euro or not_specified cause from input data not clear which currency is processing (to avoid make not strict conclusions)
+ * `currency_type`: euro or None by default in cause info from input data not clear which currency is processing (to avoid make not strict conclusions)
 
 ### 2.1 Description
 
@@ -51,8 +51,9 @@ This is moment for to show your skills.
 
 ### 2.2 TODO
 **Planned**
+- Check new data in input dir in case new run load
+- Add timeing for load data
 - Implement merge CSV by pandas
-- Check new data in input dir
 - Add new format of CSV error checks
 - Store sync process to DB w/ not parsed items and reason to DB
 - Use ORM to store merged data to DB (source of truth)
@@ -65,6 +66,7 @@ This is moment for to show your skills.
 - Add tests
 - Docker
 - Deploy
+- Add linters
 
 ### 2.3 Project run
 
@@ -72,10 +74,10 @@ Project run:
 1) Clone repo.
 2) Install Python 3.x and pip3.
 3) Create venv:\
-   `virtualenv .venv & source .venv/bin/activate`
+   `python3.10 -m virtualenv .venv & source .venv/bin/activate`
    `pipreqs` - tools to generate deps based on project imports.
 4) Install deps: \
    `pip3 install -r requirements.txt`
 5) Run:
-`python3 bin/load_data.py`
+`cd bin & python3 load_data.py`
 #TODO: sh, web-handler
