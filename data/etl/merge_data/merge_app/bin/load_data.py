@@ -3,7 +3,6 @@ import datetime
 import logging
 import os
 import sys
-import time
 from typing import List, Optional
 
 # noinspection PyPackageRequirements,PyPackageRequirements
@@ -19,10 +18,45 @@ import settings
 import data.db_session as db_session
 from enums.sa import SyncStatus, SyncEndReason, SyncType
 from utils import py as py_utils
-from data.models.syncs import Sync, NotSyncedItem
-
+from data.models.syncs import Sync
 
 last_sync, actual_sync, errors, parsing_results = None, None, [], {}
+
+# Not checked enums due to ORM SA is performing that
+# Not used parse module to parse expected date format to check data consistency
+def normalize_csv_w_format1(csv_reader):
+    normalized_dict = {}
+    for row in csv_reader:
+        row = py_utils.DictToObj(default_val=None, **row)
+        normalized_dict.update(**dict(
+            date=py_utils.parse_date(
+                row.timestamp, settings.DATE_FORMAT_CSV_1),
+            operation_type=row.type,
+            currency_type=None,
+            money_amount=float(row.amount),
+            sender_id=int(getattr(row, 'from')),  # registered word from
+            recipient_id=int(row.to),
+        ))
+
+    return normalized_dict
+
+def normalize_csv_w_format2(csv_reader):
+    return {}
+
+def normalize_csv_w_format3(csv_reader):
+    return {}
+
+CSV_NORMALIZATION_MAP = {
+    # CSV1 format
+    py_utils.get_unique_from_list_of_str(
+        ['timestamp', 'type', 'amount', 'to', 'from']): normalize_csv_w_format1,
+    # CSV2 format
+    py_utils.get_unique_from_list_of_str(
+        ['date', 'transaction', 'amounts', 'to', 'from']): normalize_csv_w_format2,
+    # CSV3 format
+    py_utils.get_unique_from_list_of_str(
+        ['date_readable', 'type', 'euro', 'cents', 'to', 'from']): normalize_csv_w_format3,
+}
 
 
 def run(sync_type, forced=False):
@@ -53,12 +87,21 @@ def get_file_paths(files_dir_path: str) -> List[str]:
     return sorted(file_paths)
 
 
-def read_csv_file_data(file_path: str) -> dict:
+def get_normalized_dict_from_csv_file(file_path: str) -> dict:
     try:
         with open(file_path, 'r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter=',')
-            dict_from_csv = dict(list(csv_reader)[0])
-            return dict_from_csv
+            columns_unique = py_utils.get_unique_from_list_of_str(
+                csv_reader.fieldnames)
+            normalize_csv_func = CSV_NORMALIZATION_MAP.get(columns_unique)
+            if not normalize_csv_func:
+                #TODO: Add data to failed syncs to DB
+                raise Exception(
+                    f"Not recognized format of CSV columns, "
+                    f"file: {file_path}, columns: {csv_reader.fieldnames}.")
+
+            normalized_dict = normalize_csv_func(csv_reader)
+            return normalized_dict
 
     except Exception as err:
         logging.error(
@@ -67,7 +110,8 @@ def read_csv_file_data(file_path: str) -> dict:
         raise err
 
 
-def get_input_data_from_csv_files(input_dir_path_part) -> List[dict]:
+def get_and_normalize_input_data_from_csv_files(
+        input_dir_path_part) -> List[dict]:
     input_data_dir = os.path.abspath(
         os.path.join(os.path.dirname(__file__), '..', input_dir_path_part))
 
@@ -77,18 +121,19 @@ def get_input_data_from_csv_files(input_dir_path_part) -> List[dict]:
 
     logging.info("Found {:,} file paths, loading files data...".format(
         len(file_paths)))
-    files_data = []
+    list_csv_dicts = []
 
     bar = progressbar.ProgressBar(maxval=len(file_paths)).start()
     for file_idx, file_path in enumerate(file_paths, start=1):
-        files_data.append(read_csv_file_data(file_path))
+        dict_from_csv = get_normalized_dict_from_csv_file(file_path)
+        list_csv_dicts.append(dict_from_csv)
         bar.update(file_idx)
 
     sys.stderr.flush()
     sys.stdout.flush()
-    logging.info("Loaded {:,} input data CSV files".format(len(files_data)))
+    logging.info("Loaded {:,} input data CSV files".format(len(list_csv_dicts)))
 
-    return files_data
+    return list_csv_dicts
 
 
 def is_new_input_data(session, forced, sync_type):
@@ -121,14 +166,14 @@ def get_input_data(session, forced, sync_type) -> Optional[List[dict]]:
         })
         actual_sync_kwargs = {}
         try:
-            input_data = get_input_data_from_csv_files(
+            list_csv_dicts = get_and_normalize_input_data_from_csv_files(
                 input_dir_path_part=settings.INPUT_DATA_DIR)
             py_utils.set_obj_attr_values(
                 actual_sync, dict(status=SyncStatus.got_data))
             session.commit()
 
             logging.info("Get input data is finished.")
-            return input_data
+            return list_csv_dicts
 
         except Exception as err:
             error_msg = (

@@ -1,14 +1,12 @@
-import dataclasses
+import hashlib
 import json
 import os
 import sys
-from datetime import datetime, time, timezone
+from datetime import datetime
 from importlib import import_module
 from inspect import isclass
 from pkgutil import iter_modules
 from typing import Iterable
-
-import settings
 
 
 class DictToObj(dict):
@@ -154,28 +152,15 @@ def flatten(items):
             yield x
 
 
-def parse_datetime(date_string, format):
-        try:
-            parsed_date = datetime.strptime(date_string, format)
-            # Based on task agreement all data in UTC time zone.
-            return parsed_date.replace(tzinfo=timezone.utc)
-        except Exception:
-            return
-
-
-def parse_time(time_string, format):
+def parse_date(date_string, format):
     try:
-        return datetime.strptime(time_string, format).time()
+        return datetime.strptime(date_string, format).date()
     except Exception:
         return
 
 
-def parse_server_dt(date_string):
-    return parse_datetime(date_string, settings.DATA_TIME_SYNC_SERVER_FORMAT)
+def get_unique_from_list_of_str(list_of_str):
+    joined_str = ''.join(sorted([str(_str) for _str in list_of_str]))
+    unique = hashlib.md5(joined_str.encode('utf-8')).hexdigest()
 
-
-def parse_req_dt(date_string):
-    return parse_datetime(date_string, settings.DATA_TIME_REQUEST_FORMAT)
-
-def parse_req_t(time_string):
-    return parse_time(time_string, settings.TIME_REQUEST_FORMAT)
+    return unique
