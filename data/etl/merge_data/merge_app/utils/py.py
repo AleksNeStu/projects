@@ -8,6 +8,8 @@ from inspect import isclass
 from pkgutil import iter_modules
 from typing import Iterable
 
+import settings
+
 
 class DictToObj(dict):
     def __init__(self, *args, default_val='', **kwargs):
@@ -157,6 +159,12 @@ def parse_date(date_string, format):
         return datetime.strptime(date_string, format).date()
     except Exception:
         return
+
+def datetime_to_str(date, format):
+    try:
+        return date.strftime(format)
+    except Exception:
+        return ''
 
 
 def get_unique_from_list_of_str(list_of_str):

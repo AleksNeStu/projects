@@ -27,7 +27,11 @@ class Transaction(SqlAlchemyBase):
         sa.Integer, sa.ForeignKey('syncs.id'), nullable=False, index=True)
 
     created_date: datetime.datetime = sa.Column(
-        sa.DateTime, default=datetime.datetime.utcnow)
+        sa.DateTime, default=datetime.datetime.now)
     updated_date: datetime.datetime = sa.Column(sa.DateTime, nullable=True)
 
     sync = orm.relationship('Sync')
+
+    @property
+    def column_names(self):
+        return [attr.name for attr in Transaction.__mapper__.columns if attr.name != 'sync']

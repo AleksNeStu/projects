@@ -85,6 +85,7 @@ NOSQL_DB_CONNECTION = dotenv.dotenv_values(NO_SQL_ENV_PATH)
 
 # Merge app
 INPUT_DATA_DIR = ('input')
+OUTPUT_DATA_DIR = ('output')
 # apscheduler.triggers.interval.IntervalTrigger
 SYNC_INTERVAL = dict(weeks=0, days=0, hours=0, minutes=30, seconds=0)
 
@@ -92,3 +93,5 @@ SYNC_INTERVAL = dict(weeks=0, days=0, hours=0, minutes=30, seconds=0)
 DATE_FORMAT_CSV_1 = '%b %d %Y' # Oct 1 2019
 DATE_FORMAT_CSV_2 = '%d-%m-%Y' # 3/10/2019 converted by csv_dict_reader to 03-10-2019
 DATE_FORMAT_CSV_3 = '%d %b %Y' # 6-Oct-19 converted by csv_dict_reader to 6 Oct 2019
+
+DATETIME_STR_FORMAT = '%d/%m/%Y %H:%M:%S'

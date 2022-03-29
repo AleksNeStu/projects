@@ -1,3 +1,9 @@
+# TODO: Avoid data rewriting
+# TODO: Add convertor to JSON, XML from DB ORM models
+# TODO: Fix sync DB data inserting
+# TODO: Add pandas flow for big data sets
+# TODO: Create pipeline to load and convert data in case of increments
+# TODO: Add scheduler
 import copy
 import csv
 import datetime
@@ -117,7 +123,44 @@ def run(sync_type, forced=False):
     last_sync, actual_sync, errors = None, None, []
 
     logging.info("Sync data from input source is finished.")
+
+    # TODO: Separate converting part to separate module and add DB logging of that
+    logging.info("Convert data from DB transactions is started.")
+    output_csv = convert_transactions_to_csv(transactions_synced)
+
+    logging.info("Convert data from DB transactions is finished.")
+
     return sync
+
+
+# TODO: Implement increments
+def convert_transactions_to_csv(db_transactions):
+    output_data_dir = os.path.abspath(
+        os.path.join(os.path.dirname(
+            __file__), '..', settings.OUTPUT_DATA_DIR))
+    output_csv_file = os.path.abspath(
+        os.path.join(output_data_dir, 'bank_transactions.csv'))
+
+    with open(output_csv_file, 'w', newline="") as csv_output_file:
+        csv_writer = csv.writer(csv_output_file)
+
+        column_names = None
+        for i in range(len(db_transactions)):
+            transaction = db_transactions[i]
+            if i == 0:
+                # Write header
+                column_names = transaction.column_names
+                csv_writer.writerow(column_names)
+
+            # Write data one by one
+            data_list = [
+                py_utils.datetime_to_str(getattr(transaction, column),
+                                         settings.DATETIME_STR_FORMAT)
+                if column in ['created_date', 'updated_date']
+                else getattr(transaction, column)
+                for column in column_names
+            ]
+            csv_writer.writerow(data_list)
 
 
 def build_sync_transactions(session, normalized_input_data):

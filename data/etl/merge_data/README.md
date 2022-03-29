@@ -42,6 +42,15 @@ This is moment for to show your skills.
 
 ## 2. Solution
 
+ELT (extract, load, transform) pipline which:
+1) Check new csv dta in input dir;
+2) In case of new data parse (load) and transform columns named to predefined structure
+based on normalization map of columns using unique hexdijest of str repr of columns.
+3) Incrementally insert data to `transactions` DB.
+4) Convert to preferable format (full state or add incremental part)
+5) Track ELT process using logging and `syncs` DB table.
+6) Use by scheduled time or in demand by script or web handler.
+
 ### 2.0 Notes:
 - Consider do not use floating for finance data (because floats and doubles cannot accurately represent the base 10 multiples that we use for money. It's for any programming language that uses base 2 floating-point types)
   https://en.wikipedia.org/wiki/Floating-point_arithmetic
