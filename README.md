@@ -29,7 +29,7 @@ Project dir structure:
    
 [scripts](/scripts) - Scripts stuff
 
-[web_apps](/web_apps) Web applications (FE | BE or only BE) \
+[web_apps](/web_apps) Web applications (FE | BE or only BE) 
    - [pypi-web-app](/web_apps/pypi) - Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja
 
 [tasks](/tasks) - Tests coding tasks and more
