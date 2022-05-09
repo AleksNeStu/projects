@@ -2,7 +2,7 @@
 name = "pypi"
 version = "0.1.0"
 description = "Data-Driven Web App w/ Flask and SQLAlchemy"
-authors = ["Alexander Nesterovich <a.v.nesterovich@gmail.com>"]
+authors = ["Alexander Nesterovich"]
 license = "Apache License 2.0"
 
 [tool.poetry.dependencies]
