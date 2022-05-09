@@ -1,0 +1,1 @@
+https://shekhargulati.com/2018/12/06/locust-load-testing-your-rest-api/
