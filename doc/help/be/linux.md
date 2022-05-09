@@ -42,7 +42,11 @@ Glances is a cross-platform monitoring tool written in Python.  It’ll run on a
 
 **[M]**
 
-**[N]**
+**[N]** \
+Get ex IP\
+``sh
+curl -4 icanhazip.com
+``
 
 **[O]**
 
