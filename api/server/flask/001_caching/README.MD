@@ -24,5 +24,11 @@ https://jsonplaceholder.typicode.com/comments
 
 # Docker
 ``sh
+; Build and up
 docker-compose up -d --build
+docker-compose up -d --up
+; Force up
+docker-compose -f docker-compose.yml up
+; Rebuild python int
+docker-compose -f docker-compose.yml build api 
 ``
