@@ -38,7 +38,7 @@ def process_data(num: int, data: list):
         dt = datetime.datetime.now() - t
 
         print(colorama.Fore.CYAN +
-              f" -- generated item {idx, v, t}, took {dt.total_seconds():,.2f} sec.", flush=True)
+              f" ++ processed item {idx, v, t}, took {dt.total_seconds():,.2f} sec.", flush=True)
         time.sleep(.5)
 
 

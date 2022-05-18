@@ -30,7 +30,7 @@ async def generate_data(num: int, data: asyncio.Queue):
         v, t = (idx*idx, datetime.datetime.now())
         await data.put((v, t))
 
-        print(colorama.Fore.YELLOW + f" -- generated item {idx, v, t}", flush=True)
+        print(colorama.Fore.YELLOW + f" ++ processed item {idx, v, t}", flush=True)
         await asyncio.sleep(random.random() + .5)
 
 
