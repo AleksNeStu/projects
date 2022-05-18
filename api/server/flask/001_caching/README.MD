@@ -32,3 +32,7 @@ docker-compose -f docker-compose.yml up
 ; Rebuild python int
 docker-compose -f docker-compose.yml build api 
 ``
+
+Redis clients:
+https://tableplus.com/blog/2019/10/tableplus-linux-installation.html
+https://resp.app/

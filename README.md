@@ -12,6 +12,8 @@ Project dir structure:
         - [fast_api](/api/server/fast_api) - FastAPI server examples
         - [flask](/api/server/flask) - Flask server examples
 
+[async](/async) - Concurrency and Parallelism stuff.
+
 [code](/code) - Coding collections (algorithms, solutions, e.t.c.)
 
 [data](/data) - Data Engineering stuff
