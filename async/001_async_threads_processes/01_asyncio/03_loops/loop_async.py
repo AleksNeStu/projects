@@ -19,7 +19,9 @@ def main():
     task2 = loop.create_task(process_data(2 * lim, data))
 
     final_task = asyncio.gather(task1, task2, task3)
+
     loop.run_until_complete(final_task)
+    # asyncio.run(final_task)
 
     dt = datetime.datetime.now() - t0
     print(colorama.Fore.WHITE + f"App exiting, total time: {dt.total_seconds():,.2f} sec.", flush=True)
