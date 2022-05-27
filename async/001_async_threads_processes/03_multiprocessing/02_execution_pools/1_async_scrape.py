@@ -64,4 +64,6 @@ async def get_title_range():  # 0.3 s
 
 
 if __name__ == '__main__':
-    main()
+    from codetiming import Timer
+    with Timer():
+        main()

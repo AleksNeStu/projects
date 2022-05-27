@@ -1,10 +1,11 @@
 from concurrent.futures import Future
-# from concurrent.futures.thread import ThreadPoolExecutor as PoolExecutor
-from concurrent.futures.process import ProcessPoolExecutor as PoolExecutor
+from concurrent.futures.thread import ThreadPoolExecutor as PoolExecutor
+# from concurrent.futures.process import ProcessPoolExecutor as PoolExecutor
 
 import bs4
 import requests
 
+# 0.6144 sec
 
 def main():
     urls = [
@@ -33,7 +34,7 @@ def main():
         print(f"{f.result()}", flush=True)
 
 
-#TODO: Use async stuff
+# TODO: Use async stuff
 def get_title(url: str) -> str:
     import multiprocessing
     p = multiprocessing.current_process()
@@ -66,4 +67,7 @@ def get_title(url: str) -> str:
 
 
 if __name__ == '__main__':
-    main()
+    from codetiming import Timer
+
+    with Timer():
+        main()
