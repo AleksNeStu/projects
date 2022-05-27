@@ -19,3 +19,10 @@
 
 - Multiprocessing
 - Cython
+
+3. Hybrid
+- unsync
+  https://github.com/alex-sherman/unsync
+
+- trio
+  Unsynchronize asyncio by using an ambient event loop, or executing in separate threads or processes.
