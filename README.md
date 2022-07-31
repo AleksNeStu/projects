@@ -14,7 +14,7 @@ Project dir structure:
 
 [async](/async) - Concurrency and Parallelism stuff.
 
-[code](/code) - Coding collections (algorithms, solutions, e.t.c.)
+[code](/code) - Coding collections (algorithms, solutions, complexity, e.t.c.)
 
 [data](/data) - Data Engineering stuff
    - [etl](/data/etl) - ETL (ELT)
