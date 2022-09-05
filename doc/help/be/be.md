@@ -137,15 +137,24 @@ Templates: Fast and pythonic *built-in template engine* and support for mako, ji
 - [Use of NoSQL in Industry](https://www.geeksforgeeks.org/use-of-nosql-in-industry/)
 - [NoSQL Data Architecture Patterns](https://www.geeksforgeeks.org/nosql-data-architecture-patterns/)
 - [NoSQL](https://en.wikipedia.org/wiki/NoSQL)
+  
   > Key–value store
   - Memcached, Redis, Coherence, DynamoDB, Berkeley DB
+  
   > Document store (Column Store Database)
   - [MongoDB](https://en.wikipedia.org/wiki/MongoDB)
   - CouchDB, Cloudant, HBase, Bigtable by Google
+  
   > Graph
   - Neo4J, FlockDB( Used by Twitter)
+  
   > Column Store Database (Tabular)
   - Hbase, Accumulo, HBase, Bigtable by Google, Cassandra
+  
+  > Other
+  - https://github.com/msiemens/tinydb
+  - https://github.com/typicode/lowdb
+  - https://github.com/scottrogowski/mongita - disk or in memory (like SQLite)
 
 > NewSQL
 - [NewSQL DB](https://en.wikipedia.org/wiki/NewSQL)
