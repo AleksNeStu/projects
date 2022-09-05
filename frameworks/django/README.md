@@ -19,3 +19,14 @@ nestu \
    &nbsp;&nbsp;&nbsp;&nbsp;urls.py -  The URL declarations for this Django project; a “table of contents” of your Django-powered site. \
    &nbsp;&nbsp;&nbsp;&nbsp;asgi.py - An entry-point for ASGI-compatible web servers to serve your project. See How to deploy with ASGI for more details.\
    &nbsp;&nbsp;&nbsp;&nbsp;wsgi.py - An entry-point for WSGI-compatible web servers to serve your project. See How to deploy with WSGI for more details.
+
+
+
+4) MVC / MTV
+https://iq.opengenus.org/model-view-controller-django/
+- VC is a design pattern popularly used to create web applications that consist of 3 components namely Model, View, and Controller.
+- The Model manages the data-logic, View manages the user interface and the Controller interacts with the user and controls Model and View.
+- The concept of MVC could be applied differently in different frameworks.
+- MVC -> MTV is used in Django:
+   - Views = Templates(T)
+   - Controller = framework + Views(V).
