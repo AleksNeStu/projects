@@ -23,6 +23,8 @@ Project dir structure:
         - [migrations](/data/migrations) - Data (DB) migrations
           - [alembic_quickstart](/data/migrations/001_alembic_quickstart) - Alembic quickstart migrations
 
+[debug](/debug) - Debug
+   - [memory-leaks](/memory-leaks) - Memory leaks examples
 
 [doc](/doc) - Documentations stuff
    - [cheats](/doc/cheats) - Cheat sheets
