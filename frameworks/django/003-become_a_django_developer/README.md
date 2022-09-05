@@ -20,4 +20,8 @@ python manage.py runserver
 python manage.py migrate
 python manage.py createsuperuser
 
+
+# Add ORM models
+django-admin startapp notes
 ```
+
