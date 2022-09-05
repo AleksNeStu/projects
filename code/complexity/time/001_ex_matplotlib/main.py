@@ -57,16 +57,16 @@ def draw_time_complexity(func, max_len, max_elem):
     plt.show()
 
 
-# draw_time_complexity(func=set_w_nested_loop, max_len=20, max_elem=99)
+draw_time_complexity(func=set_w_nested_loop, max_len=20, max_elem=99)
 
 
-# Calc complexity
-from bigO import BigO
-lib = BigO()
-# complexity_random = lib.test(set_w_nested_loop, "random", limit=True)
-complexity_sorted = lib.test(set_w_nested_loop, "sorted", limit=True)
-# complexity_reversed = lib.test(set_w_nested_loop, "reversed")
-# complexity_partial = lib.test(set_w_nested_loop, "partial")
-# complexity_ksorted = lib.test(set_w_nested_loop, "Ksorted")
-
-# complexity_all = lib.test_all(set_w_nested_loop)
+# # Calc complexity
+# from bigO import BigO
+# lib = BigO()
+# # complexity_random = lib.test(set_w_nested_loop, "random", limit=True)
+# complexity_sorted = lib.test(set_w_nested_loop, "sorted", limit=True)
+# # complexity_reversed = lib.test(set_w_nested_loop, "reversed")
+# # complexity_partial = lib.test(set_w_nested_loop, "partial")
+# # complexity_ksorted = lib.test(set_w_nested_loop, "Ksorted")
+#
+# # complexity_all = lib.test_all(set_w_nested_loop)
