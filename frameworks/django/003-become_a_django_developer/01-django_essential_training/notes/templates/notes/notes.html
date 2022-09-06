@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+
+
+<body>
+<h1>All_Notes</h1>
+<ul>
+    {% for note in notes %}
+    <li>{{note.title}}</li>
+    {% endfor %}
+</ul>
+
+<h2 id="example">All notes 2</h2>
+{{all_notes}}
+
+</body>
+
+
+</html>
