@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
+# new
 class HomeView(TemplateView):
     template_name = 'home/welcome.html'
     extra_context = {'today': datetime.today()}
@@ -17,7 +18,7 @@ class AuthView(LoginRequiredMixin, TemplateView):
     login_url = '/admin'
 
 
-# Create your views here.
+# init
 def home(request):
     # Django uses template frm to render it
     # from django.http import HttpResponse
