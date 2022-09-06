@@ -23,5 +23,11 @@ python manage.py createsuperuser
 
 # Add ORM models
 django-admin startapp notes
+# add models
+python manage.py makemigrations
+# Migrations for 'notes':
+#  notes/migrations/0001_initial.py
+#    - Create model Notes
+
 ```
 
