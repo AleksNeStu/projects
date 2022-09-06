@@ -28,6 +28,26 @@ python manage.py makemigrations
 # Migrations for 'notes':
 #  notes/migrations/0001_initial.py
 #    - Create model Notes
+python manage.py migrate
+
+# shell
+python manage.py shell
+    from notes.models import Notes
+    note = Notes.objects.get(pk='1')
+    note
+    note.title
+    %history
+    note.text
+    Notes.objects.get_all()
+    Notes.objects.all()
+    new_note = Notes.objects.get(title='n_2', text='txt2')
+    new_note = Notes.objects.create(title='n_2', text='txt2')
+    Notes.objects.all()
+    Notes.objects.filter(title__startswith='My')
+    Notes.objects.exclude(title__icontains='My')
+    %history
+
+
 
 ```
 
