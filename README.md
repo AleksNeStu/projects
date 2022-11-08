@@ -42,4 +42,15 @@ Project dir structure:
 
 [tasks](/tasks) - Tests coding tasks and more
 
-**`*` - fully self developed part(s) or project(s)**
+
+
+# Virtual env install
+```sh
+dnf install python3.10 poetry
+
+rm -rf .venv
+poetry env use 3.10
+source .venv/bin/activate
+poetry install
+poetry shell
+```
