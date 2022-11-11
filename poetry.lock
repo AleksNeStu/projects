@@ -31,8 +31,8 @@ category = "main"
 description = "aiosignal: a list of registered asynchronous callbacks"
 name = "aiosignal"
 optional = false
-python-versions = ">=3.6"
-version = "1.2.0"
+python-versions = ">=3.7"
+version = "1.3.1"
 
 [package.dependencies]
 frozenlist = ">=1.1.0"
@@ -308,7 +308,7 @@ description = "A flexible, customizable timer for your Python code."
 name = "codetiming"
 optional = false
 python-versions = ">=3.6"
-version = "1.3.2"
+version = "1.4.0"
 
 [package.extras]
 dev = ["black", "bump2version", "flake8", "flit", "interrogate", "isort", "mypy"]
@@ -666,7 +666,7 @@ description = "A list-like structure which implements collections.abc.MutableSeq
 name = "frozenlist"
 optional = false
 python-versions = ">=3.7"
-version = "1.3.1"
+version = "1.3.3"
 
 [[package]]
 category = "main"
@@ -690,7 +690,7 @@ description = "Google Authentication Library"
 name = "google-auth"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*"
-version = "2.14.0"
+version = "2.14.1"
 
 [package.dependencies]
 cachetools = ">=2.0.0,<6.0"
@@ -704,7 +704,7 @@ version = ">=3.1.4,<5"
 [package.extras]
 aiohttp = ["requests (>=2.20.0,<3.0.0dev)", "aiohttp (>=3.6.2,<4.0.0dev)"]
 enterprise_cert = ["cryptography (36.0.2)", "pyopenssl (22.0.0)"]
-pyopenssl = ["pyopenssl (>=20.0.0)"]
+pyopenssl = ["pyopenssl (>=20.0.0)", "cryptography (>=38.0.3)"]
 reauth = ["pyu2f (>=0.1.5)"]
 
 [[package]]
@@ -875,7 +875,7 @@ description = "IPython Kernel for Jupyter"
 name = "ipykernel"
 optional = false
 python-versions = ">=3.8"
-version = "6.17.0"
+version = "6.17.1"
 
 [package.dependencies]
 appnope = "*"
@@ -1030,7 +1030,7 @@ description = "Jupyter protocol implementation and client libraries"
 name = "jupyter-client"
 optional = false
 python-versions = ">=3.7"
-version = "7.4.4"
+version = "7.4.5"
 
 [package.dependencies]
 entrypoints = "*"
@@ -1068,10 +1068,11 @@ category = "main"
 description = "Jupyter core package. A base package on which Jupyter projects rely."
 name = "jupyter-core"
 optional = false
-python-versions = ">=3.7"
-version = "4.11.2"
+python-versions = ">=3.8"
+version = "5.0.0"
 
 [package.dependencies]
+platformdirs = "*"
 pywin32 = ">=1.0"
 traitlets = "*"
 
@@ -1084,7 +1085,7 @@ description = "=?utf-8?q?The_backend=E2=80=94i=2Ee=2E_core_services=2C_APIs=2C_a
 name = "jupyter-server"
 optional = false
 python-versions = ">=3.7"
-version = "1.23.0"
+version = "1.23.1"
 
 [package.dependencies]
 Send2Trash = "*"
@@ -1350,7 +1351,7 @@ description = "Converting Jupyter Notebooks"
 name = "nbconvert"
 optional = false
 python-versions = ">=3.7"
-version = "7.2.3"
+version = "7.2.4"
 
 [package.dependencies]
 beautifulsoup4 = "*"
@@ -1586,6 +1587,18 @@ version = "9.3.0"
 [package.extras]
 docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
 tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+
+[[package]]
+category = "main"
+description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+name = "platformdirs"
+optional = false
+python-versions = ">=3.7"
+version = "2.5.3"
+
+[package.extras]
+docs = ["furo (>=2022.9.29)", "proselint (>=0.13)", "sphinx-autodoc-typehints (>=1.19.4)", "sphinx (>=5.3)"]
+test = ["appdirs (1.4.4)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest (>=7.2)"]
 
 [[package]]
 category = "main"
@@ -2596,7 +2609,7 @@ description = "A built-package format for Python"
 name = "wheel"
 optional = false
 python-versions = ">=3.7"
-version = "0.38.2"
+version = "0.38.4"
 
 [package.extras]
 test = ["pytest (>=3.0.0)"]
@@ -2676,10 +2689,7 @@ python-versions = ">=3.9,<3.11"
 [metadata.files]
 absl-py = []
 aiohttp = []
-aiosignal = [
-    {file = "aiosignal-1.2.0-py3-none-any.whl", hash = "sha256:26e62109036cd181df6e6ad646f91f0dcfd05fe16d0cb924138ff2ab75d64e3a"},
-    {file = "aiosignal-1.2.0.tar.gz", hash = "sha256:78ed67db6c7b7ced4f98e495e572106d5c432a93e1ddd1bf475e1dc05f5b7df2"},
-]
+aiosignal = []
 alembic = []
 anyio = []
 appnope = []
@@ -2986,6 +2996,7 @@ passlib = [
 pexpect = []
 pickleshare = []
 pillow = []
+platformdirs = []
 pluggy = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
