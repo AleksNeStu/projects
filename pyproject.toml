@@ -56,6 +56,10 @@ sympy = "^1.11"
 mongita = "^1.1.1"
 fastapi = "^0.82.0"
 uvicorn = "^0.18.3"
+allegro-pl-rest-api = "^2020.3.12"
+pipdeptree = "^2.3.3"
+yolk = "^0.4.3"
+yolk3k = "^0.9"
 
 [tool.poetry.dev-dependencies]
 

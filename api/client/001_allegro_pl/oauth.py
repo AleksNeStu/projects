@@ -19,7 +19,7 @@ class OAUTHBearer(auth.AuthBase):
         self._access_token = access_token
 
     def __call__(self, req):
-        req.headers['Authorization'] = "Bearer {}".format(self._access_token)
+        req.headers['authorization'] = f"Bearer {self._access_token}"
         return req
 
 

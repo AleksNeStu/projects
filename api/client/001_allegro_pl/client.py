@@ -54,9 +54,8 @@ class AllegroClient:
     def _default_headers(self):
         headers = dict()
         headers['charset'] = 'utf-8'
-        headers['Accept-Language'] = 'pl-PL'
-        headers['Content-type'] = 'application/json'
-        headers['Accept'] = 'application/vnd.allegro.public.v1+json'
+        headers['content-type'] = 'application/vnd.allegro.public.v1+json'
+        headers['accept'] = 'application/vnd.allegro.public.v1+json'
 
         return headers
 
@@ -225,6 +224,6 @@ class AllegroClient:
         ))
 
         if req.status_code == 204:
-            return None
+            return
 
         return req.json()

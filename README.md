@@ -1,9 +1,8 @@
 # Projects
 
-Projects repo contains a bunch of sub-projects which can be used independently.
+⛱️ Just to do not forget it 😎 Some educational tips and trainings 🏖️
 
-
-Project dir structure:
+💻 Deep Dive Coding 🛸
 
 [api](/api) - API stuff
    - [client](/api/client) - API clients
