@@ -12,7 +12,7 @@
         - [flask](/api/server/flask) - Flask server examples
    - [test](/api/test) - API testsing (load, ...)
 
-[async](/async) - Concurrency and Parallelism
+[async](/async) - Asynchronous, Multi-Threading, Multi-Processing
 
 [code](/code) - Coding collections (algorithms, solutions, complexity, ...)
 
