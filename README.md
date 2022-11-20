@@ -6,16 +6,17 @@
 
 [api](/api) - API stuff
    - [client](/api/client) - API clients
-        - [allegro_pl](/api/client/001_allegro_pl) - Unofficial API client for Allegro.pl inet store
    - [server](/api/server) - API servers
+        - [django](/api/server/django) - Django server examples
         - [fast_api](/api/server/fast_api) - FastAPI server examples
         - [flask](/api/server/flask) - Flask server examples
+   - [test](/api/test) - API testsing (load, ...)
 
-[async](/async) - Concurrency and Parallelism stuff.
+[async](/async) - Concurrency and Parallelism
 
-[code](/code) - Coding collections (algorithms, solutions, complexity, e.t.c.)
+[code](/code) - Coding collections (algorithms, solutions, complexity, ...)
 
-[data](/data) - Data Engineering stuff
+[data](/data) - Data Engineering
    - [etl](/data/etl) - ETL (ELT)
         - [*merge_data](/data/etl/001_merge_data) - Application to merge inconsistent input data from input and convert it
 
@@ -25,15 +26,15 @@
 [debug](/debug) - Debug
    - [memory-leaks](/memory-leaks) - Memory leaks examples
 
-[doc](/doc) - Documentations stuff
+[doc](/doc) - Documentations
    - [cheats](/doc/cheats) - Cheat sheets
    - [help](/doc/help) - Help for different areas of DEV life:)
    - [interview](/doc/interview) - Interview examples 
 
-[frameworks](/frameworks) - Frameworks stuff
+[frameworks](/frameworks) - Frameworks
     - [django](/frameworks)
 
-[scripts](/scripts) - Scripts stuff
+[scripts](/scripts) - Scripts
 
 [web_apps](/web_apps) Web applications (FE | BE or only BE) 
    - [pypi-web-app](/web_apps/001_pypi) - Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja
