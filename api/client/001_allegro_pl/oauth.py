@@ -91,6 +91,7 @@ class AuthHandler:
         # Consider using handles mode w/o opening of the browser
         # https://stackoverflow.com/questions/21777306/python-browser-emulator-with-js-support
         webbrowser.open(oauth_url)
+        # webdriver
 
         httpd.handle_request()
         httpd.server_close()

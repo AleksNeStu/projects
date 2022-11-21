@@ -49,7 +49,8 @@
 dnf install python3.10 poetry
 
 rm -rf .venv
-poetry env use 3.10
+poetry config virtualenvs.in-project true
+poetry env use 3.8
 source .venv/bin/activate
 poetry install
 poetry shell
