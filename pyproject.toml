@@ -60,6 +60,7 @@ allegro-pl-rest-api = "^2020.3.12"
 pipdeptree = "^2.3.3"
 yolk = "^0.4.3"
 yolk3k = "^0.9"
+selenium = "^4.6.0"
 
 [tool.poetry.dev-dependencies]
 
