@@ -1,10 +1,13 @@
 import os
 
 import uvicorn
-
 from fastapi import FastAPI, HTTPException
-from mongita import MongitaClientDisk as m_client
-# from mongita import MongitaClientMemory as m_client
+from mongita import MongitaClientDisk
+# GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s
+# BSON-document size limit of 16 MiB.
+
+from mongita import MongitaClientMemory
+from pymongo import MongoClient
 from pydantic import BaseModel
 
 SHAPES = [
@@ -24,8 +27,14 @@ class Shape(BaseModel):
 
 app = FastAPI()
 
-client = m_client(host=DB_DIR)
-db = client.db 
+# client = MongitaClientDisk(host=DB_DIR)
+# client = MongitaClientMemory()
+client = MongoClient("localhost", 27017)
+# client_db.test()
+
+
+
+db = client.db
 shapes = db.shapes
 shapes.count_documents({})
 dbs = client.list_database_names()
@@ -40,21 +49,21 @@ curl -X 'GET' \
   -H 'accept: application/json'
 """
 
+def repr_snape(shape):
+    return {key: shape[key] for key in shape if key != "_id"}
+
 
 @app.get("/shapes")
 async def get_shapes():
     existing_shapes = shapes.find({})
-    return [
-        {key: shape[key] for key in shape if key != "_id"}
-        for shape in existing_shapes
-    ]
+    return [repr_snape(shape) for shape in existing_shapes]
 
 
 @app.get("/shapes/{shape_id}")
 async def get_shape_by_id(shape_id: int):
     if shapes.count_documents({"id": shape_id}) > 0:
         shape = shapes.find_one({"id": shape_id})
-        return {key: shape[key] for key in shape if key != "_id"}
+        return repr_snape(shape)
     raise HTTPException(status_code=404, detail=f"No shape with id {shape_id} found")
 
 

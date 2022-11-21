@@ -3,6 +3,7 @@
 - 
 
 # B
+- **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
 
 # C
 
@@ -14,12 +15,14 @@
 # F
 
 # G
+- **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
 
 # H
 
 # I
 
 # J
+- **[JSON](https://www.json.org/json-en.html)** - JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write.
 
 # K
 
@@ -43,7 +46,7 @@
 - **[pipreqs](https://github.com/bndr/pipreqs)** - Pip requirements.txt generator based on imports in project.
 - **[pipdeptree](https://github.com/tox-dev/pipdeptree)** - is a command line utility for displaying the installed python packages in form of a dependency tree.
 - **[PhantomJS](https://github.com/ariya/phantomjs)** - PhantomJS is a headless Webkit, which has a number of uses. In this example, we’ll be using it, in conjunction with Selenium WebDriver, for conducting basic system tests directly from the command line. Since PhantomJS eliminates the need for a graphical browser, tests run much faster.
-
+- **[pymongo](https://github.com/mongodb/mongo-python-driver)** - The PyMongo distribution contains tools for interacting with MongoDB database from Python. The bson package is an implementation of the BSON format for Python. The pymongo package is a native Python driver for MongoDB. The gridfs package is a gridfs implementation on top of pymongo. PyMongo supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, and 6.0.
 
 # Q
 
