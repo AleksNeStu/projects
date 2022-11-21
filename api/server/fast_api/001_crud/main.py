@@ -3,7 +3,8 @@ import os
 import uvicorn
 
 from fastapi import FastAPI, HTTPException
-from mongita import MongitaClientDisk, MongitaClientMemory
+from mongita import MongitaClientDisk as m_client
+# from mongita import MongitaClientMemory as m_client
 from pydantic import BaseModel
 
 SHAPES = [
@@ -23,12 +24,12 @@ class Shape(BaseModel):
 
 app = FastAPI()
 
-client = MongitaClientDisk(host=DB_DIR)
+client = m_client(host=DB_DIR)
 db = client.db 
 shapes = db.shapes
 shapes.count_documents({})
 dbs = client.list_database_names()
-# https://github.com/scottrogowski/mongita
+
 
 @app.get("/")
 async def root():

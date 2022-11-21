@@ -24,8 +24,14 @@
 # K
 
 # L
+- **[litecli](https://github.com/dbcli/litecli)** - A command-line client for SQLite databases that has auto-completion and syntax highlighting.
+
+
 
 # M
+- **[mongita](https://github.com/scottrogowski/mongita)** - Mongita is a lightweight embedded document database that implements a commonly-used subset of the MongoDB/PyMongo interface. Mongita differs from MongoDB in that instead of being a server, Mongita is a self-contained Python library. Mongita can be configured to store its documents either on disk or in memory.
+- **[mycli](https://github.com/dbcli/mycli)** - A command line client for MySQL that can do auto-completion and syntax highlighting.
+- **[mongo-express](https://github.com/mongo-express/mongo-express)** - Web-based MongoDB admin interface written with Node.js, Express and Bootstrap3
 
 
 
