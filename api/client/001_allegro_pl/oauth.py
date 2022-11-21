@@ -90,10 +90,25 @@ class AuthHandler:
         httpd = HTTPServer(serv_name_port, HTTPHandler)
         # Consider using handles mode w/o opening of the browser
         # https://stackoverflow.com/questions/21777306/python-browser-emulator-with-js-support
-        webbrowser.open(oauth_url)
-        # webdriver
+
+        # selenium example, need to fix:
+        # Authorization code is not returned, PTAL: https://developer.allegro.pl/en/auth/
+        # http://localhost:7777/?error=login_required
+        # from selenium import webdriver
+        # from selenium.webdriver.chrome.options import Options
+        # options = Options()
+        # options.headless = False
+        # driver = webdriver.Chrome(chrome_options=options)
+        # driver.execute_script("window.open('{}')".format(oauth_url))
+
+
+
+        # browser_path = 'google-chrome %s --incognito'
+        # webbrowser.get(browser_path).open_new(oauth_url)
+        webbrowser.open_new(oauth_url)
 
         httpd.handle_request()
+        # driver.close()
         httpd.server_close()
 
         # TODO: Add errors handling
