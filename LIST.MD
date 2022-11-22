@@ -6,6 +6,7 @@
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
 
 # C
+- **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
 
 # D
 
