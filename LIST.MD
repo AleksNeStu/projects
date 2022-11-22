@@ -48,10 +48,17 @@
 - **[pipdeptree](https://github.com/tox-dev/pipdeptree)** - is a command line utility for displaying the installed python packages in form of a dependency tree.
 - **[PhantomJS](https://github.com/ariya/phantomjs)** - PhantomJS is a headless Webkit, which has a number of uses. In this example, we’ll be using it, in conjunction with Selenium WebDriver, for conducting basic system tests directly from the command line. Since PhantomJS eliminates the need for a graphical browser, tests run much faster.
 - **[pymongo](https://github.com/mongodb/mongo-python-driver)** - The PyMongo distribution contains tools for interacting with MongoDB database from Python. The bson package is an implementation of the BSON format for Python. The pymongo package is a native Python driver for MongoDB. The gridfs package is a gridfs implementation on top of pymongo. PyMongo supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, and 6.0.
+- **[python-dotenv](https://github.com/theskumar/python-dotenv)** - Python-dotenv reads key-value pairs from a .env file and can set them as environment variables. It helps in the development of applications following the 12-factor principles. By default, load_dotenv doesn't override existing environment variables.
+
+
+
+
 
 # Q
 
 # R
+- [**redis**](https://github.com/redis/redis) - Redis is often referred to as a data structures server. What this means is that Redis provides access to mutable data structures via a set of commands, which are sent using a server-client model with TCP sockets and a simple protocol. So different processes can query and modify the same data structures in a shared way. [Redis data types](https://redis.io/docs/).
+
 
 # S
 - **[spynner](https://github.com/makinacorpus/spynner)** - Spynner is a stateful programmatic web browser module for Python. It is based upon PyQT and WebKit. It supports Javascript, AJAX, and every other technology that !WebKit is able to handle (Flash, SVG, ...). Spynner takes advantage of JQuery. a powerful Javascript library that makes the interaction with pages and event simulation really easy. Using Spynner you would able to simulate a web browser with no GUI (though a browsing window can be opened for debugging purposes), so it may be used to implement crawlers or acceptance testing tools.

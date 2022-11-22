@@ -52,8 +52,14 @@ dnf install python3.10 poetry
 
 rm -rf .venv
 poetry config virtualenvs.in-project true
-poetry env use 3.8
+poetry env use 3.10
 source .venv/bin/activate
 poetry install
 poetry shell
+```
+
+# NOTES:
+1) Do not use code dir as module to avoid an err during bootstrap procedures:
+```
+Werkzeug AttributeError: 'module' object has no attribute 'InteractiveInterpreter'
 ```

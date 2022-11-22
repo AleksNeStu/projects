@@ -8,6 +8,10 @@ from flask import Flask, request, jsonify
 from flask_caching import Cache
 from humanfriendly import format_timespan
 
+
+t = Timer(text=f"{__file__}: {{:.4f}}")
+
+
 # ENV
 dotenv.load_dotenv("./app.env") # to project os.getenv('***')
 env = dotenv.dotenv_values("./app.env") # to var
@@ -20,8 +24,8 @@ app.config.from_mapping(**env)
 
 cache = Cache(app)
 
-
 @app.route("/universities/")
+@t
 @cache.cached(timeout=777, query_string=True)
 # query_string — Default False. When True, the cache key used will be the result of hashing the ordered query string parameters. This avoids creating different caches for the same query just because the parameters were passed in a different order.
 def get_universities():
@@ -32,15 +36,17 @@ def get_universities():
     # http://universities.hipolabs.com/search?name=middle&country=turkey
     # http://universities.hipolabs.com/search?country=United States&name=Mart
 
+    # t.start()
     country = request.args.get('country', '')
     API_URL = f"http://universities.hipolabs.com/search?country={country}"
 
-    with Timer(name=f'{__file__}',
-               text=lambda secs: f"Get universities request time: {format_timespan(secs)}",
-               logger=logging.info):
-        resp = requests.get(API_URL)
-
-    return jsonify(resp.json())
+    # with Timer(name=f'{__file__}',
+    #            text=lambda secs: f"Get universities request time: {format_timespan(secs)}",
+    #            logger=logging.info):
+    resp = requests.get(API_URL)
+    res = jsonify(resp.json())
+    # t.stop()
+    return res
 
 
 if __name__ == "__main__":
