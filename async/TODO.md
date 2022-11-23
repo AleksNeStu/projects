@@ -6,3 +6,5 @@
 5) https://superfastpython.com/python-asyncio/
 
 6) https://realpython.com/async-io-python/
+
+7) Solutions to get thread results (all possible)

@@ -11,7 +11,6 @@ def task(value):
     # ...
     # all done
     res = (f' [done {value}] ')
-    print(res)
     return res
 
 # protect the entry point
