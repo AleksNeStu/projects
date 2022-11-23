@@ -1967,6 +1967,14 @@ loguru = ["loguru"]
 tests = ["flake8", "pytest", "pytest-cov", "pytest-mypy", "pytest-asyncio", "sphinx", "types-setuptools", "loguru"]
 
 [[package]]
+name = "pytypes"
+version = "1.0b10"
+description = "Typing toolbox for Python 3 _and_ 2."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pytz"
 version = "2022.6"
 description = "World timezone definitions, modern and historical"
@@ -2763,7 +2771,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "ae4acc52b7c5603dd8df53ec7ac0984220d20dfb1502a3740c9be91fedd6dbe6"
+content-hash = "c0cbd4549020f36eae05d3e99e93eb8454e42d91331b4644e117ce5e5331a436"
 
 [metadata.files]
 absl-py = []
@@ -3013,6 +3021,10 @@ pytest-cov = []
 python-dateutil = []
 python-dotenv = []
 python-utils = []
+pytypes = [
+    {file = "pytypes-1.0b10-py2.py3-none-any.whl", hash = "sha256:3c7ad90429d3d9f19d48ca025159869e824bfcf3a278adb795d4d800ab541fbf"},
+    {file = "pytypes-1.0b10.tar.gz", hash = "sha256:f9264041c18d8b4779623bc9c10d978e2d2ab73d190fe028f978b3dfcc85256a"},
+]
 pytz = []
 pywin32 = []
 pywinpty = []

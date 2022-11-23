@@ -61,6 +61,7 @@ yolk = "^0.4.3"
 yolk3k = "^0.9"
 selenium = "^4.6.0"
 py3-validate-email = "^1.0.5"
+pytypes = "^1.0b10"
 
 [tool.poetry.dev-dependencies]
 
