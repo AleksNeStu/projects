@@ -14,6 +14,7 @@
 # E
 
 # F
+- **[flask-caching](https://github.com/pallets-eco/flask-caching)** - A fork of the Flask-cache extension which adds easy cache support to Flask.
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
@@ -49,7 +50,7 @@
 - **[PhantomJS](https://github.com/ariya/phantomjs)** - PhantomJS is a headless Webkit, which has a number of uses. In this example, we’ll be using it, in conjunction with Selenium WebDriver, for conducting basic system tests directly from the command line. Since PhantomJS eliminates the need for a graphical browser, tests run much faster.
 - **[pymongo](https://github.com/mongodb/mongo-python-driver)** - The PyMongo distribution contains tools for interacting with MongoDB database from Python. The bson package is an implementation of the BSON format for Python. The pymongo package is a native Python driver for MongoDB. The gridfs package is a gridfs implementation on top of pymongo. PyMongo supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, and 6.0.
 - **[python-dotenv](https://github.com/theskumar/python-dotenv)** - Python-dotenv reads key-value pairs from a .env file and can set them as environment variables. It helps in the development of applications following the 12-factor principles. By default, load_dotenv doesn't override existing environment variables.
-
+- **[python-humanfriendly](https://github.com/xolox/python-humanfriendly)** - humanfriendly: Human friendly input/output in Python
 
 
 
