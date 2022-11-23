@@ -1,0 +1,1 @@
+1) https://superfastpython.com/multiprocessing-pool-for-loop/
