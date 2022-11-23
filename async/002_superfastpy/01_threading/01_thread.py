@@ -19,13 +19,29 @@ if __name__ == '__main__':
     # 63.521885
     t.start()
     # create all tasks
-    threads = [Thread(target=task, args=(i,)) for i in range(settings.COUNT_TASKS)]
+    threads = [Thread(target=task, args=(i,)) for i in range(15)]
+
+
+
     # start all threads
     for thread in threads:
+
+        # thread.run()
         thread.start()
+        # The start() function will return immediately and the operating system will execute the function in a separate thread as soon as it is able.
+
+        # We do not have control over when the thread will execute precisely or which CPU core will execute it. Both of these are low-level responsibilities that are handled by the underlying operating system.
+
+        # This does not start the thread immediately, but instead allows the operating system to schedule the function to execute as soon as possible.
+
+
     # wait for all threads to complete
     for thread in threads:
         thread.join()
+        # We can explicitly wait for the new thread to finish executing by calling the join() function. This is not needed as the main thread will not exit until the new thread has completed.
+
+        # function to explicitly block and wait for the new thread to finish executing.
+
         # TODO: get results via Queue or other solution
     # report that all tasks are completed
     print('Done')
