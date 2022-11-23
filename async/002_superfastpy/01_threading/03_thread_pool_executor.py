@@ -27,8 +27,7 @@ if __name__ == '__main__':
         # futures already done
         # handle results as tasks are completed
         for future in as_completed(futures):
-            # print(future._result)
-            continue
+            print(future._result)
         t.stop()
 
 
@@ -37,8 +36,7 @@ if __name__ == '__main__':
         t.start()
         # issue one task for each call to the function
         for result in pool_exec.map(task, range(settings.COUNT_TASKS)):
-            # print(result)
-            continue
+            print(result)
         t.stop()
     # report that all tasks are completed
     print('Done')

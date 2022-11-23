@@ -1,7 +1,10 @@
 # example of a parallel for loop with the ThreadPool class
 from multiprocessing.pool import ThreadPool
-import settings
+
 from codetiming import Timer
+
+import settings
+
 t = Timer(text=f"{__file__}: {{:.6f}}")
 
 
@@ -20,9 +23,9 @@ if __name__ == '__main__':
     # create the pool with the default number of workers
     # ThreadPool class that will create one worker for each logical
     # CPU core in the system.
-    with ThreadPool() as pool:
+    with ThreadPool() as thread_pool:
         # issue one task for each call to the function
-        for result in pool.map(task, range(settings.COUNT_TASKS)):
+        for result in thread_pool.map(task, range(settings.COUNT_TASKS)):
             # handle the result
             print(result)
     # report that all tasks are completed
