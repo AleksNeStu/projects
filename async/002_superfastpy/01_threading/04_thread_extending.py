@@ -1,10 +1,10 @@
 # Example of Extending the Thread Class
 # Running the example first creates an instance of the thread, then executes the content of the run() function.
 from time import sleep
-from threading import Thread
+import threading
 
 # custom thread class
-class CustomThread(Thread):
+class CustomThread(threading.Thread):
     # override the run function
     # override the run() instance method and define the code that we wish to execute in another thread.
     def run(self):

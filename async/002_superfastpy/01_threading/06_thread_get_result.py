@@ -7,14 +7,14 @@
 # 2) A more advanced scenario: You want to retrieve the result of the target function if the thread does not time out.
 
 # Solutions:
-# 1) concurrent.futures
+# 1) concurrent.futures.ThreadPoolExecutor (concurrent.futures)
 # https://docs.python.org/3/library/concurrent.futures.html
 # 2) multiprocessing.pool.ThreadPool
 # https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing.dummy
-# 3) just threading with Queue.
+# 3) threading + Queue
 # https://docs.python.org/3/library/threading.html
 # https://docs.python.org/3/library/queue.html
-# 4) alternative solution that does not require any other package aside from threading!!!
+# 4) only threading (this one)
 
 import sys
 import threading
@@ -23,6 +23,7 @@ import time
 
 # Extend the threading.Thread class and add a result member to your new class. Make sure to take into account positional and keyword arguments in the constructor.
 class ReturnValueThread(threading.Thread):
+    # In the constructor, we declare a result member that will store the result returned by the target function
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.result = None
@@ -43,29 +44,45 @@ class ReturnValueThread(threading.Thread):
 
 
 
+# Target function returns a result that you want to retrieve
 def square(x):
+    """returns the square of its argument instantly"""
     return x ** 2
 
+
+# Result of the target function if the thread does not time out.
 def think_about_square(x):
+    """ returns the square of its argument after having… thought about it for a while"""
     time.sleep(x)
     return square(x)
+
+
+def check_th_timeout(thread: ReturnValueThread, value, result):
+    # test whether the thread finished at line 24 via thread2.is_alive()
+    if thread.is_alive():
+        print('Timeout in think_about_square')  # properly handle timeout
+    else:
+        print(f'think_about_square({value}) = {result}')
 
 def main():
     value = 3
 
+    # thread1 is the thread running square() (instant result, retrieved as expected).
     thread1 = ReturnValueThread(target=square, args=(value,))
     thread1.start()
     # Then when you instantiate your new thread class, intercept the result returned by join().
-    result = thread1.join()
-    print(f'square({value}) = {result}')
+    result1 = thread1.join()
+    print(f'square({value}) = {result1}')
 
+
+    # thread2, on the other hand, runs think_about_square(), and it just so happens that it does not finish within the
+    # allotted time.
     thread2 = ReturnValueThread(target=think_about_square, args=(value,))
     thread2.start()
-    result = thread2.join(timeout=1)
-    if thread2.is_alive():
-        print('Timeout in think_about_square')  # properly handle timeout
-    else:
-        print(f'think_about_square({value}) = {result}')
+    check_th_timeout(thread2, value, thread2.join(timeout=1))
+    # check_th_timout(thread2, value, thread2.join(timeout=3))
+
+# ReturnValueThread returns the result of the target function, our thread2 in the above example (the thread that times out) does not exit cleanly. In fact, it runs until the sleep() ends.
 
 
 if __name__ == '__main__':

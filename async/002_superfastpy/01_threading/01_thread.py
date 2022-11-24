@@ -1,9 +1,9 @@
 # example of a parallel for loop with the Thread class
-from threading import Thread
-import settings
-from codetiming import Timer
-t = Timer(text=f"{__file__}: {{:.6f}}")
+import threading
 
+from codetiming import Timer
+
+t = Timer(text=f"{__file__}: {{:.6f}}")
 
 # execute a task
 def task(value):
@@ -11,6 +11,7 @@ def task(value):
     # ...
     # all done
     res = (f' [done {value}] ')
+    print(res)
     return res
 
 # protect the entry point
@@ -18,7 +19,7 @@ if __name__ == '__main__':
     # 63.521885
     t.start()
     # create all tasks
-    threads = [Thread(target=task, args=(i,)) for i in range(15)]
+    threads = [threading.Thread(target=task, args=(i,)) for i in range(15)]
 
 
 

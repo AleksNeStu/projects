@@ -353,7 +353,14 @@ hotshot was an experimental C module that focused on minimizing the overhead of 
 
 **[R]**
 
-**[S]** 
+**[S]**
+> [Structure](https://learnpython.com/blog/python-modules-packages-libraries-frameworks/)
+
+A **module** is basically a bunch of related code saved in a file with the extension .py\
+Python **packages** are basically a directory of a collection of modules. package is a collection of modules, a library is a collection of packages.\
+A **library** is an umbrella term referring to a reusable chunk of code. Python library contains a collection of related modules and packages.\
+**Frameworks** contain the basic flow and architecture of the application.
+
 > Slides
 - [speakerdeck](https://speakerdeck.com/)
 
