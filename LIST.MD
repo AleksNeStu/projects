@@ -14,7 +14,7 @@
 # E
 
 # F
-- **[flask-caching](https://github.com/pallets-eco/flask-caching)** - A fork of the Flask-cache extension which adds easy cache support to Flask.
+- **[flask-caching](https://github.m/pallets-eco/flask-caching)** - A fork of the Flask-cache extension which adds easy cache support to Flask.
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
@@ -43,7 +43,8 @@
 # N
 
 # O
-
+- [optparse](https://docs.python.org/3/library/optparse.html) - optparse is a more convenient, flexible, and powerful library for parsing command-line options than the old getopt module. 
+- 
 # P
 - **[pipreqs](https://github.com/bndr/pipreqs)** - Pip requirements.txt generator based on imports in project.
 - **[pipdeptree](https://github.com/tox-dev/pipdeptree)** - is a command line utility for displaying the installed python packages in form of a dependency tree.
