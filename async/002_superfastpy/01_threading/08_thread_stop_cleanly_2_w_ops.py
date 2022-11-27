@@ -1,5 +1,7 @@
-import sys, time, threading, abc
+import threading as th
+import time
 from optparse import OptionParser
+
 
 def parse_options():
     parser = OptionParser()
@@ -8,9 +10,9 @@ def parse_options():
     (options, args) = parser.parse_args()
     return options
 
-class thread_sample(threading.Thread):
+class thread_sample(th.Thread):
     def __init__(self, name):
-        threading.Thread.__init__(self)
+        th.Thread.__init__(self)
         self.name = name
         self.kill_received = False
 

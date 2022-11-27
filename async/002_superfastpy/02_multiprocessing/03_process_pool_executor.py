@@ -1,5 +1,5 @@
 # example of a parallel for loop with the ProcessPoolExecutor class
-import concurrent.futures
+import concurrent.futures as ft
 import settings
 from codetiming import Timer
 t = Timer(text=f"{__file__}: {{:.6f}}")
@@ -15,7 +15,7 @@ def task(value):
 # protect the entry point
 if __name__ == '__main__':
     # create the pool with the default number of workers
-    with concurrent.futures.ProcessPoolExecutor() as exe:
+    with ft.ProcessPoolExecutor() as exe:
         t.text = f'{t.text} ex1'
         # 0.020876
         with t:
@@ -23,7 +23,7 @@ if __name__ == '__main__':
             # issue some tasks and collect futures
             futures = [exe.submit(task, i) for i in range(50)]
             # process results as tasks are completed
-            for future in concurrent.futures.as_completed(futures):
+            for future in ft.as_completed(futures):
                 print(future._result)
 
 

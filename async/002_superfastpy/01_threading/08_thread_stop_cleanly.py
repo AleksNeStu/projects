@@ -12,15 +12,13 @@
 # its cleanup and then stop.
 
 # The idea is to use such an event here (let us call it a stop event). Initially not set, the stop event becomes set when a keyboard interrupt is received. The worker thread then breaks out from the loop if the stop event is set and performs its cleanup.
-import threading
-
-stop_event = threading.Event()
-
-
 import signal
-import threading
+import threading as th
 import time
 import os
+
+stop_event = th.Event()
+
 
 def send_ctrl_c(pid=None, time_sleep=2):
     time.sleep(time_sleep)
@@ -57,7 +55,7 @@ def handle_kb_interrupt(sig, frame):
 # Clean exit from a thread can therefore be achieved using a threading event and a signal handler.
 if __name__ == '__main__':
     # threading Event is a simple object that can be set or cleared. It can be used to signal to the thread that it needs perform its cleanup and then stop.
-    stop_event = threading.Event()
+    stop_event = th.Event()
 
     # the stop event becomes set when a keyboard interrupt is received.
     # The stop event needs to be set when a keyboard interrupt is intercepted. This is done by registering the SIGINT signal with a handler function.
@@ -65,7 +63,7 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, handle_kb_interrupt)
 
     n_iter = 10
-    thread = threading.Thread(target=do_some_work, args=(n_iter,))
+    thread = th.Thread(target=do_some_work, args=(n_iter,))
 
     thread.start()
     send_ctrl_c()

@@ -1,5 +1,5 @@
 # example of a parallel for loop with the Thread class
-import threading
+import threading as th
 
 from codetiming import Timer
 
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # 63.521885
     t.start()
     # create all tasks
-    threads = [threading.Thread(target=task, args=(i,)) for i in range(15)]
+    threads = [th.Thread(target=task, args=(i,)) for i in range(15)]
 
 
 

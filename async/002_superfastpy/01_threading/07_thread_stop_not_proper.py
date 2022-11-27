@@ -8,7 +8,7 @@
 
 import os
 import signal
-import threading
+import threading as th
 import time
 
 
@@ -33,7 +33,7 @@ def send_ctrl_c(pid=None):
 # --qt-support=auto --client 127.0.0.1 --port 33495 --file ~/Projects/projects/async/002_superfastpy/01_threading/07_thread_stop_cleanly.py
 if __name__ == '__main__':
     n_iter = 20
-    thread = threading.Thread(target=do_some_work, args=(n_iter,))
+    thread = th.Thread(target=do_some_work, args=(n_iter,))
     thread.start()
 
 
@@ -66,4 +66,4 @@ if __name__ == '__main__':
 
 # The idea is to use such an event here (let us call it a stop event). Initially not set, the stop event becomes set when a keyboard interrupt is received. The worker thread then breaks out from the loop if the stop event is set and performs its cleanup.
 
-stop_event = threading.Event()
+stop_event = th.Event()

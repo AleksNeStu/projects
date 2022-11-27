@@ -1,5 +1,5 @@
 # example of a parallel for loop with the Pool class
-from multiprocessing import Pool
+import multiprocessing as mp
 
 from codetiming import Timer
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # 0.022337
     with t:
         # create the pool with the default number of workers
-        with Pool() as process_pool:
+        with mp.Pool() as process_pool:
             # issue one task for each call to the function
             for result in process_pool.map(task, range(settings.COUNT_TASKS)):
                 # handle the result

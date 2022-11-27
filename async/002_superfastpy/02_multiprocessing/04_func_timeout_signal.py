@@ -79,16 +79,33 @@ def main():
     while True:
         try:
             duration = random.choice([x for x in range(1, 4)])
-            print('duration = {}: '.format(duration), end='', flush=True)
-            #  If do_stuff() is called with 3 seconds or more, then SIGALRM is sent and handled by raising a TimeoutError.
-            signal.alarm(max_duration + 1)
+            print(f"duration = {duration}: , max={max_duration} ", end='', flush=True)
+            #  If do_stuff() is called with 2 seconds or more, then SIGALRM is sent and handled by raising a TimeoutError.
+
+            #  let it run just below 6 seconds, because the argument to signal.alarm() is necessarily an integer. If that argument was 5, do_stuff() would not have been allowed to run for 5 seconds.
+            signal.alarm(max_duration + 1)  # start waiting
+
             do_stuff(duration)
-            signal.alarm(0)
+            signal.alarm(0)  # reset the alarm after each call to do_stuff()
+
         # handle_timeout
         except TimeoutError as exc:
             print('{}: {}'.format(exc.__class__.__name__, exc))
         else:
             print('slept for {}s'.format(duration))
+
+# duration = 1: , max=2 slept for 1s
+# duration = 3: , max=2 TimeoutError: took too long
+# duration = 2: , max=2 slept for 2s
+# duration = 3: , max=2 TimeoutError: took too long
+# duration = 1: , max=2 slept for 1s
+# duration = 2: , max=2 slept for 2s
+# duration = 2: , max=2 slept for 2s
+# duration = 3: , max=2 TimeoutError: took too long
+# duration = 3: , max=2 SIGINT received, terminating.
+#
+# Process finished with exit code 0
+
 
 # So how does the execution continue past the first timeout? As we’ve seen above, we installed a handler for SIGALRM (lines 12-13 and 22) that raises a TimeoutError. Exception handling is performed in the main() function inside an infinite loop (lines 26-36). If do_stuff() succeeds, the script displays a message informing the user for how long the function ran (lines 35-36). If the TimeoutError is caught, it is simply displayed and the script continues.
 

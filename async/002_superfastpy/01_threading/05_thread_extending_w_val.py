@@ -3,13 +3,13 @@
 # There is no way for the run() function to return a value to the start() function and back to the caller.
 # Instead, we can return values from our run() function by storing them as instance variables and having the caller retrieve the data from those instance variables.
 #  indirectly return a value from the extended threading.Thread class.
-import threading
+import threading as th
 from time import sleep
 
 
 #  update the run() function to store some data as an instance variable (also called a Python attribute).
 # custom thread class
-class CustomThread(threading.Thread):
+class CustomThread(th.Thread):
     # override the run function
     def run(self):
         # block for a moment

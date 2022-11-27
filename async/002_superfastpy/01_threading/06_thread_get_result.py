@@ -17,12 +17,12 @@
 # 4) only threading (this one)
 
 import sys
-import threading
+import threading as th
 import time
 
 
 # Extend the threading.Thread class and add a result member to your new class. Make sure to take into account positional and keyword arguments in the constructor.
-class ReturnValueThread(threading.Thread):
+class ReturnValueThread(th.Thread):
     # In the constructor, we declare a result member that will store the result returned by the target function
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

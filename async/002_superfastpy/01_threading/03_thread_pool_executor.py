@@ -1,5 +1,5 @@
 # example of a parallel for loop with the ThreadPoolExecutor class
-import concurrent.futures
+import concurrent.futures as ft
 from typing import List
 
 import settings
@@ -17,15 +17,15 @@ def task(value):
 # protect the entry point
 if __name__ == '__main__':
     # create the pool with the default number of workers
-    with concurrent.futures.ThreadPoolExecutor() as pool_exec:
+    with ft.ThreadPoolExecutor() as pool_exec:
         # Example 1
         # 22.604154
         t.start()
         # issue some tasks and collect futures
-        futures: List[concurrent.futures.Future] = [pool_exec.submit(task, i) for i in range(settings.COUNT_TASKS)]
+        futures: List[ft.Future] = [pool_exec.submit(task, i) for i in range(settings.COUNT_TASKS)]
         # futures already done
         # handle results as tasks are completed
-        for future in concurrent.futures.as_completed(futures):
+        for future in ft.as_completed(futures):
             print(future._result)
         t.stop()
 

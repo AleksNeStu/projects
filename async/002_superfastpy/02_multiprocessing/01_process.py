@@ -1,5 +1,5 @@
 # example of a parallel for loop with the Process class
-from multiprocessing import Process
+import multiprocessing as mp
 import settings
 from codetiming import Timer
 t = Timer(text=f"{__file__}: {{:.6f}}")
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # 1.098959
     with t:
         # create all tasks
-        processes = [Process(target=task, args=(i,)) for i in range(settings.COUNT_TASKS)]
+        processes = [mp.Process(target=task, args=(i,)) for i in range(settings.COUNT_TASKS)]
         # start all processes
         for process in processes:
             process.start()
