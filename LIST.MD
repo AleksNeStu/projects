@@ -7,6 +7,7 @@
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
+- **[celery](https://github.com/celery/celery)** - Task queues are used as a mechanism to distribute work across threads or machines.
 
 # D
 

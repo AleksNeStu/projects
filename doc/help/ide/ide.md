@@ -67,3 +67,11 @@ All of them you can install in Pycharm| Settings (Preferences for OS X)| Plugins
    https://www.jetbrains.com/help/pycharm/2017.3/cython-speedups.html
    https://stackoverflow.com/questions/43047284/how-to-install-python3-devel-on-red-hat-7
    
+
+3) [Directories used by the IDE to store settings, caches, plugins and logs](https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs)
+   ```sh
+   Configuration (idea.config.path): ~/.config/JetBrains/IntelliJIdea2022.2
+   Plugins (idea.plugins.path): ~/.local/share/JetBrains/IntelliJIdea2022.2
+   System (idea.system.path): ~/.cache/JetBrains/IntelliJIdea2022.2
+   Logs (idea.log.path): ~/.cache/JetBrains/IntelliJIdea2022.2/log
+   ```
