@@ -43,6 +43,8 @@
 [frameworks](/frameworks) - Frameworks
     - [django](/frameworks/django)  - Django
 
+[queue](/queue) - Queue
+
 [scripts](/scripts) - Scripts
 
 [tasks](/tasks) - Tests coding tasks ...
