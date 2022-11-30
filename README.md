@@ -29,6 +29,7 @@
 [data](/data) - Data Engineering
    - [db](/data/db) - DB
    - [etl](/data/etl) - ETL (ELT)
+     - [merge_data_app](/data/etl/001_merge_data) - Merge inconsistent data app
    - [migrations](/data/migrations) - Data (DB) migrations
 
 [debug](/debug) - Debug, Memory

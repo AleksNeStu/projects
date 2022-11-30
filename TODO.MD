@@ -5,4 +5,3 @@
 
 # P2
 1) Add linters and code quality hooks (NAP?)
-2) add

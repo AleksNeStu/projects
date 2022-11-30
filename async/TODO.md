@@ -1,3 +1,7 @@
+# P1
+
+
+# P2
 1) https://superfastpython.com/multiprocessing-pool-for-loop/ - finish
 2) 001_talkpy_async - finish
 
