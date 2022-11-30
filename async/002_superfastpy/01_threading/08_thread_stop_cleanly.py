@@ -19,7 +19,6 @@ import os
 
 stop_event = th.Event()
 
-
 def send_ctrl_c(pid=None, time_sleep=2):
     time.sleep(time_sleep)
     pid = pid or os.getpid()

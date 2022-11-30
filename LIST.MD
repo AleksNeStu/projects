@@ -61,6 +61,8 @@
 
 # R
 - [**redis**](https://github.com/redis/redis) - Redis is often referred to as a data structures server. What this means is that Redis provides access to mutable data structures via a set of commands, which are sent using a server-client model with TCP sockets and a simple protocol. So different processes can query and modify the same data structures in a shared way. [Redis data types](https://redis.io/docs/).
+- **[rabbitmq](https://github.com/rabbitmq)** - RabbitMQ is a feature rich, multi-protocol messaging and streaming broker. It supports: AMQP 0-9-1
+AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 
 
 # S

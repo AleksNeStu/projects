@@ -45,6 +45,9 @@
     - [django](/frameworks/django)  - Django
 
 [queue](/queue) - Queue
+    [queues](/queue/queues) - Queues
+    [brokers](/queue/brokers) - Brokers
+    
 
 [scripts](/scripts) - Scripts
 
