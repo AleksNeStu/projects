@@ -2188,6 +2188,17 @@ packaging = "*"
 test = ["pytest (>=6,!=7.0.0,!=7.0.1)", "pytest-cov (>=3.0.0)", "pytest-qt"]
 
 [[package]]
+name = "rabbitmq"
+version = "0.2.0"
+description = "CFFI bindings to librabbitmq 0.8.0"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+cffi = "*"
+
+[[package]]
 name = "redis"
 version = "4.3.5"
 description = "Python client for Redis database and key-value store"
@@ -2920,7 +2931,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.11"
-content-hash = "84cf20154d4908930a9f62557bfc323312863a3a91f56490c2773f8af28f9ceb"
+content-hash = "aa5a4af0f5769cd7a53b16780e113528513c83498c09f9c0dcef23e4733fee1b"
 
 [metadata.files]
 absl-py = []
@@ -3270,6 +3281,9 @@ pywinpty = []
 pyzmq = []
 qtconsole = []
 qtpy = []
+rabbitmq = [
+    {file = "rabbitmq-0.2.0-py2.py3-none-any.whl", hash = "sha256:74cfbc0f365019a8f318cd1ad9b1f85682768568fa3816740df37509a6dfbc2d"},
+]
 redis = [
     {file = "redis-4.3.5-py3-none-any.whl", hash = "sha256:46652271dc7525cd5a9667e5b0ca983c848c75b2b8f7425403395bb8379dcf25"},
     {file = "redis-4.3.5.tar.gz", hash = "sha256:30c07511627a4c5c4d970e060000772f323174f75e745a26938319817ead7a12"},
