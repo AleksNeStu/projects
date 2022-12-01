@@ -16,6 +16,8 @@
 
 [auto](/auto) - Automation
 
+[cache](/cache) - Cache
+
 [cloud](/cloud) - Cloud providers and tech stack
    - [aws](/cloud/aws) - API clients
    - [azure](/cloud/azure) - API servers

@@ -4,6 +4,9 @@
 
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
+- **[bulma](https://github.com/jgthms/bulma)** - Bulma is a CSS framework. As such, the sole output is a single CSS file. Bulma can be considered "environment agnostic": it's just the style layer on top of the logic.
+
+
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
@@ -33,7 +36,7 @@
 # L
 - **[litecli](https://github.com/dbcli/litecli)** - A command-line client for SQLite databases that has auto-completion and syntax highlighting.
 - **[librabbitmq](https://github.com/celery/librabbitmq)** - Python AMQP Client using the rabbitmq-c library. Python bindings to the RabbitMQ C-library rabbitmq-c. Supported by Kombu and Celery.
-
+- [LRU cache](https://www.educative.io/m/implement-least-recently-used-cache) - Least Recently Used (LRU) is a common caching strategy. It defines the policy to evict elements from the cache to make room for new elements when the cache is full, meaning it discards the least recently used items first.
 
 # M
 - **[mongita](https://github.com/scottrogowski/mongita)** - Mongita is a lightweight embedded document database that implements a commonly-used subset of the MongoDB/PyMongo interface. Mongita differs from MongoDB in that instead of being a server, Mongita is a self-contained Python library. Mongita can be configured to store its documents either on disk or in memory.
