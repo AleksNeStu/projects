@@ -5,3 +5,6 @@
 
 # P2
 1) Add linters and code quality hooks (NAP?)
+
+# P3
+1) Remote debug in docker or related...

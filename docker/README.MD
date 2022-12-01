@@ -7,11 +7,19 @@
 ## [Dir](https://www.freecodecamp.org/news/where-are-docker-images-stored-docker-container-paths-explained/)
 The storage location of Docker images and containers:
 ```
+# command
 docker info
+
+# dirs
 Fedora: /var/lib/docker/
         /var/lib/docker/overlay2 - images
 Windows: C:\ProgramData\DockerDesktop
 MacOS: ~/Library/Containers/com.docker.docker/Data/vms/0/
+
+
+# other
+/usr/bin/docker
+/usr/bin/docker-compose
 ```
 
 ## Clean

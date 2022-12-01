@@ -8,7 +8,8 @@
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
 - **[celery](https://github.com/celery/celery)** - Task queues are used as a mechanism to distribute work across threads or machines.
-
+- **[CFFI](https://cffi.readthedocs.io/en/latest/)** - C Foreign Function Interface for Python. Interact with almost any C code from Python, based on C-like declarations that you can often copy-paste from header files or documentation.
+![img.png](img.png)
 # D
 
 
@@ -31,7 +32,7 @@
 
 # L
 - **[litecli](https://github.com/dbcli/litecli)** - A command-line client for SQLite databases that has auto-completion and syntax highlighting.
-
+- **[librabbitmq](https://github.com/celery/librabbitmq)** - Python AMQP Client using the rabbitmq-c library. Python bindings to the RabbitMQ C-library rabbitmq-c. Supported by Kombu and Celery.
 
 
 # M
@@ -63,6 +64,7 @@
 - [**redis**](https://github.com/redis/redis) - Redis is often referred to as a data structures server. What this means is that Redis provides access to mutable data structures via a set of commands, which are sent using a server-client model with TCP sockets and a simple protocol. So different processes can query and modify the same data structures in a shared way. [Redis data types](https://redis.io/docs/).
 - **[rabbitmq](https://github.com/rabbitmq)** - RabbitMQ is a feature rich, multi-protocol messaging and streaming broker. It supports: AMQP 0-9-1
 AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
+- **[rabbitmq](https://github.com/jbg/rabbitmq)** - Python bindings to librabbitmq using CFFI.
 
 
 # S

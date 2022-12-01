@@ -1,11 +1,11 @@
 # I) URLS
-[URL1](https://usrl1.com/) - URL1 desc\
-[URL2](https://usrl2.com/) - URL2 desc
+https://github.com/rabbitmq
+https://github.com/jbg/rabbitmq
+https://github.com/celery/librabbitmq
 
 
 # II) Description
-1) Desc1
-2) Desc2
+
 
 
 # III) Usage
