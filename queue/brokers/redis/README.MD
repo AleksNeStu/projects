@@ -1,12 +1,20 @@
 # I) URLS
-[URL1](https://usrl1.com/) - URL1 desc\
-[URL2](https://usrl2.com/) - URL2 desc
+### Desc
+
+
+### Docs
+https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/redis.html#broker-redis
+
+### Libs
 
 
 # II) Description
-1) Desc1
-2) Desc2
+Redis is also feature-complete, but is more susceptible to data loss in the event of abrupt termination or power failures
 
+### Install
+```sh
+docker run -d -p 6379:6379 redis
+```
 
 # III) Usage
 1) Case1

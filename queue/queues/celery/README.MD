@@ -79,6 +79,9 @@ Celery also defines a group of bundles that can be used to install Celery and th
 4) Logging
 5) Error reporting.
 
+
+
+
 # IV) Pros
 1) open-source task queue software written in Python
 2) incredibly lightweight
@@ -91,8 +94,9 @@ Celery also defines a group of bundles that can be used to install Celery and th
 3) Fast: A single Celery process can process millions of tasks a minute, with sub-millisecond round-trip latency (using RabbitMQ, py-librabbitmq, and optimized settings).
 4) Flexible: Almost every part of Celery can be extended or used on its own, Custom pool implementations, serializers, compression schemes, logging, schedulers, consumers, producers, broker transports, and much more.
 5) Supports: Message Transports, Concurrency, Result Stores, Serialization
-6) Framework Integration: 
+6) Framework Integration: Django - not needed, Pyramid - pyramid_celery, Pylons	- celery-pylons, Flask - not needed, web2py	web2py-celery, Tornado	tornado-celery
 7) Bundles: Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.
+
 
 # VI) Compare
 1) Diff1

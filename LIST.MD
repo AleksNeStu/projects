@@ -82,7 +82,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 
 # S
 - **[spynner](https://github.com/makinacorpus/spynner)** - Spynner is a stateful programmatic web browser module for Python. It is based upon PyQT and WebKit. It supports Javascript, AJAX, and every other technology that !WebKit is able to handle (Flash, SVG, ...). Spynner takes advantage of JQuery. a powerful Javascript library that makes the interaction with pages and event simulation really easy. Using Spynner you would able to simulate a web browser with no GUI (though a browsing window can be opened for debugging purposes), so it may be used to implement crawlers or acceptance testing tools.
-
+- **[systemd](https://github.com/systemd/systemd)** - systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. systemd provides aggressive parallelization capabilities, uses socket and D-Bus activation for starting services, offers on-demand starting of daemons, keeps track of processes using Linux control groups, maintains mount and automount points, and implements an elaborate transactional dependency-based service control logic. systemd supports SysV and LSB init scripts and works as a replacement for sysvinit.
+- **[supervisor](https://github.com/Supervisor/supervisor)** - Supervisor is a client/server system that allows its users to control a number of processes on UNIX-like operating systems. Supervisor is intended to work on Python 3 version 3.4 or later and on Python 2 version 2.7.
 
 # T
 - **[tensorflow](https://github.com/tensorflow/tensorflow)** - TensorFlow is an end-to-end open source platform for machine learning. TensorFlow was originally developed by researchers and engineers working on the Google Brain team within Google's Machine Intelligence Research organization to conduct machine learning and deep neural networks research.

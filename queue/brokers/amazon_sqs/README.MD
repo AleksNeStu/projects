@@ -1,6 +1,12 @@
 # I) URLS
-[URL1](https://usrl1.com/) - URL1 desc\
-[URL2](https://usrl2.com/) - URL2 desc
+### Desc
+
+
+### Docs
+https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/sqs.html#broker-sqs
+
+### Libs
+
 
 
 # II) Description

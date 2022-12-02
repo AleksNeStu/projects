@@ -8,6 +8,9 @@ from celery import Celery, current_app
 from celery.bin import worker
 from flask import render_template, request, redirect, url_for
 
+
+module_name = os.path.basename(sys.modules[__name__].__file__).split(".")[0]
+
 # add_module_to_sys_path
 directory = os.path.abspath(
     os.path.join(os.path.dirname(__file__)))
@@ -19,7 +22,7 @@ dotenv.load_dotenv("./app.env")
 env = dotenv.dotenv_values("./app.env")
 
 
-flask_app = flask.Flask(__name__)
+flask_app = flask.Flask(module_name)
 flask_app.config.from_mapping(**env)
 
 
