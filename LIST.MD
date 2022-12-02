@@ -1,6 +1,6 @@
 # A
 - **[allegro-pl-rest-api](https://github.com/allegro/allegro-api)**: API client for allegro.pl
-- 
+- **[Apache Cassandra](https://github.com/apache/cassandra)** - Apache Cassandra is a highly-scalable partitioned row store. Rows are organized into tables with a required primary key.
 
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
@@ -13,16 +13,25 @@
 - **[celery](https://github.com/celery/celery)** - Task queues are used as a mechanism to distribute work across threads or machines.
 - **[CFFI](https://cffi.readthedocs.io/en/latest/)** - C Foreign Function Interface for Python. Interact with almost any C code from Python, based on C-like declarations that you can often copy-paste from header files or documentation.
 ![img.png](img.png)
+
+
 # D
+- **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
 
 
 # E
+- [eventlet](http://eventlet.net/) - Eventlet is a concurrent networking library for Python that allows you to change how you run your code, not how you write it. https://github.com/eventlet/eventlet
+- **[Elasticsearch](https://github.com/elastic/elasticsearch)** - Elasticsearch is the distributed, RESTful search and analytics engine at the heart of the Elastic Stack. You can use Elasticsearch to store, search, and manage data for: Logs, Metrics, A search backend, Application monitoring, 
+Endpoint security
 
 # F
 - **[flask-caching](https://github.m/pallets-eco/flask-caching)** - A fork of the Flask-cache extension which adds easy cache support to Flask.
+- **[flask](https://github.com/pallets/flask)** - Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
+- **[gevent](http://www.gevent.org/)** - gevent is a coroutine -based Python networking library that uses greenlet to provide a high-level synchronous API on top of the libev or libuv event loop. https://github.com/gevent/gevent
+- **[greenlet](https://greenlet.readthedocs.io/en/latest/)** - greenlets are lightweight coroutines for in-process sequential concurrent programming. greenlets can be used on their own, but they are frequently used with frameworks such as gevent to provide higher-level abstractions and asynchronous I/O. https://github.com/python-greenlet/greenlet
 
 # H
 
@@ -36,13 +45,14 @@
 # L
 - **[litecli](https://github.com/dbcli/litecli)** - A command-line client for SQLite databases that has auto-completion and syntax highlighting.
 - **[librabbitmq](https://github.com/celery/librabbitmq)** - Python AMQP Client using the rabbitmq-c library. Python bindings to the RabbitMQ C-library rabbitmq-c. Supported by Kombu and Celery.
+  Python bindings to the RabbitMQ C-library rabbitmq-c. Supported by Kombu and Celery.
 - [LRU cache](https://www.educative.io/m/implement-least-recently-used-cache) - Least Recently Used (LRU) is a common caching strategy. It defines the policy to evict elements from the cache to make room for new elements when the cache is full, meaning it discards the least recently used items first.
 
 # M
 - **[mongita](https://github.com/scottrogowski/mongita)** - Mongita is a lightweight embedded document database that implements a commonly-used subset of the MongoDB/PyMongo interface. Mongita differs from MongoDB in that instead of being a server, Mongita is a self-contained Python library. Mongita can be configured to store its documents either on disk or in memory.
 - **[mycli](https://github.com/dbcli/mycli)** - A command line client for MySQL that can do auto-completion and syntax highlighting.
 - **[mongo-express](https://github.com/mongo-express/mongo-express)** - Web-based MongoDB admin interface written with Node.js, Express and Bootstrap3
-
+- **[Memcached](https://github.com/memcached/memcached)** - Memcached is a high performance multithreaded event-based key/value cache store intended to be used in a distributed system.
 
 
 # N
@@ -57,8 +67,8 @@
 - **[pymongo](https://github.com/mongodb/mongo-python-driver)** - The PyMongo distribution contains tools for interacting with MongoDB database from Python. The bson package is an implementation of the BSON format for Python. The pymongo package is a native Python driver for MongoDB. The gridfs package is a gridfs implementation on top of pymongo. PyMongo supports MongoDB 3.6, 4.0, 4.2, 4.4, 5.0, and 6.0.
 - **[python-dotenv](https://github.com/theskumar/python-dotenv)** - Python-dotenv reads key-value pairs from a .env file and can set them as environment variables. It helps in the development of applications following the 12-factor principles. By default, load_dotenv doesn't override existing environment variables.
 - **[python-humanfriendly](https://github.com/xolox/python-humanfriendly)** - humanfriendly: Human friendly input/output in Python
-
-
+- **[Pyramid](https://github.com/Pylons/pyramid)** - Pyramid is a small, fast, down-to-earth, open source Python web framework. It makes real-world web application development and deployment more fun, more predictable, and more productive.
+- **[Pylons](https://github.com/Pylons/deform)** - Deform is a Python form library for generating HTML forms on the server side. Date and time picking widgets, rich text editors, forms with dynamically added and removed items and a few other complex use cases are supported out of the box. Deform integrates with the Pyramid web framework and several other web frameworks. Deform comes with Chameleon templates and Bootstrap 3 styling.
 
 
 # Q
@@ -76,6 +86,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 
 # T
 - **[tensorflow](https://github.com/tensorflow/tensorflow)** - TensorFlow is an end-to-end open source platform for machine learning. TensorFlow was originally developed by researchers and engineers working on the Google Brain team within Google's Machine Intelligence Research organization to conduct machine learning and deep neural networks research.
+- **[Tornado](https://github.com/tornadoweb/tornado/tree/stable)** - Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed. By using non-blocking network I/O, Tornado can scale to tens of thousands of open connections, making it ideal for long polling, WebSockets, and other applications that require a long-lived connection to each user.
 
 # U
 
@@ -84,6 +95,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 # W
 - **[webbrowser](https://docs.python.org/3/library/webbrowser.html#module-webbrowser)** - module provides a high-level interface to allow displaying web-based documents to users. Under most circumstances, simply calling the open() function from this module will do the right thing.
 - **[Webkit](https://webkit.org/)** - WebKit is the web browser engine used by Safari, Mail, App Store, and many other apps on macOS, iOS, and Linux.
+- **[web2py](https://github.com/web2py/web2py)** - web2py is a free open source full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications.
 
 # X
 

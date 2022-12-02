@@ -6,7 +6,9 @@
 1) message brokers
    IBM MQ
    Beanstalk
-   Redis
+   Redis Pub/Sub
    Gearman
    Solace
    Amazon SQS
+   JMS
+   Apache ActiveMQ
