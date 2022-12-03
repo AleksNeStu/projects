@@ -5,19 +5,22 @@
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
 - **[bulma](https://github.com/jgthms/bulma)** - Bulma is a CSS framework. As such, the sole output is a single CSS file. Bulma can be considered "environment agnostic": it's just the style layer on top of the logic.
-
+- [bootstrap](https://github.com/twbs/bootstrap) - The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
 
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
 - **[celery](https://github.com/celery/celery)** - Task queues are used as a mechanism to distribute work across threads or machines.
 - **[CFFI](https://cffi.readthedocs.io/en/latest/)** - C Foreign Function Interface for Python. Interact with almost any C code from Python, based on C-like declarations that you can often copy-paste from header files or documentation.
-![img.png](img.png)
-
+- **[cookiecutter](https://github.com/cookiecutter/cookiecutter)** - A command-line utility that creates projects from cookiecutters (project templates), e.g. creating a Python package project from a Python package project template.
+- **[cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django)** - Cookiecutter Django is a framework for jumpstarting production-ready Django projects quickly.
+- ** [django-allauth](https://github.com/pennersr/django-allauth)** - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
-
+-[ **django-environ](https://github.com/joke2k/django-environ)** - django-environ is the Python package that allows you to use Twelve-factor methodology to configure your Django application with environment variables.
+- **[django-anymail](https://github.com/anymail/django-anymail)** - Django email backends and webhooks for Amazon SES, Mailgun, Mailjet, Postmark, Postal, SendGrid, Sendinblue, SparkPost and more
+- **[docker-compose](https://github.com/docker/compose)** - Docker Compose is a tool for running multi-container applications on Docker defined using the Compose file format.
 
 # E
 - [eventlet](http://eventlet.net/) - Eventlet is a concurrent networking library for Python that allows you to change how you run your code, not how you write it. https://github.com/eventlet/eventlet
@@ -69,7 +72,8 @@ Endpoint security
 - **[python-humanfriendly](https://github.com/xolox/python-humanfriendly)** - humanfriendly: Human friendly input/output in Python
 - **[Pyramid](https://github.com/Pylons/pyramid)** - Pyramid is a small, fast, down-to-earth, open source Python web framework. It makes real-world web application development and deployment more fun, more predictable, and more productive.
 - **[Pylons](https://github.com/Pylons/deform)** - Deform is a Python form library for generating HTML forms on the server side. Date and time picking widgets, rich text editors, forms with dynamically added and removed items and a few other complex use cases are supported out of the box. Deform integrates with the Pyramid web framework and several other web frameworks. Deform comes with Chameleon templates and Bootstrap 3 styling.
-
+- **[pythonanywhere](https://www.pythonanywhere.com/)** - Just write your application. No need to configure or maintain a web server — everything is set up and ready to go.
+- **[pre-commit](https://github.com/pre-commit/pre-commit)** - A framework for managing and maintaining multi-language pre-commit hooks.
 
 # Q
 
@@ -90,6 +94,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 # T
 - **[tensorflow](https://github.com/tensorflow/tensorflow)** - TensorFlow is an end-to-end open source platform for machine learning. TensorFlow was originally developed by researchers and engineers working on the Google Brain team within Google's Machine Intelligence Research organization to conduct machine learning and deep neural networks research.
 - **[Tornado](https://github.com/tornadoweb/tornado/tree/stable)** - Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed. By using non-blocking network I/O, Tornado can scale to tens of thousands of open connections, making it ideal for long polling, WebSockets, and other applications that require a long-lived connection to each user.
+- [**12factorAPP**](https://12factor.net/) - I. Codebase   II. Dependencies   III. Config IV. Backing services  V. Build, release, run  VI. Processes  VII. Port binding  VIII. Concurrency IX. Disposability
+  X. Dev/prod parity   XI. Logs   XII. Admin processes
 
 # U
 

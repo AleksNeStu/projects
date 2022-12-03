@@ -64,6 +64,7 @@ py3-validate-email = "^1.0.5"
 pytypes = "^1.0b10"
 celery = "^5.2.7"
 rabbitmq = "^0.2.0"
+cookiecutter = "^2.1.1"
 
 [tool.poetry.dev-dependencies]
 
