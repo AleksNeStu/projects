@@ -27,6 +27,9 @@ Celery is one of the most popular background job managers in the Python world. C
 
 Celery is an asynchronous task queue/job queue based on distributed message passing. It is focused on real-time operations but supports scheduling as well. The execution units, called tasks, are executed concurrently on one or more worker servers **using multiprocessing, Eventlet, or gevent.** Tasks can execute asynchronously (in the background) or synchronously (wait until ready)
 
+Celery, like a consumer appliance, doesn’t need much configuration to operate. It has an input and an output. The input must be connected to a broker, and the output can be optionally connected to a result backend. However, if you look closely at the back, there’s a lid revealing loads of sliders, dials, and buttons: this is the configuration.
+
+
 A Celery system can consist of multiple workers and brokers, giving way to high availability and horizontal scaling.
 
 Celery is written in Python, but the protocol can be implemented in any language. In addition to Python there's [node-celery](https://github.com/mher/node-celery) for Node.js, a [PHP client](https://github.com/gjedeer/celery-php), [gocelery](https://github.com/gocelery/gocelery) for golang, and [rusty-celery](https://github.com/rusty-celery/rusty-celery) for Rust.
@@ -71,6 +74,7 @@ Celery is easy to integrate with web frameworks, some of which even have integra
 ### Bundles
 
 Celery also defines a group of bundles that can be used to install Celery and the dependencies for a given feature.
+
 
 # III) Usage
 1) Instagram uses Celery to scale thousands of tasks to millions
