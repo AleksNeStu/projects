@@ -21,6 +21,8 @@
 -[ **django-environ](https://github.com/joke2k/django-environ)** - django-environ is the Python package that allows you to use Twelve-factor methodology to configure your Django application with environment variables.
 - **[django-anymail](https://github.com/anymail/django-anymail)** - Django email backends and webhooks for Amazon SES, Mailgun, Mailjet, Postmark, Postal, SendGrid, Sendinblue, SparkPost and more
 - **[docker-compose](https://github.com/docker/compose)** - Docker Compose is a tool for running multi-container applications on Docker defined using the Compose file format.
+- **[django-celery-beat](https://github.com/celery/django-celery-beat)** - Celery Periodic Tasks backed by the Django ORM. The periodic tasks can be managed from the Django Admin interface, where you can create, edit and delete periodic tasks and how often they should run.
+- **[direnv](https://github.com/direnv/direnv)** - direnv is an extension for your shell. It augments existing shells with a new feature that can load and unload environment variables depending on the current directory.
 
 # E
 - [eventlet](http://eventlet.net/) - Eventlet is a concurrent networking library for Python that allows you to change how you run your code, not how you write it. https://github.com/eventlet/eventlet
@@ -31,10 +33,15 @@ Endpoint security
 - **[flask-caching](https://github.m/pallets-eco/flask-caching)** - A fork of the Flask-cache extension which adds easy cache support to Flask.
 - **[flask](https://github.com/pallets/flask)** - Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
 
+
+
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
 - **[gevent](http://www.gevent.org/)** - gevent is a coroutine -based Python networking library that uses greenlet to provide a high-level synchronous API on top of the libev or libuv event loop. https://github.com/gevent/gevent
 - **[greenlet](https://greenlet.readthedocs.io/en/latest/)** - greenlets are lightweight coroutines for in-process sequential concurrent programming. greenlets can be used on their own, but they are frequently used with frameworks such as gevent to provide higher-level abstractions and asynchronous I/O. https://github.com/python-greenlet/greenlet
+- **[GitHub Search API](https://docs.github.com/en/rest/search)** - The Search API helps you search for the specific item you want to find. For example, you can find a user or a specific file in a repository.
+- **[GitHub CLI](https://github.com/cli/cli)** - gh is GitHub on the command line. It brings pull requests, issues, and other GitHub concepts to the terminal next to where you are already working with git and your code.
+
 
 # H
 
@@ -74,6 +81,8 @@ Endpoint security
 - **[Pylons](https://github.com/Pylons/deform)** - Deform is a Python form library for generating HTML forms on the server side. Date and time picking widgets, rich text editors, forms with dynamically added and removed items and a few other complex use cases are supported out of the box. Deform integrates with the Pyramid web framework and several other web frameworks. Deform comes with Chameleon templates and Bootstrap 3 styling.
 - **[pythonanywhere](https://www.pythonanywhere.com/)** - Just write your application. No need to configure or maintain a web server — everything is set up and ready to go.
 - **[pre-commit](https://github.com/pre-commit/pre-commit)** - A framework for managing and maintaining multi-language pre-commit hooks.
+- **[patch-env](https://github.com/caricalabs/patch-env)** - patch_env - Patch os.environ with dynamic values when the interpreter starts
+
 
 # Q
 

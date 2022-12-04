@@ -1601,14 +1601,6 @@ dns-srv = ["dnspython (>=1.16.0,<=2.1.0)"]
 gssapi = ["gssapi (>=1.6.9,<=1.8.1)"]
 
 [[package]]
-name = "mysqlclient"
-version = "2.1.1"
-description = "Python interface to MySQL"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[[package]]
 name = "nbclassic"
 version = "0.4.8"
 description = "A web-based notebook environment for interactive computing"
@@ -1870,6 +1862,17 @@ argon2 = ["argon2-cffi (>=18.2.0)"]
 bcrypt = ["bcrypt (>=3.1.0)"]
 build_docs = ["sphinx (>=1.6)", "sphinxcontrib-fulltoc (>=1.2.0)", "cloud-sptheme (>=1.10.1)"]
 totp = ["cryptography"]
+
+[[package]]
+name = "patch-env"
+version = "1.0.0"
+description = "Patch os.environ with dynamic values when the interpreter starts"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+dev = ["check-manifest"]
 
 [[package]]
 name = "pexpect"
@@ -3231,7 +3234,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "1e2b7f3a5a2d12a3e41b2eb4c4c20dbfcc85c99a8493982d70bf21e84a7a94d1"
+content-hash = "8d616892dc400a7f9d83ab6f6a9e93c55ab5f3899d40250c4752fa9f130f8498"
 
 [metadata.files]
 absl-py = []
@@ -3633,7 +3636,6 @@ mysql-connector-python = [
     {file = "mysql_connector_python-8.0.31-cp39-cp39-win_amd64.whl", hash = "sha256:b2bbf443f6346e46c26a3e91dd96a428a1038f2d3c5e466541078479c64a1833"},
     {file = "mysql_connector_python-8.0.31-py2.py3-none-any.whl", hash = "sha256:9be9c4dcae987a2a3f07b2ad984984c24f90887dbfab3c8a971e631ad4ca5ccf"},
 ]
-mysqlclient = []
 nbclassic = []
 nbclient = [
     {file = "nbclient-0.7.2-py3-none-any.whl", hash = "sha256:d97ac6257de2794f5397609df754fcbca1a603e94e924eb9b99787c031ae2e7c"},
@@ -3681,6 +3683,10 @@ pandas = [
 pandocfilters = []
 parso = []
 passlib = []
+patch-env = [
+    {file = "patch_env-1.0.0-py2.py3-none-any.whl", hash = "sha256:f12d54f8451f1347d6040b3167d29e1c60cdbc56dcf5282c28cc7e24f76393b7"},
+    {file = "patch_env-1.0.0.tar.gz", hash = "sha256:7c9bf612a3ee78eb9f0f7ab2d1c62a85626987ef8c2441c5fb053005f199d4d4"},
+]
 pexpect = []
 pickleshare = []
 pillow = []
