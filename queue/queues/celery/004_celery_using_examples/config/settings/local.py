@@ -127,7 +127,12 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 CELERY_TASK_ALWAYS_EAGER = env.bool('CELERY_TASK_ALWAYS_EAGER', default=True)
 
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='amqp://root:rootroot@localhost/vhost')
-CELERY_RESULT_BACKEND = 'django-db+sqlite:///results.sqlite'
+
+
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html#std-setting-result_backend
+# CELERY_RESULT_BACKEND = 'django-db+sqlite:///results.sqlite'
+CELERY_BACKEND_URL = 'django-db+sqlite:///results.sqlite'
+CELERY_RESULT_BACKEND = "db+sqlite:///celery.sqlite"
 
 ########## END CELERY
 

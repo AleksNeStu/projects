@@ -44,11 +44,11 @@
 [docker](/docker) - Docker
 
 [frameworks](/frameworks) - Frameworks
-    - [django](/frameworks/django)  - Django
+   - [django](/frameworks/django)  - Django
 
 [queue](/queue) - Queue
-    [queues](/queue/queues) - Queues
-    [brokers](/queue/brokers) - Brokers
+   - [queues](/queue/queues) - Queues
+   - [brokers](/queue/brokers) - Brokers
     
 
 [scripts](/scripts) - Scripts

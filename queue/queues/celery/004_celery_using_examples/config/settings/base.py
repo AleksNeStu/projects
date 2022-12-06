@@ -7,7 +7,11 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import os
 import environ
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ROOT_DIR = environ.Path(__file__) - 3  # (celery_uncovered/config/settings/base.py - 3 = celery_uncovered/)
 APPS_DIR = ROOT_DIR.path('celery_uncovered')
@@ -112,7 +116,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'celery_uncovered_dev',
+        'NAME': 'celery_uncovered_dev.sqlite3',
     }
 }
 

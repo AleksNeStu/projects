@@ -4,10 +4,11 @@ import requests
 from celery import shared_task, group, chord, current_task
 from django.core.mail import mail_admins
 from django.conf import settings
+from django.http import JsonResponse
+
 from .utils import make_csv, strf_date
 from .models import Repository
 import datetime
-
 
 
 # The @shared_task decorator lets you create tasks without having any concrete app
@@ -62,23 +63,32 @@ def fetch_hot_repos(since, per_page, page):
     :return: A list of dictionaries where each dictionary contains information about a single repository
     :note: In order to use GitHub Search API, you need an OAuth Token to pass authentication checks GITHUB_OAUTH
     """
-    payload = {
-        'sort': 'stars', 'order': 'desc', 'q': 'created:>={date}'.format(date=since),
-        'per_page': per_page, 'page': page,
-        'access_token': settings.GITHUB_OAUTH}
-    headers = {'Accept': 'application/vnd.github.v3+json'}
+    params = {
+        'sort': 'reactions',
+        'order': 'desc',
+        'q': f'created:>={since}',
+        'per_page': per_page,
+        'page': page,
+    }
+    headers = {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {settings.GITHUB_OAUTH}',
+        'X-GitHub-Api-Version': '2022-11-28',
+    }
     connect_timeout, read_timeout = 5.0, 30.0
     # https://docs.github.com/en/rest/search#search-repositories
-    r = requests.get(
+    resp = requests.get(
         'https://api.github.com/search/repositories',
-        params=payload,
+        params=params,
         headers=headers,
         timeout=(connect_timeout, read_timeout))
-    items = r.json()[u'items']
+    resp_j = resp.json()
+    items = resp_j.get(u'items', [])
+
     return items
 
 # from celery_uncovered.celery import app
-# @app.task()
+# @app.task(ignore_result=True)
 @shared_task
 def produce_hot_repo_report_task(period, ref_date=None):
     """
@@ -97,15 +107,16 @@ def produce_hot_repo_report_task(period, ref_date=None):
 
     # 2. fetch and join
     fetch_jobs = group([
-        fetch_hot_repos.s(ref_date_str, 100, 1),
-        fetch_hot_repos.s(ref_date_str, 100, 2),
-        fetch_hot_repos.s(ref_date_str, 100, 3),
-        fetch_hot_repos.s(ref_date_str, 100, 4),
-        fetch_hot_repos.s(ref_date_str, 100, 5)
+        fetch_hot_repos.s(ref_date_str, 20, 1),
+        # fetch_hot_repos.s(ref_date_str, 100, 2),
+        # fetch_hot_repos.s(ref_date_str, 100, 3),
+        # fetch_hot_repos.s(ref_date_str, 100, 4),
+        # fetch_hot_repos.s(ref_date_str, 100, 5)
     ])
     # 3. group by language and
     # 4. create csv
-    return chord(fetch_jobs)(build_report_task.s(ref_date_str)).get()
+    # return chord(fetch_jobs)(build_report_task.s(ref_date_str)).get()
+    return chord(fetch_jobs)(build_report_task.s(ref_date_str))
 
 
 @shared_task

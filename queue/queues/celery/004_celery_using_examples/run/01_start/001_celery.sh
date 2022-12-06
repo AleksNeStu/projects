@@ -7,6 +7,6 @@ source /Projects/projects/.venv/bin/activate
 echo $(pwd)
 cd ../../
 echo $(pwd)
-celery -A celery_uncovered worker -l info
+celery -A celery_uncovered worker -l INFO
 
 # celery -A celery_uncovered beat -l info

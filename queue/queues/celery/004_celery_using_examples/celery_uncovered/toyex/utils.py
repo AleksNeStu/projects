@@ -6,7 +6,7 @@ def make_csv(filename, lines):
     dirname = os.path.dirname(filename)
     if not os.path.exists(dirname):
         os.makedirs(dirname)
-    with open(filename, 'wb') as csvfile:
+    with open(filename, 'w') as csvfile:
         trending_csv = csv.writer(csvfile)
         for line in lines:
             trending_csv.writerow(line)
@@ -20,9 +20,9 @@ def strf_date(mixed_date, ref_date=None):
         ref_date = datetime.date.today()
     if mixed_date in ('day', 'week', 'month'):
         delta = None
-        if mixed_date is 'day':
+        if mixed_date == 'day':
             delta = datetime.timedelta(days=1)
-        elif mixed_date is 'week':
+        elif mixed_date == 'week':
             delta = datetime.timedelta(weeks=1)
         else:
             delta = datetime.timedelta(days=30)
