@@ -25,7 +25,9 @@ def get_orders():
     # e.g. use refresh auth tokens from auth_resp
     auth_resp = allegro.sign_in()
     # https://developer.allegro.pl/tutorials/jak-obslugiwac-zamowienia-GRaj0qyvwtR
-    orders = allegro._get('/order/events')
-    return json.dumps(orders)
+    target_path = "/order/carriers"
+    # target_path = "/order/events"
+    res = allegro._get(target_path)
+    return json.dumps(res)
 
 print(json.dumps(get_orders()))
