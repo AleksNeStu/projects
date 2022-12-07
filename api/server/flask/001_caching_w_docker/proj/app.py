@@ -6,8 +6,6 @@ import requests
 from codetiming import Timer
 from flask import Flask, request, jsonify
 from flask_caching import Cache
-from humanfriendly import format_timespan
-
 
 t = Timer(text=f"{__file__}: {{:.4f}}")
 
