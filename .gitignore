@@ -136,13 +136,25 @@ dmypy.json
 .pyre/
 
 # IntelliJ project files
-.idea
-*.iml
-out
-gen
 .gitignore
+*.iml
+.idea
 .idea/*
-
+gen
+out
+out/*
+tmp/*
+tmp
+projectFilesBackup/*
+projectFilesBackup
+.run/*
+.run
 
 # Sub modules
 /api/client/001_allegro_pl/entities/*
+
+# DBs
+*.db
+*.sqlite
+*.sqlite3
+*.DS_Store
