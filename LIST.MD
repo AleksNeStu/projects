@@ -1,6 +1,8 @@
 # A
 - **[allegro-pl-rest-api](https://github.com/allegro/allegro-api)**: API client for allegro.pl
 - **[Apache Cassandra](https://github.com/apache/cassandra)** - Apache Cassandra is a highly-scalable partitioned row store. Rows are organized into tables with a required primary key.
+- **[apscheduler](https://github.com/agronholm/apscheduler)** - Advanced Python Scheduler (APScheduler) is a task scheduler and task queue system for Python. It can be used solely as a job queuing system if you have no need for task scheduling. It scales both up and down, and is suitable for both trivial, single-process use cases as well as large deployments spanning multiple nodes.
+
 
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
@@ -69,7 +71,9 @@ Endpoint security
 
 # O
 - [optparse](https://docs.python.org/3/library/optparse.html) - optparse is a more convenient, flexible, and powerful library for parsing command-line options than the old getopt module. 
-- 
+
+
+
 # P
 - **[pipreqs](https://github.com/bndr/pipreqs)** - Pip requirements.txt generator based on imports in project.
 - **[pipdeptree](https://github.com/tox-dev/pipdeptree)** - is a command line utility for displaying the installed python packages in form of a dependency tree.
@@ -82,7 +86,8 @@ Endpoint security
 - **[pythonanywhere](https://www.pythonanywhere.com/)** - Just write your application. No need to configure or maintain a web server — everything is set up and ready to go.
 - **[pre-commit](https://github.com/pre-commit/pre-commit)** - A framework for managing and maintaining multi-language pre-commit hooks.
 - **[patch-env](https://github.com/caricalabs/patch-env)** - patch_env - Patch os.environ with dynamic values when the interpreter starts
-
+- **[python-progressbar](https://github.com/NiltonVolpato/python-progressbar)** - A text progress bar is typically used to display the progress of a long running operation, providing a visual cue that processing is underway.
+- **[pandas](https://github.com/pandas-dev/pandas)** - pandas: powerful Python data analysis toolkit
 
 # Q
 
