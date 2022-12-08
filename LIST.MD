@@ -2,7 +2,9 @@
 - **[allegro-pl-rest-api](https://github.com/allegro/allegro-api)**: API client for allegro.pl
 - **[Apache Cassandra](https://github.com/apache/cassandra)** - Apache Cassandra is a highly-scalable partitioned row store. Rows are organized into tables with a required primary key.
 - **[apscheduler](https://github.com/agronholm/apscheduler)** - Advanced Python Scheduler (APScheduler) is a task scheduler and task queue system for Python. It can be used solely as a job queuing system if you have no need for task scheduling. It scales both up and down, and is suitable for both trivial, single-process use cases as well as large deployments spanning multiple nodes.
-
+- **[asyncpg](https://github.com/MagicStack/asyncpg)** - asyncpg is a database interface library designed specifically for PostgreSQL and Python/asyncio. asyncpg is an efficient, clean implementation of PostgreSQL server binary protocol for use with Python's asyncio framework. You can read more about asyncpg in an introductory blog post.
+- **[alembic](https://github.com/sqlalchemy/alembic)** - Alembic is a database migrations tool written by the author of SQLAlchemy. A migrations tool offers the following functionality:
+- **[aiohttp](https://github.com/aio-libs/aiohttp)** - Async http client/server framework. Supports both client and server side of HTTP protocol. Supports both client and server Web-Sockets out-of-the-box and avoids Callback Hell. Provides Web-server with middlewares and plugable routing.
 
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
@@ -17,6 +19,9 @@
 - **[cookiecutter](https://github.com/cookiecutter/cookiecutter)** - A command-line utility that creates projects from cookiecutters (project templates), e.g. creating a Python package project from a Python package project template.
 - **[cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django)** - Cookiecutter Django is a framework for jumpstarting production-ready Django projects quickly.
 - ** [django-allauth](https://github.com/pennersr/django-allauth)** - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
+- **[ConfigArgParse](https://github.com/bw2/ConfigArgParse)** - Python's command line parsing modules such as argparse have very limited support for config files and environment variables, so this module extends argparse to add these features.
+- [coveragepy](https://github.com/nedbat/coveragepy) - Coverage.py measures code coverage, typically during test execution. It uses the code analysis tools and tracing hooks provided in the Python standard library to determine which lines are executable, and which have been executed.
+
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
@@ -88,6 +93,13 @@ Endpoint security
 - **[patch-env](https://github.com/caricalabs/patch-env)** - patch_env - Patch os.environ with dynamic values when the interpreter starts
 - **[python-progressbar](https://github.com/NiltonVolpato/python-progressbar)** - A text progress bar is typically used to display the progress of a long running operation, providing a visual cue that processing is underway.
 - **[pandas](https://github.com/pandas-dev/pandas)** - pandas: powerful Python data analysis toolkit
+- **[psycopg2](https://github.com/psycopg/psycopg2)** - Psycopg is the most popular PostgreSQL database adapter for the Python programming language. Its main features are the complete implementation of the Python DB API 2.0
+- **[pylama](https://github.com/klen/pylama)** - Code audit tool for Python. Pylama wraps these tools: pycodestyle, pydocstyle, PyFlakes, Mccabe, Pylint, Radon, eradicate, Mypy, Vulture
+- **[pytest](https://github.com/pytest-dev/pytest)** - The pytest framework makes it easy to write small tests, yet scales to support complex functional testing for applications and libraries.
+- **[pytest-aiohttp](https://github.com/aio-libs/pytest-aiohttp)** - pytest plugin for aiohttp support. The library provides useful fixtures for creation test aiohttp server and client.
+- **[pytest-asyncio](https://github.com/pytest-dev/pytest-asyncio)** - pytest-asyncio is a pytest plugin. It facilitates testing of code that uses the asyncio library.
+- **[pytest-cov](https://github.com/pytest-dev/pytest-cov)** - This plugin produces coverage reports. Compared to just using coverage run this plugin does some extras.
+
 
 # Q
 
@@ -103,6 +115,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[systemd](https://github.com/systemd/systemd)** - systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. systemd provides aggressive parallelization capabilities, uses socket and D-Bus activation for starting services, offers on-demand starting of daemons, keeps track of processes using Linux control groups, maintains mount and automount points, and implements an elaborate transactional dependency-based service control logic. systemd supports SysV and LSB init scripts and works as a replacement for sysvinit.
 - **[supervisor](https://github.com/Supervisor/supervisor)** - Supervisor is a client/server system that allows its users to control a number of processes on UNIX-like operating systems. Supervisor is intended to work on Python 3 version 3.4 or later and on Python 2 version 2.7.
 - **[sqlalchemy](https://github.com/sqlalchemy/sqlalchemy)** - SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. SQLAlchemy provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
+- **[sentry](https://github.com/getsentry/sentry)** - Sentry is a developer-first error tracking and performance monitoring platform that helps developers see what actually matters, solve quicker, and learn continuously about their applications.
+- **[sqlalchemy-utils](https://github.com/kvesteri/sqlalchemy-utils)** - Various utility functions, new data types and helpers for SQLAlchemy.
 
 
 # T

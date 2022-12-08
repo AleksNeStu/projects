@@ -1,6 +1,6 @@
 # P1
-1) p1_1
-2) p1_2
+1) 001_alembic_quickstart - test and adjust
+2) asyncpg
 
 # P2
 1) p2_1
