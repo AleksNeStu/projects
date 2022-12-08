@@ -181,7 +181,8 @@ def add_admin():
 
 def add_debug_toolbar():
     global toolbar
-    toolbar = flask_debugtoolbar.DebugToolbarExtension(app)
+    # error: AttributeError: module 'jinja2.ext' has no attribute 'with_'
+    # toolbar = flask_debugtoolbar.DebugToolbarExtension(app)
 
     return toolbar
 

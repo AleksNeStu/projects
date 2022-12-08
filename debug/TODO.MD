@@ -1,6 +1,6 @@
 # P1
-1) p1_1
-2) p1_2
+1) 001_examples
+2) 002_memory_mgmt python examples
 
 # P2
 1) https://sentry.io

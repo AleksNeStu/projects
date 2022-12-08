@@ -1748,6 +1748,14 @@ dns-srv = ["dnspython (>=1.16.0,<=2.1.0)"]
 gssapi = ["gssapi (>=1.6.9,<=1.8.1)"]
 
 [[package]]
+name = "mysqlclient"
+version = "2.1.1"
+description = "Python interface to MySQL"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
 name = "nbclassic"
 version = "0.4.8"
 description = "A web-based notebook environment for interactive computing"
@@ -3552,7 +3560,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "1239674fd2af8ccf64c14664c65b906c22bd5d4d979e1b44054018559e5d577a"
+content-hash = "bb6fb18e940bb36b38c3bd279cd87d7dd57ca748bf649b25e1cdf1d6b1e33a60"
 
 [metadata.files]
 absl-py = []
@@ -4045,6 +4053,7 @@ mysql-connector-python = [
     {file = "mysql_connector_python-8.0.31-cp39-cp39-win_amd64.whl", hash = "sha256:b2bbf443f6346e46c26a3e91dd96a428a1038f2d3c5e466541078479c64a1833"},
     {file = "mysql_connector_python-8.0.31-py2.py3-none-any.whl", hash = "sha256:9be9c4dcae987a2a3f07b2ad984984c24f90887dbfab3c8a971e631ad4ca5ccf"},
 ]
+mysqlclient = []
 nbclassic = []
 nbclient = [
     {file = "nbclient-0.7.2-py3-none-any.whl", hash = "sha256:d97ac6257de2794f5397609df754fcbca1a603e94e924eb9b99787c031ae2e7c"},
