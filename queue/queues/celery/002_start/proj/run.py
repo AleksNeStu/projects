@@ -1,9 +1,12 @@
-from celery.result import AsyncResult
+from __future__ import absolute_import
+
+#
+# from celery.result import AsyncResult
 
 from .tasks import add
 
 res = add.delay(4, 14)
-assert isinstance(res, AsyncResult)
+# assert isinstance(res, AsyncResult)
 repr = res.__dict__
 
 # to get res needs backend configured

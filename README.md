@@ -28,6 +28,8 @@
    - [time](/code/time) - Time
    - [validation](/code/validation) - Validation
 
+[code_tasks](/tasks) - Tests coding tasks ...
+
 [data](/data) - Data Engineering
    - [db](/data/db) - DB
    - [etl](/data/etl) - ETL (ELT)
@@ -49,11 +51,8 @@
 [queue](/queue) - Queue
    - [queues](/queue/queues) - Queues
    - [brokers](/queue/brokers) - Brokers
-    
 
 [scripts](/scripts) - Scripts
-
-[tasks](/tasks) - Tests coding tasks ...
 
 [web_apps](/web_apps) Web applications (FE | BE or only BE) 
    - [pypi-web-app](/web_apps/001_pypi) - Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja

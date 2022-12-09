@@ -1,4 +1,5 @@
 # P1
+0) 004_celery_using_examples make workable
 1) Celery
 2) https://github.com/agronholm/apscheduler
 
