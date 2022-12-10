@@ -12,9 +12,13 @@ CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", 'amqp://root:rootroot@localho
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
 CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
+
 CELERY_TASK_SERIALIZER = 'json'
 
+# New
+# CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
 
 """
 Django settings for proj project.
