@@ -1,6 +1,15 @@
+import os
+
 import django
-# Shell
+
+# django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
+# django.setup()
+
 from celery_uncovered.toyex.tasks import produce_hot_repo_report_task
+
+
+
 
 # from celery_uncovered.celery import debug_task
 

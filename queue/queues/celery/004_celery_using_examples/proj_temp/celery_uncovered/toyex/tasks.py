@@ -107,7 +107,7 @@ def produce_hot_repo_report_task(period, ref_date=None):
 
     # 2. fetch and join
     fetch_jobs = group([
-        fetch_hot_repos.s(ref_date_str, 20, 1),
+        fetch_hot_repos.s(ref_date_str, 5, 1),
         # fetch_hot_repos.s(ref_date_str, 100, 2),
         # fetch_hot_repos.s(ref_date_str, 100, 3),
         # fetch_hot_repos.s(ref_date_str, 100, 4),
