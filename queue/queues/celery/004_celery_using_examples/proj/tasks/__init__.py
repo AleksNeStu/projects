@@ -3,7 +3,9 @@ import sys
 print(str(sys.argv))
 
 def is_celery_connected():
-    for arg in ["site-packages/celery/__main__.py", "['manage.py', 'migrate']", "/bin/celery"]:
+    for arg in [
+        "site-packages/celery/__main__.py",
+        "['manage.py', '", "/bin/celery"]:
         if arg in str(sys.argv):
             return True
     else:
