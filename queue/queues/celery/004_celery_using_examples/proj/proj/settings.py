@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_results',
+    # custom
     'tasks.tasks01',
 ]
 
@@ -141,3 +142,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Custom
+PROJECT_ROOT_DIR = os.path.join(
+    os.getenv('PROJECT_ROOT_DIR', os.path.dirname(__file__)), "..")
+APP_ROOT_DIR = os.path.join(PROJECT_ROOT_DIR, 'tasks')
+MEDIA_ROOT = os.path.join(APP_ROOT_DIR, 'media')
+GITHUB_OAUTH = os.getenv('GITHUB_API_OAUTH', '')
