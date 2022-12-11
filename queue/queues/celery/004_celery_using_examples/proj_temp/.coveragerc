@@ -1,5 +1,0 @@
-[run]
-include = celery_uncovered/*
-omit = *migrations*, *tests*
-plugins =
-    django_coverage_plugin
