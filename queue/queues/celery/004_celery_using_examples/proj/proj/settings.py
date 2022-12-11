@@ -149,3 +149,4 @@ PROJECT_ROOT_DIR = os.path.join(
 APP_ROOT_DIR = os.path.join(PROJECT_ROOT_DIR, 'tasks')
 MEDIA_ROOT = os.path.join(APP_ROOT_DIR, 'media')
 GITHUB_OAUTH = os.getenv('GITHUB_API_OAUTH', '')
+# GITHUB_OAUTH = os.getenv('GITHUB_ME_OAUTH', '')
