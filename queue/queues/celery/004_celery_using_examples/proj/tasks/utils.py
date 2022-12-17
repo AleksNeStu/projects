@@ -3,6 +3,10 @@ import datetime
 import os
 
 
+def is_exists(filename):
+    return os.path.isfile(filename)
+
+
 def make_csv(filename, lines):
     dirname = os.path.dirname(filename)
     if not os.path.exists(dirname):
@@ -12,7 +16,6 @@ def make_csv(filename, lines):
         for line in lines:
             trending_csv.writerow(line)
     return filename
-
 
 
 def strf_date(mixed_date, ref_date=None):

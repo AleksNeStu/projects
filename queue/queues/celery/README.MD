@@ -20,6 +20,8 @@ https://docs.celeryq.dev/en/latest/
 
 
 # II) Description
+Celery is a task queue that allows you to schedule and execute long-running tasks asynchronously using worker processes. It is often used in web applications to offload long-running tasks to a separate process, so that the main web server can continue to respond to requests quickly.
+
 Celery and RabbitMQ are some tools used in in event-driven architectures.\
 Celery’s asynchronous task queue allows the execution of tasks and its concurrency makes it useful in several production systems.
 
@@ -105,3 +107,10 @@ Celery also defines a group of bundles that can be used to install Celery and th
 # VI) Compare
 1) Diff1
 2) Diff2
+
+# VII) Tips
+- Set up a separate worker process to handle tasks. This will allow you to scale your application horizontally by adding more worker processes as needed.
+- Use a message broker, such as RabbitMQ or Redis, to manage communication between the web server and the worker processes.
+- Use the "retry" feature to automatically retry tasks that fail due to transient errors, such as network issues or temporary resource unavailability.
+- Use the "rate_limit" feature to limit the number of tasks that can be processed concurrently, to avoid overloading your system.
+- Use the "timeouts" feature to specify a maximum execution time for tasks, to prevent them from running indefinitely.

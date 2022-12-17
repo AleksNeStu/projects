@@ -1,11 +1,12 @@
 # django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
 # django.setup()
+from tasks.tasks01 import add, produce_hot_repo_report_task_v1, produce_hot_repo_report_task_v2
 
-from tasks.tasks01 import add, produce_hot_repo_report_task
 
 
 # Ex1
+print('EXAMPLE RESULT')
 res = add.delay(1, 2)
 print(res.status)
 print(res.result)
@@ -23,20 +24,66 @@ print(res.get())
 # linked_add.link(add.s())
 # result3 = linked_add()
 
-# def is_task_done(task):
-#     from celery.result import AsyncResult
-#     from celery.result import allow_join_result
-#     task_obj = AsyncResult(task.id)
-#     with allow_join_result():
-#         res = task_obj.get()
-#         if res.status != "SUCCESS":
-#             return False
-#         else:
-#             return True
 
-print('HARD')
-res5 = produce_hot_repo_report_task.delay('today')
-# res5.wait(10)
-result5 = res5.get()
 
-print(result5)
+# Recursive function to get all child tasks for a given parent task
+def get_all_child_tasks(parent_task_result):
+    """Tree structure of tasks in Celery, where each task may have multiple child tasks,
+    you can use recursive functions to traverse the tree and get all the child tasks for a given
+    parent task.
+    This recursive function will return a list of all the child tasks for the given parent task, including
+    any grandchild tasks and so on. You can then use the AsyncResult objects in the list to get the status, result, or other information about the tasks.
+    """
+    # Get the list of child tasks
+    children = parent_task_result.children
+    all_tasks = []
+    # Recursively get the child tasks for each child task
+    for child in children:
+        all_tasks.extend(get_all_child_tasks(child))
+    # Add the current child tasks to the list
+    all_tasks.extend(children)
+    return all_tasks
+
+
+def wait_task(task):
+    from celery.result import AsyncResult
+    import time
+    task_obj = AsyncResult(task) if isinstance(task, str) else task
+
+    if task_obj.successful():
+        return task_obj
+    else:
+        while True:
+            time.sleep(1)
+            if task_obj.successful():
+                return task_obj
+
+
+print('TASKS RESULT')
+
+
+def run_tasks1v1():
+    print("Run tasks 1v1")
+    # Execute the parent task and get the AsyncResult object
+    task1 = wait_task(produce_hot_repo_report_task_v1.delay('today'))
+    # Get all child tasks for the parent task
+    all_tasks1 = get_all_child_tasks(task1)
+    # task1_res = task1.get()
+    # all_tasks = get_all_children_tasks(task1)
+    # tasks1v1_t = tasks1v1.get(timeout=5)
+    print(f'Res tasks 1v1: {all_tasks1}')
+    # all_children_tasks = get_all_children_tasks(task1)
+    # tasks1v1.wait(10)
+    tasks1v1_res = 1
+    # from celery.result import GroupResult
+    # saved_result = GroupResult.restore(task1.id)
+
+
+def run_tasks1v2():
+    print("Run tasks 1v1")
+    tasks1v2 = produce_hot_repo_report_task_v2.delay('today')
+    tasks1v2 = tasks1v2.get()
+    print(tasks1v2)
+
+run_tasks1v1()
+#run_tasks1v2()
