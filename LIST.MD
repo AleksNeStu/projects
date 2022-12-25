@@ -71,6 +71,10 @@ Endpoint security
 - **[mongo-express](https://github.com/mongo-express/mongo-express)** - Web-based MongoDB admin interface written with Node.js, Express and Bootstrap3
 - **[Memcached](https://github.com/memcached/memcached)** - Memcached is a high performance multithreaded event-based key/value cache store intended to be used in a distributed system.
 - **[MongoDB](https://github.com/mongodb/mongo)** - MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+- **[MailHog](https://github.com/mailhog/MailHog)** - MailHog is an email testing tool for developers:
+Configure your application to use MailHog for SMTP delivery. View messages in the web UI, or retrieve them with the JSON API. Optionally release messages to real SMTP servers for delivery
+
+
 
 # N
 

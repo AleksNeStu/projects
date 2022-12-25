@@ -1,9 +1,31 @@
 import os
+import environ
+
+
+env = environ.Env()
 
 # ^^^ The above is required if you want to import from the celery
 # library.  If you don't have this then `from celery.schedules import`
 # becomes `proj.celery.schedules` in Python 2.x since it allows
 # for relative imports by default.
+
+
+# Static files (CSS, JavaScript, Images)
+
+
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+STATIC_URL = '/static/'
+
+# Custom
+ROOT_DIR = os.path.join(
+    os.getenv('PROJECT_ROOT_DIR', os.path.dirname(__file__)), "..")
+APPS_DIR = os.path.join(ROOT_DIR, 'tasks')
+MEDIA_ROOT = os.path.join(APPS_DIR, 'media')
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = '/media/'
+GITHUB_OAUTH = os.getenv('GITHUB_API_OAUTH', '')
+# GITHUB_OAUTH = os.getenv('GITHUB_ME_OAUTH', '')
 
 # Celery settings
 
@@ -44,7 +66,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l!t+dmzf97rt9s*yrsux1py_1@odvz1szr&6&m!f@-nxq6k%%p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = env.bool('DJANGO_DEBUG', True)
 
 ALLOWED_HOSTS = []
 
@@ -61,6 +84,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     # custom
     'tasks.tasks01',
+    'tasks.tasks02',
 ]
 
 MIDDLEWARE = [
@@ -138,15 +162,82 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
 
-# Custom
-PROJECT_ROOT_DIR = os.path.join(
-    os.getenv('PROJECT_ROOT_DIR', os.path.dirname(__file__)), "..")
-APP_ROOT_DIR = os.path.join(PROJECT_ROOT_DIR, 'tasks')
-MEDIA_ROOT = os.path.join(APP_ROOT_DIR, 'media')
-GITHUB_OAUTH = os.getenv('GITHUB_API_OAUTH', '')
-# GITHUB_OAUTH = os.getenv('GITHUB_ME_OAUTH', '')
+# All
+
+
+# Logging settings
+# ------------------------------------------------------------------------------
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],  # ['require_debug_true'],
+            'class': 'tasks.log_handlers.admin_email.AdminEmailScheduledHandler'  # AdminEmailHandler
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
+ADMINS = [
+    ("""user1""", 'user1@mailhog.local'),
+]
+
+
+# Mail settings
+# ------------------------------------------------------------------------------
+EMAIL_PORT = 1025
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'mailhog')
+SERVER_EMAIL = 'server@mailhog.local'
+EMAIL_BACKEND = os.getenv('DJANGO_EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+
+
+# Location of root django.contrib.admin URL, use {% url 'admin:index' %}
+ADMIN_URL = r'^admin/'
+
+
+# STATIC FILE CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = os.path.join(ROOT_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(APPS_DIR, 'static'),
+]

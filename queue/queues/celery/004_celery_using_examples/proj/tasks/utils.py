@@ -1,6 +1,8 @@
 import csv
 import datetime
 import os
+from os.path import isfile, join
+from time import mktime
 
 
 def is_exists(filename):
@@ -38,3 +40,17 @@ def strf_date(mixed_date, ref_date=None):
     elif type(ref_date) in (datetime.date, datetime.datetime):
         dt_str = ref_date.isoformat()
     return dt_str
+
+
+def list_files(folder):
+    err_files = [(folder, f) for f in os.listdir(folder) if isfile(join(folder, f))]
+    return err_files
+
+def interval_timestamp(interval, t=None):
+    if t is None:
+        t = ts()
+    return t - (t % interval)
+
+
+def ts():
+    return int(mktime(datetime.datetime.utcnow().timetuple()))

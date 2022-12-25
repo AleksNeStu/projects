@@ -4,6 +4,7 @@
 from celery.result import AsyncResult, GroupResult
 
 from tasks.tasks01 import add, produce_hot_repo_report_task_v1, produce_hot_repo_report_task_v2
+from tasks.tasks02 import report_scheduled_error_task
 
 
 # Ex1
@@ -98,5 +99,19 @@ def run_tasks1v2():
     all_tasks1v2 = get_all_child_tasks(tasks1v2)
     print(f'Res tasks 1v2: {all_tasks1v2}')
 
-run_tasks1v1()
-#run_tasks1v2()
+
+
+def run_tasks2():
+    print("Run tasks 2")
+    tasks2 = wait_task(report_scheduled_error_task.delay())
+    all_tasks2 = get_all_child_tasks(tasks2)
+    print(f'Res tasks 2: {all_tasks2}')
+
+
+
+
+#run_tasks1v1()
+
+#run_tasks1v2()  skip
+
+run_tasks2()

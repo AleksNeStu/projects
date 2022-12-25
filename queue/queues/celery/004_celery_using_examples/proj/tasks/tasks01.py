@@ -8,6 +8,12 @@ from .models import Repository
 from .utils import make_csv, strf_date, is_exists
 from datetime import datetime
 
+"""
+Use case description: fetch the five hundred hottest repositories from GitHub per chosen period (day, week, month), group them by topics, and export the result to the CSV file.
+If we provide an HTTP service that will execute this feature triggered by clicking a button labeled “Generate Report,” the application would stop and wait for the task to complete before sending an HTTP response back. This is bad. We want our web application to be fast and we don’t want our users to wait while our back-end computes the results. Instead of waiting for the results to be produced, we would rather queue the task to worker processes via a registered queue in Celery and respond with a task_id to the front-end. Then the front-end would use the task_id to query the task result in an asynchronous fashion (e.g., AJAX) and will keep the user updated with the task progress. Finally, when the process finishes, the results can be served as a file to download via HTTP.
+"""
+
+
 # The @shared_task decorator lets you create tasks without having any concrete app
 # https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html#django-first-steps
 @shared_task
@@ -164,39 +170,6 @@ def build_report_task(results, ref_date):
 '''
 Tis task uses celery.canvas.group to execute five concurrent calls of fetch_hot_repos/3. Those results are waited for and then reduced to a list of repository objects. Then our result set is grouped by topic and finally exported into a generated CSV file under the MEDIA_ROOT/ directory.
 '''
-
-
-"""
-I) Desc:
-Create a logging handler that will be able to track Server errors (50X) and report them to admins through via celery.
-I advice to thoroughly understand https://docs.djangoproject.com/en/1.11/howto/error-reporting/
-
-Seems like you need to extend default  'django.utils.log.AdminEmailHandler',
-
-II) Implementation Details:
-1. Create self containable task called `report_error_task/4 similar to `self.send_mail(subject, message,
-fail_silently=True, html_message=html_message)``
-2. Extend 'django.utils.log.AdminEmailHandler' in the way it will call report_error_task.delay with the
-required parameters
-3. Return nothing (Ensure that ignore_result flag set to True)
-4. Provide http tests that ensures that it is called
-
-III) Extra:
-1. Modify code so that task could be scheduled once per time range (1 hour, 6 hours) and all bugs will be collected and
-send as one email, rather than notifying often.
-Hint: you also need to create models.py that will store the HttpErrorEntries
-
-IV) Required Libraries:
-    django.core.mail
-    django.util.log
-    mailhog
-    pytest
-"""
-
-@shared_task
-def report_error_task(subject, message, *args, **kwargs):
-    mail_admins(subject, message, *args, **kwargs)
-
 
 
 @shared_task
