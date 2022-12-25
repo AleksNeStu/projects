@@ -5,11 +5,16 @@
 - **[asyncpg](https://github.com/MagicStack/asyncpg)** - asyncpg is a database interface library designed specifically for PostgreSQL and Python/asyncio. asyncpg is an efficient, clean implementation of PostgreSQL server binary protocol for use with Python's asyncio framework. You can read more about asyncpg in an introductory blog post.
 - **[alembic](https://github.com/sqlalchemy/alembic)** - Alembic is a database migrations tool written by the author of SQLAlchemy. A migrations tool offers the following functionality:
 - **[aiohttp](https://github.com/aio-libs/aiohttp)** - Async http client/server framework. Supports both client and server side of HTTP protocol. Supports both client and server Web-Sockets out-of-the-box and avoids Callback Hell. Provides Web-server with middlewares and plugable routing.
+- **[asgiref](https://github.com/django/asgiref/)** - ASGI is a standard for Python asynchronous web apps and servers to communicate with each other, and positioned as an asynchronous successor to WSGI. This package includes ASGI base libraries, such as: Sync-to-async and async-to-sync function wrappers, asgiref.sync. Server base classes, asgiref.server. A WSGI-to-ASGI adapter, in asgiref.wsgi.
+- **[async-timeout](https://github.com/aio-libs/async-timeout)** - The context manager is useful in cases when you want to apply timeout logic around block of code or in cases when asyncio.wait_for() is not suitable. Also it's much faster than asyncio.wait_for() because timeout doesn't create a new task.
+
+
 
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
 - **[bulma](https://github.com/jgthms/bulma)** - Bulma is a CSS framework. As such, the sole output is a single CSS file. Bulma can be considered "environment agnostic": it's just the style layer on top of the logic.
 - [bootstrap](https://github.com/twbs/bootstrap) - The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
+- **[billiard](https://github.com/celery/billiard)** - billiard is a fork of the Python 2.7 multiprocessing package. The multiprocessing package itself is a renamed and updated version of R Oudkerk's pyprocessing package. This standalone variant draws its fixes/improvements from python-trunk and provides additional bug fixes and improvements.
 
 
 # C
@@ -21,6 +26,10 @@
 - ** [django-allauth](https://github.com/pennersr/django-allauth)** - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
 - **[ConfigArgParse](https://github.com/bw2/ConfigArgParse)** - Python's command line parsing modules such as argparse have very limited support for config files and environment variables, so this module extends argparse to add these features.
 - [coveragepy](https://github.com/nedbat/coveragepy) - Coverage.py measures code coverage, typically during test execution. It uses the code analysis tools and tracing hooks provided in the Python standard library to determine which lines are executable, and which have been executed.
+- **[click](https://github.com/pallets/click/)** - Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. It's the "Command Line Interface Creation Kit". It's highly configurable but comes with sensible defaults out of the box.
+- **[click-didyoumean](https://github.com/click-contrib/click-didyoumean)** - Enable git-like did-you-mean feature in click.
+- **[click-plugins** ](https://github.com/click-contrib/click-plugins)- An extension module for click to register external CLI commands via setuptools entry-points.
+
 
 
 # D
@@ -30,6 +39,10 @@
 - **[docker-compose](https://github.com/docker/compose)** - Docker Compose is a tool for running multi-container applications on Docker defined using the Compose file format.
 - **[django-celery-beat](https://github.com/celery/django-celery-beat)** - Celery Periodic Tasks backed by the Django ORM. The periodic tasks can be managed from the Django Admin interface, where you can create, edit and delete periodic tasks and how often they should run.
 - **[direnv](https://github.com/direnv/direnv)** - direnv is an extension for your shell. It augments existing shells with a new feature that can load and unload environment variables depending on the current directory.
+- **[deprecated](https://github.com/tantale/deprecated)** - Python @deprecated decorator to deprecate old python classes, functions or methods.
+
+
+
 
 # E
 - [eventlet](http://eventlet.net/) - Eventlet is a concurrent networking library for Python that allows you to change how you run your code, not how you write it. https://github.com/eventlet/eventlet
@@ -58,6 +71,7 @@ Endpoint security
 - **[JSON](https://www.json.org/json-en.html)** - JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write.
 
 # K
+- **[Kombu](https://github.com/celery/kombu)** - Kombu is a messaging library for Python. The aim of Kombu is to make messaging in Python as easy as possible by providing an idiomatic high-level interface for the AMQ protocol, and also provide proven and tested solutions to common messaging problems.
 
 # L
 - **[litecli](https://github.com/dbcli/litecli)** - A command-line client for SQLite databases that has auto-completion and syntax highlighting.
@@ -103,6 +117,10 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[pytest-aiohttp](https://github.com/aio-libs/pytest-aiohttp)** - pytest plugin for aiohttp support. The library provides useful fixtures for creation test aiohttp server and client.
 - **[pytest-asyncio](https://github.com/pytest-dev/pytest-asyncio)** - pytest-asyncio is a pytest plugin. It facilitates testing of code that uses the asyncio library.
 - **[pytest-cov](https://github.com/pytest-dev/pytest-cov)** - This plugin produces coverage reports. Compared to just using coverage run this plugin does some extras.
+- **[py-amqp](https://github.com/celery/py-amqp)** - Advanced Message Queuing Protocol (AMQP) used by kombu as a pure python alternative when librabbitmq is not available. This library should be API compatible with librabbitmq.
+- **[packaging](https://github.com/pypa/packaging)** - Reusable core utilities for various Python Packaging interoperability specifications.
+- **[python-prompt-toolkit](https://github.com/prompt-toolkit/python-prompt-toolkit)** - prompt_toolkit is a library for building powerful interactive command line applications in Python.
+- **[pyparsing](https://github.com/pyparsing/pyparsing/)** - The pyparsing module is an alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions. The pyparsing module provides a library of classes that client code uses to construct the grammar directly in Python code.
 
 
 # Q
@@ -121,6 +139,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[sqlalchemy](https://github.com/sqlalchemy/sqlalchemy)** - SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL. SQLAlchemy provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
 - **[sentry](https://github.com/getsentry/sentry)** - Sentry is a developer-first error tracking and performance monitoring platform that helps developers see what actually matters, solve quicker, and learn continuously about their applications.
 - **[sqlalchemy-utils](https://github.com/kvesteri/sqlalchemy-utils)** - Various utility functions, new data types and helpers for SQLAlchemy.
+- [six](**https://github.com/benjaminp/six**) - Six is a Python 2 and 3 compatibility library.
+- **[sqlparse](https://pypi.org/project/sqlparse/)** - sqlparse is a non-validating SQL parser for Python. It provides support for parsing, splitting and formatting SQL statements.
 
 
 # T
@@ -132,11 +152,14 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 # U
 
 # V
+- **[vine](https://github.com/celery/vine/)** - This is a special implementation of promises in that it can be used both for promise of a value and lazy evaluation. The biggest upside for this is that everything in a promise can also be a promise, e.g. filters, callbacks and errbacks can all be promises.
 
 # W
 - **[webbrowser](https://docs.python.org/3/library/webbrowser.html#module-webbrowser)** - module provides a high-level interface to allow displaying web-based documents to users. Under most circumstances, simply calling the open() function from this module will do the right thing.
 - **[Webkit](https://webkit.org/)** - WebKit is the web browser engine used by Safari, Mail, App Store, and many other apps on macOS, iOS, and Linux.
 - **[web2py](https://github.com/web2py/web2py)** - web2py is a free open source full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications.
+- **[wrapt](https://github.com/GrahamDumpleton/wrapt)** - The aim of the wrapt module is to provide a transparent object proxy for Python, which can be used as the basis for the construction of function wrappers and decorator functions.
+
 
 # X
 
