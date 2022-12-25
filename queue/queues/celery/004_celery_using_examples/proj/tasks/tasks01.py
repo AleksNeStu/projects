@@ -45,7 +45,7 @@ IV) Required Libraries:
 """
 
 @shared_task
-def fetch_hot_repos(since, per_page, page):
+def fetch_hot_repos_v1(since, per_page, page):
     """
     The fetch_hot_repos function fetches the top-N most popular repositories on GitHub
     that were created after a given date. The function accepts three parameters:
@@ -118,11 +118,11 @@ def produce_hot_repo_report_task_v1(period, ref_date=None):
 
     # 2. fetch and join
     fetch_jobs = group([
-        fetch_hot_repos.s(ref_date_str, 5, 1),
-        fetch_hot_repos.s(ref_date_str, 5, 2),
-        fetch_hot_repos.s(ref_date_str, 5, 3),
-        # fetch_hot_repos.s(ref_date_str, 100, 4),
-        # fetch_hot_repos.s(ref_date_str, 100, 5),
+        fetch_hot_repos_v1.s(ref_date_str, 100, 1),
+        fetch_hot_repos_v1.s(ref_date_str, 100, 2),
+        fetch_hot_repos_v1.s(ref_date_str, 100, 3),
+        fetch_hot_repos_v1.s(ref_date_str, 100, 4),
+        fetch_hot_repos_v1.s(ref_date_str, 100, 5),
     ])
     # 3. group by language and
     # 4. create csv
@@ -216,14 +216,55 @@ def xsum(numbers):
 
 # ======================tasks01v2=================================
 @shared_task
+def fetch_hot_repos_v2(language, since, per_page, page):
+    print('lllllllllllllllllllllllllllllllllll', language, since, per_page, page)
+    query = 'created:>={date}'.format(date=since)
+    if language:
+        query += ' language:{lang}'.format(lang=language)
+    params = {
+        'sort': 'reactions',
+        'order': 'desc',
+        'q': query,
+        'per_page': per_page,
+        'page': page,
+    }
+    headers = {
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {settings.GITHUB_OAUTH}',
+        'X-GitHub-Api-Version': '2022-11-28',
+    }
+    connect_timeout, read_timeout = 5.0, 30.0
+    # https://docs.github.com/en/rest/search#search-repositories
+    req_kwargs = dict(
+        url='https://api.github.com/search/repositories',
+        params=params,
+        headers=headers,
+        timeout=(connect_timeout, read_timeout),
+    )
+    resp = requests.get(**req_kwargs)
+    resp_j = resp.json()
+    items = resp_j.get(u'items', [])
+    if not items:
+        raise RuntimeError(
+            f'No items for git repositories, req: {req_kwargs}, resp: {str(resp)}')
+    return [Repository(item) for item in items]
+
+
+@shared_task
 def fetch_hot_repos_group(group_params):
-    job = group( [fetch_hot_repos.s(*params) for params in group_params] )
-    result = job.apply_async()
-    return result.get()
+    print(f'group_params: {group_params}')
+    job = group(fetch_hot_repos_v2.s(*params) for params in group_params)
+    # result = job.apply_async()
+    # res =  result.get()
+    # The RuntimeError('Never call result.get() within a task!') error is raised when the result.get() method is called inside a Celery task. This is generally considered an anti-pattern because the result.get() method blocks the current task until the result is ready, which can cause performance issues and lead to deadlocks.
+    # print(res)
+    # return res
+    return job()
 
 
 @shared_task
 def store_hot_repos_group(repos_group, filename):
+    print(repos_group)
     repos_flattened = []
     for repo in repos_group:
         repos_flattened += repo
@@ -254,7 +295,7 @@ def produce_hot_repo_report_task_v2(ref_date, period=None):
 
     group_params = map(lambda i: (None, ref_date_str, 10, i), range(1, 6))
 
-    chain = fetch_hot_repos_group.s(group_params) | store_hot_repos_group.s(filename)
+    chain = fetch_hot_repos_group.s(list(group_params)) | store_hot_repos_group.s(filename)
     result = chain()
     return result
 
@@ -279,7 +320,7 @@ def produce_hot_repo_report_task_for_languages(languages, ref_date, period=None)
 
     # 2. fetch and join
     languages = filenames_by_lang.keys()
-    job_fetch = group( [fetch_hot_repos.s(lang, ref_date_str, 100, 1) for lang in languages] )
+    job_fetch = group([fetch_hot_repos_v1.s(lang, ref_date_str, 100, 1) for lang in languages])
     result = job_fetch.apply_async()
     repo_names_by_lang = {}
     for index, repos in enumerate(result.get()):

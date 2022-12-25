@@ -1,8 +1,9 @@
 # django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
 # django.setup()
-from tasks.tasks01 import add, produce_hot_repo_report_task_v1, produce_hot_repo_report_task_v2
+from celery.result import AsyncResult, GroupResult
 
+from tasks.tasks01 import add, produce_hot_repo_report_task_v1, produce_hot_repo_report_task_v2
 
 
 # Ex1
@@ -35,14 +36,18 @@ def get_all_child_tasks(parent_task_result):
     any grandchild tasks and so on. You can then use the AsyncResult objects in the list to get the status, result, or other information about the tasks.
     """
     # Get the list of child tasks
+    # if isinstance(parent_task_result, (AsyncResult, GroupResult)):
     children = parent_task_result.children
-    all_tasks = []
-    # Recursively get the child tasks for each child task
-    for child in children:
-        all_tasks.extend(get_all_child_tasks(child))
-    # Add the current child tasks to the list
-    all_tasks.extend(children)
-    return all_tasks
+    if children:
+        all_tasks = []
+        # Recursively get the child tasks for each child task
+        for child in children:
+            all_tasks.extend(get_all_child_tasks(child))
+        # Add the current child tasks to the list
+        all_tasks.extend(children)
+        return all_tasks
+    else:
+        return []
 
 
 def wait_task(task):
@@ -65,25 +70,33 @@ print('TASKS RESULT')
 def run_tasks1v1():
     print("Run tasks 1v1")
     # Execute the parent task and get the AsyncResult object
-    task1 = wait_task(produce_hot_repo_report_task_v1.delay('today'))
+    # django.db.utils.OperationalError: database is locked for Sqlite
+    task1v1 = wait_task(produce_hot_repo_report_task_v1.delay('today'))
+    # task1 = produce_hot_repo_report_task_v1.delay('today')
+
+
+    # Wait for the parent task and all its child tasks to complete, and get the final result
+    # task1_res = task1.get()
+
     # Get all child tasks for the parent task
-    all_tasks1 = get_all_child_tasks(task1)
+    all_tasks1v1 = get_all_child_tasks(task1v1)
     # task1_res = task1.get()
     # all_tasks = get_all_children_tasks(task1)
     # tasks1v1_t = tasks1v1.get(timeout=5)
-    print(f'Res tasks 1v1: {all_tasks1}')
+    print(f'Res tasks 1v1: {all_tasks1v1}')
     # all_children_tasks = get_all_children_tasks(task1)
     # tasks1v1.wait(10)
     tasks1v1_res = 1
     # from celery.result import GroupResult
     # saved_result = GroupResult.restore(task1.id)
 
-
+# TODO: Fix get results
 def run_tasks1v2():
-    print("Run tasks 1v1")
-    tasks1v2 = produce_hot_repo_report_task_v2.delay('today')
-    tasks1v2 = tasks1v2.get()
-    print(tasks1v2)
+    # It's important to note that the get and join methods will block the current thread of execution until the tasks are completed. If you want to execute tasks asynchronously and wait for their results without blocking the current thread, you can use the AsyncResult.wait method, which waits for a task to complete but does not block the current thread.
+    print("Run tasks 1v2")
+    tasks1v2 = wait_task(produce_hot_repo_report_task_v2.delay('today'))
+    all_tasks1v2 = get_all_child_tasks(tasks1v2)
+    print(f'Res tasks 1v2: {all_tasks1v2}')
 
 run_tasks1v1()
 #run_tasks1v2()
