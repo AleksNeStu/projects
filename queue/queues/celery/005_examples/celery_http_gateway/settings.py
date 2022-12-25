@@ -1,4 +1,5 @@
 import django
+import os
 
 # Django settings for celery_http_gateway project.
 
@@ -67,7 +68,7 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 # XXX TODO FIXME Set this secret key to anything you want, just change it!
-SECRET_KEY = 'This is not a secret, be sure to change this.'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "")
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
