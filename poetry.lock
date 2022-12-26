@@ -306,6 +306,17 @@ html5lib = ["html5lib"]
 lxml = ["lxml"]
 
 [[package]]
+name = "big-o"
+version = "0.10.2"
+description = "Empirical estimation of time complexity from execution time"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+numpy = "*"
+
+[[package]]
 name = "big-o-calculator"
 version = "0.0.9.8.4"
 description = "A calculator to predict big-O of sorting functions"
@@ -3590,7 +3601,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "1abe261d8dd55e739d2c59f090246cdcb8b73c5c309693639ec3a47b47a423e9"
+content-hash = "33bb17000c68a7f6f4ec06b85ec4a765ad9a18e7f6249c4857691f6abdd81032"
 
 [metadata.files]
 absl-py = []
@@ -3683,6 +3694,9 @@ babel = [
 ]
 backcall = []
 beautifulsoup4 = []
+big-o = [
+    {file = "big_O-0.10.2.tar.gz", hash = "sha256:575130f074d0e09a1583c823f43e00b259063f7912e10ba96127c2eaa32ebeb9"},
+]
 big-o-calculator = []
 billiard = [
     {file = "billiard-3.6.4.0-py3-none-any.whl", hash = "sha256:87103ea78fa6ab4d5c751c4909bcff74617d985de7fa8b672cf8618afd5a875b"},

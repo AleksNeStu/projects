@@ -111,6 +111,7 @@ vine = "^5.0.0"
 wcwidth = "^0.2.5"
 wrapt = "^1.14.1"
 tqdm = "^4.64.1"
+big-O = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 
