@@ -1,0 +1,10 @@
+********************************************************************************
+Verbose logging (stdout + file)
+********************************************************************************
+We now log to both stdout and a file log
+Use color in a true TTY, but not here
+We now log everywhere irrespective of verbosity
+********************************************************************************
+Quiet logging (stdout: only FRAMEWORK + file: all levels)
+********************************************************************************
+We now log everywhere irrespective of verbosity
