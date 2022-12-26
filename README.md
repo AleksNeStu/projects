@@ -64,7 +64,8 @@
 
 # Virtual env install
 ```sh
-dnf install python3.10 poetry
+sudo dnf install python3.10 poetry
+sudo dnf install python3.10-devel.x86_64  # for Cython compilation for IDE
 
 rm -rf .venv
 poetry config virtualenvs.in-project true
