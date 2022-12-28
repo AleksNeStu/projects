@@ -31,7 +31,7 @@
 - **[click](https://github.com/pallets/click/)** - Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. It's the "Command Line Interface Creation Kit". It's highly configurable but comes with sensible defaults out of the box.
 - **[click-didyoumean](https://github.com/click-contrib/click-didyoumean)** - Enable git-like did-you-mean feature in click.
 - **[click-plugins** ](https://github.com/click-contrib/click-plugins)- An extension module for click to register external CLI commands via setuptools entry-points.
-
+- **[configparser](https://docs.python.org/3/library/configparser.html)** - This module provides the ConfigParser class which implements a basic configuration language which provides a structure similar to what’s found in Microsoft Windows INI files. Y
 
 
 # D
@@ -42,6 +42,8 @@
 - **[django-celery-beat](https://github.com/celery/django-celery-beat)** - Celery Periodic Tasks backed by the Django ORM. The periodic tasks can be managed from the Django Admin interface, where you can create, edit and delete periodic tasks and how often they should run.
 - **[direnv](https://github.com/direnv/direnv)** - direnv is an extension for your shell. It augments existing shells with a new feature that can load and unload environment variables depending on the current directory.
 - **[deprecated](https://github.com/tantale/deprecated)** - Python @deprecated decorator to deprecate old python classes, functions or methods.
+- **[dacite](https://github.com/konradhalas/dacite)** - This module simplifies creation of data classes (PEP 557) from dictionaries.
+
 
 
 

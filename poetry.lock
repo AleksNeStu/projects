@@ -661,6 +661,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "dacite"
+version = "1.7.0"
+description = "Simple creation of data classes from dictionaries."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+dev = ["pytest (>=5)", "pytest-cov", "coveralls", "black", "mypy", "pylint"]
+
+[[package]]
 name = "debugpy"
 version = "1.6.4"
 description = "An implementation of the Debug Adapter Protocol for Python"
@@ -3620,7 +3631,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10,<3.11"
-content-hash = "d7f094262ebacc0a88b9366337d67ede9bdf0a812120809478496af291ff8941"
+content-hash = "f16510a9a24dbefa1876e56fdfdc094d31cb9c94adf6b1ef626fbc3ae2b6a2e5"
 
 [metadata.files]
 absl-py = []
@@ -3779,6 +3790,10 @@ cookiecutter = [
 ]
 coverage = []
 cycler = []
+dacite = [
+    {file = "dacite-1.7.0-py3-none-any.whl", hash = "sha256:1cf5f7f548aecaa80c800441f8b9f4d656f7601ccc06c9c8c96ee40016a021af"},
+    {file = "dacite-1.7.0.tar.gz", hash = "sha256:683a1d72c8fa0c0341034ddabc7a5c6f6ddc188033a26784417a9429dd3ffa51"},
+]
 debugpy = [
     {file = "debugpy-1.6.4-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:6ae238943482c78867ac707c09122688efb700372b617ffd364261e5e41f7a2f"},
     {file = "debugpy-1.6.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2a39e7da178e1f22f4bc04b57f085e785ed1bcf424aaf318835a1a7129eefe35"},
