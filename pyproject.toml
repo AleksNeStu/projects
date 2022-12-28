@@ -112,6 +112,9 @@ wcwidth = "^0.2.5"
 wrapt = "^1.14.1"
 tqdm = "^4.64.1"
 big-O = "^0.10.2"
+attrs = "^22.2.0"
+attrdict = "^2.0.1"
+Pympler = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 

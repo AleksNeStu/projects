@@ -7,6 +7,8 @@
 - **[aiohttp](https://github.com/aio-libs/aiohttp)** - Async http client/server framework. Supports both client and server side of HTTP protocol. Supports both client and server Web-Sockets out-of-the-box and avoids Callback Hell. Provides Web-server with middlewares and plugable routing.
 - **[asgiref](https://github.com/django/asgiref/)** - ASGI is a standard for Python asynchronous web apps and servers to communicate with each other, and positioned as an asynchronous successor to WSGI. This package includes ASGI base libraries, such as: Sync-to-async and async-to-sync function wrappers, asgiref.sync. Server base classes, asgiref.server. A WSGI-to-ASGI adapter, in asgiref.wsgi.
 - **[async-timeout](https://github.com/aio-libs/async-timeout)** - The context manager is useful in cases when you want to apply timeout logic around block of code or in cases when asyncio.wait_for() is not suitable. Also it's much faster than asyncio.wait_for() because timeout doesn't create a new task.
+- **[AttrDict](https://github.com/bcj/AttrDict)** - ttrDict is an MIT-licensed library that provides mapping objects that allow their elements to be accessed both as keys and as attributes:
+
 
 
 
@@ -121,6 +123,9 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[packaging](https://github.com/pypa/packaging)** - Reusable core utilities for various Python Packaging interoperability specifications.
 - **[python-prompt-toolkit](https://github.com/prompt-toolkit/python-prompt-toolkit)** - prompt_toolkit is a library for building powerful interactive command line applications in Python.
 - **[pyparsing](https://github.com/pyparsing/pyparsing/)** - The pyparsing module is an alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions. The pyparsing module provides a library of classes that client code uses to construct the grammar directly in Python code.
+- **[python-attrs](https://github.com/python-attrs/attrs)** - attrs is the Python package that will bring back the joy of writing classes by relieving you from the drudgery of implementing object protocols (aka dunder methods).
+- **[Plumber](https://github.com/conestack/plumber)** - Plumbing is an alternative to mixin-based extension of classes. In motivation an incomplete list of limitations and/or design choices of python's subclassing are given along with plumber's solutions for them..
+- **[Pympler](https://github.com/pympler/pympler)** - Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.
 
 
 # Q

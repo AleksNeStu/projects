@@ -22,3 +22,10 @@ merged = list(itertools.chain(*list2d))
 
 list2d2 = [[1,2,3], [4,5,6], [7], [8,9]]
 merged2 = list(itertools.chain.from_iterable(list2d2))
+
+# 4) check python version
+import sys
+if sys.version_info >= (3, 10):
+    from collections.abc import Mapping, MutableMapping, Sequence
+else:
+    from collections import Mapping, MutableMapping, Sequence
