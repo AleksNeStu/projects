@@ -5,3 +5,7 @@
 # P2
 1) https://sentry.io
 2) Pympler
+3) objgraph
+4) memory_profiler
+5) guppy3
+6) tracemalloc

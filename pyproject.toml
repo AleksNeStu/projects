@@ -116,6 +116,9 @@ attrs = "^22.2.0"
 attrdict = "^2.0.1"
 Pympler = "^1.0.1"
 dacite = "^1.7.0"
+objgraph = "^3.5.0"
+memory-profiler = "^0.61.0"
+guppy3 = "^3.1.2"
 
 [tool.poetry.dev-dependencies]
 
