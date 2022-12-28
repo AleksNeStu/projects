@@ -1,0 +1,11 @@
+[Unit]
+Description=My test service
+After=network.target
+
+[Service]
+User=alexnestu
+Type=simple
+ExecStart=/usr/bin/python3 ~/Projects/projects/scripts/python/006_service/my_service.py
+
+[Install]
+WantedBy=multi-user.target
