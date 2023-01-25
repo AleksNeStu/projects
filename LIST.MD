@@ -56,6 +56,8 @@ Endpoint security
 # F
 - **[flask-caching](https://github.m/pallets-eco/flask-caching)** - A fork of the Flask-cache extension which adds easy cache support to Flask.
 - **[flask](https://github.com/pallets/flask)** - Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
+- **[python-frozendict](https://github.com/Marco-Sulla/python-frozendict)** - frozendict is a simple immutable 
+  dictionary. It's fast as dict, and sometimes faster!
 
 
 

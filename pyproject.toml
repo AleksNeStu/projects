@@ -119,6 +119,7 @@ dacite = "^1.7.0"
 objgraph = "^3.5.0"
 memory-profiler = "^0.61.0"
 guppy3 = "^3.1.2"
+frozendict = "^2.3.4"
 
 [tool.poetry.dev-dependencies]
 

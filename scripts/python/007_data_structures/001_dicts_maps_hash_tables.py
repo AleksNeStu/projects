@@ -1,5 +1,34 @@
 import collections
+'''
++ namedtuple   factory function for creating tuple subclasses with named fields
+* deque        list-like container with fast appends and pops on either end
++ ChainMap     dict-like class for creating a single view of multiple mappings
+* Counter      dict subclass for counting hashable objects
++ OrderedDict  dict subclass that remembers the order entries were added
++ defaultdict  dict subclass that calls a factory function to supply missing values
+* UserDict     wrapper around dictionary objects for easier dict subclassing
+* UserList     wrapper around list objects for easier list subclassing
+* UserString   wrapper around string objects for easier string subclassing
+'''
 
+import types
+'''
+FunctionType = type(_f)
+LambdaType = type(lambda: None)         # Same as FunctionType
+CodeType = type(_f.__code__)
+MappingProxyType = type(type.__dict__)
+SimpleNamespace = type(sys.implementation)
+'''
+
+
+'''
+Dictionaries, Maps, and Hash Tables
+    dict: Your Go-To Dictionary
+    collections.OrderedDict: Remember the Insertion Order of Keys
+    collections.defaultdict: Return Default Values for Missing Keys
+    collections.ChainMap: Search Multiple Dictionaries as a Single Mapping
+    types.MappingProxyType: A Wrapper for Making Read-Only Dictionaries
+'''
 # called maps, hashmaps, lookup tables, or associative arrays
 # 1) Example
 phonebook = {
@@ -25,7 +54,7 @@ objects as dictionary keys as long as they contain only hashable types themselve
 '''
 
 
-# 2) collections.OrderedDict
+# 2) collections.OrderedDict: Remember the Insertion Order of Keys
 # if key order is important for your algorithm to work, then it’s best to communicate this clearly by explicitly using the OrderedDict class:
 d_or = collections.OrderedDict(one=1, two=2, three=3)
 d_simple = dict(one=1, two=2, three=3)
@@ -55,3 +84,173 @@ print(list(reversed(v)))
 #  This method allows you to move existing items to either the end or the beginning of the underlying dictionary, so it’s a great tool for reordering a dictionary.
 d_or.move_to_end(key='one', last=True) #  True -> to the end, False -> to the beginning
 # key holds the key that identifies the item you want to move. If key doesn’t exist, then you get a KeyError.
+
+# 3) collections.defaultdict: Return Default Values for Missing Keys
+# The defaultdict class is another dictionary subclass that accepts a callable in its constructor whose return value will be used if a requested key cannot be found.
+dd = collections.defaultdict(list)
+
+# Accessing a missing key creates it and
+# initializes it using the default factory,
+# i.e. list() in this example:
+dd["dogs"].append("Rufus")
+dd["dogs"].append("Kathrin")
+dd["dogs"].append("Mr Sniffles")
+
+print(dd["dogs"])
+
+# 4) collections.ChainMap: Search Multiple Dictionaries as a Single Mapping
+dict1 = {"one": 1, "two": 2}
+dict2 = {"three": 3, "four": 4}
+chain = collections.ChainMap(dict1, dict2)
+# ChainMap searches each collection in the chain
+# from left to right until it finds the key (or fails):
+print(chain["three"])
+print(chain["one"])
+# print(chain["missing"]) -> err
+
+
+# collections
+
+# 5) types.MappingProxyType: A Wrapper for Making Read-Only Dictionaries
+# frozenset()
+# frozendict()
+# # Curiously, although we have the seldom useful frozenset, there's still no frozen mapping. The idea was rejected in PEP 416 -- Add a frozendict builtin type. This idea may be revisited in a later Python release, see PEP 603 -- Adding a frozenmap type to collections.
+default_config = {'a': 1}
+DEFAULTS = types.MappingProxyType(default_config)
+# So changes in the default_config will update DEFAULTS as expected, but you can't write to the mapping proxy object
+# itself.
+default_config["b"] = 2
+# DEFAULTS['b'] = 22 # TypeError: 'mappingproxy' object does not support item assignment
+
+def foo(config=DEFAULTS):
+    return dict(config)
+
+# Now the default config can be updated dynamically, but remain immutable where you want it to be immutable by
+# passing around the proxy instead.
+
+# Admittedly it's not really the same thing as an "immutable, hashable dict", but it might be a decent substitute for
+# some use cases of a frozendict.
+f = foo()
+
+'''
+- MappingProxyType is a wrapper around a standard dictionary that provides a read-only view into the wrapped 
+dictionary’s data. This class was added in Python 3.3 and can be used to create immutable proxy versions of dictionaries.
+- MappingProxyType can be helpful if, for example, you’d like to return a dictionary carrying internal state from a class or module while discouraging write access to this object
+- Using MappingProxyType allows you to put these restrictions in place without first having to create a full copy of the dictionary
+'''
+writable = {"one": 1, "two": 2}
+read_only = types.MappingProxyType(writable)
+# The proxy is read-only:
+print(read_only["one"])
+# read_only["one"] = 23 -> error
+# Updates to the original are reflected in the proxy:
+writable["one"] = 42
+print(read_only)
+
+# Alternative
+# https://github.com/Marco-Sulla/python-frozendict
+from frozendict import frozendict
+
+fd = frozendict({"Guzzanti": "Corrado", "Hicks": "Bill"})
+print(fd["Guzzanti"])
+# Corrado
+# fd["Brignano"] -> KeyError: 'Brignano'
+assert len(fd) == 2
+assert "Guzzanti" in fd
+# True
+# assert "Guzzanti" not in fd
+# # False
+# assert "Brignano" in fd
+# # Falses
+print(hash(fd))  #e.g. 5833699487320513741
+
+
+fd_unhashable = frozendict({1: []})
+# hash(fd_unhashable)
+# TypeError: unhashable type: 'list'
+fd | {1: 2}
+# frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill', 1: 2})
+
+fd5 = frozendict(fd)
+id_fd5 = id(fd5)
+fd5 |= {1: 2}
+fd5
+# frozendict.frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill', 1: 2})
+id(fd5) != id_fd5
+# True
+
+fd.set(1, 2)
+# frozendict.frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill', 1: 2})
+
+fd.set("Guzzanti", "Sabina")
+# frozendict.frozendict({'Guzzanti': 'Sabina', 'Hicks': 'Bill'})
+
+fd.delete("Guzzanti")
+# frozendict.frozendict({'Hicks': 'Bill'})
+
+fd.setdefault("Guzzanti", "Sabina")
+# frozendict.frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill'})
+
+fd.setdefault(1, 2)
+# frozendict.frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill', 1: 2})
+
+fd.key()
+# 'Guzzanti'
+
+fd.value(1)
+# 'Bill'
+
+fd.item(-1)
+# (1, 2)
+fd2 = fd.copy()
+fd2 == fd
+# True
+
+fd3 = frozendict(fd)
+fd3 == fd
+# True
+
+fd4 = frozendict({"Hicks": "Bill", "Guzzanti": "Corrado"})
+
+print(fd4)
+# frozendict({'Hicks': 'Bill', 'Guzzanti': 'Corrado'})
+
+fd4 == fd
+# True
+
+import pickle
+fd_unpickled = pickle.loads(pickle.dumps(fd))
+print(fd_unpickled)
+# frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill'})
+fd_unpickled == fd
+# True
+
+frozendict(Guzzanti="Corrado", Hicks="Bill")
+# frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill'}
+
+frozendict((("Guzzanti", "Corrado"), ("Hicks", "Bill")))
+# frozendict({'Guzzanti': 'Corrado', 'Hicks': 'Bill'})
+
+fd.get("Guzzanti")
+# 'Corrado'
+
+print(fd.get("Brignano"))
+# None
+
+tuple(fd.keys())
+# ('Guzzanti', 'Hicks')
+
+tuple(fd.values())
+# ('Corrado', 'Bill')
+
+tuple(fd.items())
+# (('Guzzanti', 'Corrado'), ('Hicks', 'Bill'))
+
+frozendict.fromkeys(["Corrado", "Sabina"], "Guzzanti")
+# frozendict({'Corrado': 'Guzzanti', 'Sabina': 'Guzzanti'})
+
+iter(fd)
+# <dict_keyiterator object at 0x7feb75c49188>
+
+# fd["Guzzanti"] = "Caterina"
+# TypeError: 'frozendict' object doesn't support item assignment
