@@ -157,6 +157,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - [six](**https://github.com/benjaminp/six**) - Six is a Python 2 and 3 compatibility library.
 - **[sqlparse](https://pypi.org/project/sqlparse/)** - sqlparse is a non-validating SQL parser for Python. It provides support for parsing, splitting and formatting SQL statements.
 - **[setuptools](https://github.com/pypa/setuptools)** - See the Installation Instructions in the Python Packaging User's Guide for instructions on installing, upgrading, and uninstalling Setuptools.
+- **[scrapetube](https://github.com/dermasmid/scrapetube)** - This module will help you scrape youtube without the official youtube api and without selenium.
+
 
 
 
