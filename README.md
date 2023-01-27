@@ -64,12 +64,15 @@
 
 # Virtual env install
 ```sh
-sudo dnf install python3.10 poetry
-sudo dnf install python3.10-devel.x86_64  # for Cython compilation for IDE
+export PROJECT_DIR="/home/..."; export POETRY_VERSION=1.3.2; export PYTHON_VERSION=3.10
+sudo dnf install python$PYTHON_VERSION poetry
+sudo dnf install python$PYTHON_VERSION-devel.x86_64  # for Cython compilation for IDE
+curl -sSL https://install.python-poetry.org | POETRY_VERSION=$POETRY_VERSION python3 -
 
+cd $PROJECT_DIR
 rm -rf .venv
 poetry config virtualenvs.in-project true
-poetry env use 3.10
+poetry env use $PYTHON_VERSION
 source .venv/bin/activate
 poetry install
 poetry shell
