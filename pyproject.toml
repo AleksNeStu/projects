@@ -121,6 +121,7 @@ memory-profiler = "^0.61.0"
 guppy3 = "^3.1.2"
 frozendict = "^2.3.4"
 scrapetube = "^2.3.1"
+mypy = "^0.991"
 
 [tool.poetry.dev-dependencies]
 
