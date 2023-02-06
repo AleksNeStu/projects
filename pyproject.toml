@@ -122,6 +122,7 @@ guppy3 = "^3.1.2"
 frozendict = "^2.3.4"
 scrapetube = "^2.3.1"
 mypy = "^0.991"
+poetry-multiproject-plugin = "^1.1.6"
 
 [tool.poetry.dev-dependencies]
 

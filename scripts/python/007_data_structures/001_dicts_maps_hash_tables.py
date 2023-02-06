@@ -9,6 +9,18 @@ Dictionaries, Maps, and Hash Tables
     collections.ChainMap: Search Multiple Dictionaries as a Single Mapping
     types.MappingProxyType: A Wrapper for Making Read-Only Dictionaries
 '''
+
+'''
+Dictionaries in Python: Summary
+All the Python dictionary implementations listed in this tutorial are valid implementations that are built into the Python standard library.
+
+If you’re looking for a general recommendation on which mapping type to use in your programs, I’d point you to the built-in dict data type. It’s a versatile and optimized hash table implementation that’s built directly into the core language.
+
+I would recommend that you use one of the other data types listed here only if you have special requirements that go beyond what’s provided by dict.
+
+All the implementations are valid options, but your code will be clearer and easier to maintain if it relies on standard Python dictionaries most of the time.
+'''
+
 # called maps, hashmaps, lookup tables, or associative arrays
 # 1) Example
 phonebook = {

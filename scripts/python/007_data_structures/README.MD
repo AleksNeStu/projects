@@ -23,3 +23,8 @@
 * CodeType = type(_f.__code__)
 + MappingProxyType = type(type.__dict__)
 * SimpleNamespace = type(sys.implementation)
+
+
+## Typing
+* NamedTuple
+...

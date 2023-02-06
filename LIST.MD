@@ -43,7 +43,8 @@
 - **[direnv](https://github.com/direnv/direnv)** - direnv is an extension for your shell. It augments existing shells with a new feature that can load and unload environment variables depending on the current directory.
 - **[deprecated](https://github.com/tantale/deprecated)** - Python @deprecated decorator to deprecate old python classes, functions or methods.
 - **[dacite](https://github.com/konradhalas/dacite)** - This module simplifies creation of data classes (PEP 557) from dictionaries.
-
+- **[dis](https://docs.python.org/3/library/dis.html)** - dis — Disassembler for Python bytecode.
+  The dis module supports the analysis of CPython bytecode by disassembling it. The CPython bytecode which this module takes as an input is defined in the file Include/opcode.h and used by the compiler and the interpreter.
 
 
 
@@ -98,7 +99,7 @@ Endpoint security
 - **[MailHog](https://github.com/mailhog/MailHog)** - MailHog is an email testing tool for developers:
 Configure your application to use MailHog for SMTP delivery. View messages in the web UI, or retrieve them with the JSON API. Optionally release messages to real SMTP servers for delivery
 - **[memory_profiler](https://github.com/pythonprofilers/memory_profiler)** - This is a python module for monitoring memory consumption of a process as well as line-by-line analysis of memory consumption for python programs. It is a pure python module which depends on the psutil module.
-
+- [poetry-multiproject-plugin](poetry-multiproject-plugin) - The build-project command will make it possible to use relative package includes. This feature is very useful for monorepos and when sharing code between projects.
 
 # N
 
