@@ -1,14 +1,22 @@
 '''
-Records, Structs, and Data Transfer Objects
-    dict: Simple Data Objects
-    tuple: Immutable Groups of Objects
-    Write a Custom Class: More Work, More Control
-    dataclasses.dataclass: Python 3.7+ Data Classes
-    collections.namedtuple: Convenient Data Objects
-    typing.NamedTuple: Improved Namedtuples
-    struct.Struct: Serialized C Structs
-    types.SimpleNamespace: Fancy Attribute Access
-    Records, Structs, and Data Objects in Python: Summary
+Records, Structs, and Data Objects in Python: Summary
+As you’ve seen, there’s quite a number of different options for implementing records or data objects. Which type should you use for data objects in Python? Generally your decision will depend on your use case:
+
+If you have only a few fields, then using a plain tuple object may be okay if the field order is easy to remember or field names are superfluous. For example, think of an (x, y, z) point in three-dimensional space.
+
+If you need immutable fields, then plain tuples, collections.namedtuple, and typing.NamedTuple are all good options.
+
+If you need to lock down field names to avoid typos, then collections.namedtuple and typing.NamedTuple are your friends.
+
+If you want to keep things simple, then a plain dictionary object might be a good choice due to the convenient syntax that closely resembles JSON.
+
+If you need full control over your data structure, then it’s time to write a custom class with @property setters and getters.
+
+If you need to add behavior (methods) to the object, then you should write a custom class, either from scratch, or using the dataclass decorator, or by extending collections.namedtuple or typing.NamedTuple.
+
+If you need to pack data tightly to serialize it to disk or to send it over the network, then it’s time to read up on struct.Struct because this is a great use case for it!
+
+If you’re looking for a safe default choice, then my general recommendation for implementing a plain record, struct, or data object in Python would be to use collections.namedtuple in Python 2.x and its younger sibling, typing.NamedTuple in Python 3.
 '''
 from dataclasses import dataclass
 

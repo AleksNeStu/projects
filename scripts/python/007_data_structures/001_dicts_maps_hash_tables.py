@@ -2,15 +2,6 @@ import collections
 import types
 
 '''
-Dictionaries, Maps, and Hash Tables
-    dict: Your Go-To Dictionary
-    collections.OrderedDict: Remember the Insertion Order of Keys
-    collections.defaultdict: Return Default Values for Missing Keys
-    collections.ChainMap: Search Multiple Dictionaries as a Single Mapping
-    types.MappingProxyType: A Wrapper for Making Read-Only Dictionaries
-'''
-
-'''
 Dictionaries in Python: Summary
 All the Python dictionary implementations listed in this tutorial are valid implementations that are built into the Python standard library.
 
