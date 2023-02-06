@@ -7,7 +7,7 @@
 
 ## Collections
 + namedtuple   factory function for creating tuple subclasses with named fields
-* deque        list-like container with fast appends and pops on either end
++ deque        list-like container with fast appends and pops on either end
 + ChainMap     dict-like class for creating a single view of multiple mappings
 + Counter      dict subclass for counting hashable objects (Multisets, Bag)
 + OrderedDict  dict subclass that remembers the order entries were added
@@ -26,8 +26,17 @@
 
 
 ## Typing
-* NamedTuple
-...
++ NamedTuple
+
+
+## Queue
++ LifoQueue
+* SimpleQueue
+* Empty
+* Full
+* Queue
+* PriorityQueue
+
 
 ## Dictionaries, Maps, and Hash Tables
     dict: Your Go-To Dictionary
