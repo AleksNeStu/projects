@@ -1,4 +1,4 @@
-https://www.linkedin.com/learning/paths/become-a-django-developer?u=2113185
+https://www.linkedin.com/learning/paths/become-a-django-developer
 
 Become a Django Developer
 
@@ -9,28 +9,29 @@ Work with data by building and consuming RESTful APIs.
 Deploy your applications to the cloud.
 
 ```sh
+# 1) Create
 django-admin startproject smartnotes .
-
+django-admin startapp home  # add to settings.py
+django-admin startapp notes
 # settings.py
-# SECRET_KEY = os.environ.get('SECRET_KEY', '')
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 
-django-admin startapp home
 
+# 2) Run
 python manage.py runserver
+# py manage.py runserver
 python manage.py migrate
 python manage.py createsuperuser
 
-
+# 3) Add
 # Add ORM models
-django-admin startapp notes
-# add models
 python manage.py makemigrations
 # Migrations for 'notes':
 #  notes/migrations/0001_initial.py
 #    - Create model Notes
 python manage.py migrate
 
-# shell
+# 4) Shell
 python manage.py shell
     from notes.models import Notes
     note = Notes.objects.get(pk='1')
@@ -46,8 +47,6 @@ python manage.py shell
     Notes.objects.filter(title__startswith='My')
     Notes.objects.exclude(title__icontains='My')
     %history
-
-
 
 ```
 

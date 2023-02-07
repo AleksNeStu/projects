@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from home.views import homev1
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # old
+    # /home -> smartnotes/urls.py -> home/views.py -> def homev1
+    path('homev1/', homev1),
+
+    # new
     path('', include('home.urls')),
     path('smart/', include('notes.urls')),
 ]
