@@ -24,8 +24,7 @@ django-admin startapp notes
 # 3) Run
 python manage.py runserver
 # py manage.py runserver
-python manage.py migrate
-python manage.py migrate
+python manage.py migrate  # initially for apply auth start
 python manage.py createsuperuser
 
 # 4) Add
