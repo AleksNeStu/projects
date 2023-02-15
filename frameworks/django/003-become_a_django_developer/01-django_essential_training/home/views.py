@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 WELCOME_T = 'home/welcome.html'
-AUTH_T = 'home/auth.html'
+AUTH_T = 'home/authorized.html'
 ADMIN_URL = '/admin'
 
 # new
@@ -38,6 +38,8 @@ def homev2(request):
 
     return render(request, WELCOME_T, context)
 
+
+# to be redirected to admin (login) page is required to delete 'sessionid' cookie or make logout via UI
 @login_required(login_url=ADMIN_URL)
-def auth(request):
+def authv1(request):
     return render(request, AUTH_T, {})
