@@ -14,6 +14,7 @@ Deploy your applications to the cloud.
 django-admin startproject smartnotes .
 # create dir smartnotes and file manage.py
 
+
 # 2) Create apps 
 django-admin startapp home  # add to settings.py
 django-admin startapp notes
@@ -21,19 +22,33 @@ django-admin startapp notes
 # SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 
 
-# 3) Run
+# 3) Run init
 python manage.py runserver
 # py manage.py runserver
 python manage.py migrate  # initially for apply auth start
 python manage.py createsuperuser
 
-# 4) Add
+
+# 4) Add and change models
+
 # Add ORM models
 python manage.py makemigrations
+
+# It is impossible to add a non-nullable field 'updated' to notes without specifying a default. This is because the database needs something to populate existing rows.
+#Please select a fix:
+# 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+# 2) Quit and manually define a default value in models.py.
+#Select an option: 1
+#Please enter the default value as valid Python.
+#The datetime and django.utils.timezone modules are available, so it is possible to provide e.g. timezone.now as a value.
+#Type 'exit' to exit this prompt
+
+
 # Migrations for 'notes':
 #  notes/migrations/0001_initial.py
 #    - Create model Notes
 python manage.py migrate
+
 
 # 5) Shell
 python manage.py shell
@@ -54,3 +69,5 @@ python manage.py shell
 
 ```
 [The Django template language](https://docs.djangoproject.com/en/4.1/ref/templates/language/)
+
+**Finished 3.2**
