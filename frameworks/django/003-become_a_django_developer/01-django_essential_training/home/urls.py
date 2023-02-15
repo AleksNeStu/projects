@@ -1,10 +1,14 @@
 from django.urls import path
 
-from . import views as home_views
+from home import views
 
 urlpatterns = [
     # path('home/', home_views.home),
-    # path('auth/', home_views.auth),
-    path('home/', home_views.HomeView.as_view()),
-    path('auth/', home_views.AuthView.as_view()),
+    # /homev1 -> smartnotes/urls.py -> home/urls.py -> home/views.py -> def homev1
+    path('homev1/', views.homev1),
+    path('homev2/', views.homev2),
+    # path('auth/', views.auth),
+
+    path('home/', views.HomeView.as_view()),
+    path('auth/', views.AuthView.as_view()),
 ]

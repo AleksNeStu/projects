@@ -45,6 +45,9 @@
 - **[dacite](https://github.com/konradhalas/dacite)** - This module simplifies creation of data classes (PEP 557) from dictionaries.
 - **[dis](https://docs.python.org/3/library/dis.html)** - dis — Disassembler for Python bytecode.
   The dis module supports the analysis of CPython bytecode by disassembling it. The CPython bytecode which this module takes as an input is defined in the file Include/opcode.h and used by the compiler and the interpreter.
+- [django-browser-reload](https://github.com/adamchainz/django-browser-reload) - Automatically reload your browser 
+  in development. This script connects back to the development server and will automatically reload when static 
+  assets or templates are modified, or after runserver restarts. The reload only happens in the most recently opened tab.
 
 
 
@@ -100,6 +103,8 @@ Endpoint security
 Configure your application to use MailHog for SMTP delivery. View messages in the web UI, or retrieve them with the JSON API. Optionally release messages to real SMTP servers for delivery
 - **[memory_profiler](https://github.com/pythonprofilers/memory_profiler)** - This is a python module for monitoring memory consumption of a process as well as line-by-line analysis of memory consumption for python programs. It is a pure python module which depends on the psutil module.
 - [poetry-multiproject-plugin](poetry-multiproject-plugin) - The build-project command will make it possible to use relative package includes. This feature is very useful for monorepos and when sharing code between projects.
+- **[markupsafe](https://github.com/pallets/markupsafe)** - MarkupSafe implements a text object that escapes characters so it is safe to use in HTML and XML. Characters that have special meanings are replaced so that they display as the actual characters. This mitigates injection attacks, meaning untrusted user input can safely be displayed on a page.
+
 
 # N
 
@@ -181,6 +186,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[Webkit](https://webkit.org/)** - WebKit is the web browser engine used by Safari, Mail, App Store, and many other apps on macOS, iOS, and Linux.
 - **[web2py](https://github.com/web2py/web2py)** - web2py is a free open source full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications.
 - **[wrapt](https://github.com/GrahamDumpleton/wrapt)** - The aim of the wrapt module is to provide a transparent object proxy for Python, which can be used as the basis for the construction of function wrappers and decorator functions.
+- **[watchman](https://github.com/facebook/watchman)** - Watchman exists to watch files and record when they actually change. It can also trigger actions (such as rebuilding assets) when matching files change.
+
 
 
 # X

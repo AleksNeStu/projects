@@ -10,12 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+RELOAD_APP_DIR = BASE_DIR / "reload"
+assert RELOAD_APP_DIR.is_dir() and RELOAD_APP_DIR.exists()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -37,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',  # for django-browser-reload
 
-    # apps after `django-admin startapp ...` command
+    # new after `django-admin startapp ...` command
     'home',
     'notes',
+    'reload',  # example of reload pages
+    # other 3rd party
+    'django_browser_reload' # automatically reload browser in development
+
 ]
 
 MIDDLEWARE = [
@@ -52,14 +57,25 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # new
+    # The middleware should be listed after any that encode the response, such as Django’s GZipMiddleware.
+    # The middleware automatically inserts the required script tag on HTML responses before </body> when DEBUG is True.
+    # It does so to every HTML response, meaning it will be included on Django’s debug pages, admin pages, etc. If you want more control, you can instead insert the script tag in your templates—see below.`
+    # When DEBUG is True, the template tag includes a small script. This script connects back to the development server and will automatically reload when static assets or templates are modified, or after runserver restarts. (Detecting modification of Django templates requires Django 3.2+.) The reload only happens in the most recently opened tab.
+
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'smartnotes.urls'
 
 TEMPLATES = [
+    # stock
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # DIRS defines a list of directories where the engine should look for template source files, in search order.
         'DIRS': [],
+        # APP_DIRS tells whether the engine should look for templates inside installed applications. Each backend defines a conventional name for the subdirectory inside applications where its templates should be stored.
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +86,21 @@ TEMPLATES = [
             ],
         },
     },
+    # reload
+    # {
+    #     "BACKEND": "django.template.backends.django.DjangoTemplates",
+    #     "DIRS": [RELOAD_APP_DIR / "templates" / "reload" / "django"],
+    #     "APP_DIRS": True,
+    # },
+    {
+        "BACKEND": "django.template.backends.jinja2.Jinja2",
+        "DIRS": [
+            (RELOAD_APP_DIR / "templates" / "reload" / "jinja"),
+        ],
+        "OPTIONS": {
+            "environment": "reload.jinja.environment",
+        },
+    },
 ]
 
 WSGI_APPLICATION = 'smartnotes.wsgi.application'
@@ -78,6 +109,7 @@ WSGI_APPLICATION = 'smartnotes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES: dict[str, dict[str, Any]] = {}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

@@ -28,7 +28,14 @@ def homev1(request):
 
 def homev2(request):
     # {} info from view to template
-    context = {'today': datetime.today()}
+    fmt = "%d/%m/%Y %H:%M:%S:%f"
+    dt1 = datetime.utcnow()
+    dt_str = dt1.strftime(fmt)
+    dt2 = datetime.strptime(dt_str, fmt)
+    assert dt1 == dt2
+    context = {'today': dt_str}
+    #context = {'today': dt2}
+
     return render(request, WELCOME_T, context)
 
 @login_required(login_url=ADMIN_URL)
