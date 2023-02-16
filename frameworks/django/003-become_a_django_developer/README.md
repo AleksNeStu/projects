@@ -50,24 +50,21 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-# 5) Shell
+# 5) Shell IPython 8.8.0 -- An enhanced Interactive Python. Type '?' for help.
+# 5.1)
 python manage.py shell
-    from notes.models import Notes
-    note = Notes.objects.get(pk='1')
-    note
-    note.title
-    %history
-    note.text
-    Notes.objects.get_all()
-    Notes.objects.all()
-    new_note = Notes.objects.get(title='n_2', text='txt2')
-    new_note = Notes.objects.create(title='n_2', text='txt2')
-    Notes.objects.all()
-    Notes.objects.filter(title__startswith='My')
-    Notes.objects.exclude(title__icontains='My')
+    ...
     %history
 
+# 5.2) 
+python manage.py shell
+execfile('myscript.py')
+
+# 5.3)
+python manage.py shell < myscript.py
+exec(open('myscript.py').read())
 ```
+
 [The Django template language](https://docs.djangoproject.com/en/4.1/ref/templates/language/)
 
 **Finished 3.2**
