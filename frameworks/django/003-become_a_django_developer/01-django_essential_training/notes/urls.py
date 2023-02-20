@@ -1,7 +1,6 @@
 from django.urls import path
 
-from . import views
-
+from notes import views
 
 # Not using / for not root path params
 # /notes/...

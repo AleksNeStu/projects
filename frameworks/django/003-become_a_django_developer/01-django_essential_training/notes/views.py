@@ -1,8 +1,10 @@
+from typing import List, Dict
+
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
-from .models import Notes
+from notes.models import Notes
 
 
 # new
@@ -25,10 +27,11 @@ class NoteView(DetailView):
 
 # init
 def all_notes(request):
-    all_notes = Notes.objects.all()
+    all_notes: List[Notes] = Notes.objects.all()
     # all_notes_t = [t.title for t in all_notes]
-    all_notes_t = Notes.objects.values('title')
-    return render(request, 'notes/notes.html', {'notes': all_notes, 'all_notes': all_notes_t})
+    # in Jinja2 {{ mydict[key] }} in DTL custom template filter for new DJ version just .title
+    all_notes_t: List[Dict] = Notes.objects.values('title', 'text')
+    return render(request, 'notes/notes.html', {'all_notes': all_notes, 'all_notes_t': all_notes_t})
 
 
 def note(request, pk):

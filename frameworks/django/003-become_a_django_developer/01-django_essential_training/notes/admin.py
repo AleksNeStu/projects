@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-import notes
-from . import models
+from notes import models
+
+
 # Register your models here.
 
 class NotesAdmin(admin.ModelAdmin):

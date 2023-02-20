@@ -63,8 +63,17 @@ execfile('myscript.py')
 # 5.3)
 python manage.py shell < myscript.py
 exec(open('myscript.py').read())
+
+# 6) Reg model in admin panel
+/notes/admin.py
+admin.site.register(models.Notes, NotesAdmin)
+
+# 7) CRUD under the models (set setting, use models)
+/utils/models.py
+# or via shell
+python manage.py shell
+
 ```
 
 [The Django template language](https://docs.djangoproject.com/en/4.1/ref/templates/language/)
-
-**Finished 3.2**
+[Custom template filters](https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#writing-custom-template-filters)

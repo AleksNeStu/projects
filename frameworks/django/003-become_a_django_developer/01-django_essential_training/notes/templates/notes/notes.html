@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load poll_extras %}
 
 <html lang="en">
 
@@ -12,15 +13,30 @@
 
 
 <body>
-<h1>All_Notes</h1>
+<h1>All_Notes_new</h1>
+
 <ul>
-    {% for note in notes %}
-    <li class="note-li">{{note.title}}</li>
+    <b>Example with objects:</b>
+    {% for note in all_notes  %}
+    <li class="note-li">{{note.title}} - {{note.text}}</li>
     {% endfor %}
+    <br>
+
+    <b>Example with dicts:</b>
+    {% for note_t in all_notes_t %}
+    <li>{{note_t.title}}</li>
+    {% endfor %}
+    <br>
+
+    <b>Example with dicts (custom tags):</b>
+    {% for note_t in all_notes_t %}
+    <li>{{note_t|get_val:"text"}}</li>
+    {% endfor %}
+    <br>
 </ul>
 
-<h2 id="example">All notes 2</h2>
-{{all_notes}}
+<!--<h2 id="example">All notes (ORM objects)</h2>-->
+<!--{{all_notes}}-->
 
 </body>
 
