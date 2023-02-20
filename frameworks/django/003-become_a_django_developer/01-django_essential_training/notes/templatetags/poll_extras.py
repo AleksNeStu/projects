@@ -1,3 +1,4 @@
+# https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#writing-custom-template-filters
 from django.template.defaulttags import register
 
 
