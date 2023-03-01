@@ -333,7 +333,7 @@ docker rmi -f $(docker images -aq)
 ## Tech-stack
 
 <p align="center">
-<img src="assets/diagram.png" alt="Stairway test">
+<img src="proj/assets/diagram.png" alt="Stairway test">
 </p>
 
 > BE
@@ -396,17 +396,17 @@ docker rmi -f $(docker images -aq)
   possible. \
 -
 <p align="center">
-<img src="assets/orm_core.png" alt="ORM and Core">
+<img src="proj/assets/orm_core.png" alt="ORM and Core">
 </p>
 
 [Engine Configuration](https://docs.sqlalchemy.org/en/13/core/engines.html)
 <p align="center">
-<img src="assets/sqla_engine_arch.png" alt="Engine Configuration">
+<img src="proj/assets/sqla_engine_arch.png" alt="Engine Configuration">
 </p>
 
 **ORM queries**
 <p align="center">
-<img src="assets/sql-1.png" alt="ORM queries" width="90%">
+<img src="proj/assets/sql-1.png" alt="ORM queries" width="90%">
 </p>
 
 - Linux
@@ -424,7 +424,7 @@ docker rmi -f $(docker images -aq)
   
 
   <p align="center">
-        <img src="assets/uwsgi.jpeg" alt="uWSGI" width="90%">
+        <img src="proj/assets/uwsgi.jpeg" alt="uWSGI" width="90%">
   </p>
 
 > FE
@@ -574,7 +574,7 @@ sudo ln -s /opt/robo3t/bin/robo3t /usr/local/bin/robo3t
 # Description
 
 <p align="center">
-<img src="assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
+<img src="proj/assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
 </p>
 
 **MVC (Model-View-Controller)** is a pattern in software design commonly used
@@ -608,44 +608,6 @@ of concerns" provides for a better division of labor and improved maintenance.\
 
 **Additional notes for dev env setup**
 
-Run app:
-
-1) Setup IDE project structure
-<p align="center">
-<img src="assets/pr-1.png" alt="Project Settings / Project" width="70%">
-<img src="assets/pr-2.png" alt="Project Settings / Modules tree" width="70%">
-<img src="assets/pr-3.png" alt="Project Settings / Modules env" width="70%">
-<img src="assets/pr-4.png" alt="Project Settings / Modules tree" width="70%">
-<img src="assets/pr-5.png" alt="Project Settings / Modules env" width="70%">
-<img src="assets/pr-6.png" alt="Platform Settings / SDKs" width="70%">
-</p>
-
-2) Run app via command interface:
+Run app via terminal or IDE
 `cd <project_dir>`
 `scripts/run_app.sh`
-
-3) Run app via IDE in debug mode:
-
-**NOTE:**
-Need plugin for IDE:
-[EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile)
-<p align="center">
-<img src="assets/ide-1.png" alt="EnvFile plugin for IDE" width="70%">
-</p>
-
-a) Flask module
-<p align="center">
-<img src="assets/ide-2.png" alt="Flask module" width="70%">
-</p>
-
-b) Python script app.py
-<p align="center">
-<img src="assets/ide-3.png" alt="Python script" width="70%">
-</p>
-
-c) Flask framework \
-[Run/Debug Configuration: Flask Server](https://www.jetbrains.com/help/pycharm/run-debug-configuration-flask-server.html)
-
-<p align="center">
-<img src="assets/ide-4.png" alt="Flask framework" width="70%">
-</p>
