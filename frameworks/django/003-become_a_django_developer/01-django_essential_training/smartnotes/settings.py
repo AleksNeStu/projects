@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-
+import socket
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 RELOAD_APP_DIR = BASE_DIR / "reload"
@@ -26,6 +26,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEBUG:
+    # If using Docker and Debug Toolbar if mo Docker, than just 127.0.0.1
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
 
 ALLOWED_HOSTS = []
 
@@ -38,18 +42,29 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',  # for django-browser-reload
+    'django.contrib.staticfiles',  # for django-browser-reload and django-debug-toolbar
 
     # new after `django-admin startapp ...` command
     'home',
     'notes',
     'reload',  # example of reload pages
     # other 3rd party
-    'django_browser_reload' # automatically reload browser in development
+    'django_browser_reload',  # automatically reload browser in development
+    'debug_toolbar'  # Debug Toolbar
 
 ]
 
 MIDDLEWARE = [
+    # new (should be added as early as possible)
+    # The middleware should be listed after any that encode the response, such as Django’s GZipMiddleware.
+    # The middleware automatically inserts the required script tag on HTML responses before </body> when DEBUG is True.
+    # It does so to every HTML response, meaning it will be included on Django’s debug pages, admin pages, etc. If you want more control, you can instead insert the script tag in your templates—see below.`
+    # When DEBUG is True, the template tag includes a small script. This script connects back to the development server and will automatically reload when static assets or templates are modified, or after runserver restarts. (Detecting modification of Django templates requires Django 3.2+.) The reload only happens in the most recently opened tab.
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
+
+    # existing
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,14 +72,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # new
-    # The middleware should be listed after any that encode the response, such as Django’s GZipMiddleware.
-    # The middleware automatically inserts the required script tag on HTML responses before </body> when DEBUG is True.
-    # It does so to every HTML response, meaning it will be included on Django’s debug pages, admin pages, etc. If you want more control, you can instead insert the script tag in your templates—see below.`
-    # When DEBUG is True, the template tag includes a small script. This script connects back to the development server and will automatically reload when static assets or templates are modified, or after runserver restarts. (Detecting modification of Django templates requires Django 3.2+.) The reload only happens in the most recently opened tab.
-
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'smartnotes.urls'

@@ -76,4 +76,7 @@ python manage.py shell
 ```
 
 [The Django template language](https://docs.djangoproject.com/en/4.1/ref/templates/language/)
+
 [Custom template filters](https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#writing-custom-template-filters)
+
+[django-debug-toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html)
