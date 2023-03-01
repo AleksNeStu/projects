@@ -17,11 +17,11 @@ class AnalyzerTaskSet(TaskSet):
 
     def make_dataset(self):
         citizens = [
-            # Первого жителя создаем с родственником. В запросе к
-            # PATCH-обработчику список relatives будет содержать только другого
-            # жителя, что потребует выполнения максимального кол-ва запросов
-            # (как на добавление новой родственной связи, так и на удаление
-            # существующей).
+            # We create the first resident with a relative. In the request to
+            # To the PATCH handler, the list of relations will contain only another
+            # resident, which will require the maximum number of requests to be executed
+            # (both to add a new kinship and to delete
+            # existing).s
             generate_citizen(citizen_id=1, relatives=[2]),
             generate_citizen(citizen_id=2, relatives=[1]),
             *generate_citizens(citizens_num=9998, relations_num=1000,
