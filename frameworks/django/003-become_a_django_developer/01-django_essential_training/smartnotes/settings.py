@@ -81,7 +81,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # DIRS defines a list of directories where the engine should look for template source files, in search order.
-        'DIRS': [],
+        'DIRS': [
+            (BASE_DIR / "static/templates"),  # to fix (Source does not exist) Template-loader postmortem if used e.g. {% extends "base.html" %}
+
+        ],
         # APP_DIRS tells whether the engine should look for templates inside installed applications. Each backend defines a conventional name for the subdirectory inside applications where its templates should be stored.
         'APP_DIRS': True,
         'OPTIONS': {
@@ -102,7 +105,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.jinja2.Jinja2",
         "DIRS": [
-            (RELOAD_APP_DIR / "templates" / "reload" / "jinja"),
+            (BASE_DIR / "reload/templates/reload/jinja"),
         ],
         "OPTIONS": {
             "environment": "reload.jinja.environment",

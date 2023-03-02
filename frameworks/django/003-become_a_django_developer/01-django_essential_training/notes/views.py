@@ -7,18 +7,26 @@ from django.views.generic import DetailView, ListView
 from notes.models import Notes
 
 
+def _extra_context():
+    all_notes: List[Notes] = Notes.objects.all()
+    # all_notes_t = [t.title for t in all_notes]
+    # in Jinja2 {{ mydict[key] }} in DTL custom template filter for new DJ version just .title
+    all_notes_t: List[Dict] = Notes.objects.values('title', 'text')
+    extra_context = {'all_notes': all_notes, 'all_notes_t': all_notes_t}
+    return extra_context
+
 # new
 class AllNotesView(ListView):
     model = Notes
+    # specifies the context variable to use
     context_object_name = 'notes'
 
     # Extra
-    all_notes_t = Notes.objects.values('title')
-    extra_context = {'all_notes': all_notes_t}
-
+    extra_context = _extra_context()
     template_name = 'notes/notes.html'
 
 
+# With DetailView no ned to handle not found errors like notes.views.note
 class NoteView(DetailView):
     model = Notes
     context_object_name = 'note'
@@ -27,11 +35,7 @@ class NoteView(DetailView):
 
 # init
 def all_notes(request):
-    all_notes: List[Notes] = Notes.objects.all()
-    # all_notes_t = [t.title for t in all_notes]
-    # in Jinja2 {{ mydict[key] }} in DTL custom template filter for new DJ version just .title
-    all_notes_t: List[Dict] = Notes.objects.values('title', 'text')
-    return render(request, 'notes/notes.html', {'all_notes': all_notes, 'all_notes_t': all_notes_t})
+    return render(request, 'notes/notes.html', _extra_context())
 
 
 def note(request, pk):

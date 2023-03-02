@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-{% load static %}
-{% load poll_extras %}
+{% extends "base.html" %}
 
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
-    <title>Notes</title>
-</head>
+{% block title %}
+<title>Notes</title>
+{% endblock %}
 
 
-<body>
+{% block content %}
 <h1>All_Notes_new</h1>
-
 <ul>
     <b>Example with objects:</b>
     {% for note in all_notes  %}
@@ -34,11 +26,6 @@
     {% endfor %}
     <br>
 </ul>
-
 <!--<h2 id="example">All notes (ORM objects)</h2>-->
 <!--{{all_notes}}-->
-
-</body>
-
-
-</html>
+{% endblock %}

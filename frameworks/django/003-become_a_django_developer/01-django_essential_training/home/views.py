@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-WELCOME_T = 'home/welcome.html'
+WELCOME_T = 'home/welcome.html' # {{ROOT_DIR}}/home/templates/home/welcome.html
 AUTH_T = 'home/authorized.html'
 ADMIN_URL = '/admin'
 
@@ -16,6 +16,7 @@ class HomeView(TemplateView):
     extra_context = {'today': datetime.today()}
 
 
+# LoginRequiredMixin should be before TemplateView
 class AuthView(LoginRequiredMixin, TemplateView):
     template_name = AUTH_T
     extra_context = {}

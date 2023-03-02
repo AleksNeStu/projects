@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+{% load poll_extras %}  <!--custom tmpl tags-->
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block title %}
+    {% endblock %}
+</head>
+
+<body>
+<!--    Template Tags-->
+{% block content %}
+{% endblock %}
+</body>
+
+</html>
