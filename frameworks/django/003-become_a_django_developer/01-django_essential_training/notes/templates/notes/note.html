@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
+{% block title %}
     <title>Note</title>
-</head>
+{% endblock %}
 
 
-<body>
-<h1>Title: {{note.title}}</h1>
-<p>Text: {{note.text}}</p>
-
-</body>
-
-
-</html>
+{% block content %}
+    <h1>Title: {{note.title}}</h1>
+    <p>Text: {{note.text}}</p>
+{% endblock %}
