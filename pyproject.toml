@@ -128,6 +128,9 @@ pywatchman = "^1.4.1"
 markupsafe = "^2.1.2"
 locust = "^2.14.2"
 analyzer = {git = "https://github.com/Gustavcheg/api.git"}
+djangorestframework = "^3.14.0"
+markdown = "^3.4.1"
+django-filter = "^22.1"
 
 [tool.poetry.dev-dependencies]
 

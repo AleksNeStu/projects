@@ -36,7 +36,9 @@
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
--[ **django-environ](https://github.com/joke2k/django-environ)** - django-environ is the Python package that allows you to use Twelve-factor methodology to configure your Django application with environment variables.
+- **[django-rest-framework](https://github.com/encode/django-rest-framework/tree/master)** - Django REST framework is a powerful and flexible toolkit for building Web APIs. [Docs](https://www.django-rest-framework.org/).
+- **[django-filter](https://github.com/carltongibson/django-filter)** - Django-filter is a reusable Django application allowing users to declaratively add dynamic QuerySet filtering from URL parameters.
+- **[django-environ](https://github.com/joke2k/django-environ)** - django-environ is the Python package that allows you to use Twelve-factor methodology to configure your Django application with environment variables.
 - **[django-anymail](https://github.com/anymail/django-anymail)** - Django email backends and webhooks for Amazon SES, Mailgun, Mailjet, Postmark, Postal, SendGrid, Sendinblue, SparkPost and more
 - **[docker-compose](https://github.com/docker/compose)** - Docker Compose is a tool for running multi-container applications on Docker defined using the Compose file format.
 - **[django-celery-beat](https://github.com/celery/django-celery-beat)** - Celery Periodic Tasks backed by the Django ORM. The periodic tasks can be managed from the Django Admin interface, where you can create, edit and delete periodic tasks and how often they should run.
