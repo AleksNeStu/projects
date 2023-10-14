@@ -1,13 +1,13 @@
 import os
-from typing import List
+from typing import List, Optional
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from urllib.parse import urlparse, parse_qs
 import scrapetube
-from pyyoutube import Api
+from pyyoutube import Api, Playlist
 import json
 import re
-
+from utils import find_key_values
 
 # Web flow (mandatory) (canonicalBaseUrl)
 USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
@@ -19,16 +19,29 @@ class YouApi:
     def __init__(self, api_key: str, *args, **kwargs):
         self.api = Api(api_key=api_key, *args, **kwargs)
 
-    def get_ch_pls_ids1(self, channel_id: str = None, *args, **kwargs):
-        channel_id = channel_id or self.ch_id
+    def get_ch(self, channel_id: Optional[str] = None, *args, **kwargs) -> str:
         # chs = yt_api.get_channel_info(for_username=USER_NAME)
         chs = self.api.get_channel_info(channel_id=channel_id, *args, **kwargs)
         assert len(chs.items) == 1
         ch_info = chs.items[0].to_dict()
         ch_id = ch_info['id']
-        assert "CHANNEL_ID" == ch_id
-        ch_playlist_ids = self.api.get_playlists(channel_id=channel_id)
-        return ch_playlist_ids
+        assert channel_id == ch_id
+        return ch_id
+
+    def get_ch_pls(self, channel_id: Optional[str] = None, count: Optional[int] = None, *args, **kwargs) -> list[Playlist]:
+        # count (int, optional):
+        #     The count will retrieve playlist data.
+        #     Default is 5.
+        #     If provide this with None, will retrieve all playlists.
+        ch_pls = self.api.get_playlists(channel_id=channel_id, count=count, *args, **kwargs)
+        act_count, exp_count = len(ch_pls.items), ch_pls.pageInfo.totalResults
+        assert act_count == exp_count, f"Expected pls count {act_count}, actual pls count {exp_count}"
+        return ch_pls.items
+
+    def get_pls_ids(self, channel_id: str = None, *args, **kwargs) -> List[str]:
+        ch_pls = self.get_ch_pls(channel_id=channel_id, *args, **kwargs)
+        ch_pls_ids = [ch.id for ch in ch_pls]
+        return ch_pls_ids
 
 
 class YouScraper:
@@ -52,7 +65,7 @@ class YouScraper:
         return pls_soup
 
     def _get_soup(self, url):
-        page = urlopen(self.ch_url)
+        page = urlopen(url)
         page_html = page.read().decode("utf-8")
         page_soup = BeautifulSoup(page_html, "html.parser")
         return page_soup
@@ -66,7 +79,7 @@ class YouScraper:
         assert channel_id is not None
         return channel_id
 
-    def get_pls_ids(self, extra_dict_check: bool = False):
+    def get_pls_ids(self, extra_dict_check: bool = False) -> List[str]:
         # NOTE: Option to get via browser dev tools
         pls_soup = self.pls_soup()
 
@@ -77,37 +90,39 @@ class YouScraper:
         script_tag_str = script_tags[0].text
 
         js_str = script_tag_str.lstrip(target_sc_id).rstrip(';')
-        pl_pattern = r'"playlistId":"([^"]*-[^\"]{2,})"'
+        pl_pattern = r'"playlistId":"(.*?)"'
 
         pls_ids_req = set(re.findall(pl_pattern, js_str))
 
         if extra_dict_check:
-            # NORE: this part can be sckipped
+            # NORE: this part can be skipped
             pls_ids_dict = set()
             # Dict approach
             js_dict = json.loads(js_str)
-            tabs = js_dict['contents']['twoColumnBrowseResultsRenderer']['tabs']
-            for tab in tabs:
-                if pl_tag in str(tab):
-                    tabs1 = tab['tabRenderer']['content']['sectionListRenderer']['contents']
-                    for tab1 in tabs1:
-                        if pl_tag in str(tab1):
-                            tab2 = tab1['itemSectionRenderer']['contents']
-                            assert len(tab2) == 1
-                            tabs3 = tab2[0]['shelfRenderer']['content']['horizontalListRenderer']['items']
-                            for tab3 in tabs3:
-                                if pl_tag in str(tab3):
-                                    pl_id = tab3.get('gridPlaylistRenderer', {}).get('playlistId')
-                                    if pl_id:
-                                        pls_ids_dict.add(pl_id)
+            pls_ids_dict = set(find_key_values(js_dict, pl_tag))
+            # NOTE: Deprecated
+            # tabs = js_dict['contents']['twoColumnBrowseResultsRenderer']['tabs']
+            # for tab in tabs:
+            #     if pl_tag in str(tab):
+            #         tabs1 = tab['tabRenderer']['content']['sectionListRenderer']['contents']
+            #         for tab1 in tabs1:
+            #             if pl_tag in str(tab1):
+            #                 tab2 = tab1['itemSectionRenderer']['contents']
+            #                 assert len(tab2) == 1
+            #                 tabs3 = tab2[0]['shelfRenderer']['content']['horizontalListRenderer']['items']
+            #                 for tab3 in tabs3:
+            #                     if pl_tag in str(tab3):
+            #                         pl_id = tab3.get('gridPlaylistRenderer', {}).get('playlistId')
+            #                         if pl_id:
+            #                             pls_ids_dict.add(pl_id)
             assert pls_ids_req == pls_ids_dict
 
-        return pls_ids_req
+        pls_ids = [i for i in pls_ids_req if i.startswith("PLT")]
+        return sorted(pls_ids)
 
 
-    def video_ids_to_urls(self, video_ids: List[str]):
+    def get_video_urls(self, video_ids: List[str]):
         video_urls = []
-
         for video_id in video_ids:
             video_urls.append(self._URL_VIDEO.format(video_id=video_id))
         return video_urls
@@ -146,23 +161,30 @@ class YouScraper:
     #     chs = [ys.api.get_channel_info(channel_id=ch_id) for ch_id in ch_ids_search]
 
 
+def video_urls_to_file(video_urls: List[str], file_name: str):
+    with open(f'{file_name}.txt', 'w') as f:
+        f.write('\n'.join(video_urls))
+
+
+def from_file_to_video_urls(file_name: str):
+    with open(f'{file_name}.txt', 'r') as f:
+        res = list(f)
+        return res
+
+
 if __name__ == '__main__':
     api_key = API_KEY or os.environ.get('GOOGLE_API_KEY', "")
     api = YouApi(api_key) if api_key else None
 
+    # WEB
     scraper = YouScraper(user_url_part=USER_URL_PART)
-    ch_id = scraper.get_ch_id()
-    pls_ids = scraper.get_pls_ids(extra_dict_check=True)
+    ch_id = scraper.ch_id
+    pls_ids_api = []
+    pls_ids_sc = scraper.get_pls_ids(extra_dict_check=True)
 
-    g = 1
+    # APi
+    if api:
+        pls_ids_api = api.get_pls_ids(ch_id)
+        assert pls_ids_api == pls_ids_sc
 
-    #
-    # chanel_urls = ys.ch_info_to_video_ids(CHANNEL_URL)
-    # if chanel_urls:
-    #     with open('chanel_urls.txt', 'w') as f:
-    #         f.write('\n'.join(chanel_urls))
-    #
-    # playlist_urls = YouScraper().pls_id_to_video_ids(PLAYLIST_ID)
-    # if playlist_urls:
-    #     with open('playlist_urls.txt', 'w') as f:
-    #         f.write('\n'.join(playlist_urls))
+    # SAVE RESULTS
