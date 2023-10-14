@@ -131,6 +131,7 @@ analyzer = {git = "https://github.com/Gustavcheg/api.git"}
 djangorestframework = "^3.14.0"
 markdown = "^3.4.1"
 django-filter = "^22.1"
+python-youtube = "^0.9.2"
 
 [tool.poetry.dev-dependencies]
 
