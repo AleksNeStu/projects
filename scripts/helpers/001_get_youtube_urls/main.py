@@ -1,15 +1,24 @@
+import json
+import logging
 import os
+import re
 from abc import abstractmethod
 from collections import defaultdict
-from typing import List, Optional, Set
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
+from typing import List, Optional, Set, Tuple
+from collections import Counter
 from urllib.parse import urlparse, parse_qs
+from urllib.request import urlopen
+
 import scrapetube
-from pyyoutube import Api, Playlist, Channel, SearchResult
-import json
-import re
+from bs4 import BeautifulSoup
+from pytube import Channel as ChannelP, Playlist as PlaylistP
+from pytube.helpers import uniqueify
+from pyyoutube import Api, Playlist, Channel
+
 from utils import find_key_values
+
+logger = logging.getLogger(__name__)
+
 
 # Web flow (mandatory) (canonicalBaseUrl)
 USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
@@ -18,6 +27,79 @@ API_KEY = ""  # https://developers.google.com/youtube/registering_an_application
 F_CH_VIDEOS = "ch_videos_urls.txt"
 F_PLS_VIDEOS = "pls_videos_urls.txt"
 F_NO_PLS_VIDEOS = "no_pls_videos_urls.txt"
+
+
+class ChannelPwPatch(ChannelP):
+    # https://patch-diff.githubusercontent.com/raw/pytube/pytube/pull/1409.diff
+    @staticmethod
+    def _extract_videos(raw_json: str) -> Tuple[List[str], Optional[str]]:
+        """Extracts videos from a raw json page
+
+        :param str raw_json: Input json extracted from the page or the last
+            server response
+        :rtype: Tuple[List[str], Optional[str]]
+        :returns: Tuple containing a list of up to 100 video watch ids and
+            a continuation token, if more videos are available
+        """
+        initial_data = json.loads(raw_json)
+        # this is the json tree structure, if the json was extracted from
+        # html
+        try:
+
+            # PATCH!!!
+            videos = initial_data["contents"][
+                "twoColumnBrowseResultsRenderer"][
+                "tabs"][1]["tabRenderer"]["content"][
+                "richGridRenderer"]["contents"]
+            # PATCH!!!
+
+        except (KeyError, IndexError, TypeError):
+            try:
+                # this is the json tree structure, if the json was directly sent
+                # by the server in a continuation response
+                important_content = initial_data[1]['response']['onResponseReceivedActions'][
+                    0
+                ]['appendContinuationItemsAction']['continuationItems']
+                videos = important_content
+            except (KeyError, IndexError, TypeError):
+                try:
+                    # this is the json tree structure, if the json was directly sent
+                    # by the server in a continuation response
+                    # no longer a list and no longer has the "response" key
+                    important_content = initial_data['onResponseReceivedActions'][0][
+                        'appendContinuationItemsAction']['continuationItems']
+                    videos = important_content
+                except (KeyError, IndexError, TypeError) as p:
+                    logger.info(p)
+                    return [], None
+
+        try:
+            continuation = videos[-1]['continuationItemRenderer'][
+                'continuationEndpoint'
+            ]['continuationCommand']['token']
+            videos = videos[:-1]
+        except (KeyError, IndexError):
+            # if there is an error, no continuation is available
+            continuation = None
+
+        # remove duplicates
+        return (
+            uniqueify(
+                list(
+                    # PATCH!!!
+                    # only extract the video ids from the video data
+                    map(
+                        lambda x: (
+                            f"/watch?v="
+                            f"{x['richItemRenderer']['content']['videoRenderer']['videoId']}"
+                        ),
+                        videos
+                    )
+                    # PATCH!!!
+                ),
+            ),
+            continuation,
+        )
 
 
 class Common:
@@ -38,6 +120,7 @@ class Common:
 class YouApi(Common):
     # https://developers.google.com/youtube/v3/docs/
     # https://sns-sdks.lkhardy.cn/python-youtube/usage/work-with-client/
+    # YouTube Data API v3
 
     def __init__(self, api_key: str, ch_id: str, *args, **kwargs):
         self.api = Api(api_key=api_key, *args, **kwargs)
@@ -53,6 +136,38 @@ class YouApi(Common):
     #TODO: Api find duplicates, but sount of set web == list of this serach (set no)
     def get_ch_videos_ids(self, *args, **kwargs) -> Set[str]:
         # https://developers.google.com/youtube/v3/docs/search/list
+        def find_unique_ch_videos_ids(exp_count: int):
+            # Initialize variables
+            unique_video_ids = set()
+            next_page_token = None
+            total_results = 0  # Track the total number of results
+
+            # Fetch the channel's videos and deduplicate the results
+            while True:
+                results = self.api.search(
+                    # part="id",
+                    search_type="video",
+                    # maxResults=50,  # Adjust as needed
+                    channel_id=self.ch_id,
+                    page_token=next_page_token,
+                    *args,
+                    **kwargs
+                )
+
+                for item in results.items:
+                    video_id = item.id.videoId
+                    if video_id not in unique_video_ids:
+                        # Process the video data here
+                        unique_video_ids.add(video_id)
+                        total_results += 1
+
+                next_page_token = results.nextPageToken
+                if not next_page_token or total_results >= 1000:  # Limit the total number of results as needed
+                    if exp_count == len(unique_video_ids):
+                        break
+
+            return unique_video_ids
+
         ch_videos = self.api.search(
             # part="id",
             search_type='video',
@@ -63,8 +178,18 @@ class YouApi(Common):
             **kwargs
         )
         ch_videos_ids = [c_video.id.videoId for c_video in ch_videos.items]
-        return set(ch_videos_ids)
+        ch_videos_ids_len = len(ch_videos_ids)
 
+        # TODO: Fix issue with duplicate search result (count is expected but after set applying it's randomly less)
+        ch_videos_ids_duplicates = [item for item, count in Counter(ch_videos_ids).items() if count > 1]
+        if ch_videos_ids_duplicates:
+            ch_videos_ids_unique = find_unique_ch_videos_ids(exp_count=ch_videos_ids_len)
+            if len(ch_videos_ids_unique) == ch_videos_ids_len:
+                return ch_videos_ids_unique
+            else:
+                raise ValueError("No unique ch_videos_ids found")
+
+        return set(ch_videos_ids)
 
     def get_ch_pls(self, channel_id: Optional[str] = None, count: Optional[int] = None, *args, **kwargs) -> list[Playlist]:
         # count (int, optional):
@@ -128,7 +253,7 @@ class YouScraper(Common):
         assert channel_id is not None
         return channel_id
 
-    def get_pls_ids(self, extra_dict_check: bool = False) -> Set[str]:
+    def get_pls_ids(self, extra_dict_check: bool = True) -> Set[str]:
         # NOTE: Option to get via browser dev tools
         pls_soup = self.pls_soup()
 
@@ -210,6 +335,28 @@ class YouScraper(Common):
     #     chs = [ys.api.get_channel_info(channel_id=ch_id) for ch_id in ch_ids_search]
 
 
+class YouDownloader:
+    def __init__(self, user_url_part: str):
+        self.user_url_part = user_url_part
+        self.ch_url = f"https://www.youtube.com/c/{user_url_part}"
+        self.ch = self.get_ch()
+
+    def get_ch(self):
+        ch = ChannelPwPatch(self.ch_url)
+        return ch
+
+    def refresh_ch(self):
+        self.ch = self.get_ch()
+
+    # def get_ch_videos_urls(self):
+    #
+    #
+    #     ch_videos_ids = scraper.get_ch_videos_ids()
+    #     pls_ids = scraper.get_pls_ids(extra_dict_check=True)
+    #     pls_videos_ids = scraper.get_pls_videos_ids(pls_ids)
+    #     return ch_videos_ids, pls_videos_ids
+
+
 def format_video_urls(video_ids: Set[str]):
     video_urls = [f"https://www.youtube.com/watch?v={video_id}" for video_id in video_ids]
     return video_urls
@@ -225,22 +372,14 @@ def from_file_to_video_urls(file_name: str):
         return res
 
 
-
-def get_videos_ids_web(scraper: YouScraper):
-    ch_videos_ids = scraper.get_ch_videos_ids()
-    pls_ids = scraper.get_pls_ids(extra_dict_check=True)
-    pls_videos_ids = scraper.get_pls_videos_ids(pls_ids)
-    return ch_videos_ids, pls_videos_ids
-
-
-def get_videos_ids_api(api: YouApi):
-    ch_videos_ids = api.get_ch_videos_ids()
-    pls_ids = api.get_pls_ids()
-    pls_videos_ids = api.get_pls_videos_ids(pls_ids)
-    return ch_videos_ids, pls_videos_ids
+def get_videos_ids(inst):
+    ch_videos_ids = inst.get_ch_videos_ids()
+    pls_ids = inst.get_pls_ids()
+    pls_videos_ids = inst.get_pls_videos_ids(pls_ids)
+    return ch_videos_ids, pls_videos_ids, pls_ids
 
 
-def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str]):
+def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str], exp_ch_videos_urls: Set[str] = None):
     # GET DIFF AND SAVE RESULTS
     videos_wo_pl_ids: Set[str] = ch_videos_ids - pls_videos_ids
     videos_ids_map = {
@@ -250,33 +389,43 @@ def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str]):
     }
     for f_name, videos_ids in videos_ids_map.items():
         videos_urls = format_video_urls(videos_ids)
+        if f_name == F_CH_VIDEOS and exp_ch_videos_urls:
+            assert exp_ch_videos_urls == set(videos_urls)
         video_urls_to_file(videos_urls, f_name)
 
-def exec_logic(use_web_not_api: Optional[bool] = True):
+def exec_logic(user_url_part: str, use_scrapper_only: Optional[bool] = True):
     # use_web_not_api: True - will be used web to get ch_id, rest of ops will be also web
     # use_web_not_api: False - will be used web to get ch_id, rest of ops will be api
     # use_web_not_api: None - will be used web to get ch_id, rest of ops will be web and api to double checks final result
-    ch_videos_ids, pls_videos_ids = set(), set()
-    scraper = YouScraper(user_url_part=USER_URL_PART)
+    scraper = YouScraper(user_url_part=user_url_part)
+    downloader = YouDownloader(user_url_part=user_url_part)
+    assert scraper.ch_id == downloader.ch.channel_id
     ch_id = scraper.ch_id
+    exp_ch_videos_urls = set(downloader.ch.video_urls)
 
-    if use_web_not_api:
-        ch_videos_ids, pls_videos_ids = get_videos_ids_web(scraper)
+    ch_videos_ids, pls_videos_ids = set(), set()
+    if use_scrapper_only:
+        ch_videos_ids, pls_videos_ids, pls_ids = get_videos_ids(scraper)
+        save_files_w_video_urls(ch_videos_ids, pls_videos_ids)
+
     else:
         api_key = API_KEY or os.environ.get('GOOGLE_API_KEY', "")
         api = YouApi(api_key, ch_id)
-        ch_videos_ids, pls_videos_ids = get_videos_ids_api(api)
-        if use_web_not_api is None:
-            ch_videos_ids_web, pls_videos_ids_web = get_videos_ids_web(scraper)
-            assert ch_videos_ids == ch_videos_ids_web
-            assert pls_videos_ids == pls_videos_ids_web
+        ch_videos_ids, pls_videos_ids, pls_ids  = get_videos_ids(api)
+
+        if use_scrapper_only is None:
+            ch_videos_ids_sc, pls_videos_ids_sc, pls_ids_sc = get_videos_ids(scraper)
+            assert ch_videos_ids == ch_videos_ids_sc
+            assert pls_videos_ids == pls_videos_ids_sc
+            assert pls_ids == pls_ids_sc
 
     count_ch_videos_ids = len(ch_videos_ids)
     count_pls_videos_ids = len(pls_videos_ids)
     count_diff = count_ch_videos_ids - count_pls_videos_ids
+    logger.info("count_ch_videos_ids: %s, count_pls_videos_ids: %s, count_diff: %s", count_ch_videos_ids, count_pls_videos_ids, count_diff)
 
-    save_files_w_video_urls(ch_videos_ids, pls_videos_ids)
+    save_files_w_video_urls(ch_videos_ids, pls_videos_ids, exp_ch_videos_urls)
 
 
 if __name__ == '__main__':
-    exec_logic(use_web_not_api=None)
+    exec_logic(user_url_part=USER_URL_PART, use_scrapper_only=False)
