@@ -1,11 +1,12 @@
 import os
+from abc import abstractmethod
 from collections import defaultdict
 from typing import List, Optional, Set
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from urllib.parse import urlparse, parse_qs
 import scrapetube
-from pyyoutube import Api, Playlist
+from pyyoutube import Api, Playlist, Channel, SearchResult
 import json
 import re
 from utils import find_key_values
@@ -19,18 +20,51 @@ F_PLS_VIDEOS = "pls_videos_urls.txt"
 F_NO_PLS_VIDEOS = "no_pls_videos_urls.txt"
 
 
-class YouApi:
-    def __init__(self, api_key: str, *args, **kwargs):
-        self.api = Api(api_key=api_key, *args, **kwargs)
+class Common:
 
-    def get_ch(self, channel_id: Optional[str] = None, *args, **kwargs) -> str:
-        # chs = yt_api.get_channel_info(for_username=USER_NAME)
-        chs = self.api.get_channel_info(channel_id=channel_id, *args, **kwargs)
-        assert len(chs.items) == 1
-        ch_info = chs.items[0].to_dict()
-        ch_id = ch_info['id']
-        assert channel_id == ch_id
-        return ch_id
+    @abstractmethod
+    def get_pls_videos_ids_map(*args, **kwargs):
+        raise NotImplementedError
+
+    def get_pls_videos_ids(self, pls_ids: Set[str] = None, *args, **kwargs):
+        pls_videos_ids_map = self.get_pls_videos_ids_map(pls_ids, *args, **kwargs)
+        pls_videos_ids = []
+        for pl_videos_ids in pls_videos_ids_map.values():
+            pls_videos_ids.extend(pl_videos_ids)
+
+        return set(pls_videos_ids)
+
+
+class YouApi(Common):
+    # https://developers.google.com/youtube/v3/docs/
+    # https://sns-sdks.lkhardy.cn/python-youtube/usage/work-with-client/
+
+    def __init__(self, api_key: str, ch_id: str, *args, **kwargs):
+        self.api = Api(api_key=api_key, *args, **kwargs)
+        self.ch_id = ch_id
+
+    def get_ch(self, *args, **kwargs) -> Channel:
+        ch_info = self.api.get_channel_info(channel_id=self.ch_id, *args, **kwargs)
+        assert len(ch_info.items) == 1
+        ch = ch_info.items[0]
+        assert ch.id == self.ch_id
+        return ch
+
+    #TODO: Api find duplicates, but sount of set web == list of this serach (set no)
+    def get_ch_videos_ids(self, *args, **kwargs) -> Set[str]:
+        # https://developers.google.com/youtube/v3/docs/search/list
+        ch_videos = self.api.search(
+            # part="id",
+            search_type='video',
+            limit=50,
+            count=1000,
+            channel_id=self.ch_id,
+            *args,
+            **kwargs
+        )
+        ch_videos_ids = [c_video.id.videoId for c_video in ch_videos.items]
+        return set(ch_videos_ids)
+
 
     def get_ch_pls(self, channel_id: Optional[str] = None, count: Optional[int] = None, *args, **kwargs) -> list[Playlist]:
         # count (int, optional):
@@ -42,27 +76,25 @@ class YouApi:
         assert act_count == exp_count, f"Expected pls count {act_count}, actual pls count {exp_count}"
         return ch_pls.items
 
-    def get_pls_ids(self, channel_id: str = None, *args, **kwargs) -> Set[str]:
-        ch_pls = self.get_ch_pls(channel_id=channel_id, *args, **kwargs)
-        ch_pls_ids = set([ch.id for ch in ch_pls])
+    def get_pls_ids(self, *args, **kwargs) -> Set[str]:
+        ch_pls = self.get_ch_pls(channel_id=self.ch_id, *args, **kwargs)
+        ch_pls_ids = set([ch_pl.id for ch_pl in ch_pls])
         assert len(ch_pls) == len(ch_pls_ids)
         return ch_pls_ids
 
-    #TODO
     def get_pls_videos_ids_map(self, pls_ids: List[str] = None, count: Optional[int] = None, *args, **kwargs):
         pls_videos_ids_map = defaultdict(list)
 
         for pl_id in pls_ids:
-            pl_items = self.api.get_playlist_items(playlist_id=pl_id, count=count, *args, **kwargs)
-            pl_videos = list(scrapetube.get_playlist(playlist_id=pl_id, *args, **kwargs))
-            pl_videos_ids = [pl_video['videoId'] for pl_video in pl_videos]
+            pl_videos = self.api.get_playlist_items(playlist_id=pl_id, count=count, *args, **kwargs)
+            pl_videos_ids = [pl_video.contentDetails.videoId for pl_video in pl_videos.items]
             pls_videos_ids_map[pl_id].extend(pl_videos_ids)
 
         return dict(pls_videos_ids_map)
 
 
-class YouScraper:
-    _URL_VIDEO = "https://www.youtube.com/watch?v={video_id}"  # "https://youtu.be/{c_video}"
+class YouScraper(Common):
+    # https://scrapetube.readthedocs.io/en/latest/
 
     def __init__(self, user_url_part: str):
         self.user_url_part = user_url_part
@@ -95,10 +127,6 @@ class YouScraper:
         channel_id = parse_qs(urlparse(ch_href).query).get('channel_id', [None])[0]
         assert channel_id is not None
         return channel_id
-
-    def format_video_urls(self, video_ids: Set[str]):
-        video_urls = [self._URL_VIDEO.format(video_id=video_id) for video_id in video_ids]
-        return video_urls
 
     def get_pls_ids(self, extra_dict_check: bool = False) -> Set[str]:
         # NOTE: Option to get via browser dev tools
@@ -159,14 +187,6 @@ class YouScraper:
 
         return dict(pls_videos_ids_map)
 
-    def get_pls_videos_ids(self, pls_ids: Set[str] = None, *args, **kwargs):
-        pls_videos_ids_map = self.get_pls_videos_ids_map(pls_ids, *args, **kwargs)
-        pls_videos_ids = []
-        for pl_videos_ids in pls_videos_ids_map.values():
-            pls_videos_ids.extend(pl_videos_ids)
-
-        return set(pls_videos_ids)
-
 
     def pls_id_to_video_ids(self, playlist_id: str):
         # Get all videos for a playlist
@@ -190,6 +210,10 @@ class YouScraper:
     #     chs = [ys.api.get_channel_info(channel_id=ch_id) for ch_id in ch_ids_search]
 
 
+def format_video_urls(video_ids: Set[str]):
+    video_urls = [f"https://www.youtube.com/watch?v={video_id}" for video_id in video_ids]
+    return video_urls
+
 def video_urls_to_file(video_urls: List[str], file_name: str):
     with open(f'{file_name}.txt', 'w') as f:
         f.write('\n'.join(video_urls))
@@ -201,31 +225,58 @@ def from_file_to_video_urls(file_name: str):
         return res
 
 
-if __name__ == '__main__':
-    api_key = API_KEY or os.environ.get('GOOGLE_API_KEY', "")
-    api = YouApi(api_key) if api_key else None
 
-    # WEB
-    scraper = YouScraper(user_url_part=USER_URL_PART)
-    ch_id = scraper.ch_id
-
+def get_videos_ids_web(scraper: YouScraper):
     ch_videos_ids = scraper.get_ch_videos_ids()
-
     pls_ids = scraper.get_pls_ids(extra_dict_check=True)
     pls_videos_ids = scraper.get_pls_videos_ids(pls_ids)
+    return ch_videos_ids, pls_videos_ids
 
-    # API
-    if api:
-        pls_ids_api = api.get_pls_ids(ch_id)
-        assert pls_ids_api == pls_ids
 
+def get_videos_ids_api(api: YouApi):
+    ch_videos_ids = api.get_ch_videos_ids()
+    pls_ids = api.get_pls_ids()
+    pls_videos_ids = api.get_pls_videos_ids(pls_ids)
+    return ch_videos_ids, pls_videos_ids
+
+
+def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str]):
     # GET DIFF AND SAVE RESULTS
-    videos_wo_pl_ids = ch_videos_ids - pls_videos_ids
+    videos_wo_pl_ids: Set[str] = ch_videos_ids - pls_videos_ids
     videos_ids_map = {
         F_CH_VIDEOS: ch_videos_ids,
         F_PLS_VIDEOS: pls_videos_ids,
         F_NO_PLS_VIDEOS: videos_wo_pl_ids,
     }
     for f_name, videos_ids in videos_ids_map.items():
-        videos_urls = scraper.format_video_urls(videos_ids)
+        videos_urls = format_video_urls(videos_ids)
         video_urls_to_file(videos_urls, f_name)
+
+def exec_logic(use_web_not_api: Optional[bool] = True):
+    # use_web_not_api: True - will be used web to get ch_id, rest of ops will be also web
+    # use_web_not_api: False - will be used web to get ch_id, rest of ops will be api
+    # use_web_not_api: None - will be used web to get ch_id, rest of ops will be web and api to double checks final result
+    ch_videos_ids, pls_videos_ids = set(), set()
+    scraper = YouScraper(user_url_part=USER_URL_PART)
+    ch_id = scraper.ch_id
+
+    if use_web_not_api:
+        ch_videos_ids, pls_videos_ids = get_videos_ids_web(scraper)
+    else:
+        api_key = API_KEY or os.environ.get('GOOGLE_API_KEY', "")
+        api = YouApi(api_key, ch_id)
+        ch_videos_ids, pls_videos_ids = get_videos_ids_api(api)
+        if use_web_not_api is None:
+            ch_videos_ids_web, pls_videos_ids_web = get_videos_ids_web(scraper)
+            assert ch_videos_ids == ch_videos_ids_web
+            assert pls_videos_ids == pls_videos_ids_web
+
+    count_ch_videos_ids = len(ch_videos_ids)
+    count_pls_videos_ids = len(pls_videos_ids)
+    count_diff = count_ch_videos_ids - count_pls_videos_ids
+
+    save_files_w_video_urls(ch_videos_ids, pls_videos_ids)
+
+
+if __name__ == '__main__':
+    exec_logic(use_web_not_api=None)
