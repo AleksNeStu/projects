@@ -4,7 +4,7 @@ import os
 import re
 from abc import abstractmethod
 from collections import defaultdict
-from typing import List, Optional, Set, Tuple
+from typing import List, Optional, Set, Tuple, Dict
 from collections import Counter
 from urllib.parse import urlparse, parse_qs
 from urllib.request import urlopen
@@ -335,7 +335,7 @@ class YouScraper(Common):
     #     chs = [ys.api.get_channel_info(channel_id=ch_id) for ch_id in ch_ids_search]
 
 
-class YouDownloader:
+class YouDownloader(Common):
     def __init__(self, user_url_part: str):
         self.user_url_part = user_url_part
         self.ch_url = f"https://www.youtube.com/c/{user_url_part}"
@@ -348,17 +348,32 @@ class YouDownloader:
     def refresh_ch(self):
         self.ch = self.get_ch()
 
-    # def get_ch_videos_urls(self):
-    #
-    #
-    #     ch_videos_ids = scraper.get_ch_videos_ids()
-    #     pls_ids = scraper.get_pls_ids(extra_dict_check=True)
-    #     pls_videos_ids = scraper.get_pls_videos_ids(pls_ids)
-    #     return ch_videos_ids, pls_videos_ids
+    def get_ch_videos_ids(self):
+        ch_videos_urls = set(self.ch.video_urls)
+        ch_videos_ids = video_urls_to_ids(ch_videos_urls)
+        return set(ch_videos_ids)
 
+    # TODO: Implement using playlists_html
+    def get_pls_ids(self):
+        raise NotImplementedError
 
-def format_video_urls(video_ids: Set[str]):
+    def get_pls_videos_ids_map(self, pls_ids: List[str] = None, *args, **kwargs):
+        pls_videos_ids_map = defaultdict(list)
+
+        for pl_id in pls_ids:
+            pl_url = f"https://www.youtube.com/playlist?list={pl_id}"
+            pl = PlaylistP(pl_url)
+            pl_videos_ids = video_urls_to_ids(set(pl.video_urls))
+            pls_videos_ids_map[pl_id].extend(pl_videos_ids)
+
+        return dict(pls_videos_ids_map)
+
+def video_ids_to_urls(video_ids: Set[str]):
     video_urls = [f"https://www.youtube.com/watch?v={video_id}" for video_id in video_ids]
+    return video_urls
+
+def video_urls_to_ids(video_urls: Set[str]):
+    video_urls = [video_url.replace("https://www.youtube.com/watch?v=", "") for video_url in video_urls]
     return video_urls
 
 def video_urls_to_file(video_urls: List[str], file_name: str):
@@ -372,14 +387,16 @@ def from_file_to_video_urls(file_name: str):
         return res
 
 
-def get_videos_ids(inst):
+def get_videos_ids(inst, **kwargs):
     ch_videos_ids = inst.get_ch_videos_ids()
-    pls_ids = inst.get_pls_ids()
+    pls_ids = kwargs.get("pls_ids") if isinstance(inst, YouDownloader) else inst.get_pls_ids()
+
     pls_videos_ids = inst.get_pls_videos_ids(pls_ids)
+
     return ch_videos_ids, pls_videos_ids, pls_ids
 
 
-def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str], exp_ch_videos_urls: Set[str] = None):
+def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str]):
     # GET DIFF AND SAVE RESULTS
     videos_wo_pl_ids: Set[str] = ch_videos_ids - pls_videos_ids
     videos_ids_map = {
@@ -388,44 +405,83 @@ def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str], e
         F_NO_PLS_VIDEOS: videos_wo_pl_ids,
     }
     for f_name, videos_ids in videos_ids_map.items():
-        videos_urls = format_video_urls(videos_ids)
-        if f_name == F_CH_VIDEOS and exp_ch_videos_urls:
-            assert exp_ch_videos_urls == set(videos_urls)
+        videos_urls = video_ids_to_urls(videos_ids)
         video_urls_to_file(videos_urls, f_name)
 
-def exec_logic(user_url_part: str, use_scrapper_only: Optional[bool] = True):
-    # use_web_not_api: True - will be used web to get ch_id, rest of ops will be also web
-    # use_web_not_api: False - will be used web to get ch_id, rest of ops will be api
-    # use_web_not_api: None - will be used web to get ch_id, rest of ops will be web and api to double checks final result
-    scraper = YouScraper(user_url_part=user_url_part)
-    downloader = YouDownloader(user_url_part=user_url_part)
-    assert scraper.ch_id == downloader.ch.channel_id
-    ch_id = scraper.ch_id
-    exp_ch_videos_urls = set(downloader.ch.video_urls)
 
-    ch_videos_ids, pls_videos_ids = set(), set()
-    if use_scrapper_only:
-        ch_videos_ids, pls_videos_ids, pls_ids = get_videos_ids(scraper)
-        save_files_w_video_urls(ch_videos_ids, pls_videos_ids)
-
-    else:
-        api_key = API_KEY or os.environ.get('GOOGLE_API_KEY', "")
-        api = YouApi(api_key, ch_id)
-        ch_videos_ids, pls_videos_ids, pls_ids  = get_videos_ids(api)
-
-        if use_scrapper_only is None:
-            ch_videos_ids_sc, pls_videos_ids_sc, pls_ids_sc = get_videos_ids(scraper)
-            assert ch_videos_ids == ch_videos_ids_sc
-            assert pls_videos_ids == pls_videos_ids_sc
-            assert pls_ids == pls_ids_sc
-
+def log_result(ch_videos_ids, pls_videos_ids):
     count_ch_videos_ids = len(ch_videos_ids)
     count_pls_videos_ids = len(pls_videos_ids)
     count_diff = count_ch_videos_ids - count_pls_videos_ids
-    logger.info("count_ch_videos_ids: %s, count_pls_videos_ids: %s, count_diff: %s", count_ch_videos_ids, count_pls_videos_ids, count_diff)
+    res = f"count_ch_videos_ids: {count_ch_videos_ids}, count_pls_videos_ids: {count_pls_videos_ids}, count_diff: {count_diff}"
+    logger.debug(res)
+    print(res)
 
-    save_files_w_video_urls(ch_videos_ids, pls_videos_ids, exp_ch_videos_urls)
+
+def get_scrapers_and_ch_id(user_url_part: str, is_scraper, is_downloader) -> Tuple[YouScraper, YouDownloader, str]:
+    # TODO: Consider to use pydantic custom validator to use is_scraper and  is_downloader
+    # NOTE: is_scraper or is_downloader are required to get ch_id via web html page parsing
+    if is_scraper is False and is_downloader is False:
+        raise ValueError("is_scraper or is_downloader should be True to get channel id vide web page")
+
+    scraper, downloader, ch_id = None, None, None
+    if is_scraper:
+        scraper = YouScraper(user_url_part=user_url_part)
+        ch_id = scraper.ch_id
+    if is_downloader:
+        downloader = YouDownloader(user_url_part=user_url_part)
+        ch_id = downloader.ch.channel_id
+
+    if scraper and downloader:
+        assert scraper.ch_id == downloader.ch.channel_id
+
+    if not ch_id:
+        raise ValueError("ch_id should be not None, logic `get_scrapers_and_ch_id`")
+
+    return scraper, downloader, ch_id
 
 
+def get_api(ch_id: str) -> YouApi:
+    api_key = API_KEY or os.environ.get('GOOGLE_API_KEY', "")
+    api = YouApi(api_key, ch_id)
+    return api
+
+
+def get_videos_ids_results_w_assert(result_map: Dict[str, Tuple[set, set, set]]):
+    results = result_map[next(iter(result_map))]
+    result_map.popitem()
+
+    for t_results in result_map.values():
+        assert results == t_results
+
+    return results
+
+
+def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool = False, is_api: Optional[bool] = False):
+    # use_web_not_api: True - will be used web to get ch_id, rest of ops will be also web
+    # use_web_not_api: False - will be used web to get ch_id, rest of ops will be api
+    # use_web_not_api: None - will be used web to get ch_id, rest of ops will be web and api to double checks final result
+    scraper, downloader, ch_id = get_scrapers_and_ch_id(user_url_part, is_scraper, is_downloader)
+
+    def_res = set(), set(), set()
+    result_map = {}
+    if is_scraper:
+        result_map["is_scraper"] = get_videos_ids(scraper)
+    if is_api:
+        api = get_api(ch_id)
+        result_map["is_api"] = get_videos_ids(api)
+    if is_downloader:
+        pls_ids = result_map.get("is_scraper", def_res)[-1] or result_map.get("is_api", def_res)[-1]
+        result_map["is_downloader"] = get_videos_ids(downloader, pls_ids=pls_ids)
+
+    ch_videos_ids, pls_videos_ids, pls_ids = get_videos_ids_results_w_assert(result_map)
+    log_result(ch_videos_ids, pls_videos_ids)
+
+    save_files_w_video_urls(ch_videos_ids, pls_videos_ids)
+    # TODO: DOWNLOADER (GET MODE)
+
+
+# TODO: 1) Time calc 2) API fast run only 3) Async ops for heavy run with all options 4) Downloader get
 if __name__ == '__main__':
-    exec_logic(user_url_part=USER_URL_PART, use_scrapper_only=False)
+    # is_api has limitation in quota
+    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=True, is_api=True)
