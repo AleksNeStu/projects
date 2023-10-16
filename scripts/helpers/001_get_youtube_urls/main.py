@@ -21,9 +21,6 @@ from utils import find_key_values
 logger = logging.getLogger(__name__)
 
 
-# Web flow (mandatory) (canonicalBaseUrl)
-USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
-# Api flow (optional to make extra assertions)
 API_KEY = ""  # https://developers.google.com/youtube/registering_an_application
 F_CH_VIDEOS = "ch_videos_urls.txt"
 F_PLS_VIDEOS = "pls_videos_urls.txt"
@@ -292,7 +289,7 @@ class YouScraper(Common):
             #                             pls_ids_dict.add(pl_id)
             assert pls_ids_req == pls_ids_dict
 
-        pls_ids = [i for i in pls_ids_req if i.startswith("PLT")]
+        pls_ids = [i for i in pls_ids_req if i.startswith("PL")]
         pls_ids_set = set(pls_ids)
         assert len(pls_ids_set) == len(pls_ids)
         return pls_ids_set
@@ -488,6 +485,7 @@ def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool 
 # TODO: 0) Fix mix modes, for noew saved is_scraper as default 1) Time calc 2) API fast run only
 #  3) Async ops for heavy run with all options 4) Downloader get
 if __name__ == '__main__':
+    USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
     # NOTE: is_api has limitation in quota
     # pyyoutube.error.PyYouTubeException: YouTubeException(status_code=403,message=The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.)
     exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=False, is_api=False)
