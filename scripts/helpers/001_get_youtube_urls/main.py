@@ -5,19 +5,19 @@ import re
 from abc import abstractmethod
 from collections import defaultdict
 from typing import List, Optional, Set, Tuple, Dict
-from collections import Counter
+from unittest.mock import patch
 from urllib.parse import urlparse, parse_qs
 from urllib.request import urlopen
-
+from pytube.exceptions import RegexMatchError
 import scrapetube
 from bs4 import BeautifulSoup
 from codetiming import Timer
 from pytube import Channel as ChannelP, Playlist as PlaylistP
+from pytube import extract
 from pytube.helpers import uniqueify
 from pyyoutube import Api, Playlist, Channel
 
 from utils import find_key_values
-
 logger = logging.getLogger(__name__)
 
 
@@ -27,7 +27,50 @@ F_PLS_VIDEOS = "pls_videos_urls.txt"
 F_NO_PLS_VIDEOS = "no_pls_videos_urls.txt"
 
 
+
+
 class ChannelPwPatch(ChannelP):
+    def channel_name_patch(url: str) -> str:
+        """Extract the ``channel_name`` or ``channel_id`` from a YouTube url.
+
+        This function supports the following patterns:
+
+        - :samp:`https://youtube.com/c/{channel_name}/*`
+        - :samp:`https://youtube.com/channel/{channel_id}/*
+        - :samp:`https://youtube.com/u/{channel_name}/*`
+        - :samp:`https://youtube.com/user/{channel_id}/*
+        - :samp:`https://youtube.com/@{channel_id}/*  # PATCH!!!
+
+        :param str url:
+            A YouTube url containing a channel name.
+        :rtype: str
+        :returns:
+            YouTube channel name.
+        """
+        patterns = [
+            r"(?:\/(c)\/([%\d\w_\-]+)(\/.*)?)",
+            r"(?:\/(channel)\/([%\w\d_\-]+)(\/.*)?)",
+            r"(?:\/(u)\/([%\d\w_\-]+)(\/.*)?)",
+            r"(?:\/(user)\/([%\w\d_\-]+)(\/.*)?)",
+            r"(?:\/(@)([%\w\d_\-]+)(\/.*)?)",  # PATCH!!!
+        ]
+        for pattern in patterns:
+            regex = re.compile(pattern)
+            function_match = regex.search(url)
+            if function_match:
+                logger.debug("finished regex search, matched: %s", pattern)
+                uri_style = function_match.group(1)
+                uri_identifier = function_match.group(2)
+                return f'/{uri_style}{uri_identifier}' if uri_style == '@' else f'/{uri_style}/{uri_identifier}'  # PATCH!!!
+
+        raise RegexMatchError(
+            caller="channel_name", pattern="patterns"
+        )
+
+    @patch.object(extract, 'channel_name', channel_name_patch)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     # https://patch-diff.githubusercontent.com/raw/pytube/pytube/pull/1409.diff
     @staticmethod
     def _extract_videos(raw_json: str) -> Tuple[List[str], Optional[str]]:
@@ -131,61 +174,65 @@ class YouApi(Common):
         assert ch.id == self.ch_id
         return ch
 
+    def find_unique_ch_videos_ids(self, exp_count: int = None, *args, **kwargs):
+        # Initialize variables
+        unique_video_ids = set()
+        next_page_token = None
+        total_results = 0  # Track the total number of results
+
+        # Fetch the channel's videos and deduplicate the results
+        while True:
+            results = self.api.search(
+                # part="id",
+                search_type="video",
+                # maxResults=50,  # Adjust as needed
+                channel_id=self.ch_id,
+                page_token=next_page_token,
+                *args,
+                **kwargs
+            )
+
+            for item in results.items:
+                video_id = item.id.videoId
+                if video_id not in unique_video_ids:
+                    # Process the video data here
+                    unique_video_ids.add(video_id)
+                    total_results += 1
+
+            next_page_token = results.nextPageToken
+            if not next_page_token or total_results >= 1000:  # Limit the total number of results as needed
+                if exp_count:
+                    assert exp_count == total_results
+                break
+
+        return unique_video_ids
+
     #TODO: Api find duplicates, but sount of set web == list of this serach (set no)
     def get_ch_videos_ids(self, *args, **kwargs) -> Set[str]:
         # https://developers.google.com/youtube/v3/docs/search/list
-        def find_unique_ch_videos_ids(exp_count: int):
-            # Initialize variables
-            unique_video_ids = set()
-            next_page_token = None
-            total_results = 0  # Track the total number of results
 
-            # Fetch the channel's videos and deduplicate the results
-            while True:
-                results = self.api.search(
-                    # part="id",
-                    search_type="video",
-                    # maxResults=50,  # Adjust as needed
-                    channel_id=self.ch_id,
-                    page_token=next_page_token,
-                    *args,
-                    **kwargs
-                )
-
-                for item in results.items:
-                    video_id = item.id.videoId
-                    if video_id not in unique_video_ids:
-                        # Process the video data here
-                        unique_video_ids.add(video_id)
-                        total_results += 1
-
-                next_page_token = results.nextPageToken
-                if not next_page_token or total_results >= 1000:  # Limit the total number of results as needed
-                    if exp_count == len(unique_video_ids):
-                        break
-
-            return unique_video_ids
-
-        ch_videos = self.api.search(
-            # part="id",
-            search_type='video',
-            limit=50,
-            count=1000,
-            channel_id=self.ch_id,
-            *args,
-            **kwargs
-        )
-        ch_videos_ids = [c_video.id.videoId for c_video in ch_videos.items]
-        ch_videos_ids_len = len(ch_videos_ids)
-
-        # TODO: Fix issue with duplicate search result (count is expected but after set applying it's randomly less)
-        ch_videos_ids_duplicates = [item for item, count in Counter(ch_videos_ids).items() if count > 1]
-        if ch_videos_ids_duplicates:
-            ch_videos_ids_unique = find_unique_ch_videos_ids(exp_count=ch_videos_ids_len)
-            if len(ch_videos_ids_unique) == ch_videos_ids_len:
-                return ch_videos_ids_unique
-            else:
-                raise ValueError("No unique ch_videos_ids found")
+        # DEPRECATED
+        # ch_videos = self.api.search(
+        #     # part="id",
+        #     search_type='video',
+        #     limit=50,
+        #     count=1000,
+        #     channel_id=self.ch_id,
+        #     *args,
+        #     **kwargs
+        # )
+        # ch_videos_ids = [c_video.id.videoId for c_video in ch_videos.items]
+        # ch_videos_ids_len = len(ch_videos_ids)
+        #
+        # # TODO: Fix issue with duplicate search result (count is expected but after set applying it's randomly less)
+        # ch_videos_ids_duplicates = [item for item, count in Counter(ch_videos_ids).items() if count > 1]
+        # if ch_videos_ids_duplicates:
+        #     ch_videos_ids_unique = self.find_unique_ch_videos_ids(exp_count=ch_videos_ids_len)
+        #     if len(ch_videos_ids_unique) == ch_videos_ids_len:
+        #         return ch_videos_ids_unique
+        #     else:
+        #         raise ValueError("No unique ch_videos_ids found")
+        ch_videos_ids = self.find_unique_ch_videos_ids(*args, **kwargs)
 
         return set(ch_videos_ids)
 
@@ -336,10 +383,12 @@ class YouScraper(Common):
 class YouDownloader(Common):
     def __init__(self, user_url_part: str):
         self.user_url_part = user_url_part
-        self.ch_url = f"https://www.youtube.com/c/{user_url_part}"
+        #self.ch_url = f"https://www.youtube.com/c/{user_url_part}"
+        self.ch_url = f"https://www.youtube.com/@{user_url_part}"
         self.ch = self.get_ch()
 
     def get_ch(self):
+        #  TODO: Nor all channels have c/ part, will be error
         ch = ChannelPwPatch(self.ch_url)
         return ch
 
@@ -384,15 +433,42 @@ def from_file_to_video_urls(file_name: str):
         res = list(f)
         return res
 
-
-@Timer(name="get_videos_ids")
+# @timer
 def get_videos_ids(inst, **kwargs):
-    ch_videos_ids = inst.get_ch_videos_ids()
-    pls_ids = kwargs.get("pls_ids") if isinstance(inst, YouDownloader) else inst.get_pls_ids()
+    timer = lambda ex: Timer(text=f"{inst.__class__.__name__}.{ex.__name__}, time: {{:.3f}}")
 
-    pls_videos_ids = inst.get_pls_videos_ids(pls_ids)
+    with timer(inst.get_ch_videos_ids):
+        ch_videos_ids = inst.get_ch_videos_ids()
+    print(len(ch_videos_ids))
 
-    return ch_videos_ids, pls_videos_ids, pls_ids
+    with timer(inst.get_pls_ids):
+        pls_ids = kwargs.get("pls_ids") if isinstance(inst, YouDownloader) else inst.get_pls_ids()
+    print(len(pls_ids))
+
+    with timer(inst.get_pls_videos_ids):
+        pls_videos_ids = inst.get_pls_videos_ids(pls_ids)
+    print(len(pls_videos_ids))
+
+    return ch_videos_ids, pls_ids, pls_videos_ids
+
+    #
+    # ch_videos_ids = inst.get_ch_videos_ids()
+    # pls_ids = kwargs.get("pls_ids") if isinstance(inst, YouDownloader) else inst.get_pls_ids()
+    #
+    # pls_videos_ids = inst.get_pls_videos_ids(pls_ids)
+    #
+    # return ch_videos_ids, pls_videos_ids, pls_ids
+    #
+    # results = []
+    # pls_ids = set()
+    # for ex in [inst.get_ch_videos_ids, inst.get_pls_ids, inst.get_pls_videos_ids]:
+    #     with Timer(text=f"{cls_name}.{ex.__name__}, time: {{:.3f}}"):
+    #         if ex == inst.get_pls_ids:
+    #
+    #         ids = kwargs.get("pls_ids") if (inst.get_pls_ids and isinstance(inst, YouDownloader)) else ex()
+    #         results.append(ids)
+    #
+    # return results
 
 
 def save_files_w_video_urls(ch_videos_ids: Set[str], pls_videos_ids: Set[str]):
@@ -445,47 +521,75 @@ def get_api(ch_id: str) -> YouApi:
     api = YouApi(api_key, ch_id)
     return api
 
-
-def get_videos_ids_results_w_assert(result_map: Dict[str, Tuple[set, set, set]]):
-    results = result_map[next(iter(result_map))]
-    result_map.popitem()
-
-    for t_results in result_map.values():
-        assert results == t_results
-
-    return results
+# DEPRECATED
+# def get_videos_ids_results_w_assert(result_map: Dict[str, Tuple[set, set, set]]):
+#     results = result_map[next(iter(result_map))]
+#     result_map.popitem()
+#
+#     for t_results in result_map.values():
+#         assert results == t_results
+#
+#     return results
 
 
 def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool = False, is_api: Optional[bool] = False):
     # use_web_not_api: True - will be used web to get ch_id, rest of ops will be also web
     # use_web_not_api: False - will be used web to get ch_id, rest of ops will be api
     # use_web_not_api: None - will be used web to get ch_id, rest of ops will be web and api to double checks final result
+    print("START")
     scraper, downloader, ch_id = get_scrapers_and_ch_id(user_url_part, is_scraper, is_downloader)
 
-    def_res = set(), set(), set()
-    result_map = {}
+    def assert_res(res, next_res):
+        if res != (set(), set(), set()):
+            assert next_res == res
+        else:
+            return next_res
+
+    res_scraper, res_api, res_downloader = None, None, None
+    res = None
     if is_scraper:
-        # 24.8709 seconds (count_ch_videos_ids: 178, count_pls_videos_ids: 133, count_diff: 45)
-        result_map["is_scraper"] = get_videos_ids(scraper)
+        res_scraper = get_videos_ids(scraper)
+        res = res_scraper
+
     if is_api:
         api = get_api(ch_id)
-        result_map["is_api"] = get_videos_ids(api)
-    if is_downloader:
-        # 20.9552 seconds (count_ch_videos_ids: 178, count_pls_videos_ids: 133, count_diff: 45)
-        pls_ids = result_map.get("is_scraper", def_res)[-1] or result_map.get("is_api", def_res)[-1]
-        result_map["is_downloader"] = get_videos_ids(downloader, pls_ids=pls_ids)
+        res_api = get_videos_ids(api)
+        if res:
+            assert res_api == res
+        res = res_api
 
-    ch_videos_ids, pls_videos_ids, pls_ids = get_videos_ids_results_w_assert(result_map)
+    if is_downloader:
+        _, pls_ids, _ = res
+        res_downloader = get_videos_ids(downloader, pls_ids=pls_ids)
+        if res:
+            assert res_downloader == res
+        res = res_downloader
+
+    ch_videos_ids, pls_ids, pls_videos_ids = res
     log_result(ch_videos_ids, pls_videos_ids)
 
     save_files_w_video_urls(ch_videos_ids, pls_videos_ids)
+    print("END")
     # TODO: DOWNLOADER (GET MODE)
 
+def fats_exec_logic(user_url_part: str):
+    scraper = YouScraper(user_url_part=user_url_part)
+    ch_id = scraper.ch_id
+    pass
 
-# TODO: 0) Fix mix modes, for noew saved is_scraper as default 1) Time calc 2) API fast run only
-#  3) Async ops for heavy run with all options 4) Downloader get
+
+# TODO:
+#  - Fix mix modes
+#  - For new saved is_scraper as default
+#  - API fast run add
+#  - Async ops for heavy run with all options
+#  - Downloader get
+#  - Make assertions informative
 if __name__ == '__main__':
+    """User fats_exec_logic or exec_logic code"""
     USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
-    # NOTE: is_api has limitation in quota
-    # pyyoutube.error.PyYouTubeException: YouTubeException(status_code=403,message=The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.)
-    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=False, is_api=False)
+    #fats_exec_logic(user_url_part=USER_URL_PART)
+
+    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=True, is_api=False)
+    #     # NOTE: is_api has limitation in quota
+    #     # pyyoutube.error.PyYouTubeException: YouTubeException(status_code=403,message=The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.)
