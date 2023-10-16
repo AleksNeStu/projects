@@ -4,10 +4,14 @@ import os
 import re
 from abc import abstractmethod
 from collections import defaultdict
+from pprint import pprint
 from typing import List, Optional, Set, Tuple, Dict
 from unittest.mock import patch
 from urllib.parse import urlparse, parse_qs
 from urllib.request import urlopen
+
+import requests
+from deepdiff import DeepDiff
 from pytube.exceptions import RegexMatchError
 import scrapetube
 from bs4 import BeautifulSoup
@@ -22,9 +26,9 @@ logger = logging.getLogger(__name__)
 
 
 API_KEY = ""  # https://developers.google.com/youtube/registering_an_application
-F_CH_VIDEOS = "ch_videos_urls.txt"
-F_PLS_VIDEOS = "pls_videos_urls.txt"
-F_NO_PLS_VIDEOS = "no_pls_videos_urls.txt"
+F_CH_VIDEOS = "ch_videos_urls"
+F_PLS_VIDEOS = "pls_videos_urls"
+F_NO_PLS_VIDEOS = "no_pls_videos_urls"
 
 
 
@@ -174,36 +178,72 @@ class YouApi(Common):
         assert ch.id == self.ch_id
         return ch
 
-    def find_unique_ch_videos_ids(self, exp_count: int = None, *args, **kwargs):
+    def get_sh_shorts_ids(self, *args, **kwargs):
+        # NOTE: Issue with getting shorts (to filter)
+        ch_videos = self.api.search(
+            search_type='video',
+            limit=50,
+            count=50,
+            channel_id=self.ch_id,
+            video_duration="short",
+            *args,
+            **kwargs
+        )
+        ch_videos_ids = [c_video.id.videoId for c_video in ch_videos.items]
+        sh_videos_ids = set()
+        for ch_video_id in ch_videos_ids:
+            sh_url = f"https://www.youtube.com/shorts/{ch_video_id}"
+            page = urlopen(sh_url)
+            if page.url == sh_url:
+                sh_videos_ids.add(ch_video_id)
+
+        return sh_videos_ids
+
+
+    def _get_ch_videos_ids(self, exp_count: int = None, *args, **kwargs):
+        sh_shorts_ids = self.get_sh_shorts_ids(*args, **kwargs)
+
         # Initialize variables
         unique_video_ids = set()
+        all_video_ids = []
         next_page_token = None
-        total_results = 0  # Track the total number of results
+        unique_results = 0  # Track the total number of results
+        all_results = 0
+        previous_unique_results = 0 # Track the
 
         # Fetch the channel's videos and deduplicate the results
         while True:
             results = self.api.search(
                 # part="id",
                 search_type="video",
-                # maxResults=50,  # Adjust as needed
+                count=50,
+                limit=50,  # Adjust as needed
                 channel_id=self.ch_id,
                 page_token=next_page_token,
+                # video_type="movie",
+                order="date",
                 *args,
                 **kwargs
             )
 
             for item in results.items:
+
                 video_id = item.id.videoId
-                if video_id not in unique_video_ids:
-                    # Process the video data here
+                all_video_ids.append(video_id)
+                all_results += 1
+
+                if video_id not in sh_shorts_ids and video_id not in unique_video_ids:
                     unique_video_ids.add(video_id)
-                    total_results += 1
+                    unique_results += 1
 
             next_page_token = results.nextPageToken
-            if not next_page_token or total_results >= 1000:  # Limit the total number of results as needed
-                if exp_count:
-                    assert exp_count == total_results
-                break
+            if unique_results > previous_unique_results:
+                previous_unique_results = unique_results
+            elif not next_page_token:
+                if exp_count and exp_count == unique_results:
+                    break
+                elif previous_unique_results == unique_results:
+                    break
 
         return unique_video_ids
 
@@ -232,9 +272,8 @@ class YouApi(Common):
         #         return ch_videos_ids_unique
         #     else:
         #         raise ValueError("No unique ch_videos_ids found")
-        ch_videos_ids = self.find_unique_ch_videos_ids(*args, **kwargs)
-
-        return set(ch_videos_ids)
+        ch_videos_ids = self._get_ch_videos_ids(*args, **kwargs)
+        return ch_videos_ids
 
     def get_ch_pls(self, channel_id: Optional[str] = None, count: Optional[int] = None, *args, **kwargs) -> list[Playlist]:
         # count (int, optional):
@@ -532,18 +571,18 @@ def get_api(ch_id: str) -> YouApi:
 #     return results
 
 
+def assert_videos_ids(act, exp):
+    diff = DeepDiff(act, exp)
+    if diff:
+        pprint(diff, indent=4)
+    assert not diff
+
 def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool = False, is_api: Optional[bool] = False):
     # use_web_not_api: True - will be used web to get ch_id, rest of ops will be also web
     # use_web_not_api: False - will be used web to get ch_id, rest of ops will be api
     # use_web_not_api: None - will be used web to get ch_id, rest of ops will be web and api to double checks final result
     print("START")
     scraper, downloader, ch_id = get_scrapers_and_ch_id(user_url_part, is_scraper, is_downloader)
-
-    def assert_res(res, next_res):
-        if res != (set(), set(), set()):
-            assert next_res == res
-        else:
-            return next_res
 
     res_scraper, res_api, res_downloader = None, None, None
     res = None
@@ -555,14 +594,14 @@ def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool 
         api = get_api(ch_id)
         res_api = get_videos_ids(api)
         if res:
-            assert res_api == res
+            assert_videos_ids(res_api, res)
         res = res_api
 
     if is_downloader:
         _, pls_ids, _ = res
         res_downloader = get_videos_ids(downloader, pls_ids=pls_ids)
         if res:
-            assert res_downloader == res
+            assert_videos_ids(res_downloader, res)
         res = res_downloader
 
     ch_videos_ids, pls_ids, pls_videos_ids = res
@@ -573,6 +612,28 @@ def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool 
     # TODO: DOWNLOADER (GET MODE)
 
 def fats_exec_logic(user_url_part: str):
+    """
+    YouScraper.get_ch_videos_ids, time: 2.018
+    42
+    YouScraper.get_pls_ids, time: 1.257
+    5
+    YouScraper.get_pls_videos_ids, time: 9.803
+    39
+
+    YouApi.get_ch_videos_ids, time: 4.674
+    42
+    YouApi.get_pls_ids, time: 0.319
+    5
+    YouApi.get_pls_videos_ids, time: 1.741
+    39
+
+    YouDownloader.get_ch_videos_ids, time: 1.356
+    42
+    YouDownloader.get_pls_ids, time: 0.000
+    5
+    YouDownloader.get_pls_videos_ids, time: 12.496
+    39
+    """
     scraper = YouScraper(user_url_part=user_url_part)
     ch_id = scraper.ch_id
     pass
@@ -590,6 +651,6 @@ if __name__ == '__main__':
     USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
     #fats_exec_logic(user_url_part=USER_URL_PART)
 
-    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=True, is_api=False)
+    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=False, is_api=False)
     #     # NOTE: is_api has limitation in quota
     #     # pyyoutube.error.PyYouTubeException: YouTubeException(status_code=403,message=The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.)
