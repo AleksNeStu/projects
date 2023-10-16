@@ -11,6 +11,7 @@ from urllib.request import urlopen
 
 import scrapetube
 from bs4 import BeautifulSoup
+from codetiming import Timer
 from pytube import Channel as ChannelP, Playlist as PlaylistP
 from pytube.helpers import uniqueify
 from pyyoutube import Api, Playlist, Channel
@@ -387,6 +388,7 @@ def from_file_to_video_urls(file_name: str):
         return res
 
 
+@Timer(name="get_videos_ids")
 def get_videos_ids(inst, **kwargs):
     ch_videos_ids = inst.get_ch_videos_ids()
     pls_ids = kwargs.get("pls_ids") if isinstance(inst, YouDownloader) else inst.get_pls_ids()
@@ -466,11 +468,13 @@ def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool 
     def_res = set(), set(), set()
     result_map = {}
     if is_scraper:
+        # 24.8709 seconds (count_ch_videos_ids: 178, count_pls_videos_ids: 133, count_diff: 45)
         result_map["is_scraper"] = get_videos_ids(scraper)
     if is_api:
         api = get_api(ch_id)
         result_map["is_api"] = get_videos_ids(api)
     if is_downloader:
+        # 20.9552 seconds (count_ch_videos_ids: 178, count_pls_videos_ids: 133, count_diff: 45)
         pls_ids = result_map.get("is_scraper", def_res)[-1] or result_map.get("is_api", def_res)[-1]
         result_map["is_downloader"] = get_videos_ids(downloader, pls_ids=pls_ids)
 
@@ -481,7 +485,9 @@ def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool 
     # TODO: DOWNLOADER (GET MODE)
 
 
-# TODO: 1) Time calc 2) API fast run only 3) Async ops for heavy run with all options 4) Downloader get
+# TODO: 0) Fix mix modes, for noew saved is_scraper as default 1) Time calc 2) API fast run only
+#  3) Async ops for heavy run with all options 4) Downloader get
 if __name__ == '__main__':
-    # is_api has limitation in quota
-    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=True, is_api=True)
+    # NOTE: is_api has limitation in quota
+    # pyyoutube.error.PyYouTubeException: YouTubeException(status_code=403,message=The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.)
+    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=False, is_api=False)
