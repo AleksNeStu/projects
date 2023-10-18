@@ -134,6 +134,8 @@ django-filter = "^22.1"
 python-youtube = "^0.9.2"
 pytube = "^15.0.0"
 deepdiff = "^6.6.0"
+httpx = "^0.25.0"
+html-form-to-dict = "^2022.10.1"
 
 [tool.poetry.dev-dependencies]
 

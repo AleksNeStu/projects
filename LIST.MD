@@ -80,6 +80,8 @@ Endpoint security
 
 
 # H
+- [htmx](https://github.com/bigskysoftware/htmx) - </> htmx - high power tools for HTML
+
 
 # I
 
@@ -176,6 +178,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - [**12factorAPP**](https://12factor.net/) - I. Codebase   II. Dependencies   III. Config IV. Backing services  V. Build, release, run  VI. Processes  VII. Port binding  VIII. Concurrency IX. Disposability
   X. Dev/prod parity   XI. Logs   XII. Admin processes
 - **[tqdm](https://github.com/tqdm/tqdm)** - tqdm is a Python library which is used for creating a progress bar.
+- **[trio](https://github.com/python-trio/trio)** - Trio – a friendly Python library for async concurrency and I/O
 
 
 # U
