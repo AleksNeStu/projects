@@ -53,6 +53,9 @@
    - [brokers](/queue/brokers) - Brokers
 
 [scripts](/scripts) - Scripts
+   - [helpers](/scripts/helpers) - Helpers
+      -  [get_youtube_urls](/scripts/helpers) - Helper which use Self and Public YouTube Scrapers as wel las Api wrappers to get YouTube data (channel, playlists, find diff between main channel and playlists, etc. Make possibility to mix behaviour and download videos.)
+          
 
 [web_apps](/web_apps) Web applications (FE | BE or only BE) 
    - [pypi-web-app](/web_apps/001_pypi) - Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja
@@ -64,7 +67,7 @@
 
 # Virtual env install
 ```sh
-export PROJECT_DIR="/home/..."; export POETRY_VERSION=1.3.2; export PYTHON_VERSION=3.10
+export PROJECT_DIR="/home/..."; export POETRY_VERSION=1.6.1; export PYTHON_VERSION=3.12
 sudo dnf install python$PYTHON_VERSION poetry
 sudo dnf install python$PYTHON_VERSION-devel.x86_64  # for Cython compilation for IDE
 curl -sSL https://install.python-poetry.org | POETRY_VERSION=$POETRY_VERSION python3 -
