@@ -1,7 +1,7 @@
 import asyncio
-import functools
 from contextlib import contextmanager
 from contextlib import suppress
+from typing import Union, Callable
 
 from codetiming import Timer
 
@@ -54,27 +54,25 @@ class Temp:
         d1 = d["sdsd"]
 
 
-# Define a custom decorator to time async functions
-def timer(func):
-    @contextmanager
-    def wrapping_timer(is_async: bool):
-        timer = Timer(text=f"Func: `{func.__name__}`, is async: {is_async}, elapsed time: {{:.6f}}sec")
-        with timer:
-            yield
-        # timer.start()
-        # yield
-        # timer.stop()
+def timer_d(func):
+    async def async_wrapper(*args, **kwargs):
+        with Timer(text=f"Async func `{func.__name__}` elapsed time: {{:.6f}} s"):
+            return await func(*args, **kwargs)
 
-    @functools.wraps(func)
+    def sync_wrapper(*args, **kwargs):
+        with Timer(text=f"Sync func `{func.__name__}` elapsed time: {{:.6f}} s"):
+            return func(*args, **kwargs)
+
     def wrapper(*args, **kwargs):
-        is_async = asyncio.iscoroutinefunction(func)
-        if not is_async:
-            with wrapping_timer(is_async):
-                return func(*args, **kwargs)
+        if asyncio.iscoroutinefunction(func):
+            return async_wrapper(*args, **kwargs)
         else:
-            async def async_func():
-                with wrapping_timer(is_async):
-                    return await func(*args, **kwargs)
-            return async_func()
+            return sync_wrapper(*args, **kwargs)
 
     return wrapper
+
+
+def timer_c(text: Union[str, Callable[[float], str]] = "Context manager operation elapsed time: {:.6f} s", *args, **kwargs):
+    return Timer(text=text, *args, **kwargs)
+
+# TODO: Consider to extend Timer class behaviour
