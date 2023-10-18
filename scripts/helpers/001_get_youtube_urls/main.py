@@ -463,7 +463,7 @@ def video_urls_to_ids(video_urls: Set[str]):
     return video_urls
 
 def video_urls_to_file(video_urls: List[str], file_name: str):
-    with open(f'{file_name}.txt', 'w') as f:
+    with open(f'./urls/{file_name}.txt', 'w') as f:
         f.write('\n'.join(video_urls))
 
 
@@ -584,7 +584,6 @@ def exec_logic(user_url_part: str, is_scraper: bool = True, is_downloader: bool 
     print("START")
     scraper, downloader, ch_id = get_scrapers_and_ch_id(user_url_part, is_scraper, is_downloader)
 
-    res_scraper, res_api, res_downloader = None, None, None
     res = None
     if is_scraper:
         res_scraper = get_videos_ids(scraper)
@@ -651,6 +650,6 @@ if __name__ == '__main__':
     USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
     #fats_exec_logic(user_url_part=USER_URL_PART)
 
-    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=False, is_api=False)
+    exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=True, is_api=False)
     #     # NOTE: is_api has limitation in quota
     #     # pyyoutube.error.PyYouTubeException: YouTubeException(status_code=403,message=The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.)
