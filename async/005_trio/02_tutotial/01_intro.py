@@ -1,12 +1,12 @@
 import time
 
 import trio
-from codetiming import Timer
-
-from common.utils import timer_async
 
 
-@Timer()
+from common.utils import timer
+
+
+@timer
 # A regular function
 def regular_double(x):
     time.sleep(2)
@@ -14,7 +14,7 @@ def regular_double(x):
 
 r0 = regular_double(55)
 
-@timer_async
+@timer
 # An async function
 async def async_double(x):
     await trio.sleep(2)
@@ -33,4 +33,5 @@ async def print_double(x):
 
 
 # 1) A runner function, which is a special synchronous function that takes and calls an asynchronous function. In Trio, this is trio.run:
-r1 = trio.run(async_double, 3)  # returns 6
+with timer:
+    r1 = trio.run(async_double, 3)  # returns 6

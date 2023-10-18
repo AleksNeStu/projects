@@ -1,3 +1,5 @@
+import asyncio
+import functools
 from contextlib import contextmanager
 from contextlib import suppress
 
@@ -53,9 +55,26 @@ class Temp:
 
 
 # Define a custom decorator to time async functions
-def timer_async(func):
-    async def wrapper(*args, **kwargs):
-        with Timer(text=f"{func} async: {{:.5f}}"):
-            result = await func(*args, **kwargs)
-        return result
+def timer(func):
+    @contextmanager
+    def wrapping_timer(is_async: bool):
+        timer = Timer(text=f"Func: `{func.__name__}`, is async: {is_async}, elapsed time: {{:.6f}}sec")
+        with timer:
+            yield
+        # timer.start()
+        # yield
+        # timer.stop()
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        is_async = asyncio.iscoroutinefunction(func)
+        if not is_async:
+            with wrapping_timer(is_async):
+                return func(*args, **kwargs)
+        else:
+            async def async_func():
+                with wrapping_timer(is_async):
+                    return await func(*args, **kwargs)
+            return async_func()
+
     return wrapper
