@@ -1,12 +1,11 @@
 import time
 
 import trio
-from codetiming import Timer
 
-from common.utils import timer_d, timer_c
+from common.utils import timer_dc, timer_cm, w_err
 
 
-@timer_d
+@timer_dc
 # A regular function
 def regular_double(x):
     return 2 * x
@@ -23,22 +22,42 @@ async def print_double(x):
     print(await async_double(x))
 
 
-@timer_d
+@timer_dc
 # An async function
 async def async_double(x):
     return 2 * x
 trio.run(async_double, 3)  # returns 6# <-- OK!
 
 
-@timer_d
+@timer_dc
 async def double_sleep(x):
     await trio.sleep(2 * x)
 
 
-with timer_c():
-    trio.run(double_sleep, 3)  # does nothing for 6 seconds then returns
+with timer_cm():
+    trio.run(double_sleep, 1)  # does nothing for 6 seconds then returns
+# trio.run -> [async function] -> ... -> [async function] -> trio.whatever
 
 # Sync func `regular_double` elapsed time: 0.000002 s
 # Async func `async_double` elapsed time: 0.000002 s
 # Async func `double_sleep` elapsed time: 6.005770 s
 # Context manager operation elapsed time: 6.006345 s
+
+
+#3) Fogot await
+async def broken_double_sleep(x):
+    print("*yawn* Going to sleep")
+    start_time = time.perf_counter()
+
+    # Whoops, we forgot the 'await'!
+    # RuntimeWarning: coroutine 'sleep' was never awaited
+    #   trio.sleep(2 * x) # RuntimeWarning: coroutine 'sleep' was never awaited trio.sleep(2 * x)
+    # RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+    # trio.sleep(2 * x)
+
+    await trio.sleep(2 * x)
+
+    sleep_time = time.perf_counter() - start_time
+    print(f"Woke up after {sleep_time:.2f} seconds, feeling well rested!")
+
+trio.run(broken_double_sleep, 1)
