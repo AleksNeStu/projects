@@ -1,3 +1,8 @@
+import time
+
+import trio
+
+
 async def broken_double_sleep(x):
     print("*yawn* Going to sleep")
     start_time = time.perf_counter()
@@ -7,8 +12,14 @@ async def broken_double_sleep(x):
     #   trio.sleep(2 * x) # RuntimeWarning: coroutine 'sleep' was never awaited trio.sleep(2 * x)
     # RuntimeWarning: Enable tracemalloc to get the object allocation traceback
     # This is clearly broken – 0.00 seconds is not long enough to feel well rested! Yet the code acts like it succeeded – no exception was raised
-    trio.sleep(2 * x) # no ok
-    await trio.sleep(2 * x) # ok
+
+
+    cr_obj = trio.sleep(2 * x) # no ok <coroutine object sleep at 0x7f32e0eb1cb0>
+    # In Trio, every time we use await it’s to call an async function, and every time we call an async function we use await. But Python’s trying to keep its options open for other libraries that are ahem a little less organized about things. So while for our purposes we can think of await trio.sleep(...) as a single piece of syntax, Python thinks of it as two things: first a function call that returns this weird “coroutine” object:
+    await cr_obj # ok
+
+
+
     # If you’re using PyPy, you might not even get a warning at all until the next GC collection runs:
 
     sleep_time = time.perf_counter() - start_time

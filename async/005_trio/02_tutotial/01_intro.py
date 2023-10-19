@@ -1,5 +1,3 @@
-import time
-
 import trio
 
 from common.utils import timer_dc, timer_cm, w_err
@@ -44,3 +42,5 @@ with timer_cm():
 # Context manager operation elapsed time: 6.006345 s
 
 
+with w_err({TypeError: 'TypeError("unsupported operand type(s) for +: \'coroutine\' and \'int\'")'}):
+    async_double(3) + 1
