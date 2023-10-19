@@ -54,7 +54,7 @@
 
 [scripts](/scripts) - Scripts
    - [helpers](/scripts/helpers) - Helpers
-      -  [get_youtube_urls](/scripts/helpers) - Helper which use Self and Public YouTube Scrapers as wel las Api wrappers to get YouTube data (channel, playlists, find diff between main channel and playlists, etc. Make possibility to mix behaviour and download videos.)
+      -  [get_youtube_urls](/scripts/helpers/001_get_youtube_urls) - Helper which use Self and Public YouTube Scrapers as wel las Api wrappers to get YouTube data (channel, playlists, find diff between main channel and playlists, etc. Make possibility to mix behaviour and download videos.)
           
 
 [web_apps](/web_apps) Web applications (FE | BE or only BE) 
