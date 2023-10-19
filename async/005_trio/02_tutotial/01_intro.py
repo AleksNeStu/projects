@@ -44,20 +44,3 @@ with timer_cm():
 # Context manager operation elapsed time: 6.006345 s
 
 
-#3) Fogot await
-async def broken_double_sleep(x):
-    print("*yawn* Going to sleep")
-    start_time = time.perf_counter()
-
-    # Whoops, we forgot the 'await'!
-    # RuntimeWarning: coroutine 'sleep' was never awaited
-    #   trio.sleep(2 * x) # RuntimeWarning: coroutine 'sleep' was never awaited trio.sleep(2 * x)
-    # RuntimeWarning: Enable tracemalloc to get the object allocation traceback
-    # trio.sleep(2 * x)
-
-    await trio.sleep(2 * x)
-
-    sleep_time = time.perf_counter() - start_time
-    print(f"Woke up after {sleep_time:.2f} seconds, feeling well rested!")
-
-trio.run(broken_double_sleep, 1)
