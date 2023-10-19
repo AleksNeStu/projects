@@ -1,13 +1,27 @@
 import asyncio
 import inspect
 from contextlib import contextmanager
-from typing import Union, Callable
+from pprint import pprint
+from typing import Union, Callable, Dict, Type, Optional
 
 from codetiming import Timer
+from deepdiff import DeepDiff
 
 
+def get_diff(act, exp, is_assert: bool = True):
+    diff = DeepDiff(act, exp)
+    if diff:
+        pprint(diff, indent=4)
+
+    if is_assert:
+        assert not diff
+    else:
+        return diff
+
+
+# TODO: Consider to use exception_types with exp messages, to have extra assertion, for now return err for futher processing
 @contextmanager
-def w_err(*exception_types, func_name: str = None):
+def w_err(exceptions: Dict[Type[Exception], Optional[str]] = None, func_name: str = None):
     try:
         if not func_name:
             st = inspect.stack()
@@ -16,8 +30,21 @@ def w_err(*exception_types, func_name: str = None):
             if len(funcs_set) == 1:
                 func_name = list(funcs_set)[0].__name__
         yield
-    except exception_types as ex:
-        print(f"Func: {func_name}, exception: {repr(ex)}")
+    except Exception as ex:
+        act_ex = ex.__class__
+        act_msg = repr(ex)
+        if exceptions:
+            exp_msg = exceptions.get(act_ex, False)
+            if exp_msg is not False:
+                if exp_msg is not None:
+                    diff = get_diff(act_msg, exp_msg, is_assert=False)
+                    if diff:
+                        raise ex
+            else:
+                raise ex
+
+        print(f"Func: `{func_name}`, exception: `{act_msg}` was caught, not raised")
+
 
 def timer_dc(func):
     async def async_wrapper(*args, **kwargs):
@@ -36,5 +63,7 @@ def timer_dc(func):
 
     return wrapper
 
-def timer_cm(text: Union[str, Callable[[float], str]] = "Context manager operation elapsed time: {:.6f} s", *args, **kwargs):
+
+def timer_cm(text: Union[str, Callable[[float], str]] = "Context manager operation elapsed time: {:.6f} s", *args,
+             **kwargs):
     return Timer(text=text, *args, **kwargs)
