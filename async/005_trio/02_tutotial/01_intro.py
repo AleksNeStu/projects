@@ -1,3 +1,5 @@
+import asyncio
+
 import trio
 
 from common.utils import timer_dc, timer_cm, w_err
@@ -24,6 +26,7 @@ async def print_double(x):
 # An async function
 async def async_double(x):
     return 2 * x
+
 trio.run(async_double, 3)  # returns 6# <-- OK!
 
 
@@ -44,3 +47,6 @@ with timer_cm():
 
 with w_err({TypeError: 'TypeError("unsupported operand type(s) for +: \'coroutine\' and \'int\'")'}):
     async_double(3) + 1
+
+r4 = asyncio.run(async_double(3)) + 1
+print(r4)
