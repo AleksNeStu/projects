@@ -4,6 +4,9 @@ import trio
 
 from common.utils import timer_dc, timer_cm, w_err
 
+# That was a lot of text, but again, you don’t need to understand everything here to use Trio – in fact, Trio goes to great lengths to make each task feel like it executes in a simple, linear way. (Just like your operating system goes to great lengths to make it feel like your single-threaded code executes in a simple linear way, even though under the covers the operating system juggles between different threads and processes in essentially the same way Trio does.) But it is useful to have a rough model in your head of how the code you write is actually executed, and – most importantly – the consequences of that for parallelism.
+#
+# Alternatively, if this has just whetted your appetite and you want to know more about how async/await works internally, then this blog post is a good deep dive, or check out this great walkthrough to see how to build a simple async I/O framework from the ground up.
 
 @timer_dc
 # A regular function
