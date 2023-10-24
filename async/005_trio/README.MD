@@ -1,0 +1,1 @@
+Trio’s nurseries: to delimit the lifetime of concurrent tasks, ensure that they never leak, and never swallow errors silently.
