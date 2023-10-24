@@ -1081,6 +1081,19 @@ files = [
 toml = ["tomli"]
 
 [[package]]
+name = "curio"
+version = "1.6"
+description = "Curio"
+optional = false
+python-versions = ">= 3.7"
+files = [
+    {file = "curio-1.6.tar.gz", hash = "sha256:562a586db20216ba7d2be8263deb9eb079e56048f9b8906d11d5f45aa81c5247"},
+]
+
+[package.extras]
+test = ["Sphinx", "pytest"]
+
+[[package]]
 name = "cycler"
 version = "0.12.1"
 description = "Composable style cycles"
@@ -6628,4 +6641,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "c3159c36baed65a2d355570573743bf42dcb3bd6db6d7dda55bc74b5d9f3aaac"
+content-hash = "76c0c1c35a239bcddcc2dc454f1dec646db92b0948c66057fd0b6389470008b6"
