@@ -8,6 +8,9 @@ from common.utils import timer_dc, timer_cm, w_err
 #
 # Alternatively, if this has just whetted your appetite and you want to know more about how async/await works internally, then this blog post is a good deep dive, or check out this great walkthrough to see how to build a simple async I/O framework from the ground up.
 
+# Trio is the Python I/O library I always wanted; I find it makes building I/O-oriented programs easier, less error-prone, and just plain more fun
+
+
 @timer_dc
 # A regular function
 def regular_double(x):
