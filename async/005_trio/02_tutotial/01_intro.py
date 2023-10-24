@@ -27,6 +27,7 @@ async def print_double(x):
 async def async_double(x):
     return 2 * x
 
+
 trio.run(async_double, 3)  # returns 6# <-- OK!
 
 
