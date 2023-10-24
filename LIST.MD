@@ -9,7 +9,8 @@
 - **[async-timeout](https://github.com/aio-libs/async-timeout)** - The context manager is useful in cases when you want to apply timeout logic around block of code or in cases when asyncio.wait_for() is not suitable. Also it's much faster than asyncio.wait_for() because timeout doesn't create a new task.
 - **[AttrDict](https://github.com/bcj/AttrDict)** - ttrDict is an MIT-licensed library that provides mapping objects that allow their elements to be accessed both as keys and as attributes:
 - **[ab](https://httpd.apache.org/docs/2.4/programs/ab.html)** - ab is a tool for benchmarking your Apache Hypertext Transfer Protocol (HTTP) server. It is designed to give you an impression of how your current Apache installation performs. This especially shows you how many requests per second your Apache installation is capable of serving.
-
+- **[asyncio](https://docs.python.org/3/library/asyncio.html)** - asyncio is used as a foundation for multiple 
+  Python asynchronous frameworks that provide high-performance network and web-servers, database connection libraries, distributed task queues, etc.
 
 
 # B
@@ -32,7 +33,7 @@
 - **[click-didyoumean](https://github.com/click-contrib/click-didyoumean)** - Enable git-like did-you-mean feature in click.
 - **[click-plugins** ](https://github.com/click-contrib/click-plugins)- An extension module for click to register external CLI commands via setuptools entry-points.
 - **[configparser](https://docs.python.org/3/library/configparser.html)** - This module provides the ConfigParser class which implements a basic configuration language which provides a structure similar to what’s found in Microsoft Windows INI files. Y
-
+- **
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
@@ -80,7 +81,7 @@ Endpoint security
 
 
 # H
-- [htmx](https://github.com/bigskysoftware/htmx) - </> htmx - high power tools for HTML
+- **[htmx](https://github.com/bigskysoftware/htmx)** - </> htmx - high power tools for HTML
 
 
 # I
@@ -179,7 +180,8 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
   X. Dev/prod parity   XI. Logs   XII. Admin processes
 - **[tqdm](https://github.com/tqdm/tqdm)** - tqdm is a Python library which is used for creating a progress bar.
 - **[trio](https://github.com/python-trio/trio)** - Trio – a friendly Python library for async concurrency and I/O
-- **[twisted](https://github.com/twisted/twisted) - Twisted is an event-based framework for internet applications, supporting Python 3.
+- **[twisted](https://github.com/twisted/twisted)** - Twisted is an event-based framework for internet applications, 
+  supporting Python 3.
   6+. It includes modules for many different purposes.
 
 
