@@ -116,7 +116,7 @@ async def t1():
 
 async def t2():
     await sleep(22)
-    raise NotImplementedError("NotImplementedError t2")
+    raise KeyError("KeyError t2")
 
 async def t3():
     try:
@@ -147,4 +147,37 @@ async def main_ex2():
         for exc in excgroup.exceptions:
             print(exc)  # handle each ValueError
 
-run(main_ex2)
+# run(main_ex2)
+
+# OLD Python version example
+from anyio import create_task_group
+from exceptiongroup import catch
+
+def handle_valueerror(excgroup: ExceptionGroup) -> None:
+    for exc in excgroup.exceptions:
+        print(exc)  # handle each ValueError
+
+
+def handle_keyerror(excgroup: ExceptionGroup) -> None:
+    for exc in excgroup.exceptions:
+        print(exc)  # handle each ValueError
+
+
+async def main_ex_old():
+    with catch({
+        ValueError: handle_valueerror,
+        KeyError: handle_keyerror
+    }):
+        async with create_task_group() as tg:
+            tg.start_soon(t1)
+            tg.start_soon(t2)
+
+
+# f you need to set local variables in the handlers, declare them as nonlocal:
+
+def handle_valueerror(exc):
+    nonlocal somevariable
+    somevariable = 'whatever'
+
+# run(main_ex_old)
+
