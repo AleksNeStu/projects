@@ -181,3 +181,25 @@ def handle_valueerror(exc):
 
 # run(main_ex_old)
 
+
+# Context propagation
+"""
+Whenever a new task is spawned, context will be copied to the new task. It is important to note which context will be copied to the newly spawned task. It is not the context of the task group’s host task that will be copied, but the context of the task that calls TaskGroup.start() or TaskGroup.start_soon().
+"""
+
+# Differences with asyncio.TaskGroup
+"""
+The asyncio.TaskGroup class, added in Python 3.11, is very similar in design to the AnyIO TaskGroup class. The asyncio counterpart has some important differences in its semantics, however:
+
+The task group itself is instantiated directly, rather than using a factory function
+
+Tasks are spawned solely through create_task(); there is no start() or start_soon() method
+
+The create_task() method returns a task object which can be awaited on (or cancelled)
+
+Tasks spawned via create_task() can only be cancelled individually (there is no cancel() method or similar in the task group)
+
+When a task spawned via create_task() is cancelled before its coroutine has started running, it will not get a chance to handle the cancellation exception
+
+asyncio.TaskGroup does not allow starting new tasks after an exception in one of the tasks has triggered a shutdown of the task group
+"""
