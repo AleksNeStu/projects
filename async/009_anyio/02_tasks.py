@@ -14,7 +14,7 @@ from anyio import (
 )
 from anyio.abc import TaskStatus
 
-from common.utils import timer_dc
+from common.utils import timer_dc, w_err
 
 
 # 1) Task handling in AnyIO loosely follows the Trio model.
@@ -96,4 +96,55 @@ async def main_start_init():
         # tcp        0      0 127.0.0.1:5000          127.0.0.1:53290         ESTABLISHED 814588/python
     print("end parent")
 
-run(main_start_init)
+# run(main_start_init)
+
+
+
+
+
+# 3) Handling multiple errors in a task group
+"""
+It is possible for more than one task to raise an exception in a task group. This can happen when a task reacts to cancellation by entering either an exception handler block or a finally: block and raises an exception there. This raises the question: which exception is propagated from the task group context manager? The answer is “both”. In practice this means that a special exception, ExceptionGroup (or BaseExceptionGroup) is raised which contains both exception objects.
+
+To catch such exceptions potentially nested in groups, special measures are required. On Python 3.11 and later, you can use the except* syntax to catch multiple exceptions:
+"""
+from anyio import create_task_group
+
+async def t1():
+    await sleep(32)
+    raise ValueError("ValueError t1")
+
+async def t2():
+    await sleep(22)
+    raise NotImplementedError("NotImplementedError t2")
+
+async def t3():
+    try:
+        await sleep(1)
+        raise ValueError("ValueError t3")
+    except ValueError:
+        raise NotImplementedError("NotImplementedError t3 - 1")
+    finally:
+        raise NotImplementedError("NotImplementedError t3 - 2")
+
+
+
+async def main_ex2():
+
+    try:
+        async with create_task_group() as tg:
+            for t in [t1, t2, t3]:
+                tg.start_soon(t)
+
+    # On Python 3.11 and later, you can use the except* syntax to catch multiple exceptions:
+    except* ValueError as excgroup:
+        excgroup: ExceptionGroup
+        for exc in excgroup.exceptions:
+            print(exc)  # handle each ValueError
+
+    except* NotImplementedError as excgroup:
+        excgroup: ExceptionGroup
+        for exc in excgroup.exceptions:
+            print(exc)  # handle each ValueError
+
+run(main_ex2)
