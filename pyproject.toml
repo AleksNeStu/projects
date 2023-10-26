@@ -137,7 +137,7 @@ memory-profiler = "^0.61.0"
 django-browser-reload = "^1.12.0"
 twisted = "^23.8.0"
 curio = "^1.6"
-anyio = ">=3.7.1,<4.0.0"
+anyio = ">=3.7.1,<4.0.0"  # Because fastapi (0.104.0) depends on anyio (>=3.7.1,<4.0.0)
 
 
 [tool.poetry.dev-dependencies]
