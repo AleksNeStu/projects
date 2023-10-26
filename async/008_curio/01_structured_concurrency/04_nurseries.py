@@ -1,8 +1,6 @@
 """
 Approach taken by Trio, an alternative async Python framework.
 """
-import asyncio
-from asyncio import Queue
 
 import trio
 
@@ -25,9 +23,9 @@ async def child2():
 
 
 async def parent():
+    print("parent start")
     # Trio ensures that the async with block will not exit until both tasks have completed.
     async with trio.open_nursery() as nursery:
-        print("parent start")
         nursery.start_soon(child1)
         nursery.start_soon(child2)
         print("parent wait for childs")
@@ -37,9 +35,3 @@ async def parent():
 
 trio.run(parent)
 
-
-"""
-Now, let us return to the world of Python, where the majority of async libraries—and therefore applications using them—only aim for asyncio compatibility. One may rightfully question the practicality of Trio’s nurseries in such an ecosystem, apart from a theoretical proof of concept. Fortunately, the amazing AnyIO project implements structured concurrency on top of asyncio, making it available for widespread use.
-
-
-"""

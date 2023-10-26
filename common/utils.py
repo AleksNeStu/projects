@@ -47,6 +47,7 @@ def w_err(exceptions: Dict[Type[Exception], Optional[str]] = None, func_name: st
 
 
 def timer_dc(func):
+    # TypeError: '_GeneratorContextManager' object does not support the asynchronous context manager protocol
     async def async_wrapper(*args, **kwargs):
         with Timer(text=f"Async func `{func.__name__}` elapsed time: {{:.6f}} s"):
             return await func(*args, **kwargs)
