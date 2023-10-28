@@ -141,6 +141,8 @@ anyio = ">=3.7.1,<4.0.0"  # Because fastapi (0.104.0) depends on anyio (>=3.7.1,
 cython = "^3.0.4"
 sniffio = "^1.3.0"
 exceptiongroup = "^1.1.3"
+certbot = "^2.7.3"
+trustme = "^1.1.0"
 
 
 [tool.poetry.dev-dependencies]

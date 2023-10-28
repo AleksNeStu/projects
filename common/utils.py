@@ -1,5 +1,6 @@
 import asyncio
 import inspect
+import pathlib
 from contextlib import contextmanager
 
 from pprint import pprint
@@ -94,3 +95,13 @@ def pk_ver_diff(pk_name: str, exp_ver: str = None, eq: bool = None, more: bool =
             return bool(act_ver_parsed < exp_ver_parsed)
     if eq:
         return bool(act_ver_parsed == exp_ver_parsed)
+
+def get_dir(file = None) -> pathlib.Path:
+    if not file:
+        # Get the caller's frame (the frame one level above the current frame)
+        caller_frame = inspect.currentframe().f_back
+        # Get the file path from the frame
+        file = caller_frame.f_globals['__file__']
+
+    dir = pathlib.Path(file).resolve().parent
+    return dir
