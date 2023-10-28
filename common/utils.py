@@ -1,12 +1,15 @@
 import asyncio
 import inspect
 from contextlib import contextmanager
+
 from pprint import pprint
 from typing import Union, Callable, Dict, Type, Optional
 
 from codetiming import Timer
 from deepdiff import DeepDiff
 
+from packaging import version
+from importlib.metadata import version as pk_version
 
 def get_diff(act, exp, is_assert: bool = True):
     diff = DeepDiff(act, exp)
@@ -68,3 +71,9 @@ def timer_dc(func):
 def timer_cm(text: Union[str, Callable[[float], str]] = "Context manager operation elapsed time: {:.6f} s", *args,
              **kwargs):
     return Timer(text=text, *args, **kwargs)
+
+
+def get_pk_ver(pk_name: str) -> version.Version:
+    ver_str = pk_version(pk_name)
+    ver = version.parse(ver_str)
+    return ver
