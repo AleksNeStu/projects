@@ -34,6 +34,7 @@
 - **[click-plugins** ](https://github.com/click-contrib/click-plugins)- An extension module for click to register external CLI commands via setuptools entry-points.
 - **[configparser](https://docs.python.org/3/library/configparser.html)** - This module provides the ConfigParser class which implements a basic configuration language which provides a structure similar to what’s found in Microsoft Windows INI files. Y
 - **[curio](https://github.com/dabeaz/curio/)** - Curio is a library for concurrent systems programming that uses coroutines and common programming abstractions such as threads, sockets, files, locks, and queues. In addition, it supports cancellation, task groups, and other useful features.
+- **[certbot](https://github.com/certbot/certbot)** - Certbot is part of EFF’s effort to encrypt the entire Internet. Secure communication over the Web relies on HTTPS, which requires the use of a digital certificate that lets browsers verify the identity of web servers
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.

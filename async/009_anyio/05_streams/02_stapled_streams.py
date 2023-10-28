@@ -3,7 +3,7 @@ A stapled stream combines any mutually compatible receive and send stream togeth
 
 It comes in two variants:
 
-StapledByteStream (combines a ByteReceiveStream with a ByteSendStream)
+stapledByteStream (combines a ByteReceiveStream with a ByteSendStream)
 
 StapledObjectStream (combines an ObjectReceiveStream with a compatible ObjectSendStream)
 """
