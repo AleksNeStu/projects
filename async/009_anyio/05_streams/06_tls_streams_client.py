@@ -1,6 +1,7 @@
 import ssl
 
 from anyio import connect_tcp, run
+from anyio.abc import SocketAttribute
 
 from common.utils import get_dir
 
@@ -18,6 +19,8 @@ async def main_client():
     context.load_verify_locations(cafile=cert_path)
 
     async with await connect_tcp('localhost', 5555, ssl_context=context) as client:
+        print('Connected to', client.extra(SocketAttribute.remote_address))
+
         await client.send(b'Client 888\n')
         response = await client.receive()
         print(response)
