@@ -156,6 +156,7 @@ projectFilesBackup
 # Custom
 /api/client/001_allegro_pl/entities/*
 /scripts/helpers/001_get_youtube_urls/urls/*
+*.pem
 
 # DBs
 *.db
