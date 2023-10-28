@@ -73,17 +73,15 @@ def timer_cm(text: Union[str, Callable[[float], str]] = "Context manager operati
     return Timer(text=text, *args, **kwargs)
 
 
-def get_pk_ver(pk_name: str) -> version.Version:
+def pk_ver(pk_name: str) -> version.Version:
     ver_str = pk_version(pk_name)
     ver = version.parse(ver_str)
     return ver
 
 
-def compare_pk_ver(pk_name: str, exp_ver: str = None, eq: bool = None, more: bool = None, less: bool = None) -> bool:
-    act_ver_parsed = get_pk_ver(pk_name)
+def pk_ver_diff(pk_name: str, exp_ver: str = None, eq: bool = None, more: bool = None, less: bool = None) -> bool:
+    act_ver_parsed = pk_ver(pk_name)
     exp_ver_parsed = version.parse(exp_ver)
-    if eq:
-        return bool(act_ver_parsed == exp_ver_parsed)
     if more:
         if eq:
             return bool(act_ver_parsed >= exp_ver_parsed)
@@ -94,3 +92,5 @@ def compare_pk_ver(pk_name: str, exp_ver: str = None, eq: bool = None, more: boo
             return bool(act_ver_parsed <= exp_ver_parsed)
         else:
             return bool(act_ver_parsed < exp_ver_parsed)
+    if eq:
+        return bool(act_ver_parsed == exp_ver_parsed)
