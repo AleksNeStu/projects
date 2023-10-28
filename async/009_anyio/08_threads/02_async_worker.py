@@ -14,4 +14,5 @@ def blocking_function():
 async def main():
     await to_thread.run_sync(blocking_function)
 
+
 run(main)

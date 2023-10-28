@@ -105,20 +105,20 @@ programming have been described by Curio\'s creator, [David
 Beazley](https://www.dabeaz.com), in various conference talks and
 tutorials:
 
--   [Build Your Own Async](https://www.youtube.com/watch?v=Y4Gt3Xjd7G8),
-    Workshop talk by David Beazley at PyCon India, 2019.
--   [The Other Async (Threads + Asyncio =
-    Love)](https://www.youtube.com/watch?v=x1ndXuw7S0s), Keynote talk by
-    David Beazley at PyGotham, 2017.
--   [Fear and Awaiting in
-    Async](https://www.youtube.com/watch?v=E-1Y4kSsAFc), Keynote talk by
-    David Beazley at PyOhio 2016.
--   [Topics of Interest
-    (Async)](https://www.youtube.com/watch?v=ZzfHjytDceU), Keynote talk
-    by David Beazley at Python Brasil 2015.
--   [Python Concurrency from the Ground Up
-    (LIVE)](https://www.youtube.com/watch?v=MCs5OvhV9S4), talk by David
-    Beazley at PyCon 2015.
+- [Build Your Own Async](https://www.youtube.com/watch?v=Y4Gt3Xjd7G8),
+  Workshop talk by David Beazley at PyCon India, 2019.
+- [The Other Async (Threads + Asyncio =
+  Love)](https://www.youtube.com/watch?v=x1ndXuw7S0s), Keynote talk by
+  David Beazley at PyGotham, 2017.
+- [Fear and Awaiting in
+  Async](https://www.youtube.com/watch?v=E-1Y4kSsAFc), Keynote talk by
+  David Beazley at PyOhio 2016.
+- [Topics of Interest
+  (Async)](https://www.youtube.com/watch?v=ZzfHjytDceU), Keynote talk
+  by David Beazley at Python Brasil 2015.
+- [Python Concurrency from the Ground Up
+  (LIVE)](https://www.youtube.com/watch?v=MCs5OvhV9S4), talk by David
+  Beazley at PyCon 2015.
 
 ## Questions and Answers
 

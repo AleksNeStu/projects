@@ -16,6 +16,7 @@ def task(value):
     res = (f' [done {value}] ')
     return res
 
+
 # protect the entry point
 if __name__ == '__main__':
     # 0.022337

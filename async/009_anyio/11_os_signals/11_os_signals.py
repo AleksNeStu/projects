@@ -1,5 +1,7 @@
 """Receiving operating system signals
-You may occasionally find it useful to receive signals sent to your application in a meaningful way. For example, when you receive a signal.SIGTERM signal, your application is expected to shut down gracefully. Likewise, SIGHUP is often used as a means to ask the application to reload its configuration.
+You may occasionally find it useful to receive signals sent to your application in a meaningful way. For example,
+when you receive a signal.SIGTERM signal, your application is expected to shut down gracefully. Likewise,
+SIGHUP is often used as a means to ask the application to reload its configuration.
 
 AnyIO provides a simple mechanism for you to receive the signals you’re interested in:"""
 
@@ -16,13 +18,18 @@ async def main():
             elif signum == signal.SIGHUP:
                 print('Reloading configuration')
 
+
 run(main)
-"""Note Signal handlers can only be installed in the main thread, so they will not work when the event loop is being run through BlockingPortal, for instance.
+"""Note Signal handlers can only be installed in the main thread, so they will not work when the event loop is being 
+run through BlockingPortal, for instance.
     Note Windows does not natively support signals so do not rely on this in a cross platform application."""
 
-#Handling KeyboardInterrupt and SystemExit
+# Handling KeyboardInterrupt and SystemExit
 """
-By default, different backends handle the Ctrl+C (or Ctrl+Break on Windows) key combination and external termination (KeyboardInterrupt and SystemExit, respectively) differently: Trio raises the relevant exception inside the application while asyncio shuts down all the tasks and exits. If you need to do your own cleanup in these situations, you will need to install a signal handler:"""
+By default, different backends handle the Ctrl+C (or Ctrl+Break on Windows) key combination and external termination 
+(KeyboardInterrupt and SystemExit, respectively) differently: Trio raises the relevant exception inside the 
+application while asyncio shuts down all the tasks and exits. If you need to do your own cleanup in these situations, 
+you will need to install a signal handler:"""
 
 import signal
 
@@ -47,5 +54,7 @@ async def main():
         tg.start_soon(signal_handler, tg.cancel_scope)
         ...  # proceed with starting the actual application logic
 
+
 run(main)
-"""Note Windows does not support the SIGTERM signal so if you need a mechanism for graceful shutdown on Windows, you will have to find another way."""
+"""Note Windows does not support the SIGTERM signal so if you need a mechanism for graceful shutdown on Windows, 
+you will have to find another way."""

@@ -11,6 +11,7 @@ dir = get_dir()
 key_path = dir / "key.pem"
 cert_path = dir / "cert.pem"
 
+
 async def main_client():
     # These two steps are only required for certificates that are not trusted by the
     # installed CA certificates on your machine, so you can skip this part if you
@@ -25,5 +26,5 @@ async def main_client():
         response = await client.receive()
         print(response)
 
-run(main_client)
 
+run(main_client)

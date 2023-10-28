@@ -1,5 +1,6 @@
 """
-A stapled stream combines any mutually compatible receive and send stream together, forming a single bidirectional stream.
+A stapled stream combines any mutually compatible receive and send stream together, forming a single bidirectional
+stream.
 
 It comes in two variants:
 
@@ -9,5 +10,3 @@ StapledObjectStream (combines an ObjectReceiveStream with a compatible ObjectSen
 """
 from anyio.abc import ByteReceiveStream, ByteSendStream, ObjectSendStream, ObjectReceiveStream
 from anyio.streams.stapled import StapledByteStream, StapledObjectStream
-
-

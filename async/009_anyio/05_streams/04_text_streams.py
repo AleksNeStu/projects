@@ -2,7 +2,6 @@
 Text streams wrap existing receive/send streams and encode/decode strings to bytes and vice versa.
 """
 
-
 from anyio import run, create_memory_object_stream
 from anyio.streams.text import TextReceiveStream, TextSendStream
 
@@ -30,7 +29,6 @@ async def main2():
     await text_send.send('åäö')
     result = await text_receive.receive()
     assert result == 'åäö'  # encoded
-
 
 
 run(main)

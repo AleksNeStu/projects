@@ -8,19 +8,37 @@ tags: []
 author: 
 
 ---
+
 # Cancellation and timeouts — AnyIO 4.0.0 documentation
 ---
-The ability to cancel tasks is the foremost advantage of the asynchronous programming model. Threads, on the other hand, cannot be forcibly killed and shutting them down will require perfect cooperation from the code running in them.
+The ability to cancel tasks is the foremost advantage of the asynchronous programming model. Threads, on the other hand,
+cannot be forcibly killed and shutting them down will require perfect cooperation from the code running in them.
 
-Cancellation in AnyIO follows the model established by the [Trio](https://trio.readthedocs.io/en/latest/reference-core.html#cancellation-and-timeouts) framework. This means that cancellation of tasks is done via so called _cancel scopes_. Cancel scopes are used as context managers and can be nested. Cancelling a cancel scope cancels all cancel scopes nested within it. If a task is waiting on something, it is cancelled immediately. If the task is just starting, it will run until it first tries to run an operation requiring waiting, such as [`sleep()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.sleep "anyio.sleep").
+Cancellation in AnyIO follows the model established by
+the [Trio](https://trio.readthedocs.io/en/latest/reference-core.html#cancellation-and-timeouts) framework. This means
+that cancellation of tasks is done via so called _cancel scopes_. Cancel scopes are used as context managers and can be
+nested. Cancelling a cancel scope cancels all cancel scopes nested within it. If a task is waiting on something, it is
+cancelled immediately. If the task is just starting, it will run until it first tries to run an operation requiring
+waiting, such as [`sleep()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.sleep "anyio.sleep").
 
 A task group contains its own cancel scope. The entire task group can be cancelled by cancelling this scope.
 
 ## Timeouts[¶](https://anyio.readthedocs.io/en/stable/cancellation.html#timeouts "Link to this heading")
 
-Networked operations can often take a long time, and you usually want to set up some kind of a timeout to ensure that your application doesn’t stall forever. There are two principal ways to do this: [`move_on_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.move_on_after "anyio.move_on_after") and [`fail_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.fail_after "anyio.fail_after"). Both are used as synchronous context managers. The difference between these two is that the former simply exits the context block prematurely on a timeout, while the other raises a [`TimeoutError`](https://docs.python.org/3/library/exceptions.html#TimeoutError "(in Python v3.11)").
+Networked operations can often take a long time, and you usually want to set up some kind of a timeout to ensure that
+your application doesn’t stall forever. There are two principal ways to do
+this: [`move_on_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.move_on_after "anyio.move_on_after")
+and [`fail_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.fail_after "anyio.fail_after"). Both are used
+as synchronous context managers. The difference between these two is that the former simply exits the context block
+prematurely on a timeout, while the other raises
+a [`TimeoutError`](https://docs.python.org/3/library/exceptions.html#TimeoutError "(in Python v3.11)").
 
-Both methods create a new cancel scope, and you can check the deadline by accessing the [`deadline`](https://anyio.readthedocs.io/en/stable/api.html#anyio.CancelScope.deadline "anyio.CancelScope.deadline") attribute. Note, however, that an outer cancel scope may have an earlier deadline than your current cancel scope. To check the actual deadline, you can use the [`current_effective_deadline()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.current_effective_deadline "anyio.current_effective_deadline") function.
+Both methods create a new cancel scope, and you can check the deadline by accessing
+the [`deadline`](https://anyio.readthedocs.io/en/stable/api.html#anyio.CancelScope.deadline "anyio.CancelScope.deadline")
+attribute. Note, however, that an outer cancel scope may have an earlier deadline than your current cancel scope. To
+check the actual deadline, you can use
+the [`current_effective_deadline()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.current_effective_deadline "anyio.current_effective_deadline")
+function.
 
 Here’s how you typically use timeouts:
 
@@ -44,11 +62,15 @@ run(main)
 
 Note
 
-It’s recommended not to directly cancel a scope from [`fail_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.fail_after "anyio.fail_after"), as that may currently result in [`TimeoutError`](https://docs.python.org/3/library/exceptions.html#TimeoutError "(in Python v3.11)") being erroneously raised if exiting the scope is delayed long enough for the deadline to be exceeded.
+It’s recommended not to directly cancel a scope
+from [`fail_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.fail_after "anyio.fail_after"), as that may
+currently result in [`TimeoutError`](https://docs.python.org/3/library/exceptions.html#TimeoutError "(in Python v3.11)")
+being erroneously raised if exiting the scope is delayed long enough for the deadline to be exceeded.
 
 ## Shielding[¶](https://anyio.readthedocs.io/en/stable/cancellation.html#shielding "Link to this heading")
 
-There are cases where you want to shield your task from cancellation, at least temporarily. The most important such use case is performing shutdown procedures on asynchronous resources.
+There are cases where you want to shield your task from cancellation, at least temporarily. The most important such use
+case is performing shutdown procedures on asynchronous resources.
 
 To accomplish this, open a new cancel scope with the `shield=True` argument:
 
@@ -75,7 +97,11 @@ run(main)
 
 ```
 
-The shielded block will be exempt from cancellation except when the shielded block itself is being cancelled. Shielding a cancel scope is often best combined with [`move_on_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.move_on_after "anyio.move_on_after") or [`fail_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.fail_after "anyio.fail_after"), both of which also accept `shield=True`.
+The shielded block will be exempt from cancellation except when the shielded block itself is being cancelled. Shielding
+a cancel scope is often best combined
+with [`move_on_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.move_on_after "anyio.move_on_after")
+or [`fail_after()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.fail_after "anyio.fail_after"), both of which
+also accept `shield=True`.
 
 ## Finalization[¶](https://anyio.readthedocs.io/en/stable/cancellation.html#finalization "Link to this heading")
 
@@ -91,7 +117,10 @@ async def do_something():
 
 ```
 
-In some specific cases, you might only want to catch the cancellation exception. This is tricky because each async framework has its own exception class for that and AnyIO cannot control which exception is raised in the task when it’s cancelled. To work around that, AnyIO provides a way to retrieve the exception class specific to the currently running async framework, using:func:~get\_cancelled\_exc\_class:
+In some specific cases, you might only want to catch the cancellation exception. This is tricky because each async
+framework has its own exception class for that and AnyIO cannot control which exception is raised in the task when it’s
+cancelled. To work around that, AnyIO provides a way to retrieve the exception class specific to the currently running
+async framework, using:func:~get\_cancelled\_exc\_class:
 
 ```
 from anyio import get_cancelled_exc_class
@@ -108,9 +137,11 @@ async def do_something():
 
 Warning
 
-Always reraise the cancellation exception if you catch it. Failing to do so may cause undefined behavior in your application.
+Always reraise the cancellation exception if you catch it. Failing to do so may cause undefined behavior in your
+application.
 
-If you need to use `await` during finalization, you need to enclose it in a shielded cancel scope, or the operation will be cancelled immediately since it’s in an already cancelled scope:
+If you need to use `await` during finalization, you need to enclose it in a shielded cancel scope, or the operation will
+be cancelled immediately since it’s in an already cancelled scope:
 
 ```
 async def do_something():
@@ -126,16 +157,18 @@ async def do_something():
 
 ## Avoiding cancel scope stack corruption[¶](https://anyio.readthedocs.io/en/stable/cancellation.html#avoiding-cancel-scope-stack-corruption "Link to this heading")
 
-When using cancel scopes, it is important that they are entered and exited in LIFO (last in, first out) order within each task. This is usually not an issue since cancel scopes are normally used as context managers. However, in certain situations, cancel scope stack corruption might still occur:
+When using cancel scopes, it is important that they are entered and exited in LIFO (last in, first out) order within
+each task. This is usually not an issue since cancel scopes are normally used as context managers. However, in certain
+situations, cancel scope stack corruption might still occur:
 
--   Manually calling `CancelScope.__enter__()` and `CancelScope.__exit__()`, usually from another context manager class, in the wrong order
-    
--   Using cancel scopes with `[Async]ExitStack` in a manner that couldn’t be achieved by nesting them as context managers
-    
--   Using the low level coroutine protocol to execute parts of the coroutine function in different cancel scopes
-    
--   Yielding in an async generator while enclosed in a cancel scope
-    
+- Manually calling `CancelScope.__enter__()` and `CancelScope.__exit__()`, usually from another context manager class,
+  in the wrong order
+
+- Using cancel scopes with `[Async]ExitStack` in a manner that couldn’t be achieved by nesting them as context managers
+
+- Using the low level coroutine protocol to execute parts of the coroutine function in different cancel scopes
+
+- Yielding in an async generator while enclosed in a cancel scope
 
 Remember that task groups contain their own cancel scopes so the same list of risky situations applies to them too.
 
@@ -150,9 +183,14 @@ async def some_generator():
 
 ```
 
-The problem with this code is that it violates structural concurrency: what happens if the spawned task raises an exception? The host task would be cancelled as a result, but the host task might be long gone by the time that happens. Even if it weren’t, any enclosing `try...except` in the generator would not be triggered. Unfortunately there is currently no way to automatically detect this condition in AnyIO, so in practice you may simply experience some weird behavior in your application as a consequence of running code like above.
+The problem with this code is that it violates structural concurrency: what happens if the spawned task raises an
+exception? The host task would be cancelled as a result, but the host task might be long gone by the time that happens.
+Even if it weren’t, any enclosing `try...except` in the generator would not be triggered. Unfortunately there is
+currently no way to automatically detect this condition in AnyIO, so in practice you may simply experience some weird
+behavior in your application as a consequence of running code like above.
 
-Depending on how they are used, this pattern is, however, _usually_ safe to use in asynchronous context managers, so long as you make sure that the same host task keeps running throughout the entire enclosed code block:
+Depending on how they are used, this pattern is, however, _usually_ safe to use in asynchronous context managers, so
+long as you make sure that the same host task keeps running throughout the entire enclosed code block:
 
 ```
 # Okay in most cases!
@@ -164,9 +202,16 @@ async def some_context_manager():
 
 ```
 
-Prior to AnyIO 3.6, this usage pattern was also invalid in pytest’s asynchronous generator fixtures. Starting from 3.6, however, each async generator fixture is run from start to end in the same task, making it possible to have task groups or cancel scopes safely straddle the `yield`.
+Prior to AnyIO 3.6, this usage pattern was also invalid in pytest’s asynchronous generator fixtures. Starting from 3.6,
+however, each async generator fixture is run from start to end in the same task, making it possible to have task groups
+or cancel scopes safely straddle the `yield`.
 
-When you’re implementing the async context manager protocol manually and your async context manager needs to use other context managers, you may find it necessary to call their `__aenter__()` and `__aexit__()` directly. In such cases, it is absolutely vital to ensure that their `__aexit__()` methods are called in the exact reverse order of the `__aenter__()` calls. To this end, you may find the [`AsyncExitStack`](https://docs.python.org/3/library/contextlib.html#contextlib.AsyncExitStack "(in Python v3.11)") class very useful:
+When you’re implementing the async context manager protocol manually and your async context manager needs to use other
+context managers, you may find it necessary to call their `__aenter__()` and `__aexit__()` directly. In such cases, it
+is absolutely vital to ensure that their `__aexit__()` methods are called in the exact reverse order of
+the `__aenter__()` calls. To this end, you may find
+the [`AsyncExitStack`](https://docs.python.org/3/library/contextlib.html#contextlib.AsyncExitStack "(in Python v3.11)")
+class very useful:
 
 ```
 from contextlib import AsyncExitStack

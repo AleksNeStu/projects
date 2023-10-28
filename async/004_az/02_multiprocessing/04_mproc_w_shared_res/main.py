@@ -34,7 +34,9 @@ if __name__ == '__main__':
 
     print(shared_list)
 
+# What we will be doing now is launching 100 processes in parallel on as many threads as we have CPUs. Each process
+# launches worker.py as a Python subprocess. As we have seen above, the worker script sleeps for a given number of
+# seconds.
 
-# What we will be doing now is launching 100 processes in parallel on as many threads as we have CPUs. Each process launches worker.py as a Python subprocess. As we have seen above, the worker script sleeps for a given number of seconds.
-
-# This is only an example meant to show that we need to reserve exclusive access to a resource in both read and write mode if what we write into the shared resource is dependent on what the shared resource already contains.
+# This is only an example meant to show that we need to reserve exclusive access to a resource in both read and write
+# mode if what we write into the shared resource is dependent on what the shared resource already contains.

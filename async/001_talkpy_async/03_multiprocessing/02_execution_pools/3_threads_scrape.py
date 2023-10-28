@@ -5,6 +5,7 @@ from concurrent.futures.thread import ThreadPoolExecutor as PoolExecutor
 import bs4
 import requests
 
+
 # 0.6144 sec
 
 def main():

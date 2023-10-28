@@ -3,6 +3,7 @@
 from time import sleep
 import threading as th
 
+
 # custom thread class
 class CustomThread(th.Thread):
     # override the run function
@@ -13,11 +14,13 @@ class CustomThread(th.Thread):
         # display a message
         print('From another thread')
 
+
 # create the thread
 thread = CustomThread()
 # start the thread
 # The code will then run in a new thread as soon as the operating system can schedule it.
-# create an instance of our CustomThread class and call the start() function to begin executing our run() function in another thread. Internally, the start() function will call the run() function.
+# create an instance of our CustomThread class and call the start() function to begin executing our run() function in
+# another thread. Internally, the start() function will call the run() function.
 thread.start()
 # wait for the thread to finish
 print('Waiting for the thread to finish')

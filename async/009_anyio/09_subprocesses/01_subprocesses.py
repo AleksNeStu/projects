@@ -1,7 +1,10 @@
 """Using subprocesses
-AnyIO allows you to run arbitrary executables in subprocesses, either as a one-shot call or by opening a process handle for you that gives you more control over the subprocess.
+AnyIO allows you to run arbitrary executables in subprocesses, either as a one-shot call or by opening a process
+handle for you that gives you more control over the subprocess.
 
-You can either give the command as a string, in which case it is passed to your default shell (equivalent to shell=True in subprocess.run()), or as a sequence of strings (shell=False) in which case the executable is the first item in the sequence and the rest are arguments passed to it.
+You can either give the command as a string, in which case it is passed to your default shell (equivalent to
+shell=True in subprocess.run()), or as a sequence of strings (shell=False) in which case the executable is the first
+item in the sequence and the rest are arguments passed to it.
 
 Running one-shot commands
 To run an external command with one call, use run_process():
@@ -13,6 +16,7 @@ async def main():
     result = await run_process('ps')
     print(result.stdout.decode())
 
+
 run(main)
 # The snippet above runs the ps command within a shell. To run it directly:
 
@@ -23,9 +27,11 @@ async def main():
     result = await run_process(['ps'])
     print(result.stdout.decode())
 
+
 run(main)
 """Working with processes
-    When you have more complex requirements for your interaction with subprocesses, you can launch one with open_process():
+    When you have more complex requirements for your interaction with subprocesses, you can launch one with 
+    open_process():
 """
 from anyio import open_process, run
 from anyio.streams.text import TextReceiveStream
@@ -36,11 +42,13 @@ async def main():
         async for text in TextReceiveStream(process.stdout):
             print(text)
 
+
 run(main)
 """See the API documentation of Process for more information.
 
 Running functions in worker processes
-When you need to run CPU intensive code, worker processes are better than threads because current implementations of Python cannot run Python code in multiple threads at once.
+When you need to run CPU intensive code, worker processes are better than threads because current implementations of 
+Python cannot run Python code in multiple threads at once.
 
 Exceptions to this rule are:
 
@@ -48,7 +56,8 @@ Blocking I/O operations
 
 C extension code that explicitly releases the Global Interpreter Lock
 
-If the code you wish to run does not belong in this category, it’s best to use worker processes instead in order to take advantage of multiple CPU cores. This is done by using to_process.run_sync():"""
+If the code you wish to run does not belong in this category, it’s best to use worker processes instead in order to 
+take advantage of multiple CPU cores. This is done by using to_process.run_sync():"""
 
 import time
 
@@ -59,9 +68,11 @@ def cpu_intensive_function(arg1, arg2):
     time.sleep(1)
     return arg1 + arg2
 
+
 async def main():
     result = await to_process.run_sync(cpu_intensive_function, 'Hello, ', 'world!')
     print(result)
+
 
 # This check is important when the application uses run_sync_in_process()
 if __name__ == '__main__':
@@ -81,7 +92,8 @@ Even cancellable=False runs can be cancelled before the request has been sent to
 
 If a cancellable call is cancelled during execution on the worker process, the worker process will be killed
 
-The worker process imports the parent’s __main__ module, so guarding for any import time side effects using if __name__ == '__main__': is required to avoid infinite recursion
+The worker process imports the parent’s __main__ module, so guarding for any import time side effects using if 
+__name__ == '__main__': is required to avoid infinite recursion
 
 sys.stdin and sys.stdout, sys.stderr are redirected to /dev/null so print() and input() won’t work
 

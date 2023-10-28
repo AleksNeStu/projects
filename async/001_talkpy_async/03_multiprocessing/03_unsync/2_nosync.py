@@ -53,5 +53,6 @@ def wait_some():
 
 if __name__ == '__main__':
     from codetiming import Timer
+
     with Timer():
         main()

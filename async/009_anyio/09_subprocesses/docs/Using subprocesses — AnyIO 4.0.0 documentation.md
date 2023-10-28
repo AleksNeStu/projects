@@ -8,15 +8,22 @@ tags: []
 author: 
 
 ---
+
 # Using subprocesses — AnyIO 4.0.0 documentation
 ---
-AnyIO allows you to run arbitrary executables in subprocesses, either as a one-shot call or by opening a process handle for you that gives you more control over the subprocess.
+AnyIO allows you to run arbitrary executables in subprocesses, either as a one-shot call or by opening a process handle
+for you that gives you more control over the subprocess.
 
-You can either give the command as a string, in which case it is passed to your default shell (equivalent to `shell=True` in [`subprocess.run()`](https://docs.python.org/3/library/subprocess.html#subprocess.run "(in Python v3.11)")), or as a sequence of strings (`shell=False`) in which case the executable is the first item in the sequence and the rest are arguments passed to it.
+You can either give the command as a string, in which case it is passed to your default shell (equivalent
+to `shell=True`
+in [`subprocess.run()`](https://docs.python.org/3/library/subprocess.html#subprocess.run "(in Python v3.11)")), or as a
+sequence of strings (`shell=False`) in which case the executable is the first item in the sequence and the rest are
+arguments passed to it.
 
 ## Running one-shot commands[¶](https://anyio.readthedocs.io/en/stable/subprocesses.html#running-one-shot-commands "Link to this heading")
 
-To run an external command with one call, use [`run_process()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.run_process "anyio.run_process"):
+To run an external command with one call,
+use [`run_process()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.run_process "anyio.run_process"):
 
 ```
 from anyio import run_process, run
@@ -46,7 +53,8 @@ run(main)
 
 ## Working with processes[¶](https://anyio.readthedocs.io/en/stable/subprocesses.html#working-with-processes "Link to this heading")
 
-When you have more complex requirements for your interaction with subprocesses, you can launch one with [`open_process()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.open_process "anyio.open_process"):
+When you have more complex requirements for your interaction with subprocesses, you can launch one
+with [`open_process()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.open_process "anyio.open_process"):
 
 ```
 from anyio import open_process, run
@@ -62,20 +70,24 @@ run(main)
 
 ```
 
-See the API documentation of [`Process`](https://anyio.readthedocs.io/en/stable/api.html#anyio.abc.Process "anyio.abc.Process") for more information.
+See the API documentation
+of [`Process`](https://anyio.readthedocs.io/en/stable/api.html#anyio.abc.Process "anyio.abc.Process") for more
+information.
 
 ## Running functions in worker processes[¶](https://anyio.readthedocs.io/en/stable/subprocesses.html#running-functions-in-worker-processes "Link to this heading")
 
-When you need to run CPU intensive code, worker processes are better than threads because current implementations of Python cannot run Python code in multiple threads at once.
+When you need to run CPU intensive code, worker processes are better than threads because current implementations of
+Python cannot run Python code in multiple threads at once.
 
 Exceptions to this rule are:
 
-1.  Blocking I/O operations
-    
-2.  C extension code that explicitly releases the Global Interpreter Lock
-    
+1. Blocking I/O operations
 
-If the code you wish to run does not belong in this category, it’s best to use worker processes instead in order to take advantage of multiple CPU cores. This is done by using [`to_process.run_sync()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.to_process.run_sync "anyio.to_process.run_sync"):
+2. C extension code that explicitly releases the Global Interpreter Lock
+
+If the code you wish to run does not belong in this category, it’s best to use worker processes instead in order to take
+advantage of multiple CPU cores. This is done by
+using [`to_process.run_sync()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.to_process.run_sync "anyio.to_process.run_sync"):
 
 ```
 import time
@@ -101,25 +113,30 @@ if __name__ == '__main__':
 
 There are some limitations regarding the arguments and return values passed:
 
--   the arguments must be pickleable (using the highest available protocol)
-    
--   the return value must be pickleable (using the highest available protocol)
-    
--   the target callable must be importable (lambdas and inner functions won’t work)
-    
+- the arguments must be pickleable (using the highest available protocol)
+
+- the return value must be pickleable (using the highest available protocol)
+
+- the target callable must be importable (lambdas and inner functions won’t work)
 
 Other considerations:
 
--   Even `cancellable=False` runs can be cancelled before the request has been sent to the worker process
-    
--   If a cancellable call is cancelled during execution on the worker process, the worker process will be killed
-    
--   The worker process imports the parent’s `__main__` module, so guarding for any import time side effects using `if __name__ == '__main__':` is required to avoid infinite recursion
-    
--   `sys.stdin` and `sys.stdout`, `sys.stderr` are redirected to `/dev/null` so [`print()`](https://docs.python.org/3/library/functions.html#print "(in Python v3.11)") and [`input()`](https://docs.python.org/3/library/functions.html#input "(in Python v3.11)") won’t work
-    
--   Worker processes terminate after 5 minutes of inactivity, or when the event loop is finished
-    
-    -   On asyncio, either [`asyncio.run()`](https://docs.python.org/3/library/asyncio-runner.html#asyncio.run "(in Python v3.11)") or [`anyio.run()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.run "anyio.run") must be used for proper cleanup to happen
-        
--   Multiprocessing-style synchronization primitives are currently not available
+- Even `cancellable=False` runs can be cancelled before the request has been sent to the worker process
+
+- If a cancellable call is cancelled during execution on the worker process, the worker process will be killed
+
+- The worker process imports the parent’s `__main__` module, so guarding for any import time side effects
+  using `if __name__ == '__main__':` is required to avoid infinite recursion
+
+- `sys.stdin` and `sys.stdout`, `sys.stderr` are redirected to `/dev/null`
+  so [`print()`](https://docs.python.org/3/library/functions.html#print "(in Python v3.11)")
+  and [`input()`](https://docs.python.org/3/library/functions.html#input "(in Python v3.11)") won’t work
+
+- Worker processes terminate after 5 minutes of inactivity, or when the event loop is finished
+
+    - On asyncio,
+      either [`asyncio.run()`](https://docs.python.org/3/library/asyncio-runner.html#asyncio.run "(in Python v3.11)")
+      or [`anyio.run()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.run "anyio.run") must be used for proper
+      cleanup to happen
+
+- Multiprocessing-style synchronization primitives are currently not available

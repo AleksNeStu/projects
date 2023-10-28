@@ -14,19 +14,19 @@ Twisted is an event-based framework for internet applications,
 supporting Python 3.6+. It includes modules for many different purposes,
 including the following:
 
--   `twisted.web`: HTTP clients and servers, HTML templating, and a WSGI
-    server
--   `twisted.conch`: SSHv2 and Telnet clients and servers and terminal
-    emulators
--   `twisted.words`: Clients and servers for IRC, XMPP, and other IM
-    protocols
--   `twisted.mail`: IMAPv4, POP3, SMTP clients and servers
--   `twisted.positioning`: Tools for communicating with NMEA-compatible
-    GPS receivers
--   `twisted.names`: DNS client and tools for making your own DNS
-    servers
--   `twisted.trial`: A unit testing framework that integrates well with
-    Twisted-based code.
+- `twisted.web`: HTTP clients and servers, HTML templating, and a WSGI
+  server
+- `twisted.conch`: SSHv2 and Telnet clients and servers and terminal
+  emulators
+- `twisted.words`: Clients and servers for IRC, XMPP, and other IM
+  protocols
+- `twisted.mail`: IMAPv4, POP3, SMTP clients and servers
+- `twisted.positioning`: Tools for communicating with NMEA-compatible
+  GPS receivers
+- `twisted.names`: DNS client and tools for making your own DNS
+  servers
+- `twisted.trial`: A unit testing framework that integrates well with
+  Twisted-based code.
 
 Twisted supports all major system event loops \-- `select` (all
 platforms), `poll` (most POSIX platforms), `epoll` (Linux), `kqueue`
@@ -72,11 +72,11 @@ the `TWISTED_REACTOR` environment variable:
 
 Some of these tests may fail if you:
 
--   don\'t have the dependencies required for a particular subsystem
-    installed,
--   have a firewall blocking some ports (or things like Multicast, which
-    Linux NAT has shown itself to do), or
--   run them as root.
+- don\'t have the dependencies required for a particular subsystem
+  installed,
+- have a firewall blocking some ports (or things like Multicast, which
+  Linux NAT has shown itself to do), or
+- run them as root.
 
 ## Static Code Checkers
 

@@ -1,10 +1,12 @@
 """
-This module provides APIs to manage, store, and access context-local state. The ContextVar class is used to declare and work with Context Variables. The copy_context() function and the Context class should be used to manage the current context in asynchronous frameworks.
+This module provides APIs to manage, store, and access context-local state. The ContextVar class is used to declare
+and work with Context Variables. The copy_context() function and the Context class should be used to manage the
+current context in asynchronous frameworks.
 
-Context managers that have state should use Context Variables instead of threading.local() to prevent their state from bleeding to other code unexpectedly, when used in concurrent code.
+Context managers that have state should use Context Variables instead of threading.local() to prevent their state
+from bleeding to other code unexpectedly, when used in concurrent code.
 """
 from contextvars import ContextVar, Context, copy_context
-
 
 var: ContextVar[int] = ContextVar('var', default=42)
 

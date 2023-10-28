@@ -31,7 +31,7 @@ async def generate_data(num: int, data: asyncio.Queue):
     for idx in range(1, num + 1):
         item = idx * idx
         await data.put((item, datetime.datetime.now()))
-        await asyncio.sleep(0) # sleep 0
+        await asyncio.sleep(0)  # sleep 0
 
 
 async def process_data(num: int, data: asyncio.Queue):
@@ -39,7 +39,7 @@ async def process_data(num: int, data: asyncio.Queue):
     while processed < num:
         await data.get()
         processed += 1
-        await asyncio.sleep(0) # sleep 0
+        await asyncio.sleep(0)  # sleep 0
 
 
 if __name__ == '__main__':

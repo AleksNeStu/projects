@@ -2,6 +2,7 @@
 import concurrent.futures as ft
 import settings
 from codetiming import Timer
+
 t = Timer(text=f"{__file__}: {{:.6f}}")
 
 
@@ -11,6 +12,7 @@ def task(value):
     # return a result, if needed
     res = (f' [done {value}] ')
     return res
+
 
 # protect the entry point
 if __name__ == '__main__':
@@ -25,7 +27,6 @@ if __name__ == '__main__':
             # process results as tasks are completed
             for future in ft.as_completed(futures):
                 print(future._result)
-
 
         # Example 2
         t.text = f'{t.text} ex2'

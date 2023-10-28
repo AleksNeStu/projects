@@ -375,6 +375,7 @@ close something properly, you usually want to do these steps in order:
 1. Explicitly mark the object as closed, so that any new attempts to use it will abort before they start.
 
 2.
+
 Call [`notify_closing`](https://trio.readthedocs.io/en/stable/reference-lowlevel.html#trio.lowlevel.notify_closing "trio.lowlevel.notify_closing")
 to wake up any already-existing users.
 
@@ -1390,8 +1391,9 @@ assuming your host loop is implemented efficiently), but it’s not free.
 But, there’s a nice optimization we can make: we only _need_ the thread when our `sleep_until_something_happens()` call
 actually sleeps, that is, when the Trio part of your program is idle and has nothing to do. So before we switch into the
 worker thread, we double-check whether we’re idle, and if not, then we skip the worker thread and jump directly to step
+
 2. This means that your app only pays the extra thread-switching penalty at moments when it would otherwise be sleeping,
-so it should have minimal effect on your app’s overall performance.
+   so it should have minimal effect on your app’s overall performance.
 
 The total overhead will depend on your host loop, your platform, your application, etc. But we expect that in most
 cases, apps running in guest mode should only be 5-10% slower than the same code

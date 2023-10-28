@@ -7,6 +7,7 @@ async def child1():
     print("  child1: exiting!")
     return 1
 
+
 async def child2():
     print("  child2: started! sleeping now...")
     await trio.sleep(2)
@@ -31,6 +32,7 @@ async def parent():
 We want to watch trio.run() at work, which we can do by writing a class we’ll call Tracer, which implements Trio’s
 Instrument interface. Its job is to log various events as they happen.
 """
+
 
 class Tracer(trio.abc.Instrument):
     """The interface for run loop instrumentation.
@@ -83,15 +85,31 @@ trio.run(parent, instruments=[Tracer()])
 """
 in the middle you can see that Trio has created a task for the __main__.parent function, and “scheduled” it (i.e., 
 made a note that it should be run soon).
-Each task runs until it hits the call to trio.sleep(), and then suddenly we’re back in trio.run() deciding what to run next. How does this happen? The secret is that trio.run() and trio.sleep() work together to make it happen: trio.sleep() has access to some special magic that lets it pause itself, so it sends a note to trio.run() requesting to be woken again after 1 second, and then suspends the task. 
- And once the task is suspended, Python gives control back to trio.run(), which decides what to do next. (If this sounds similar to the way that generators can suspend execution by doing a yield
+Each task runs until it hits the call to trio.sleep(), and then suddenly we’re back in trio.run() deciding what to 
+run next. How does this happen? The secret is that trio.run() and trio.sleep() work together to make it happen: 
+trio.sleep() has access to some special magic that lets it pause itself, so it sends a note to trio.run() requesting 
+to be woken again after 1 second, and then suspends the task. 
+ And once the task is suspended, Python gives control back to trio.run(), which decides what to do next. (If this 
+ sounds similar to the way that generators can suspend execution by doing a yield
 
-yield, then that’s not a coincidence: inside the Python interpreter, there’s a lot of overlap between the implementation of generators and async functions.)
+yield, then that’s not a coincidence: inside the Python interpreter, there’s a lot of overlap between the 
+implementation of generators and async functions.)
 
 
-You might wonder whether you can mix-and-match primitives from different async libraries. For example, could we use trio.run() together with asyncio.sleep()? The answer is no, we can’t, and the paragraph above explains why: the two sides of our async sandwich have a private language they use to talk to each other, and different libraries use different languages. So if you try to call asyncio.sleep() from inside a trio.run(), then Trio will get very confused indeed and probably blow up in some dramatic way.
+You might wonder whether you can mix-and-match primitives from different async libraries. For example, could we use 
+trio.run() together with asyncio.sleep()? The answer is no, we can’t, and the paragraph above explains why: the two 
+sides of our async sandwich have a private language they use to talk to each other, and different libraries use 
+different languages. So if you try to call asyncio.sleep() from inside a trio.run(), then Trio will get very confused 
+indeed and probably blow up in some dramatic way.
 
-That was a lot of text, but again, you don’t need to understand everything here to use Trio – in fact, Trio goes to great lengths to make each task feel like it executes in a simple, linear way. (Just like your operating system goes to great lengths to make it feel like your single-threaded code executes in a simple linear way, even though under the covers the operating system juggles between different threads and processes in essentially the same way Trio does.) But it is useful to have a rough model in your head of how the code you write is actually executed, and – most importantly – the consequences of that for parallelism.
+That was a lot of text, but again, you don’t need to understand everything here to use Trio – in fact, Trio goes to 
+great lengths to make each task feel like it executes in a simple, linear way. (Just like your operating system goes 
+to great lengths to make it feel like your single-threaded code executes in a simple linear way, even though under 
+the covers the operating system juggles between different threads and processes in essentially the same way Trio 
+does.) But it is useful to have a rough model in your head of how the code you write is actually executed, 
+and – most importantly – the consequences of that for parallelism.
 
-Alternatively, if this has just whetted your appetite and you want to know more about how async/await works internally, then this blog post is a good deep dive, or check out this great walkthrough to see how to build a simple async I/O framework from the ground up.
+Alternatively, if this has just whetted your appetite and you want to know more about how async/await works 
+internally, then this blog post is a good deep dive, or check out this great walkthrough to see how to build a simple 
+async I/O framework from the ground up.
 """

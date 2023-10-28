@@ -23,7 +23,8 @@ with start_blocking_portal() as portal:
 """
 Cancelling tasks spawned this way can be done by cancelling the returned Future.
 
-Blocking portals also have a method similar to TaskGroup.start(): start_task() which, like its counterpart, waits for the callable to signal readiness by calling task_status.started():
+Blocking portals also have a method similar to TaskGroup.start(): start_task() which, like its counterpart, 
+waits for the callable to signal readiness by calling task_status.started():
 """
 from anyio import sleep, TASK_STATUS_IGNORED
 from anyio.from_thread import start_blocking_portal

@@ -19,4 +19,7 @@ if __name__ == '__main__':
         print(e)
 
 # The shared resource
-# Here is where the shared resource come into play. At the end of each “computation”, the worker process accesses this shared resource in both read and write mode. For the purpose of this example, let us imagine the shared resource is a list of results. The worker process needs to read the resource and update it with a certain value only if the value is not yet present in the list.
+# Here is where the shared resource come into play. At the end of each “computation”, the worker process accesses
+# this shared resource in both read and write mode. For the purpose of this example, let us imagine the shared
+# resource is a list of results. The worker process needs to read the resource and update it with a certain value
+# only if the value is not yet present in the list.

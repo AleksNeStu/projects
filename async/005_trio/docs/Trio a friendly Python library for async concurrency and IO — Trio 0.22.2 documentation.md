@@ -41,7 +41,7 @@ Vital statistics:
 
     - Windows, macOS, Linux (glibc and musl), FreeBSD
 
-    Other environments might also work; give it a try and see.
+  Other environments might also work; give it a try and see.
 
 - Install: `python3 -m pip install -U trio` (or on Windows, maybe `py -3 -m pip install -U trio`). No compiler needed.
 

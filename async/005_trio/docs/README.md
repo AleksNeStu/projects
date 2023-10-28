@@ -12,7 +12,8 @@
 
 # Trio -- a friendly Python library for async concurrency and I/O
 
-![image](https://raw.githubusercontent.com/python-trio/trio/9b0bec646a31e0d0f67b8b6ecc6939726faf3e17/logo/logo-with-background.svg){.align-right
+![image](https://raw.githubusercontent.com/python-trio/trio/9b0bec646a31e0d0f67b8b6ecc6939726faf3e17/logo/logo-with-background.svg)
+{.align-right
 width="200px"}
 
 The Trio project aims to produce a production-quality, [permissively

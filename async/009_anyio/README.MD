@@ -1,7 +1,6 @@
 https://github.com/agronholm/anyio
 https://anyio.readthedocs.io/en/stable/
 
-
 - Task groups (nurseries in trio terminology)
 - High-level networking (TCP, UDP and UNIX sockets)
 - Happy eyeballs algorithm for TCP connections (more robust than that of asyncio on Python 3.8)

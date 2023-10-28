@@ -31,22 +31,22 @@ View full documentation at: <https://anyio.readthedocs.io/>
 
 AnyIO offers the following functionality:
 
--   Task groups
-    ([nurseries](https://trio.readthedocs.io/en/stable/reference-core.html#nurseries-and-spawning)
-    in trio terminology)
--   High-level networking (TCP, UDP and UNIX sockets)
-    -   [Happy eyeballs](https://en.wikipedia.org/wiki/Happy_Eyeballs)
-        algorithm for TCP connections (more robust than that of asyncio
-        on Python 3.8)
-    -   async/await style UDP sockets (unlike asyncio where you still
-        have to use Transports and Protocols)
--   A versatile API for byte streams and object streams
--   Inter-task synchronization and communication (locks, conditions,
-    events, semaphores, object streams)
--   Worker threads
--   Subprocesses
--   Asynchronous file I/O (using worker threads)
--   Signal handling
+- Task groups
+  ([nurseries](https://trio.readthedocs.io/en/stable/reference-core.html#nurseries-and-spawning)
+  in trio terminology)
+- High-level networking (TCP, UDP and UNIX sockets)
+    - [Happy eyeballs](https://en.wikipedia.org/wiki/Happy_Eyeballs)
+      algorithm for TCP connections (more robust than that of asyncio
+      on Python 3.8)
+    - async/await style UDP sockets (unlike asyncio where you still
+      have to use Transports and Protocols)
+- A versatile API for byte streams and object streams
+- Inter-task synchronization and communication (locks, conditions,
+  events, semaphores, object streams)
+- Worker threads
+- Subprocesses
+- Asynchronous file I/O (using worker threads)
+- Signal handling
 
 AnyIO also comes with its own
 [pytest](https://docs.pytest.org/en/latest/) plugin which also supports

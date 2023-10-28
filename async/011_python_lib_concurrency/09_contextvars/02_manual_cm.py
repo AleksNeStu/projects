@@ -7,6 +7,7 @@ print(list(ctx.items()))
 var1 = ContextVar('var')
 var1.set('spam')
 
+
 def main1():
     # 'var' was set to 'spam' before
     # calling 'copy_context()' and 'ctx.run(main)', so:
@@ -16,6 +17,7 @@ def main1():
 
     # Now, after setting 'var' to 'ham':
     # var.get() == ctx[var] == 'ham'
+
 
 ctx = copy_context()
 
@@ -29,5 +31,3 @@ ctx.run(main1)
 
 # However, outside of 'ctx', 'var' is still set to 'spam':
 # var.get() == 'spam'
-
-

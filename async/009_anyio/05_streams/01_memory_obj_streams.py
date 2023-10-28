@@ -5,6 +5,7 @@ from common.utils import pk_ver_diff
 
 ver4 = pk_ver_diff('anyio', exp_ver="4.0.0", eq=True, more=True)
 
+
 async def process_items(receive_stream: MemoryObjectReceiveStream[str]) -> None:
     async with receive_stream:
         async for item in receive_stream:
@@ -21,5 +22,6 @@ async def main():
         async with send_stream:
             for num in range(10):
                 await send_stream.send(f'number {num}')
+
 
 run(main)

@@ -1,5 +1,6 @@
 """
-Locks are used to guard shared resources to ensure sole access to a single task at once. They function much like semaphores with a maximum value of 1, except that only the task that acquired the lock is allowed to release it.
+Locks are used to guard shared resources to ensure sole access to a single task at once. They function much like
+semaphores with a maximum value of 1, except that only the task that acquired the lock is allowed to release it.
 """
 from anyio import Lock, create_task_group, sleep, run
 
@@ -15,5 +16,6 @@ async def main():
     async with create_task_group() as tg:
         for num in range(4):
             tg.start_soon(use_resource, num, lock, name=num)
+
 
 run(main)

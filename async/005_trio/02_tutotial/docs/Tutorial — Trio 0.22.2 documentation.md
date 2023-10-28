@@ -456,16 +456,19 @@ Now that we understand `async with`, let’s look at `parent` again:
 There are only 4 lines of code that really do anything here. On line 17, we
 use [`trio.open_nursery()`](https://trio.readthedocs.io/en/stable/reference-core.html#trio.open_nursery "trio.open_nursery")
 to get a “nursery” object, and then inside the `async with` block we call `nursery.start_soon` twice, on lines 19 and
+
 22. There are actually two ways to call an async function: the first one is the one we already saw,
-using `await async_fn()`; the new one is `nursery.start_soon(async_fn)`: it asks Trio to start running this async
-function, _but then returns immediately without waiting for the function to finish_. So after our two calls
-to `nursery.start_soon`, `child1` and `child2` are now running in the background. And then at line 25, the commented
-line, we hit the end of the `async with` block, and the nursery’s `__aexit__` function runs. What this does is
-force `parent` to stop here and wait for all the children in the nursery to exit. This is why you have to
-use `async with` to get a nursery: it gives us a way to make sure that the child calls can’t run away and get lost. One
-reason this is important is that if there’s a bug or other problem in one of the children, and it raises an exception,
-then it lets us propagate that exception into the parent; in many other frameworks, exceptions like this are just
-discarded. Trio never discards exceptions.
+    using `await async_fn()`; the new one is `nursery.start_soon(async_fn)`: it asks Trio to start running this async
+    function, _but then returns immediately without waiting for the function to finish_. So after our two calls
+    to `nursery.start_soon`, `child1` and `child2` are now running in the background. And then at line 25, the commented
+    line, we hit the end of the `async with` block, and the nursery’s `__aexit__` function runs. What this does is
+    force `parent` to stop here and wait for all the children in the nursery to exit. This is why you have to
+    use `async with` to get a nursery: it gives us a way to make sure that the child calls can’t run away and get lost.
+    One
+    reason this is important is that if there’s a bug or other problem in one of the children, and it raises an
+    exception,
+    then it lets us propagate that exception into the parent; in many other frameworks, exceptions like this are just
+    discarded. Trio never discards exceptions.
 
 Ok! Let’s try running it and see what we get:
 

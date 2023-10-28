@@ -2,7 +2,6 @@ import subprocess
 import multiprocessing as mp
 from tqdm import tqdm
 
-
 NUMBER_OF_TASKS = 4
 progress_bar = tqdm(total=NUMBER_OF_TASKS)
 

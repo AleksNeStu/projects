@@ -19,6 +19,7 @@ async def get_html(episode_number: int) -> str:
 
             return await resp.text()
 
+
 async def get_htmls():
     for n in range(150, 160):
         await data.put((n, await get_html(n)))
@@ -44,11 +45,6 @@ async def get_titles():
         print(Fore.WHITE + f"Title found: {title}", flush=True)
 
     print(Fore.WHITE + f"Title found: {title}", flush=True)
-
-
-
-
-
 
 
 def main():

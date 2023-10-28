@@ -72,7 +72,7 @@ def do_transfer(from_account: Account, to_account: Account, amount: int):
     # transfer_lock.release()
 
     # good!
-    with transfer_lock: # hold on for all threads
+    with transfer_lock:  # hold on for all threads
         from_account.balance -= amount
         time.sleep(.000)
         to_account.balance += amount

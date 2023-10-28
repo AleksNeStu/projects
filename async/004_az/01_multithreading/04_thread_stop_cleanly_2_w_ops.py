@@ -10,6 +10,7 @@ def parse_options():
     (options, args) = parser.parse_args()
     return options
 
+
 class thread_sample(th.Thread):
     def __init__(self, name):
         th.Thread.__init__(self)
@@ -17,14 +18,15 @@ class thread_sample(th.Thread):
         self.kill_received = False
 
     def run(self):
-
         while not self.kill_received:
             # your code
             print(self.name, "is active")
             time.sleep(1)
 
+
 def has_live_threads(threads):
     return True in [t.is_alive() for t in threads]
+
 
 def main():
     options = parse_options()
@@ -47,6 +49,7 @@ def main():
                 t.kill_received = True
 
     print("Exited")
+
 
 if __name__ == '__main__':
     main()

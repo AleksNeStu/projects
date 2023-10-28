@@ -12,6 +12,7 @@ from anyio.streams.tls import TLSListener
 
 from common.utils import get_dir
 
+
 @pytest.fixture(scope='session')
 def ca():
     return trustme.CA()
@@ -30,4 +31,5 @@ def client_context(ca):
     ca.configure_trust(client_context)
     return client_context
 
-# You can then pass the server and client contexts from the above fixtures to TLSListener, wrap() or whatever you use on either side.
+# You can then pass the server and client contexts from the above fixtures to TLSListener, wrap() or whatever you use
+# on either side.

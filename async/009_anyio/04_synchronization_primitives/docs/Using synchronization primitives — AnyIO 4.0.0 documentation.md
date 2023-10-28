@@ -8,17 +8,22 @@ tags: []
 author: 
 
 ---
+
 # Using synchronization primitives — AnyIO 4.0.0 documentation
 ---
-Synchronization primitives are objects that are used by tasks to communicate and coordinate with each other. They are useful for things like distributing workload, notifying other tasks and guarding access to shared resources.
+Synchronization primitives are objects that are used by tasks to communicate and coordinate with each other. They are
+useful for things like distributing workload, notifying other tasks and guarding access to shared resources.
 
 Note
 
-AnyIO primitives are not thread-safe, therefore they should not be used directly from worker threads. Use [`run_sync()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.from_thread.run_sync "anyio.from_thread.run_sync") for that.
+AnyIO primitives are not thread-safe, therefore they should not be used directly from worker threads.
+Use [`run_sync()`](https://anyio.readthedocs.io/en/stable/api.html#anyio.from_thread.run_sync "anyio.from_thread.run_sync")
+for that.
 
 ## Events[¶](https://anyio.readthedocs.io/en/stable/synchronization.html#events "Link to this heading")
 
-Events are used to notify tasks that something they’ve been waiting to happen has happened. An event object can have multiple listeners and they are all notified when the event is triggered.
+Events are used to notify tasks that something they’ve been waiting to happen has happened. An event object can have
+multiple listeners and they are all notified when the event is triggered.
 
 Example:
 
@@ -43,11 +48,14 @@ run(main)
 
 Note
 
-Unlike standard library Events, AnyIO events cannot be reused, and must be replaced instead. This practice prevents a class of race conditions, and matches the semantics of the Trio library.
+Unlike standard library Events, AnyIO events cannot be reused, and must be replaced instead. This practice prevents a
+class of race conditions, and matches the semantics of the Trio library.
 
 ## Semaphores[¶](https://anyio.readthedocs.io/en/stable/synchronization.html#semaphores "Link to this heading")
 
-Semaphores are used for limiting access to a shared resource. A semaphore starts with a maximum value, which is decremented each time the semaphore is acquired by a task and incremented when it is released. If the value drops to zero, any attempt to acquire the semaphore will block until another task frees it.
+Semaphores are used for limiting access to a shared resource. A semaphore starts with a maximum value, which is
+decremented each time the semaphore is acquired by a task and incremented when it is released. If the value drops to
+zero, any attempt to acquire the semaphore will block until another task frees it.
 
 Example:
 
@@ -73,7 +81,8 @@ run(main)
 
 ## Locks[¶](https://anyio.readthedocs.io/en/stable/synchronization.html#locks "Link to this heading")
 
-Locks are used to guard shared resources to ensure sole access to a single task at once. They function much like semaphores with a maximum value of 1, except that only the task that acquired the lock is allowed to release it.
+Locks are used to guard shared resources to ensure sole access to a single task at once. They function much like
+semaphores with a maximum value of 1, except that only the task that acquired the lock is allowed to release it.
 
 Example:
 
@@ -99,9 +108,12 @@ run(main)
 
 ## Conditions[¶](https://anyio.readthedocs.io/en/stable/synchronization.html#conditions "Link to this heading")
 
-A condition is basically a combination of an event and a lock. It first acquires a lock and then waits for a notification from the event. Once the condition receives a notification, it releases the lock. The notifying task can also choose to wake up more than one listener at once, or even all of them.
+A condition is basically a combination of an event and a lock. It first acquires a lock and then waits for a
+notification from the event. Once the condition receives a notification, it releases the lock. The notifying task can
+also choose to wake up more than one listener at once, or even all of them.
 
-Like [`Lock`](https://anyio.readthedocs.io/en/stable/api.html#anyio.Lock "anyio.Lock"), [`Condition`](https://anyio.readthedocs.io/en/stable/api.html#anyio.Condition "anyio.Condition") also requires that the task which locked it also the one to release it.
+Like [`Lock`](https://anyio.readthedocs.io/en/stable/api.html#anyio.Lock "anyio.Lock"), [`Condition`](https://anyio.readthedocs.io/en/stable/api.html#anyio.Condition "anyio.Condition")
+also requires that the task which locked it also the one to release it.
 
 Example:
 
@@ -139,7 +151,9 @@ run(main)
 
 ## Capacity limiters[¶](https://anyio.readthedocs.io/en/stable/synchronization.html#capacity-limiters "Link to this heading")
 
-Capacity limiters are like semaphores except that a single borrower (the current task by default) can only hold a single token at a time. It is also possible to borrow a token on behalf of any arbitrary object, so long as that object is hashable.
+Capacity limiters are like semaphores except that a single borrower (the current task by default) can only hold a single
+token at a time. It is also possible to borrow a token on behalf of any arbitrary object, so long as that object is
+hashable.
 
 Example:
 

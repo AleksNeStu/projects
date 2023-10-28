@@ -1,5 +1,7 @@
 """
-A condition is basically a combination of an event and a lock. It first acquires a lock and then waits for a notification from the event. Once the condition receives a notification, it releases the lock. The notifying task can also choose to wake up more than one listener at once, or even all of them.
+A condition is basically a combination of an event and a lock. It first acquires a lock and then waits for a
+notification from the event. Once the condition receives a notification, it releases the lock. The notifying task can
+also choose to wake up more than one listener at once, or even all of them.
 
 Like Lock, Condition also requires that the task which locked it also the one to release it.
 """
@@ -29,5 +31,6 @@ async def main():
         await sleep(2)
         async with condition:
             condition.notify_all()
+
 
 run(main)

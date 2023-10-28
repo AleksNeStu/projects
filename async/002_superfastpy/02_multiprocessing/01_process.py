@@ -2,6 +2,7 @@
 import multiprocessing as mp
 import settings
 from codetiming import Timer
+
 t = Timer(text=f"{__file__}: {{:.6f}}")
 
 
@@ -13,6 +14,7 @@ def task(value):
     res = (f' [done {value}] ')
     print(res)
     return res
+
 
 # protect the entry point
 if __name__ == '__main__':
@@ -28,7 +30,6 @@ if __name__ == '__main__':
             process.join()
         # report that all tasks are completed
         print('Done')
-
 
 # [+]
 # 1) This approach is effective for a small number of tasks that all need to be run at once.

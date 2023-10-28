@@ -18,7 +18,7 @@ def main():
 
 def generate_data(num: int, data: list):
     for idx in range(1, num + 1):
-        v, t = (idx*idx, datetime.datetime.now())
+        v, t = (idx * idx, datetime.datetime.now())
         data.append((v, t))
 
         print(colorama.Fore.YELLOW + f" -- generated item {idx, v, t}", flush=True)

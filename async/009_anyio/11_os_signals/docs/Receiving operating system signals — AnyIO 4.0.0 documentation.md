@@ -8,9 +8,12 @@ tags: []
 author: 
 
 ---
+
 # Receiving operating system signals — AnyIO 4.0.0 documentation
 ---
-You may occasionally find it useful to receive signals sent to your application in a meaningful way. For example, when you receive a `signal.SIGTERM` signal, your application is expected to shut down gracefully. Likewise, `SIGHUP` is often used as a means to ask the application to reload its configuration.
+You may occasionally find it useful to receive signals sent to your application in a meaningful way. For example, when
+you receive a `signal.SIGTERM` signal, your application is expected to shut down gracefully. Likewise, `SIGHUP` is often
+used as a means to ask the application to reload its configuration.
 
 AnyIO provides a simple mechanism for you to receive the signals you’re interested in:
 
@@ -34,7 +37,9 @@ run(main)
 
 Note
 
-Signal handlers can only be installed in the main thread, so they will not work when the event loop is being run through [`BlockingPortal`](https://anyio.readthedocs.io/en/stable/api.html#anyio.from_thread.BlockingPortal "anyio.from_thread.BlockingPortal"), for instance.
+Signal handlers can only be installed in the main thread, so they will not work when the event loop is being run
+through [`BlockingPortal`](https://anyio.readthedocs.io/en/stable/api.html#anyio.from_thread.BlockingPortal "anyio.from_thread.BlockingPortal"),
+for instance.
 
 Note
 
@@ -42,7 +47,11 @@ Windows does not natively support signals so do not rely on this in a cross plat
 
 ## Handling KeyboardInterrupt and SystemExit[¶](https://anyio.readthedocs.io/en/stable/signals.html#handling-keyboardinterrupt-and-systemexit "Link to this heading")
 
-By default, different backends handle the Ctrl+C (or Ctrl+Break on Windows) key combination and external termination ([`KeyboardInterrupt`](https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt "(in Python v3.11)") and [`SystemExit`](https://docs.python.org/3/library/exceptions.html#SystemExit "(in Python v3.11)"), respectively) differently: Trio raises the relevant exception inside the application while asyncio shuts down all the tasks and exits. If you need to do your own cleanup in these situations, you will need to install a signal handler:
+By default, different backends handle the Ctrl+C (or Ctrl+Break on Windows) key combination and external
+termination ([`KeyboardInterrupt`](https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt "(in Python v3.11)")
+and [`SystemExit`](https://docs.python.org/3/library/exceptions.html#SystemExit "(in Python v3.11)"), respectively)
+differently: Trio raises the relevant exception inside the application while asyncio shuts down all the tasks and exits.
+If you need to do your own cleanup in these situations, you will need to install a signal handler:
 
 ```
 import signal
@@ -74,4 +83,6 @@ run(main)
 
 Note
 
-Windows does not support the [`SIGTERM`](https://docs.python.org/3/library/signal.html#signal.SIGTERM "(in Python v3.11)") signal so if you need a mechanism for graceful shutdown on Windows, you will have to find another way.
+Windows does not support
+the [`SIGTERM`](https://docs.python.org/3/library/signal.html#signal.SIGTERM "(in Python v3.11)") signal so if you need
+a mechanism for graceful shutdown on Windows, you will have to find another way.

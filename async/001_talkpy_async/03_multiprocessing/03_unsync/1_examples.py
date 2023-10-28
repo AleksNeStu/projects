@@ -4,6 +4,7 @@ from unsync import unsync
 from codetiming import Timer
 import time
 
+
 # unsync
 # Unsynchronize asyncio by using an ambient event loop, or executing in separate threads or processes.
 #
@@ -15,11 +16,13 @@ import time
 # Useful for IO bounded work that does not support asyncio
 # Regular functions marked with @unsync(cpu_bound=True) will execute in unsync.process_executor, a ProcessPoolExecutor
 # Useful for CPU bounded work
-# All @unsync functions will return an Unfuture object. This new future type combines the behavior of asyncio.Future and concurrent.Future with the following changes:
+# All @unsync functions will return an Unfuture object. This new future type combines the behavior of asyncio.Future
+# and concurrent.Future with the following changes:
 #
 # Unfuture.set_result is threadsafe unlike asyncio.Future
 # Unfuture instances can be awaited, even if made from concurrent.Future
-# Unfuture.result() is a blocking operation except in unsync.loop/unsync.thread where it behaves like asyncio.Future.result and will throw an exception if the future is not done
+# Unfuture.result() is a blocking operation except in unsync.loop/unsync.thread where it behaves like
+# asyncio.Future.result and will throw an exception if the future is not done
 
 # Executing an async function outside of an existing event loop is troublesome
 # * asyncio.Future is not thread safe
@@ -45,8 +48,11 @@ async def main():
 
     print(future1.result() + future2.result())
 
+
 with Timer(text=f"asyncio (loop): {{:.4f}}"):
     asyncio.run(main())
+
+
 # Takes 1 second to run
 
 # 2) Example with unsync (loop):
@@ -55,11 +61,13 @@ async def unsync_async():
     await asyncio.sleep(1)
     return 'I like decorators'
 
+
 with Timer(text=f"unsync (loop): {{:.4f}}"):
     unfuture1 = unsync_async()
     unfuture2 = unsync_async()
     print(unfuture1.result() + unfuture2.result())
     # Takes 1 second to run
+
 
 # 3) Example with unsync (thread_executor):
 @unsync
@@ -67,15 +75,18 @@ def non_async_function(seconds):
     time.sleep(seconds)
     return 'Run concurrently!'
 
+
 with Timer(text=f"unsync (thread_executor): {{:.4f}}"):
     tasks = [non_async_function(0.1) for _ in range(10)]
     print([task.result() for task in tasks])
+
 
 # 4) Example with unsync (process_executor):
 @unsync
 def non_async_function(seconds):
     time.sleep(seconds)
     return 'Run concurrently!'
+
 
 with Timer(text=f"unsync (thread_executor): {{:.4f}}"):
     tasks = [non_async_function(0.1) for _ in range(10)]
@@ -88,24 +99,27 @@ async def initiate(request):
     await asyncio.sleep(0.1)
     return request + 1
 
+
 @unsync
 async def process(task):
     await asyncio.sleep(0.1)
     return task * 2
 
+
 with Timer(text=f"Unfuture.then: {{:.4f}}"):
     res = initiate(3).then(process)
     print(res.result())
-
 
 # 6) Mixin
 import unsync
 import uvloop
 
+
 @unsync
 async def main():
-        # Main entry-point.
-        return
+    # Main entry-point.
+    return
 
-uvloop.install() # Equivalent to asyncio.set_event_loop_policy(EventLoopPolicy())
+
+uvloop.install()  # Equivalent to asyncio.set_event_loop_policy(EventLoopPolicy())
 main()

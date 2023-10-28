@@ -1,5 +1,6 @@
 """
-File streams read from or write to files on the file system. They can be useful for substituting a file for another source of data, or writing output to a file for logging or debugging purposes.
+File streams read from or write to files on the file system. They can be useful for substituting a file for another
+source of data, or writing output to a file for logging or debugging purposes.
 """
 
 from anyio import run
@@ -16,5 +17,6 @@ async def main():
             print(chunk.decode(), end='')
 
     print()
+
 
 run(main)

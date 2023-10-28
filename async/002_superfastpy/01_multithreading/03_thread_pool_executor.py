@@ -4,6 +4,7 @@ from typing import List
 
 import settings
 from codetiming import Timer
+
 t = Timer(text=f"{__file__}: {{:.6f}}")
 
 
@@ -13,6 +14,7 @@ def task(value):
     # return a result, if needed
     res = (f' [done {value}] ')
     return res
+
 
 # protect the entry point
 if __name__ == '__main__':
@@ -29,7 +31,6 @@ if __name__ == '__main__':
             print(future._result)
         t.stop()
 
-
         # Example 2
         # 23.088654
         t.start()
@@ -39,7 +40,6 @@ if __name__ == '__main__':
         t.stop()
     # report that all tasks are completed
     print('Done')
-
 
 # 1) This is the preferred approach for modern parallel for-loops.
 # 2) This approach is effective for issuing one-off tasks as well as calling the same function many

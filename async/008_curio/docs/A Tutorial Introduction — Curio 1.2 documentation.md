@@ -8,9 +8,14 @@ tags: []
 author: 
 
 ---
+
 # A Tutorial Introduction — Curio 1.2 documentation
 ---
-Curio is a library for concurrent systems programming that uses coroutines and common programming abstractions such as threads, sockets, files, locks, and queues. In addition, it supports cancellation, task groups, and other useful features. This tutorial describes the basics of the concurrency model. Consult the “howto” guide at [https://curio.readthedocs.io/en/latest/howto.html](https://curio.readthedocs.io/en/latest/howto.html) for cookbook-style coding recipes.
+Curio is a library for concurrent systems programming that uses coroutines and common programming abstractions such as
+threads, sockets, files, locks, and queues. In addition, it supports cancellation, task groups, and other useful
+features. This tutorial describes the basics of the concurrency model. Consult the “howto” guide
+at [https://curio.readthedocs.io/en/latest/howto.html](https://curio.readthedocs.io/en/latest/howto.html) for
+cookbook-style coding recipes.
 
 ## Getting Started[¶](https://curio.readthedocs.io/en/latest/tutorial.html#getting-started "Permalink to this headline")
 
@@ -31,7 +36,8 @@ if __name__ == '__main__':
 
 ```
 
-Curio executes `async` functions (or coroutine functions). To run a program, you provide an initial function and arguments to `run()`. When it completes, `run()` returns the result.
+Curio executes `async` functions (or coroutine functions). To run a program, you provide an initial function and
+arguments to `run()`. When it completes, `run()` returns the result.
 
 ## Tasks and Concurrency[¶](https://curio.readthedocs.io/en/latest/tutorial.html#tasks-and-concurrency "Permalink to this headline")
 
@@ -68,7 +74,8 @@ if __name__ == '__main__':
 
 ```
 
-`curio.spawn()` launches a concurrent task. The `join()` method waits for it to finish and returns its result. The following output is produced:
+`curio.spawn()` launches a concurrent task. The `join()` method waits for it to finish and returns its result. The
+following output is produced:
 
 ```
 bash % python3 hello.py
@@ -83,7 +90,8 @@ Are you done yet?
 
 ```
 
-At this point, the child is busy for the next 990 seconds, the parent is blocked on `join()` and nothing seems to be happening. Change `run()` to enable the monitor:
+At this point, the child is busy for the next 990 seconds, the parent is blocked on `join()` and nothing seems to be
+happening. Change `run()` to enable the monitor:
 
 ```
 if __name__ == '__main__':
@@ -184,7 +192,9 @@ This is the basic gist of tasks. You can create tasks, join tasks, and cancel ta
 
 ## Task Groups[¶](https://curio.readthedocs.io/en/latest/tutorial.html#task-groups "Permalink to this headline")
 
-Suppose you want the `countdown` and `kid` tasks to have a race. That is, have them run concurrently, but whichever one finishes first wins–cancelling the other task. This kind of coordination is handled by a `TaskGroup`. Change the `parent()` function to this:
+Suppose you want the `countdown` and `kid` tasks to have a race. That is, have them run concurrently, but whichever one
+finishes first wins–cancelling the other task. This kind of coordination is handled by a `TaskGroup`. Change
+the `parent()` function to this:
 
 ```
 async def parent():
@@ -199,7 +209,8 @@ async def parent():
 
 ```
 
-Here, a task group waits for any spawned task to finish (the `wait=any` argument). When this occurs, the losing task is cancelled. The `result` attribute of the group contains the result of the task that won.
+Here, a task group waits for any spawned task to finish (the `wait=any` argument). When this occurs, the losing task is
+cancelled. The `result` attribute of the group contains the result of the task that won.
 
 Running this code, you will either get output similar to this:
 
@@ -227,7 +238,8 @@ Why didn't you finish?
 
 ```
 
-A critical feature of a task group is that all created tasks will have completed or been cancelled when control-flow leaves the managed block–no child left behind.
+A critical feature of a task group is that all created tasks will have completed or been cancelled when control-flow
+leaves the managed block–no child left behind.
 
 ## Long-Running Operations[¶](https://curio.readthedocs.io/en/latest/tutorial.html#long-running-operations "Permalink to this headline")
 
@@ -263,9 +275,12 @@ if __name__ == '__main__':
 
 ```
 
-If you run this version, everything becomes unresponsive and you see no output. The problem is that `fib()` takes over the CPU and never yields. Important lesson: Curio DOES NOT provide preemptive scheduling. If a task decides to compute large Fibonacci numbers or mine bitcoins, everything blocks. Don’t do that.
+If you run this version, everything becomes unresponsive and you see no output. The problem is that `fib()` takes over
+the CPU and never yields. Important lesson: Curio DOES NOT provide preemptive scheduling. If a task decides to compute
+large Fibonacci numbers or mine bitcoins, everything blocks. Don’t do that.
 
-For other tasks to make progress, you must modify `kid()` to carry out computationally intensive work elsewhere. Change the code to use `curio.run_in_process()`:
+For other tasks to make progress, you must modify `kid()` to carry out computationally intensive work elsewhere. Change
+the code to use `curio.run_in_process()`:
 
 ```
 async def kid(x, y):
@@ -280,7 +295,9 @@ async def kid(x, y):
 
 ```
 
-With this change, you’ll see the countdown task running and the kid task is cancelled if it takes too long (you might need to greatly increase the countdown duration). Coincidentally, you execute the two `fib()` calculations in parallel on two CPUs using `spawn()` like this:
+With this change, you’ll see the countdown task running and the kid task is cancelled if it takes too long (you might
+need to greatly increase the countdown duration). Coincidentally, you execute the two `fib()` calculations in parallel
+on two CPUs using `spawn()` like this:
 
 ```
 async def kid(x, y):
@@ -296,7 +313,8 @@ async def kid(x, y):
 
 ```
 
-The blocking problem also applies to I/O operations. For example, suppose `kid()` was modified to use a Fibonacci microservice:
+The blocking problem also applies to I/O operations. For example, suppose `kid()` was modified to use a Fibonacci
+microservice:
 
 ```
 import requests
@@ -307,7 +325,8 @@ def fib(n):
 
 ```
 
-The popular `requests` library knows nothing of Curio. As such, it blocks everything waiting for a response. Since it’s waiting for I/O (as opposed to performing heavy CPU work), you can use `curio.run_in_thread()` like this:
+The popular `requests` library knows nothing of Curio. As such, it blocks everything waiting for a response. Since it’s
+waiting for I/O (as opposed to performing heavy CPU work), you can use `curio.run_in_thread()` like this:
 
 ```
 async def kid(x, y):
@@ -358,7 +377,9 @@ bash %
 
 ```
 
-In this program, the `client` argument to `echo_client()` is a socket. It supports all of the usual I/O operations, but they are asynchronous and should be prefaced by `await`. If you prefer, you can perform I/O using a file-like interface by converting the socket to a stream like this:
+In this program, the `client` argument to `echo_client()` is a socket. It supports all of the usual I/O operations, but
+they are asynchronous and should be prefaced by `await`. If you prefer, you can perform I/O using a file-like interface
+by converting the socket to a stream like this:
 
 ```
 async def echo_client(client, addr):
@@ -488,17 +509,23 @@ if __name__ == '__main__':
 
 ```
 
-In this code, each connection results in two tasks (`incoming` and `outgoing`). The `incoming` task reads incoming lines and publishes them. The `outgoing` task subscribes to the feed and sends outgoing messages. The `workers` task group supervises these two tasks. If any one of them terminates, the other task is cancelled right away.
+In this code, each connection results in two tasks (`incoming` and `outgoing`). The `incoming` task reads incoming lines
+and publishes them. The `outgoing` task subscribes to the feed and sends outgoing messages. The `workers` task group
+supervises these two tasks. If any one of them terminates, the other task is cancelled right away.
 
-The `chat_server` task launches both the `dispatcher` and a `tcp_server` task and watches them. If cancelled, both of those tasks will be shut down.
+The `chat_server` task launches both the `dispatcher` and a `tcp_server` task and watches them. If cancelled, both of
+those tasks will be shut down.
 
 ## Programming Advice[¶](https://curio.readthedocs.io/en/latest/tutorial.html#programming-advice "Permalink to this headline")
 
 At this point, you have the core concepts. Here are a few tips:
 
--   Think thread programming and synchronous code. Tasks execute like threads and programming techniques applied to threads apply to Curio.
--   Curio uses the same I/O abstractions as in synchronous code (e.g., sockets, files, etc.). Methods have the same names and perform the same functions. Just don’t forget to add the extra `await` keyword.
--   Be extra wary of calls that do not use an explicit `await`. Although they will work, they could block progress of all other tasks. If you know that this is possible, use the `run_in_process()` or `run_in_thread()` functions.
+- Think thread programming and synchronous code. Tasks execute like threads and programming techniques applied to
+  threads apply to Curio.
+- Curio uses the same I/O abstractions as in synchronous code (e.g., sockets, files, etc.). Methods have the same names
+  and perform the same functions. Just don’t forget to add the extra `await` keyword.
+- Be extra wary of calls that do not use an explicit `await`. Although they will work, they could block progress of all
+  other tasks. If you know that this is possible, use the `run_in_process()` or `run_in_thread()` functions.
 
 ## Debugging Tips[¶](https://curio.readthedocs.io/en/latest/tutorial.html#debugging-tips "Permalink to this headline")
 
@@ -529,7 +556,8 @@ run(..., with_monitor=True)
 
 ```
 
-The monitor shows the state of each task and can show stack traces. To enter the monitor, run `python3 -m curio.monitor` in a separate window.
+The monitor shows the state of each task and can show stack traces. To enter the monitor, run `python3 -m curio.monitor`
+in a separate window.
 
 The `traceback()` method creates a stack trace that can be printed or logged. For example:
 

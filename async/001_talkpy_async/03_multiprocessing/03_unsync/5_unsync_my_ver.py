@@ -30,7 +30,6 @@ def main():
         loop.create_task(wait_some()),
     ]
 
-
     dt = datetime.datetime.now() - t0
     print(f"Synchronous version done in {dt.total_seconds():,.2f} seconds.")
 
@@ -48,7 +47,6 @@ def get_url_txt_async(url):
         async with session.get(url) as resp:
             resp.raise_for_status()
             return resp.text()
-
 
 
 @unsync()
@@ -79,5 +77,6 @@ def wait_some():
 
 if __name__ == '__main__':
     from codetiming import Timer
+
     with Timer():
         main()

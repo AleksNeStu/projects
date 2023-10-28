@@ -4,6 +4,7 @@ import anyio
 import trio
 from sniffio import current_async_library
 
+
 async def generic_sleep(seconds):
     library = current_async_library()
     print(f"Current lib is {library}")
@@ -16,6 +17,7 @@ async def generic_sleep(seconds):
     # ... and so on ...
     else:
         raise RuntimeError(f"Unsupported library {library!r}")
+
 
 # async def child_trio():
 #     await trio.sleep(1)

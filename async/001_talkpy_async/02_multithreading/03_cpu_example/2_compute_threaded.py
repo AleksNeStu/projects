@@ -6,6 +6,7 @@ import multiprocessing
 
 CONST = 300_000_00
 
+
 def main():
     do_math(1)
 

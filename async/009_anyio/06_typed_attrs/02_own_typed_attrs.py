@@ -10,6 +10,7 @@ class MyTypedAttribute:
     string_valued_attribute = TypedAttribute[str]()
     some_float_attribute = TypedAttribute[float]()
 
+
 # To provide values for these attributes, implement the extra_attributes() property in your class:
 
 
@@ -20,7 +21,9 @@ class MyAttributeProvider(TypedAttributeProvider):
             MyTypedAttribute.some_float_attribute: lambda: 6.492
         }
 
-# If your class inherits from another typed attribute provider, make sure you include its attributes in the return value:
+
+# If your class inherits from another typed attribute provider, make sure you include its attributes in the return
+# value:
 
 class AnotherAttributeProvider(MyAttributeProvider):
     def extra_attributes():

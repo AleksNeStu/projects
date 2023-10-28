@@ -10,6 +10,7 @@ def fib_func(n: int) -> List[int]:
 
     return numbers
 
+
 def fib_gen():
     current, nxt = 0, 1
     while True:

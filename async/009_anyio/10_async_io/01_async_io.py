@@ -1,4 +1,5 @@
-"""AnyIO provides asynchronous wrappers for blocking file operations. These wrappers run blocking operations in worker threads.
+"""AnyIO provides asynchronous wrappers for blocking file operations. These wrappers run blocking operations in
+worker threads.
 
 Example:
 """
@@ -9,15 +10,16 @@ from common.utils import get_dir
 dir = get_dir()
 
 
-
 async def main():
     async with await open_file('/some/path/somewhere') as f:
         contents = await f.read()
         print(contents)
 
+
 run(main)
 
-"""The wrappers also support asynchronous iteration of the file line by line, just as the standard file objects support synchronous iteration:"""
+"""The wrappers also support asynchronous iteration of the file line by line, just as the standard file objects 
+support synchronous iteration:"""
 
 from anyio import open_file, run
 
@@ -26,6 +28,7 @@ async def main():
     async with await open_file('/some/path/somewhere') as f:
         async for line in f:
             print(line, end='')
+
 
 run(main)
 # To wrap an existing open file object as an asynchronous file, you can use wrap_file():
@@ -37,6 +40,7 @@ async def main():
     with open('/some/path/somewhere') as f:
         async for line in wrap_file(f):
             print(line, end='')
+
 
 run(main)
 """Note Closing the wrapper also closes the underlying synchronous file object.
@@ -63,6 +67,7 @@ async def main():
     path = Path('/foo/bar')
     await path.write_bytes(b'hello, world')
 
+
 run(main)
 # Asynchronously iterating a directory contents can be done as follows:
 
@@ -76,5 +81,6 @@ async def main():
         if await path.is_file():
             print(await path.read_text())
             print('---------------------')
+
 
 run(main)

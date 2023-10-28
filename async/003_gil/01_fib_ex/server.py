@@ -8,6 +8,7 @@ from concurrent.futures import ProcessPoolExecutor as Pool
 
 pool = Pool(4)
 
+
 def fib_server(address):
     sock = socket(AF_INET, SOCK_STREAM)
     sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
@@ -18,6 +19,7 @@ def fib_server(address):
         print("Connection", addr)
         # fib_handler(client)
         Thread(target=fib_handler, args=(client,), daemon=True).start()
+
 
 def fib_handler(client):
     while True:
@@ -35,4 +37,5 @@ def fib_handler(client):
         client.send(resp)  # blocking
     print("Closed")
 
-fib_server(('',25000))
+
+fib_server(('', 25000))

@@ -1,5 +1,7 @@
 """
-Semaphores are used for limiting access to a shared resource. A semaphore starts with a maximum value, which is decremented each time the semaphore is acquired by a task and incremented when it is released. If the value drops to zero, any attempt to acquire the semaphore will block until another task frees it.
+Semaphores are used for limiting access to a shared resource. A semaphore starts with a maximum value,
+which is decremented each time the semaphore is acquired by a task and incremented when it is released. If the value
+drops to zero, any attempt to acquire the semaphore will block until another task frees it.
 
 """
 
@@ -20,5 +22,6 @@ async def main():
             tg.start_soon(use_resource, num, semaphore, name="test")
 
     f = 1
+
 
 run(main)
