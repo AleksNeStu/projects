@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+
+  db-mysql:
+    image: mysql:8.2
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_USER_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - 3307:3306
+    volumes:
+      - db-mysql-vol:/var/lib/mysql
+
+  db-postgresql:
+    image: postgres:16
+    container_name: db-postgresql
+    environment:
+      POSTGRES_USER: ${DB_USER_NAME}
+      POSTGRES_PASSWORD: ${DB_USER_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - 5432:5432
+    volumes:
+      - db-postgresql-vol:/var/lib/postgresql/data
+
+# /var/lib/docker/volumes/
+volumes:
+  db-mysql-vol:
+  db-postgresql-vol:
