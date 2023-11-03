@@ -2,13 +2,11 @@ import os
 
 import uvicorn
 from fastapi import FastAPI, HTTPException
-from mongita import MongitaClientDisk
+from pydantic import BaseModel
+from pymongo import MongoClient
+
 # GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s
 # BSON-document size limit of 16 MiB.
-
-from mongita import MongitaClientMemory
-from pymongo import MongoClient
-from pydantic import BaseModel
 
 SHAPES = [
     {"name": "name_1", "no_of_sides": 21, "id": 1},
