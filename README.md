@@ -24,7 +24,7 @@
    - [gcp](/cloud/gcp) - API servers
 
 [code](/code) - Coding collections (algorithms, solutions, complexity, ...)
-   - [complexity](/code/complexity) - Complexity
+   - [complexity](/code/001_complexity) - Complexity
    - [time](/code/time) - Time
    - [validation](/code/validation) - Validation
 

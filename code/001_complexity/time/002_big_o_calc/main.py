@@ -1,5 +1,8 @@
-from bigO import BigO
 from random import randint
+
+from bigO import BigO
+
+
 # from bigO import utils
 
 # @utils.isSorted
