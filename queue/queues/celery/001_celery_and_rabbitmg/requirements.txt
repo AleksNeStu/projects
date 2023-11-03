@@ -1,6 +1,0 @@
-python-dotenv
-celery
-rabbitmq
-sqlalchemy
-requests
-flask
