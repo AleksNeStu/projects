@@ -220,7 +220,6 @@ Sample Data : [{"V":"S001"}, {"V": "S002"}, {"VI": "S001"}, {"VI": "S005"},
 Expected Output : Unique Values: {'S005', 'S002', 'S007', 'S001', 'S009'}
 """
 
-import itertools
 
 def get_uniq_vals1(l_of_dicts):
     set_of_values = set(itertools.chain(*[d.values() for d in l_of_dicts]))

@@ -26,10 +26,11 @@ __author__ = 'AleksNeStu'
 # Addition info:
 
 import re
-import urllib2
 import time
-from multiprocessing import Process, Pool
+from multiprocessing import Pool
 from pprint import pprint
+
+import urllib2
 from urllib2 import URLError
 
 # Input

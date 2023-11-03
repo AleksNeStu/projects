@@ -17,11 +17,9 @@ from datetime import datetime
 
 import flask
 from flask.testsuite import FlaskTestCase
-from werkzeug.http import parse_date
-
 from flask_encryptedsession.encryptedsession import (
     EncryptedCookieSessionInterface)
-
+from werkzeug.http import parse_date
 
 KEYS_DIR = os.path.join(
     os.path.abspath(os.path.dirname(__file__)), 'testkeys')

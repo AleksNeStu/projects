@@ -26,11 +26,11 @@ __author__ = 'AleksNeStu'
 
 # Addition info:
 
-import sys
-import re
-from pprint import pprint
 import multiprocessing as mp
+import re
+import sys
 import time
+from pprint import pprint
 
 # Input
 file = 'task02.py' # text file for string search

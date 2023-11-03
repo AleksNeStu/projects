@@ -101,7 +101,6 @@ print(type(s))
 # Python program showing
 # a use of id() function
 
-import math
 a =[1, 2, 3, 4, 5]
 
 # print id of a

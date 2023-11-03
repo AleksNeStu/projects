@@ -1,6 +1,7 @@
-from tkinter import *
-import time
 import random
+import time
+from tkinter import *
+
 import math
 
 

@@ -9,7 +9,6 @@ syslog('This is a debug message.')
 
 
 #2
-import logging
 import logging.handlers
 
 log = logging.getLogger(__name__)

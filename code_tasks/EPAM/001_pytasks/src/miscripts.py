@@ -4,8 +4,9 @@
 __author__ = 'AleksNeStu'
 
 import ast
-import types
 import re
+import types
+
 
 class DocAPI(object): # for task04-02
 

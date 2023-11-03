@@ -30,16 +30,16 @@ __author__ = 'AleksNeStu'
 
 # Addition info:
 
-import string
 import collections
+import functools
+import glob
 import itertools
 import multiprocessing as mp
 import operator
-import glob
+import string
 import sys
-import functools
-from pprint import pprint
 import time
+from pprint import pprint
 
 # Input
 exclude = ['if', 'else', 'on', 'at'] # Exclude words from search for count occurrence

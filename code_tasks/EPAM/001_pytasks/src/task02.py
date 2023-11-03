@@ -19,12 +19,13 @@ __author__ = 'AleksNeStu'
 # HTTPServer is a simple subclass of SocketServer.TCPServer, and does not use multiple threads or processes
 # to handle requests. To add threading or forking, create a new class using the appropriate mix-in from SocketServer.
 
-import urllib2
 import subprocess
-from urlparse import urlparse
+from time import strftime
+
+import urllib2
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 from SocketServer import ThreadingMixIn
-from time import strftime
+from urlparse import urlparse
 
 # Input for main
 port = 7777

@@ -9,9 +9,8 @@
     :license: BSD, see LICENSE for more details.
 """
 from flask.sessions import SessionMixin, SessionInterface
-from keyczar import keyczar
-
 from flask_encryptedsession.encryptedcookie import EncryptedCookie
+from keyczar import keyczar
 
 
 class EncryptedCookieSession(EncryptedCookie, SessionMixin):

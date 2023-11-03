@@ -8,10 +8,9 @@ __author__ = 'AleksNeStu'
 # >>> print add5(10)
 # 15
 
-import operator
 import functools
+import operator
 from functools import wraps
-
 
 #Input
 x = int(5)
