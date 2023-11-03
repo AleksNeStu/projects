@@ -31,10 +31,11 @@
 [code_tasks](/tasks) - Tests coding tasks ...
 
 [data](/data) - Data Engineering
-   - [db](/data/db) - DB
-   - [etl](/data/etl) - ETL (ELT)
-     - [merge_data_app](/data/etl/001_merge_data) - Merge inconsistent data app
-   - [migrations](/data/migrations) - Data (DB) migrations
+
+- [db](/data/001_db) - DB
+- [etl](/data/002_etl) - ETL (ELT)
+     - [merge_data_app](/data/002_etl/001_merge_data) - Merge inconsistent data app
+- [migrations](/data/003_migrations) - Data (DB) migrations
 
 [debug](/debug) - Debug, Memory
 
