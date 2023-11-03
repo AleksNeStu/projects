@@ -1,10 +1,11 @@
 import json
 
-# from selenium import webdriver
-# from selenium.webdriver.chrome.options import Options
-
 import settings
 from client import AllegroClient
+
+
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
 
 
 # Chrome

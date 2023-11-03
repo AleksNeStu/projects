@@ -1,7 +1,8 @@
 """https://developer.allegro.pl/about/#rest-api"""
 import logging
-import requests
 import sys
+
+import requests
 
 import constants
 from oauth import AuthHandler

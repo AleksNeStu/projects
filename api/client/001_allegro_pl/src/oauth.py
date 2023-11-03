@@ -1,11 +1,12 @@
 """https://developer.allegro.pl/en/auth/"""
 
-import requests
 import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import urlparse, parse_qs
+
+import requests
 from requests import auth
 from requests import utils
-from urllib.parse import urlparse, parse_qs
 
 import constants
 import settings
