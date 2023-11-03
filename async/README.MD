@@ -66,19 +66,3 @@ deadlocks…
 Resource starvation occurs when a task never acquires a resource it needs
 
 ### Priority inversion occurs when a task with low priority holds a resource required by a task with high priority.
-
-# III) Usage
-
-1)
-
-# IV) Pros
-
-1)
-
-# V) Cons
-
-1)
-
-# VI) Compare
-
-1) 
