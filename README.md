@@ -26,7 +26,7 @@
 [code](/code) - Coding collections (algorithms, solutions, complexity, ...)
    - [complexity](/code/001_complexity) - Complexity
    - [time](/code/time) - Time
-   - [validation](/code/validation) - Validation
+   - [validation](/code/002_validation) - Validation
 
 [code_tasks](/tasks) - Tests coding tasks ...
 
