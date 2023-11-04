@@ -5,6 +5,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import ResponseValidationError, RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi_pagination import LimitOffsetPage, add_pagination, paginate, Page
 
 from data.entities import users_data, trades_data
 from models.pydantic import User, Trade
@@ -13,7 +14,8 @@ from utils import get_by_id
 app = FastAPI(
     title="Trading App"
 )
-
+# add_pagination - a function that adds pagination feature to the app.
+add_pagination(app)
 
 # https://fastapi.tiangolo.com/tutorial/handling-errors/
 @app.exception_handler(ResponseValidationError)
@@ -42,15 +44,37 @@ def get_user(user_id: int) -> User:
     return user
 
 
+# Pagination via offset and limit
 @app.get("/users")
-def get_users() -> List[User]:
-    return users_data
+def get_users() -> LimitOffsetPage[User]:
+    """
+    If you use ORM/DB framework that you need to use paginate function that is specific to your framework. Otherwise,
+    you will need to load all data into memory and then paginate it which is not good for performance.
+
+    You can find more information about intergrations in Avaiable Integrations section.
+
+    For instance, if you use SQLAlchemy you can use paginate from fastapi_pagination.ext.sqlalchemy module.
+    """
+    # paginate - a function that paginates data and returns Page instance.
+    return paginate(users_data)
 
 
+# Page Number Pagination
+# https://uriyyo-fastapi-pagination.netlify.app/tutorials/page-number-pagination/
+# Page - a class that represents a paginated data.
+# Return type/response model is Page. It means that this endpoints can use paginate function
 @app.get("/trades")
-def get_trades() -> List[Trade]:
-    return trades_data
+def get_trades() -> Page[Trade]:
+    return paginate(trades_data)
 
+
+# Response schema will contain:
+#
+# items - list of items paginated items.
+# page - current page number.
+# size - number of items per page.
+# pages - total number of pages.
+# total - total number of items
 
 @app.post("/trades")
 def add_trades(trades: List[Trade]):
