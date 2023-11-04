@@ -148,6 +148,7 @@ fastapi-users = "^12.1.2"
 fastapi-admin = "^1.0.4"
 beanie = "^1.23.1"
 asyncpg = "^0.28.0"
+fastapi-pagination = "^0.12.12"
 
 
 [tool.poetry.dev-dependencies]

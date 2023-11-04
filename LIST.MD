@@ -65,8 +65,11 @@ Endpoint security
 - **[flask](https://github.com/pallets/flask)** - Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications. It began as a simple wrapper around Werkzeug and Jinja and has become one of the most popular Python web application frameworks.
 - **[python-frozendict](https://github.com/Marco-Sulla/python-frozendict)** - frozendict is a simple immutable 
   dictionary. It's fast as dict, and sometimes faster!
-
-
+- **[fastapi](https://github.com/tiangolo/fastapi)** - FastAPI is a modern, fast (high-performance), web framework for
+  building APIs with Python 3.8+ based on standard Python type hints.
+- **[fastapi-pagination](https://github.com/uriyyo/fastapi-pagination)** - Python library designed to simplify
+  pagination in FastAPI applications. It provides a set of utility functions and data models to help you paginate your
+  database queries and return paginated responses to your clients.
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
@@ -107,7 +110,9 @@ Endpoint security
 - **[MailHog](https://github.com/mailhog/MailHog)** - MailHog is an email testing tool for developers:
 Configure your application to use MailHog for SMTP delivery. View messages in the web UI, or retrieve them with the JSON API. Optionally release messages to real SMTP servers for delivery
 - **[memory_profiler](https://github.com/pythonprofilers/memory_profiler)** - This is a python module for monitoring memory consumption of a process as well as line-by-line analysis of memory consumption for python programs. It is a pure python module which depends on the psutil module.
-- [poetry-multiproject-plugin](poetry-multiproject-plugin) - The build-project command will make it possible to use relative package includes. This feature is very useful for monorepos and when sharing code between projects.
+- [poetry-multiproject-plugin](https://github.com/DavidVujic/poetry-multiproject-plugin) - The build-project command
+  will make it possible to use relative package includes. This feature is very useful for monorepos and when sharing
+  code between projects.
 - **[markupsafe](https://github.com/pallets/markupsafe)** - MarkupSafe implements a text object that escapes characters so it is safe to use in HTML and XML. Characters that have special meanings are replaced so that they display as the actual characters. This mitigates injection attacks, meaning untrusted user input can safely be displayed on a page.
 
 
