@@ -4,86 +4,83 @@
 
 💻 Deep Dive Coding 🛸
 
-[.tmpl]
-
-[api](/api) - API stuff
+[api](/api) - API solutions
    - [client](/api/client) - API clients
+   - [openapi](/api/openapi) - Open API standard
    - [server](/api/server) - API servers
-- [openapi](/api/openapi) - Open API
-- [test](/api/test) - API testsing
+   - [test](/api/test) - API testsing
 
-[async](/async) - Asynchronous, Multi-Threading, Multi-Processing, GIL, ...
+[apps](/apps) - Applications
 
-[auto](/auto) - Automation
+- [course_mod_apps](/apps/course_mod_apps) - **`Course materials based developed apps with own deep dive
+  modification :)`**
+    - [pypi-web-app](/apps/pypi_web_app) - PyPi clone (Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja)
+- [own_apps](/apps/own_apps) - **`Own developed apps 🛸🛸🛸`**
 
-[cache](/cache) - Cache
+[async](/async) - Asynchronous, Multi-Threading, Multi-Processing solutions
 
-[cloud](/cloud) - Cloud providers and tech stack
-   - [aws](/cloud/aws) - API clients
-   - [azure](/cloud/azure) - API servers
-   - [gcp](/cloud/gcp) - API servers
+[cache](/cache) - Cache solutions
 
-[code](/code) - Coding collections (algorithms, solutions, complexity, ...)
-   - [complexity](/code/001_complexity) - Complexity
-   - [time](/code/time) - Time
-   - [validation](/code/002_validation) - Validation
+- [python_cache](/cache/python_cache) - Python cache
 
-[code_tasks](/tasks) - Tests coding tasks ...
+[cloud](/cloud) - Cloud solutions
 
-[data](/data) - Data Engineering
+- [aws](/cloud/aws) - AWS
+- [azure](/cloud/azure) - Azure
+- [gcp](/cloud/gcp) - GCP
 
-- [db](/data/001_db) - DB
-- [etl](/data/002_etl) - ETL (ELT)
-     - [merge_data_app](/data/002_etl/001_merge_data) - Merge inconsistent data app
-- [migrations](/data/003_migrations) - Data (DB) migrations
+[code](/code) - Code solutions
 
-[debug](/debug) - Debug, Memory
+- [complexity](/code/complexity) - Complexity
+- [validation](/code/validation) - Validation
+- [debug](/code/debug) - Debug, Memory
 
-[doc](/doc) - Documentations
+[common](/common) - **`Common code based for rest of the sub-projects`**
+
+[code_tasks](/tasks) - Coding tasks solutions
+
+[data](/data) - Data Engineering solutions
+
+- [db](/data/db) - DB
+- [etl](/data/etl) - ETL (ELT)
+    - [merge_data_app](/data/etl/001_merge_data) - **`Merge inconsistent data ETL app`**
+    - ...
+- [migrations](/data/migrations) - Data, Schema, DB migrations
+
+[doc](/doc) - Documentation
    - [cheats](/doc/cheats) - Cheat sheets
    - [help](/doc/help) - Help for different areas of DEV life:)
    - [interview](/doc/interview) - Interview examples 
 
-[docker](/docker) - Docker
+[docker](/docker) - Docker solutions
 
 [frameworks](/frameworks) - Frameworks
    - [django](/frameworks/django)  - Django
+   - [fastapi](/frameworks/fastapi)  - Fast Api
+   - [flask](/frameworks/flask)  - Flask
 
-[queue](/queue) - Queue
+[queue](/queue) - Queue solutions
+
+- [brokers](/queue/brokers) - Brokers
    - [queues](/queue/queues) - Queues
-   - [brokers](/queue/brokers) - Brokers
 
 [scripts](/scripts) - Scripts
+
+- [auto](/scripts/auto) - Automation solutions
    - [helpers](/scripts/helpers) - Helpers
-      -  [get_youtube_urls](/scripts/helpers/001_get_youtube_urls) - Helper which use Self and Public YouTube Scrapers as wel las Api wrappers to get YouTube data (channel, playlists, find diff between main channel and playlists, etc. Make possibility to mix behaviour and download videos.)
-          
+       - [get_youtube_urls](/scripts/helpers/001_get_youtube_urls) - *
+         *`Mixed (Wed Scrapping and API) based app to get YouTube chanel information`**
+- [python](/scripts/python) - Python based solutions and examples
+- [sh](/scripts/sh) - SH based solutions and examples
 
-[web_apps](/web_apps) Web applications (FE | BE or only BE) 
-   - [pypi-web-app](/web_apps/001_pypi) - Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja
-   - [store-wed-app](/web_apps/002_store) - Demo Web App on Pyton3, Django
-
-
-
-
-
-# Virtual env install
+### Project run locally
 ```sh
-export PROJECT_DIR="/home/..."; export POETRY_VERSION=1.6.1; export PYTHON_VERSION=3.12
-sudo dnf install python$PYTHON_VERSION poetry
-sudo dnf install python$PYTHON_VERSION-devel.x86_64  # for Cython compilation for IDE
-curl -sSL https://install.python-poetry.org | POETRY_VERSION=$POETRY_VERSION python3 -
-
-cd $PROJECT_DIR
-rm -rf .venv
-poetry config virtualenvs.in-project true
-poetry env use $PYTHON_VERSION
-source .venv/bin/activate
-poetry install
-poetry shell
+chmod +x ./setup.sh && bash ./setup.sh
 ```
 
-# NOTES:
-1) Do not use code dir as module to avoid an err during bootstrap procedures:
+### Notes
+
+- Do not use `code` dir as module (with `__init__.py`) to avoid an error raising during bootstrap procedures.
 ```
 Werkzeug AttributeError: 'module' object has no attribute 'InteractiveInterpreter'
 ```
