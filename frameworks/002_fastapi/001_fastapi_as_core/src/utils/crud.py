@@ -1,39 +1,46 @@
-class RecordNotFoundError(Exception):
-    pass
+from typing import List
 
-
-class RecordAlreadyExistsError(Exception):
-    pass
+from fastapi.exceptions import ResponseValidationError
 
 
 # Create (Add) a new record with a specific ID
-def create_record(data, new_record):
-    if any(record["id"] == new_record["id"] for record in data):
-        raise RecordAlreadyExistsError("ID already exists")
+def create_record(data: List[dict], new_record: dict, raise_err: bool = True):
+    new_id = new_record.get("id")
+    if read_record(data, new_id, raise_err=False):
+        raise ResponseValidationError(f"Record `{new_id}` already exists")
     data.append(new_record)
+    return data
+
 
 
 # Read (Retrieve) a record by ID
-def read_record(data, record_id):
+def read_record(data: List[dict], record_id: int, raise_err: bool = True):
     for record in data:
-        if record["id"] == record_id:
+        if record.get("id") == record_id:
             return record
-    raise RecordNotFoundError("Record not found")
+
+    if raise_err:
+        raise ResponseValidationError(f"Record `{record_id}` not found")
 
 
 # Update (Modify) a record by ID
-def update_record(data, record_id, new_data):
+def update_record(data: List[dict], new_data: dict, raise_err: bool = True):
+    new_id = new_data.get("id")
     for record in data:
-        if record["id"] == record_id:
+        if record.get("id") == new_id:
             record.update(new_data)
-            return
-    raise RecordNotFoundError("Record not found")
+            return data
+
+    if raise_err:
+        raise ResponseValidationError(f"Record `{new_id}` not found")
 
 
 # Delete (Remove) a record by ID
-def delete_record(data, record_id):
+def delete_record(data: List[dict], record_id: int, raise_err: bool = True):
     for record in data:
-        if record["id"] == record_id:
-            data.remove(record)
-            return
-    raise RecordNotFoundError("Record not found")
+        if record.get("id") == record_id:
+            data.remove(record)  # using `remove` suppose to have unique records
+            return data
+
+    if raise_err:
+        raise ResponseValidationError(f"Record `{record_id}` not found")

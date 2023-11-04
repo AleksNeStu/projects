@@ -9,8 +9,7 @@ from fastapi_pagination import LimitOffsetPage, add_pagination, paginate, Page
 
 from data.entities import users_data, trades_data
 from models.pydantic import User, Trade
-from utils import get_by_id
-from validation.error import raise_not_found_err, raise_already_exist_err
+from utils import crud
 
 app = FastAPI(
     title="Trading App"
@@ -43,29 +42,36 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 # @app.get("/users/{user_id}", response_model=List[User])
 @app.get("/users/{user_id}")
 def get_user(user_id: int) -> User:
-    user = get_by_id(users_data, user_id)
-    if not user:
-        raise_not_found_err()
+    user = crud.read_record(users_data, user_id)
+    # user = get_by_id(users_data, user_id)
+    # if not user:
+    #     raise_not_found_err()
     return user
 
 
-@app.post("/users/{user_id}")
-def add_user(new_user: User):
-    if get_by_id(users_data, new_user.id):
-        raise_already_exist_err()
-
-    users_data.append(new_user)  # rep case not control id primary key logic increment
+@app.post("/users")
+def post_user(new_user: User):
+    crud.create_record(users_data, new_user.model_dump())
+    # if get_by_id(users_data, new_user.id):
+    #     raise_already_exist_err()
+    #
+    # users_data.append(new_user)  # rep case not control id primary key logic increment
     return users_data
 
 
-@app.put("/users/{user_id}")
-def update_user(new_user: User):
-    user = get_user(new_user.id)
-    user.update(new_user.model_dump())
-    # TODO: Update users_data collection
+@app.put("/users")
+def put_user(new_user: User):
+    # user = get_user(new_user.id)
+    # user.update(new_user.model_dump())
+    # # TODO: Update users_data collection
+    crud.update_record(users_data, new_user.model_dump())
     return users_data
 
 
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int):
+    crud.delete_record(users_data, user_id)
+    return users_data
 
 # Pagination via offset and limit
 @app.get("/users")
@@ -83,7 +89,6 @@ def get_users() -> LimitOffsetPage[User]:
 
 
 # TRADES
-
 # Page Number Pagination
 # https://uriyyo-fastapi-pagination.netlify.app/tutorials/page-number-pagination/
 # Page - a class that represents a paginated data.
