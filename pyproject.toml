@@ -150,6 +150,7 @@ beanie = "^1.23.1"
 asyncpg = "^0.28.0"
 fastapi-pagination = "^0.12.12"
 beautifulsoup4 = "^4.12.2"
+blinker = "^1.7.0"
 
 
 [tool.poetry.dev-dependencies]
