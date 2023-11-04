@@ -1,3 +1,5 @@
+import json
+
 import uvicorn
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
@@ -33,6 +35,13 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
     )
 
+
+@app.on_event("startup")
+def save_openapi_json():
+    openapi_data = app.openapi()
+    # Change "openapi.json" to desired filename
+    with open("openapi.json", "w") as file:
+        json.dump(openapi_data, file)
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host="localhost", port=5000, reload=True, log_level="debug")
