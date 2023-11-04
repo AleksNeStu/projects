@@ -5,23 +5,23 @@ import re
 from abc import abstractmethod
 from collections import defaultdict
 from pprint import pprint
-from typing import List, Optional, Set, Tuple, Dict
+from typing import List, Optional, Set, Tuple
 from unittest.mock import patch
 from urllib.parse import urlparse, parse_qs
 from urllib.request import urlopen
 
-import requests
-from deepdiff import DeepDiff
-from pytube.exceptions import RegexMatchError
 import scrapetube
 from bs4 import BeautifulSoup
 from codetiming import Timer
+from deepdiff import DeepDiff
 from pytube import Channel as ChannelP, Playlist as PlaylistP
 from pytube import extract
+from pytube.exceptions import RegexMatchError
 from pytube.helpers import uniqueify
 from pyyoutube import Api, Playlist, Channel
 
 from utils import find_key_values
+
 logger = logging.getLogger(__name__)
 
 
@@ -647,7 +647,7 @@ def fats_exec_logic(user_url_part: str):
 #  - Make assertions informative
 if __name__ == '__main__':
     """User fats_exec_logic or exec_logic code"""
-    USER_URL_PART = "programmingwithmosh"  # https://www.youtube.com/@{USER_URL_PART}
+    USER_URL_PART = "UlbiTV"  # https://www.youtube.com/@{USER_URL_PART}
     #fats_exec_logic(user_url_part=USER_URL_PART)
 
     exec_logic(user_url_part=USER_URL_PART, is_scraper=True, is_downloader=True, is_api=False)

@@ -1,4 +1,4 @@
-# P1
+P1
 1) Restructure and clean-ip project - in progress
 2) 001_talkpy_async - finish course
 3) FastAPI - docs, +/-
