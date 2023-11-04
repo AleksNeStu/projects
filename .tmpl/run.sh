@@ -1,1 +1,0 @@
-source /Projects/projects/.venv/bin/activate

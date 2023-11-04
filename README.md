@@ -4,13 +4,13 @@
 
 💻 Deep Dive Coding 🛸
 
+[.tmpl]
+
 [api](/api) - API stuff
    - [client](/api/client) - API clients
    - [server](/api/server) - API servers
-        - [django](/api/server/django) - Django server examples
-        - [fast_api](/api/server/fast_api) - FastAPI server examples
-        - [flask](/api/server/flask) - Flask server examples
-   - [test](/api/test) - API testsing (load, ...)
+- [openapi](/api/openapi) - Open API
+- [test](/api/test) - API testsing
 
 [async](/async) - Asynchronous, Multi-Threading, Multi-Processing, GIL, ...
 
