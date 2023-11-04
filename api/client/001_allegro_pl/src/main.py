@@ -31,4 +31,6 @@ def get_orders():
     res = allegro._get(target_path)
     return json.dumps(res)
 
-print(json.dumps(get_orders()))
+if __name__ == "__main__":
+    orders = json.dumps(get_orders())
+    print(orders)
