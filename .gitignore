@@ -63,6 +63,7 @@ db.sqlite3-journal
 *.db.sqlite3
 *.dbs
 *.bak
+*.db
 
 # Flask stuff:
 instance/
