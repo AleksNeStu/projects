@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile-uwsgi
+    environment:
+      - IS_DEPLOY=1
+      - IS_SQL_VERSION=0
+    ports:
+      - '8080:80'
+    restart: 'no'
+    tty: true
+    volumes:
+      - '.:/pypi'
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: "mongo"

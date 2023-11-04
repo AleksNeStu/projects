@@ -1,4 +1,0 @@
-include README.md
-include README_ru.md
-include requirements*.txt
-include staff/alembic.ini

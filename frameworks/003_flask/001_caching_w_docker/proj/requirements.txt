@@ -1,7 +1,0 @@
-Flask
-redis
-flask_caching
-requests
-codetiming
-humanfriendly
-python-dotenv

@@ -1,0 +1,2 @@
+Helper which use Self and Public YouTube Scrapers as wel las Api wrappers to get YouTube data (channel, playlists,
+find diff between main channel and playlists, etc. Make possibility to mix behaviour and download videos.

@@ -1,4 +1,3 @@
-# I) URLS
 https://realpython.com/python-timer/
 
 https://realpython.com/python-type-checking/#other-static-type-checkers

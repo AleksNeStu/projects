@@ -1,0 +1,30 @@
+{% extends "shared/_layout.html" %}
+{% block title %}About PyPI Demo{% endblock %}
+
+{% block main_content %}
+
+    <div class="form-container">
+        <form action="" method="POST" class="account-form">
+            <h1>Login at PyPi</h1>
+            <input type="text" class="form-control" placeholder=" Email"
+                   name="email" value="{{ email }}">
+            <input type="password" class="form-control"
+                   placeholder=" Password" name="password"
+                   value="{{ password }}">
+            <button type="submit" class="btn btn-success">Login
+            </button>
+
+            {% if errors %}
+                <div class="error-msg">{{ errors }}</div>
+            {% endif %}
+
+            <div style="clear: both;"></div>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block additional_css %}
+    <link rel="stylesheet" href="/static/css/account.css">
+{% endblock %}

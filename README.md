@@ -12,8 +12,8 @@
 
 [apps](/apps) - Applications
 
-- [course_mod_apps](/apps/course_mod_apps) - **`Course materials based developed apps with own deep dive
-  modification :)`**
+- [course_mod_apps](/apps/course_mod_apps) - *
+  *`Course materials based developed apps with own deep dive modification :)`**
     - [pypi-web-app](/apps/pypi_web_app) - PyPi clone (Demo Web App on Pyton3, Flask, SQLAlchemy, Alembic, Jinja)
 - [own_apps](/apps/own_apps) - **`Own developed apps 🛸🛸🛸`**
 

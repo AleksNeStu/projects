@@ -1,1 +1,0 @@
-CRUD ops example using FastAPI
