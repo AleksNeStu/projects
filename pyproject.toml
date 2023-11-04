@@ -154,5 +154,5 @@ fastapi-pagination = "^0.12.12"
 [tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["poetry-core>=1.6.1"]
+requires = ["poetry-core>=1.7.0"]
 build-backend = "poetry.core.masonry.api"
