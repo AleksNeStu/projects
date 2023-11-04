@@ -1,7 +1,5 @@
 #set -x
-source /Projects/projects/.venv/bin/activate
-
-cd ../merge_app
+source /Projects/projects/.venv/bin/activatecd ../merge_app
 pwd
 #set -o allexport && source ../configs/local.env && source ../configs/flask.env && set +o allexport
 

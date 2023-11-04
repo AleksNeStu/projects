@@ -17,8 +17,10 @@
   - [pypi-web-app](/apps/course_mod_apps/pypi_web_app) - PyPi clone (Demo Web App on Pyton3, Flask, SQLAlchemy,
     Alembic, Jinja)
 - [own_apps](/apps/own_apps) - **`Own developed apps 🛸`**
-  - [get_youtube_urls](/apps/own_apps/get_youtube_urls) - Mixed (Wed Scrapping and API) based app to get YouTube chanel
-    information
+  - [etl_merge_data](/apps/own_apps/etl_merge_data) - Merge inconsistent data ETL app
+  - [get_youtube_info](/apps/own_apps/get_youtube_info) - Mixed mode (Wed Scrapping and API) based app to get YouTube
+    chanel extended information
+
 
 [async](/async) - Asynchronous, Multi-Threading, Multi-Processing solutions
 
@@ -42,8 +44,6 @@
 [data](/data) - Data Engineering solutions
 - [db](/data/db) - DB
 - [etl](/data/etl) - ETL (ELT)
-    - [merge_data_app](/data/etl/001_merge_data) - **`Merge inconsistent data ETL app`**
-    - ...
 - [migrations](/data/migrations) - Data, Schema, DB migrations
 
 [doc](/doc) - Documentation
