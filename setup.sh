@@ -62,9 +62,10 @@ if [ -d "$PROJECT_DIR" ]; then
     # Clone the repository if it doesn't exist
     git clone --depth=1 "$REPO_URL" "$PROJECT_DIR"
   else
-    echo "Skipping the clone operation."
-    cd $PROJECT_DIR && ls
-    git status
+    echo "Skipping the clone operation, just pull."
+    cd $PROJECT_DIR && pwd
+    #    git config --unset core.bare
+    git pull $REPO_URL
   fi
 else
   # Create project dir and clone the project
@@ -93,12 +94,14 @@ else
   echo "The directory '$PROJECT_DIR/.venv' does not exist."
 fi
 
-$PYTHON -m poetry config virtualenvs.in-project true
-#$PYTHON -m poetry env use $PYTHON_VERSION - broke installation with error no poetry module in install stage
-source $PROJECT_DIR/.venv/bin/activate
+poetry config virtualenvs.in-project true
+#$PYTHON -m poetry config virtualenvs.in-project true
+poetry env use $PYTHON_VERSION
+#$PYTHON -m poetry env use $PYTHON_VERSION
+source .venv/bin/activate
 which python
 #!/opt/git/projects/.venv/bin/python
-$PYTHON -m poetry install --no-root
-#poetry install
+#$PYTHON -m poetry install --no-root
+poetry install --no-root
 
 # Warning: The file chosen for install of executing 2.0.0 (executing-2.0.0-py2.py3-none-any.whl) is yanked. Reason for being yanked: Released 2.0.1 which is equivalent but added 'python_requires = >=3.5' so that pip install with Python 2 uses the previous version 1.2.0.
