@@ -70,6 +70,12 @@ Endpoint security
 - **[fastapi-pagination](https://github.com/uriyyo/fastapi-pagination)** - Python library designed to simplify
   pagination in FastAPI applications. It provides a set of utility functions and data models to help you paginate your
   database queries and return paginated responses to your clients.
+- **[fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices)** - Fast API Opinionated list of
+  best practices and conventions we used at our startup.
+- **[fastapi-cache](https://github.com/long2ice/fastapi-cache)** - Fast API tool to cache fastapi response and function
+  result, with backends
+  support redis and memcached. Supports redis, memcache, dynamodb, and in-memory backends.
+- **[]()** -
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.

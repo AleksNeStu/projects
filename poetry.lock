@@ -1877,6 +1877,33 @@ tortoise-orm = "*"
 uvicorn = {version = "*", extras = ["standard"]}
 
 [[package]]
+name = "fastapi-cache2"
+version = "0.2.1"
+description = "Cache for FastAPI"
+optional = false
+python-versions = "^3.7"
+files = []
+develop = false
+
+[package.dependencies]
+fastapi = "*"
+pendulum = "*"
+typing-extensions = ">=4.1.0"
+uvicorn = "*"
+
+[package.extras]
+all = ["aiobotocore (>=1.4.1,<3.0.0)", "aiomcache", "redis (>=4.2.0rc1,<5.0.0)"]
+dynamodb = ["aiobotocore (>=1.4.1,<3.0.0)"]
+memcache = ["aiomcache"]
+redis = ["redis (>=4.2.0rc1,<5.0.0)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/long2ice/fastapi-cache"
+reference = "HEAD"
+resolved_reference = "005bac9d11deae15f165ab016c6a5bcce6e4631d"
+
+[[package]]
 name = "fastapi-pagination"
 version = "0.12.12"
 description = "FastAPI pagination"
@@ -7579,4 +7606,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "fb11e2f37f51908222cce71b090d4106ba4998b9fa9369615475bf9b102f2cd2"
+content-hash = "8bc70201a30b026fbf90762715b8867170703d1fa17d87917b8f8958afdab202"
