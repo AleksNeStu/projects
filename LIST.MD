@@ -75,7 +75,9 @@ Endpoint security
 - **[fastapi-cache](https://github.com/long2ice/fastapi-cache)** - Fast API tool to cache fastapi response and function
   result, with backends
   support redis and memcached. Supports redis, memcache, dynamodb, and in-memory backends.
-- **[]()** -
+- **[fastapi-admin](https://github.com/fastapi-admin/fastapi-admin)** - A fast admin dashboard based on FastAPI and
+  TortoiseORM with tabler ui, inspired by Django admin.
+
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.
@@ -84,7 +86,7 @@ Endpoint security
 - **[GitHub Search API](https://docs.github.com/en/rest/search)** - The Search API helps you search for the specific item you want to find. For example, you can find a user or a specific file in a repository.
 - **[GitHub CLI](https://github.com/cli/cli)** - gh is GitHub on the command line. It brings pull requests, issues, and other GitHub concepts to the terminal next to where you are already working with git and your code.
 - **[guppy3](https://github.com/zhuyifei1999/guppy3/)** - A Python Programming Environment & Heap analysis toolset.
-
+- **[github1s](https://github.com/conwnet/github1s)** - One second to read GitHub code with VS Code.
 
 
 
