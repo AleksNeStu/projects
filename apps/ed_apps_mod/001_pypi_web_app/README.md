@@ -333,7 +333,7 @@ docker rmi -f $(docker images -aq)
 ## Tech-stack
 
 <p align="center">
-<img src="src/assets/diagram.png" alt="Stairway test">
+<img src="proj/assets/diagram.png" alt="Stairway test">
 </p>
 
 > BE
@@ -396,17 +396,17 @@ docker rmi -f $(docker images -aq)
   possible. \
 -
 <p align="center">
-<img src="src/assets/orm_core.png" alt="ORM and Core">
+<img src="proj/assets/orm_core.png" alt="ORM and Core">
 </p>
 
 [Engine Configuration](https://docs.sqlalchemy.org/en/13/core/engines.html)
 <p align="center">
-<img src="src/assets/sqla_engine_arch.png" alt="Engine Configuration">
+<img src="proj/assets/sqla_engine_arch.png" alt="Engine Configuration">
 </p>
 
 **ORM queries**
 <p align="center">
-<img src="src/assets/sql-1.png" alt="ORM queries" width="90%">
+<img src="proj/assets/sql-1.png" alt="ORM queries" width="90%">
 </p>
 
 - Linux
@@ -424,7 +424,7 @@ docker rmi -f $(docker images -aq)
   
 
   <p align="center">
-        <img src="src/assets/uwsgi.jpeg" alt="uWSGI" width="90%">
+        <img src="proj/assets/uwsgi.jpeg" alt="uWSGI" width="90%">
   </p>
 
 > FE
@@ -574,7 +574,7 @@ sudo ln -s /opt/robo3t/bin/robo3t /usr/local/bin/robo3t
 # Description
 
 <p align="center">
-<img src="src/assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
+<img src="proj/assets/model-view-controller.png" alt="MVC (Model-View-Controller)">
 </p>
 
 **MVC (Model-View-Controller)** is a pattern in software design commonly used
