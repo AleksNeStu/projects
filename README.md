@@ -12,13 +12,15 @@
 - [test](/api/test) - API testsing
 
 [apps](/apps) - Applications
-- [course_mod_apps](/apps/course_mod_apps) - **`Course materials based developed apps with own deep dive
-  modification 😎`**
-  - [pypi-web-app](/apps/course_mod_apps/pypi_web_app) - PyPi clone (Demo Web App on Pyton3, Flask, SQLAlchemy,
+
+- [ed_apps_mod](/apps/ed_apps_mod) - **`Education course based developed apps (with own deep dive and modification 😎)`**
+  - [001_pypi-web-app](/apps/ed_apps_mod/001_pypi_web_app) - PyPi clone (Demo Web App on Pyton3, Flask, SQLAlchemy,
     Alembic, Jinja)
+- [ed_apps_origin](/apps/ed_apps_origin) - **`Education course based developed apps (as is for testing pusposes)`**
 - [own_apps](/apps/own_apps) - **`Own developed apps 🛸`**
-  - [etl_merge_data](/apps/own_apps/etl_merge_data) - Merge inconsistent data ETL app
-  - [get_youtube_info](/apps/own_apps/get_youtube_info) - Mixed mode (Wed Scrapping and API) based app to get YouTube
+  - [001_etl_merge_data](/apps/own_apps/001_etl_merge_data) - Merge inconsistent data ETL app
+  - [002_get_youtube_info](/apps/own_apps/002_get_youtube_info) - Mixed mode (Wed Scrapping and API) based app to get
+    YouTube
     chanel extended information
 
 
