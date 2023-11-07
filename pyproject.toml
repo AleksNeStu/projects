@@ -180,6 +180,8 @@ fastapi-cache2 = { git = "https://github.com/long2ice/fastapi-cache" }
 flower = "^2.0.1"
 graphene = "^3.3"
 starlette-graphene3 = "^0.6.0"
+graphviz = "^0.20.1"
+compose-viz = "^0.3.1"
 
 
 [tool.poetry.dev-dependencies]

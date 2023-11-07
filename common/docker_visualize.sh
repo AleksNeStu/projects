@@ -1,0 +1,1 @@
+cpv -m svg docker-compose.yml
