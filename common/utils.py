@@ -107,9 +107,12 @@ def get_dir(file = None) -> pathlib.Path:
     return dir
 
 
-def sys_path_insert(dir_path: pathlib.PosixPath):
+def sys_path_insert(dir_path: pathlib.PosixPath | pathlib.Path = None):
+    if not dir_path:
+        dir_path = get_dir()
     dir_path_posix = dir_path.as_posix()
     if dir_path.is_dir():
-        sys.path.insert(0, dir_path_posix)
+        if dir_path_posix not in sys.path:
+            sys.path.insert(0, dir_path_posix)
     else:
         raise ValueError(f"{dir_path_posix} is not exists, failed to sys path insert")
