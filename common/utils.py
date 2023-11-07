@@ -1,16 +1,16 @@
 import asyncio
 import inspect
 import pathlib
+import sys
 from contextlib import contextmanager
-
+from importlib.metadata import version as pk_version
 from pprint import pprint
 from typing import Union, Callable, Dict, Type, Optional
 
 from codetiming import Timer
 from deepdiff import DeepDiff
-
 from packaging import version
-from importlib.metadata import version as pk_version
+
 
 def get_diff(act, exp, is_assert: bool = True):
     diff = DeepDiff(act, exp)
@@ -105,3 +105,11 @@ def get_dir(file = None) -> pathlib.Path:
 
     dir = pathlib.Path(file).resolve().parent
     return dir
+
+
+def sys_path_insert(dir_path: pathlib.PosixPath):
+    dir_path_posix = dir_path.as_posix()
+    if dir_path.is_dir():
+        sys.path.insert(0, dir_path_posix)
+    else:
+        raise ValueError(f"{dir_path_posix} is not exists, failed to sys path insert")
