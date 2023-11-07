@@ -5,8 +5,9 @@ import sys
 from contextlib import contextmanager
 from importlib.metadata import version as pk_version
 from pprint import pprint
-from typing import Union, Callable, Dict, Type, Optional
+from typing import Union, Callable, Dict, Type, Optional, List
 
+import dotenv
 from codetiming import Timer
 from deepdiff import DeepDiff
 from packaging import version
@@ -116,3 +117,11 @@ def sys_path_insert(dir_path: pathlib.PosixPath | pathlib.Path = None):
             sys.path.insert(0, dir_path_posix)
     else:
         raise ValueError(f"{dir_path_posix} is not exists, failed to sys path insert")
+
+
+def load_dotenv(extra_paths: List[str] = None):
+    # Order is important, to handle priority of the overwriting
+    target_paths = [".env", "sec.env", "/sec/sec.env"]
+    target_paths.extend(extra_paths or [])
+    for target_path in target_paths:
+        dotenv.load_dotenv(target_path)
