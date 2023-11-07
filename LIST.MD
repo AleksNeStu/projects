@@ -34,6 +34,9 @@
 - **[click-plugins** ](https://github.com/click-contrib/click-plugins)- An extension module for click to register external CLI commands via setuptools entry-points.
 - **[configparser](https://docs.python.org/3/library/configparser.html)** - This module provides the ConfigParser class which implements a basic configuration language which provides a structure similar to what’s found in Microsoft Windows INI files. Y
 - **[curio](https://github.com/dabeaz/curio/)** - Curio is a library for concurrent systems programming that uses coroutines and common programming abstractions such as threads, sockets, files, locks, and queues. In addition, it supports cancellation, task groups, and other useful features.
+- **[celery-flower](https://github.com/mher/flower)** - Flower is an open-source web application for monitoring and managing Celery clusters. It provides 
+  real-time information about the status of Celery workers and tasks.
+
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.
@@ -87,6 +90,7 @@ Endpoint security
 - **[GitHub CLI](https://github.com/cli/cli)** - gh is GitHub on the command line. It brings pull requests, issues, and other GitHub concepts to the terminal next to where you are already working with git and your code.
 - **[guppy3](https://github.com/zhuyifei1999/guppy3/)** - A Python Programming Environment & Heap analysis toolset.
 - **[github1s](https://github.com/conwnet/github1s)** - One second to read GitHub code with VS Code.
+- **[graphene](https://github.com/graphql-python/graphene)** - GraphQL framework for Python
 
 
 
@@ -183,7 +187,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[setuptools](https://github.com/pypa/setuptools)** - See the Installation Instructions in the Python Packaging User's Guide for instructions on installing, upgrading, and uninstalling Setuptools.
 - **[scrapetube](https://github.com/dermasmid/scrapetube)** - This module will help you scrape youtube without the official youtube api and without selenium.
 - **[sniffio](https://github.com/python-trio/sniffio#sniffio-sniff-out-which-async-library-your-code-is-running-under)** - Sniff out which async library your code is running under
-
+- **[starlette-graphene3](https://github.com/ciscorn/starlette-graphene3)** - An ASGI app for using Graphene v3 with Starlette / FastAPI
 
 
 # T

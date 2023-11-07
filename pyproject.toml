@@ -177,6 +177,9 @@ waitress = "^2.1.2"
 webob = "^1.8.7"
 wtforms = "^3.1.1"
 fastapi-cache2 = { git = "https://github.com/long2ice/fastapi-cache" }
+flower = "^2.0.1"
+graphene = "^3.3"
+starlette-graphene3 = "^0.6.0"
 
 
 [tool.poetry.dev-dependencies]
