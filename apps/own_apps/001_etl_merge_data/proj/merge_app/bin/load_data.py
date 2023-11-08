@@ -39,7 +39,7 @@ def get_normalized_dicts_csv_1(csv_reader):
         row = py_utils.DictToObj(default_val=None, **row)
         normalized_dicts.append(dict(
             date=py_utils.parse_date(
-                row.timestamp, settings.DATE_FORMAT_CSV_1),
+                row._timestamp, settings.DATE_FORMAT_CSV_1),
             operation_type=row.type,
             currency_type=None,
             money_amount=float(row.amount),

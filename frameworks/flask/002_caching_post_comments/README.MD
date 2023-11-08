@@ -6,3 +6,8 @@ We want to create a small caching microservice in front of these endpoints, whic
 https://jsonplaceholder.typicode.com/posts
 
 https://jsonplaceholder.typicode.com/comments
+
+
+```curl
+curl "http://localhost:5000/combined_posts?force_refresh=true"
+```
