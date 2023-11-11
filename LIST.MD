@@ -36,7 +36,7 @@
 - **[curio](https://github.com/dabeaz/curio/)** - Curio is a library for concurrent systems programming that uses coroutines and common programming abstractions such as threads, sockets, files, locks, and queues. In addition, it supports cancellation, task groups, and other useful features.
 - **[celery-flower](https://github.com/mher/flower)** - Flower is an open-source web application for monitoring and managing Celery clusters. It provides 
   real-time information about the status of Celery workers and tasks.
-
+- **[cookiecutter](https://github.com/cookiecutter/cookiecutter)** - A command-line utility that creates projects from project templates, e.g. creating a Python package project from a Python package project template.
 
 # D
 - **[django](https://github.com/django/django)** - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Thanks for checking it out.

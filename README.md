@@ -36,8 +36,9 @@
 
 [code](/code) - Code solutions
 - [complexity](/code/complexity) - Complexity
-- [validation](/code/validation) - Validation
 - [debug](/code/debug) - Debug, Memory
+- [templates](/code/templates) - Code templates (best practices)
+- [validation](/code/validation) - Validation
 
 [common](/common) - **`Common code based for rest of the sub-projects`**
 

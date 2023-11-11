@@ -45,6 +45,7 @@ export REPO_URL="https://github.com/AleksNeStu/projects.git"
 # Install system python dependencies and poetry dependency management
 sudo dnf install $PYTHON -y
 sudo dnf install $PYTHON-devel.x86_64 -y # for Cython compilation for IDE
+sudo install git-subtree -y
 #curl -sSL https://install.python-poetry.org | $PYTHON - --version $POETRY_VERSION
 $PYTHON -m pip install poetry==$POETRY_VERSION
 
