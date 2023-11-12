@@ -15,7 +15,7 @@ services:
     ports:
       - 3307:3306
     volumes:
-      - db-mysql-vol:/var/lib/mysql
+      - db-mysql:/var/lib/mysql
 
   db-postgresql:
     # sudo pgcli -h /var/lib/docker/volumes/common_db-postgresql-socket/_data -d $DB_NAME'
@@ -28,7 +28,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - db-postgresql-vol:/var/lib/postgresql/data
+      - db-postgresql-data:/var/lib/postgresql/data
       - db-postgresql-socket:/var/run/postgresql
 
   db-redis:
@@ -47,9 +47,22 @@ services:
 #      # To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
 #      - vm.overcommit_memory=1
 
+  db-mongodb:
+    image: mongo
+    container_name: db-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ADMIN_NAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_USER_PASSWORD}
+    volumes:
+      - db-mongodb:/data/db
+
+
 # /var/lib/docker/volumes/
 volumes:
-  db-mysql-vol:
-  db-postgresql-vol:
+  db-mysql:
+  db-postgresql-data:
   db-postgresql-socket:
   db-redis:
+  db-mongodb:
