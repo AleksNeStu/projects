@@ -1,10 +1,11 @@
 # Need to find the volumes and remove it after e.g. password changed ${DB_USER_PASSWORD}
-version: "3.9"
+version: '3.9'
 
 services:
 
+  # mycli --port 3307 -u root -p $DB_USER_PASSWORD
   db-mysql:
-    # mycli --port 3307 -u root -p $DB_USER_PASSWORD
+    # https://dev.mysql.com/doc/relnotes/mysql/8.2/en/
     image: mysql:8.2
     restart: unless-stopped
     command: --default-authentication-plugin=caching_sha2_password
@@ -17,8 +18,10 @@ services:
     volumes:
       - db-mysql:/var/lib/mysql
 
+
+  # sudo pgcli -h /var/lib/docker/volumes/common_db-postgresql-socket/_data -d $DB_NAME'
   db-postgresql:
-    # sudo pgcli -h /var/lib/docker/volumes/common_db-postgresql-socket/_data -d $DB_NAME'
+    # https://www.postgresql.org/docs/release/
     image: postgres:16
     container_name: db-postgresql
     environment:
@@ -31,8 +34,9 @@ services:
       - db-postgresql-data:/var/lib/postgresql/data
       - db-postgresql-socket:/var/run/postgresql
 
+  # iredis -a $DB_USER_PASSWORD
   db-redis:
-    # iredis -a $DB_USER_PASSWORD
+    # https://docs.redis.com/latest/rs/release-notes/
     image: redis:7.2.3
     container_name: db-redis
     environment:
@@ -48,15 +52,21 @@ services:
 #      - vm.overcommit_memory=1
 
   db-mongodb:
-    image: mongo
+    # https://www.mongodb.com/docs/v7.0/release-notes/
+    image: mongo:7.0.2
     container_name: db-mongodb
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_ADMIN_NAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_USER_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+      MONGO_INITDB_COLLECTION: ${DB_COLLECTION}
     volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
       - db-mongodb:/data/db
+    env_file:
+      - .env
 
 
 # /var/lib/docker/volumes/
