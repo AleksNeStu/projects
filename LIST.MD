@@ -100,6 +100,7 @@ Endpoint security
 
 
 # I
+- [iredis](https://github.com/laixintao/iredis) - Interactive Redis: A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.
 
 # J
 - **[JSON](https://www.json.org/json-en.html)** - JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write.
@@ -164,7 +165,7 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[python-attrs](https://github.com/python-attrs/attrs)** - attrs is the Python package that will bring back the joy of writing classes by relieving you from the drudgery of implementing object protocols (aka dunder methods).
 - **[Plumber](https://github.com/conestack/plumber)** - Plumbing is an alternative to mixin-based extension of classes. In motivation an incomplete list of limitations and/or design choices of python's subclassing are given along with plumber's solutions for them..
 - **[Pympler](https://github.com/pympler/pympler)** - Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.
-
+- **[pgcli](https://github.com/dbcli/pgcli)** - Postgres CLI with autocompletion and syntax highlighting
 
 # Q
 

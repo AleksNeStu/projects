@@ -4,6 +4,7 @@ version: "3.9"
 services:
 
   db-mysql:
+    # mycli --port 3307 -u root -p $DB_USER_PASSWORD
     image: mysql:8.2
     restart: unless-stopped
     command: --default-authentication-plugin=caching_sha2_password
@@ -17,6 +18,7 @@ services:
       - db-mysql-vol:/var/lib/mysql
 
   db-postgresql:
+    # sudo pgcli -h /var/lib/docker/volumes/common_db-postgresql-socket/_data -d $DB_NAME'
     image: postgres:16
     container_name: db-postgresql
     environment:
@@ -27,8 +29,10 @@ services:
       - 5432:5432
     volumes:
       - db-postgresql-vol:/var/lib/postgresql/data
+      - db-postgresql-socket:/var/run/postgresql
 
   db-redis:
+    # iredis -a $DB_USER_PASSWORD
     image: redis:7.2.3
     container_name: db-redis
     environment:
@@ -47,4 +51,5 @@ services:
 volumes:
   db-mysql-vol:
   db-postgresql-vol:
+  db-postgresql-socket:
   db-redis:
