@@ -202,6 +202,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
   6+. It includes modules for many different purposes.
 - [trustme](https://github.com/python-trio/trustme) - trustme is a tiny Python package that does one thing: it gives 
   you a fake certificate authority (CA) that you can use to generate fake TLS certs to use in your tests.
+- **[tailwindcss](https://github.com/tailwindlabs/tailwindcss)** - A utility-first CSS framework for rapid UI development.
 
 # U
 
