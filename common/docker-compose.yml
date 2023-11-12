@@ -1,3 +1,4 @@
+# Need to find the volumes and remove it after e.g. password changed ${DB_USER_PASSWORD}
 version: "3.9"
 
 services:
@@ -5,7 +6,7 @@ services:
   db-mysql:
     image: mysql:8.2
     restart: unless-stopped
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=caching_sha2_password
     container_name: db-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_USER_PASSWORD}
@@ -19,7 +20,7 @@ services:
     image: postgres:16
     container_name: db-postgresql
     environment:
-      POSTGRES_USER: ${DB_USER_NAME}
+      POSTGRES_USER: ${DB_ADMIN_NAME}
       POSTGRES_PASSWORD: ${DB_USER_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:

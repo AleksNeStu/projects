@@ -5,6 +5,7 @@ import sys
 from contextlib import contextmanager
 from importlib.metadata import version as pk_version
 from pprint import pprint
+from secrets import token_hex
 from typing import Union, Callable, Dict, Type, Optional, List
 
 import dotenv
@@ -125,3 +126,12 @@ def load_dotenv(extra_paths: List[str] = None):
     target_paths.extend(extra_paths or [])
     for target_path in target_paths:
         dotenv.load_dotenv(target_path)
+
+
+def generate_token():
+    # https://docs.python.org/3/library/secrets.html
+    #s of 2015, it is believed that 32 bytes (256 bits) of randomness is sufficient for the typical use-case expected for the secrets module.
+    token = token_hex(32)
+    return token
+
+print(generate_token())
