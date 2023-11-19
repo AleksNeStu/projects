@@ -192,6 +192,7 @@ google-cloud-bigquery-storage = "^2.22.0"
 google-cloud-build = "^3.21.0"
 google-cloud-common = "^1.2.0"
 google-cloud-compute = "^1.14.1"
+google-cloud-storage = "^2.13.0"
 
 
 [tool.poetry.dev-dependencies]
