@@ -2795,6 +2795,26 @@ google-auth = ">=1.25.0,<3.0dev"
 grpc = ["grpcio (>=1.38.0,<2.0dev)"]
 
 [[package]]
+name = "google-cloud-datastore"
+version = "2.18.0"
+description = "Google Cloud Datastore API client library"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "google-cloud-datastore-2.18.0.tar.gz", hash = "sha256:63b31b676dcb2786a650d23d324d8f886c4e14586afdd0cfe6e260a73f12448e"},
+    {file = "google_cloud_datastore-2.18.0-py2.py3-none-any.whl", hash = "sha256:369df0653128fe63f0fb1b5a1cd5a05edae49a805f79f9b639ca9d58833bc6b5"},
+]
+
+[package.dependencies]
+google-api-core = {version = ">=1.34.0,<2.0.dev0 || >=2.11.dev0,<3.0.0dev", extras = ["grpc"]}
+google-cloud-core = ">=1.4.0,<3.0.0dev"
+proto-plus = {version = ">=1.22.2,<2.0.0dev", markers = "python_version >= \"3.11\""}
+protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<5.0.0dev"
+
+[package.extras]
+libcst = ["libcst (>=0.2.5)"]
+
+[[package]]
 name = "google-cloud-resource-manager"
 version = "1.10.4"
 description = "Google Cloud Resource Manager API client library"
@@ -8482,4 +8502,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "8766b6119fff646d59ac995d6abd59e23df9ad64e0c50b4dbda078920f2e38e6"
+content-hash = "1713cb8697f1509dcb69f7859f741019dc0c06d09d34476675a93b4bb3f2bf4c"
