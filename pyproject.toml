@@ -184,6 +184,7 @@ graphviz = "^0.20.1"
 compose-viz = "^0.3.1"
 fastapi-users-db-sqlalchemy = "^6.0.1"
 boto3 = "^1.29.3"
+google-cloud-aiplatform = "^1.36.4"
 
 
 [tool.poetry.dev-dependencies]
