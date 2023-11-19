@@ -2638,6 +2638,22 @@ vizier = ["google-vizier (==0.0.11)", "google-vizier (==0.0.4)", "google-vizier 
 xai = ["tensorflow (>=2.3.0,<3.0.0dev)"]
 
 [[package]]
+name = "google-cloud-appengine-admin"
+version = "1.9.4"
+description = "Google Cloud Appengine Admin API client library"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "google-cloud-appengine-admin-1.9.4.tar.gz", hash = "sha256:6f76c1c74809ab1d6f644138a8b373f0c534b96ab846421138645d838abd4d8d"},
+    {file = "google_cloud_appengine_admin-1.9.4-py2.py3-none-any.whl", hash = "sha256:db075a1afe4020351ff20207d5b84f54c83f2ea19db281ae89c6407ec9ace7e8"},
+]
+
+[package.dependencies]
+google-api-core = {version = ">=1.34.0,<2.0.dev0 || >=2.11.dev0,<3.0.0dev", extras = ["grpc"]}
+proto-plus = {version = ">=1.22.2,<2.0.0dev", markers = "python_version >= \"3.11\""}
+protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<5.0.0dev"
+
+[[package]]
 name = "google-cloud-bigquery"
 version = "3.13.0"
 description = "Google BigQuery API client library"
@@ -8375,4 +8391,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "5b5d27b7b4ae500e19f6a1d8f35a66a3d6c9cb53aab5b3da28ea566c6fce2465"
+content-hash = "a66bc69f3a58145d6518d52b1fa30f4729840a1d6def6a839865794ed27871c5"

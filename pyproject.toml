@@ -185,6 +185,7 @@ compose-viz = "^0.3.1"
 fastapi-users-db-sqlalchemy = "^6.0.1"
 boto3 = "^1.29.3"
 google-cloud-aiplatform = "^1.36.4"
+google-cloud-appengine-admin = "^1.9.4"
 
 
 [tool.poetry.dev-dependencies]
