@@ -190,6 +190,7 @@ google-cloud-automl = "^2.11.4"
 google-cloud-bigquery = "^3.13.0"
 google-cloud-bigquery-storage = "^2.22.0"
 google-cloud-build = "^3.21.0"
+google-cloud-common = "^1.2.0"
 
 
 [tool.poetry.dev-dependencies]

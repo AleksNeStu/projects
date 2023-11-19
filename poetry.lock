@@ -2745,6 +2745,22 @@ proto-plus = {version = ">=1.22.2,<2.0.0dev", markers = "python_version >= \"3.1
 protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<5.0.0dev"
 
 [[package]]
+name = "google-cloud-common"
+version = "1.2.0"
+description = "Google Cloud Common API client library"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "google-cloud-common-1.2.0.tar.gz", hash = "sha256:2cfd92b96d4d62145cecdebc82d7d0f76adb04e7e9f2e910007cbff6c6d19542"},
+    {file = "google_cloud_common-1.2.0-py2.py3-none-any.whl", hash = "sha256:ce7e1003dcc0e3e97b777296c8535f793581a1835517332d38c45a3fddcf3b79"},
+]
+
+[package.dependencies]
+google-api-core = {version = ">=1.34.0,<2.0.dev0 || >=2.11.dev0,<3.0.0dev", extras = ["grpc"]}
+proto-plus = {version = ">=1.22.2,<2.0.0dev", markers = "python_version >= \"3.11\""}
+protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<5.0.0dev"
+
+[[package]]
 name = "google-cloud-core"
 version = "2.3.3"
 description = "Google Cloud API client core library"
@@ -8450,4 +8466,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "f777f1a395a63d3b71bad9b532f65f57ce06fb6b344b20b660dc9c3a0678054d"
+content-hash = "707133945dc4cb2b2bdb7f92824412bf761f22a0064c3de908b2a8143701e73a"
