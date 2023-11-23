@@ -63,6 +63,11 @@
 - [fastapi](/frameworks/fastapi)  - Fast Api
 - [flask](/frameworks/flask)  - Flask
 
+[ml](/ml) - Machine learning
+
+- [jupyter](/ml/jupyter) - Jupyter Notebook and Jupyter Lab
+- [ai](/ml/ai) - Artificial Intelligence
+
 [queue](/queue) - Queue solutions
 - [brokers](/queue/brokers) - Brokers
 - [queues](/queue/queues) - Queues
