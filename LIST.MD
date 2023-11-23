@@ -107,6 +107,9 @@ Endpoint security
 
 # J
 - **[JSON](https://www.json.org/json-en.html)** - JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write.
+- **[jupyterlab](https://github.com/jupyterlab/jupyterlab)** - An extensible environment for interactive and reproducible computing, based on the Jupyter Notebook and Architecture.
+- **[jupyter notebook](https://github.com/jupyter/notebook)** - The Jupyter notebook is a web-based notebook environment for interactive computing.
+- 
 
 # K
 - **[Kombu](https://github.com/celery/kombu)** - Kombu is a messaging library for Python. The aim of Kombu is to make messaging in Python as easy as possible by providing an idiomatic high-level interface for the AMQ protocol, and also provide proven and tested solutions to common messaging problems.
@@ -169,6 +172,7 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[Plumber](https://github.com/conestack/plumber)** - Plumbing is an alternative to mixin-based extension of classes. In motivation an incomplete list of limitations and/or design choices of python's subclassing are given along with plumber's solutions for them..
 - **[Pympler](https://github.com/pympler/pympler)** - Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.
 - **[pgcli](https://github.com/dbcli/pgcli)** - Postgres CLI with autocompletion and syntax highlighting
+- **[pipx](https://github.com/pypa/pipx)** - Install and Run Python Applications in Isolated Environments
 
 # Q
 
