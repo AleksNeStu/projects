@@ -83,7 +83,7 @@ Endpoint security
   support redis and memcached. Supports redis, memcache, dynamodb, and in-memory backends.
 - **[fastapi-admin](https://github.com/fastapi-admin/fastapi-admin)** - A fast admin dashboard based on FastAPI and
   TortoiseORM with tabler ui, inspired by Django admin.
-
+- **[folium](https://github.com/python-visualization/folium)** - Python Data, Leaflet.js Maps folium builds on the data wrangling strengths of the Python ecosystem and the mapping strengths of the Leaflet.js library. Manipulate your data in Python, then visualize it in a Leaflet map via folium.
 
 # G
 - **[GridFS](https://github.com/mongodb/specifications/blob/master/source/gridfs/gridfs-spec.rst/)** - GridFS is a convention drivers use to store and retrieve BSON binary data (type “\x05”) that exceeds MongoDB’s BSON-document size limit of 16 MiB. When this data, called a user file, is written to the system, GridFS divides the file into chunks that are stored as distinct documents in a chunks collection. To retrieve a stored file, GridFS locates and returns all of its component chunks. Internally, GridFS creates a files collection document for each stored file. Files collection documents hold information about stored files, and they are stored in a files collection.

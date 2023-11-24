@@ -669,6 +669,20 @@ urllib3 = {version = ">=1.25.4,<2.1", markers = "python_version >= \"3.10\""}
 crt = ["awscrt (==0.19.12)"]
 
 [[package]]
+name = "branca"
+version = "0.7.0"
+description = "Generate complex HTML+JS pages with Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "branca-0.7.0-py3-none-any.whl", hash = "sha256:c653d9a3fef1e6cd203757c77d3eb44810f11998506451f9a27d52b983500c16"},
+    {file = "branca-0.7.0.tar.gz", hash = "sha256:503ccb589a9ee9464cb7b5b17e5ffd8d5082c5c28624197f58f20d4d377a68bb"},
+]
+
+[package.dependencies]
+jinja2 = "*"
+
+[[package]]
 name = "brotli"
 version = "1.1.0"
 description = "Python bindings for the Brotli compression library"
@@ -2255,6 +2269,26 @@ humanize = "*"
 prometheus-client = ">=0.8.0"
 pytz = "*"
 tornado = ">=5.0.0,<7.0.0"
+
+[[package]]
+name = "folium"
+version = "0.15.0"
+description = "Make beautiful maps with Leaflet.js & Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "folium-0.15.0-py2.py3-none-any.whl", hash = "sha256:ee59df0a2ea6b958ae0ea0638915457f09711c45bac0e061810b52e7a255c69d"},
+    {file = "folium-0.15.0.tar.gz", hash = "sha256:1be7dbd4a59c7d096194b5e9868402d637f99daaaa0673381deb5d407dc552ce"},
+]
+
+[package.dependencies]
+branca = ">=0.6.0"
+jinja2 = ">=2.9"
+numpy = "*"
+requests = "*"
+
+[package.extras]
+testing = ["pytest"]
 
 [[package]]
 name = "fonttools"
@@ -8536,4 +8570,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "cbd261afc3d88ddc3549f224bbd1bb576fcc21427ecb3f79362509932217b20b"
+content-hash = "36c5c398ab1dc53ca189d9204005181cdaff6bc5d13e11254145ba73221ecae3"
