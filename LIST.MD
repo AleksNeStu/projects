@@ -12,8 +12,8 @@
 - **[asyncio](https://docs.python.org/3/library/asyncio.html)** - asyncio is used as a foundation for multiple 
   Python asynchronous frameworks that provide high-performance network and web-servers, database connection libraries, distributed task queues, etc.
 - **[anyio](https://docs.python)** - AnyIO is an asynchronous networking and concurrency library that works on top of either asyncio or trio. It implements trio-like structured concurrency (SC) on top of asyncio and works in harmony with the native SC of trio itself.
-- [awscli](https://github.com/aws/aws-cli) - Universal Command Line Interface for Amazon Web Services
-- [altair](https://github.com/altair-viz/altair) - Declarative statistical visualization library for Python
+- [**awscli](https://github.com/aws/aws-cli)** - Universal Command Line Interface for Amazon Web Services
+- **[altair](https://github.com/altair-viz/altair)** - Declarative statistical visualization library for Python
 
 
 # B
@@ -54,7 +54,7 @@
 - **[dacite](https://github.com/konradhalas/dacite)** - This module simplifies creation of data classes (PEP 557) from dictionaries.
 - **[dis](https://docs.python.org/3/library/dis.html)** - dis — Disassembler for Python bytecode.
   The dis module supports the analysis of CPython bytecode by disassembling it. The CPython bytecode which this module takes as an input is defined in the file Include/opcode.h and used by the compiler and the interpreter.
-- [django-browser-reload](https://github.com/adamchainz/django-browser-reload) - Automatically reload your browser 
+- **[django-browser-reload](https://github.com/adamchainz/django-browser-reload)** - Automatically reload your browser 
   in development. This script connects back to the development server and will automatically reload when static 
   assets or templates are modified, or after runserver restarts. The reload only happens in the most recently opened tab.
 
@@ -62,7 +62,7 @@
 
 
 # E
-- [eventlet](http://eventlet.net/) - Eventlet is a concurrent networking library for Python that allows you to change how you run your code, not how you write it. https://github.com/eventlet/eventlet
+- **[eventlet](http://eventlet.net/)** - Eventlet is a concurrent networking library for Python that allows you to change how you run your code, not how you write it. https://github.com/eventlet/eventlet
 - **[Elasticsearch](https://github.com/elastic/elasticsearch)** - Elasticsearch is the distributed, RESTful search and analytics engine at the heart of the Elastic Stack. You can use Elasticsearch to store, search, and manage data for: Logs, Metrics, A search backend, Application monitoring, 
 Endpoint security
 
@@ -95,7 +95,7 @@ Endpoint security
 - **[github1s](https://github.com/conwnet/github1s)** - One second to read GitHub code with VS Code.
 - **[graphene](https://github.com/graphql-python/graphene)** - GraphQL framework for Python
 - **[graphviz](https://gitlab.com/graphviz/graphviz)** - Graphviz - Graph Visualization Tools.
-
+- **[google-api-python-client](https://github.com/googleapis/google-api-python-client)** - The official Python client library for Google's discovery based APIs.
 
 
 # H
@@ -103,7 +103,7 @@ Endpoint security
 
 
 # I
-- [iredis](https://github.com/laixintao/iredis) - Interactive Redis: A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.
+- **[iredis](https://github.com/laixintao/iredis)** - Interactive Redis: A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.
 
 # J
 - **[JSON](https://www.json.org/json-en.html)** - JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write.
@@ -118,7 +118,7 @@ Endpoint security
 - **[litecli](https://github.com/dbcli/litecli)** - A command-line client for SQLite databases that has auto-completion and syntax highlighting.
 - **[librabbitmq](https://github.com/celery/librabbitmq)** - Python AMQP Client using the rabbitmq-c library. Python bindings to the RabbitMQ C-library rabbitmq-c. Supported by Kombu and Celery.
   Python bindings to the RabbitMQ C-library rabbitmq-c. Supported by Kombu and Celery.
-- [LRU cache](https://www.educative.io/m/implement-least-recently-used-cache) - Least Recently Used (LRU) is a common caching strategy. It defines the policy to evict elements from the cache to make room for new elements when the cache is full, meaning it discards the least recently used items first.
+- **[LRU cache](https://www.educative.io/m/implement-least-recently-used-cache)** - Least Recently Used (LRU) is a common caching strategy. It defines the policy to evict elements from the cache to make room for new elements when the cache is full, meaning it discards the least recently used items first.
 
 # M
 - **[mongita](https://github.com/scottrogowski/mongita)** - Mongita is a lightweight embedded document database that implements a commonly-used subset of the MongoDB/PyMongo interface. Mongita differs from MongoDB in that instead of being a server, Mongita is a self-contained Python library. Mongita can be configured to store its documents either on disk or in memory.
@@ -133,14 +133,14 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
   will make it possible to use relative package includes. This feature is very useful for monorepos and when sharing
   code between projects.
 - **[markupsafe](https://github.com/pallets/markupsafe)** - MarkupSafe implements a text object that escapes characters so it is safe to use in HTML and XML. Characters that have special meanings are replaced so that they display as the actual characters. This mitigates injection attacks, meaning untrusted user input can safely be displayed on a page.
-- [matplotlib](https://github.com/matplotlib/matplotlib) - Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python.
+- **[matplotlib](https://github.com/matplotlib/matplotlib)** - Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python.
 
 # N
 
 # O
-- [optparse](https://docs.python.org/3/library/optparse.html) - optparse is a more convenient, flexible, and powerful library for parsing command-line options than the old getopt module.
+- **[optparse](https://docs.python.org/3/library/optparse.html)** - optparse is a more convenient, flexible, and powerful library for parsing command-line options than the old getopt module.
 - **[objgraph](https://pypi.org/project/objgraph/)** - is a module that lets you visually explore Python object graphs.
-
+- **[oauth2client](https://github.com/googleapis/oauth2client)** - About This is a Python library for accessing resources protected by OAuth 2.0. (Deprecated)
 
 
 
@@ -173,11 +173,12 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[Pympler](https://github.com/pympler/pympler)** - Pympler is a development tool to measure, monitor and analyze the memory behavior of Python objects in a running Python application.
 - **[pgcli](https://github.com/dbcli/pgcli)** - Postgres CLI with autocompletion and syntax highlighting
 - **[pipx](https://github.com/pypa/pipx)** - Install and Run Python Applications in Isolated Environments
+- **[Pillow](https://github.com/python-pillow/Pillow/)** - This library provides extensive file format support, an efficient internal representation, and fairly powerful image processing capabilities.
 
 # Q
 
 # R
-- [**redis**](https://github.com/redis/redis) - Redis is often referred to as a data structures server. What this means is that Redis provides access to mutable data structures via a set of commands, which are sent using a server-client model with TCP sockets and a simple protocol. So different processes can query and modify the same data structures in a shared way. [Redis data types](https://redis.io/docs/).
+- **[redis](https://github.com/redis/redis)** - Redis is often referred to as a data structures server. What this means is that Redis provides access to mutable data structures via a set of commands, which are sent using a server-client model with TCP sockets and a simple protocol. So different processes can query and modify the same data structures in a shared way. [Redis data types](https://redis.io/docs/).
 - **[rabbitmq](https://github.com/rabbitmq)** - RabbitMQ is a feature rich, multi-protocol messaging and streaming broker. It supports: AMQP 0-9-1
 AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[rabbitmq](https://github.com/jbg/rabbitmq)** - Python bindings to librabbitmq using CFFI.
