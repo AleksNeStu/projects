@@ -48,6 +48,7 @@
 - [db](/data/db) - DB
 - [etl](/data/etl) - ETL (ELT)
 - [migrations](/data/migrations) - Data, Schema, DB migrations
+- [visualization](/data/visualization) - Data Visualization
 
 [doc](/doc) - Documentation
 
