@@ -196,6 +196,7 @@ google-cloud-storage = "^2.13.0"
 google-cloud-datastore = "^2.18.0"
 jupyterlab = "^4.0.9"
 notebook = "^7.0.6"
+altair = "^5.1.2"
 
 
 [tool.poetry.dev-dependencies]
