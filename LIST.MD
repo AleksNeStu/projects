@@ -133,7 +133,7 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
   will make it possible to use relative package includes. This feature is very useful for monorepos and when sharing
   code between projects.
 - **[markupsafe](https://github.com/pallets/markupsafe)** - MarkupSafe implements a text object that escapes characters so it is safe to use in HTML and XML. Characters that have special meanings are replaced so that they display as the actual characters. This mitigates injection attacks, meaning untrusted user input can safely be displayed on a page.
-
+- [matplotlib](https://github.com/matplotlib/matplotlib) - Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python.
 
 # N
 
