@@ -13,7 +13,7 @@
   Python asynchronous frameworks that provide high-performance network and web-servers, database connection libraries, distributed task queues, etc.
 - **[anyio](https://docs.python)** - AnyIO is an asynchronous networking and concurrency library that works on top of either asyncio or trio. It implements trio-like structured concurrency (SC) on top of asyncio and works in harmony with the native SC of trio itself.
 - [awscli](https://github.com/aws/aws-cli) - Universal Command Line Interface for Amazon Web Services
-
+- [altair](https://github.com/altair-viz/altair) - Declarative statistical visualization library for Python
 
 
 # B
