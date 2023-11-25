@@ -12,7 +12,7 @@
 - **[asyncio](https://docs.python.org/3/library/asyncio.html)** - asyncio is used as a foundation for multiple 
   Python asynchronous frameworks that provide high-performance network and web-servers, database connection libraries, distributed task queues, etc.
 - **[anyio](https://docs.python)** - AnyIO is an asynchronous networking and concurrency library that works on top of either asyncio or trio. It implements trio-like structured concurrency (SC) on top of asyncio and works in harmony with the native SC of trio itself.
-- [**awscli](https://github.com/aws/aws-cli)** - Universal Command Line Interface for Amazon Web Services
+- **[awscli](https://github.com/aws/aws-cli)** - Universal Command Line Interface for Amazon Web Services
 - **[altair](https://github.com/altair-viz/altair)** - Declarative statistical visualization library for Python
 
 
@@ -21,7 +21,7 @@
 - **[bulma](https://github.com/jgthms/bulma)** - Bulma is a CSS framework. As such, the sole output is a single CSS file. Bulma can be considered "environment agnostic": it's just the style layer on top of the logic.
 - [bootstrap](https://github.com/twbs/bootstrap) - The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
 - **[billiard](https://github.com/celery/billiard)** - billiard is a fork of the Python 2.7 multiprocessing package. The multiprocessing package itself is a renamed and updated version of R Oudkerk's pyprocessing package. This standalone variant draws its fixes/improvements from python-trunk and provides additional bug fixes and improvements.
-
+- [bokeh](https://github.com/bokeh/bokeh) - Interactive Data Visualization in the browser, from Python
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
