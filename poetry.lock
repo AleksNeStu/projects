@@ -3880,6 +3880,21 @@ notebook = "*"
 qtconsole = "*"
 
 [[package]]
+name = "jupyter-bokeh"
+version = "3.0.7"
+description = "A Jupyter extension for rendering Bokeh content."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "jupyter_bokeh-3.0.7-py3-none-any.whl", hash = "sha256:676d74bd8b95c7467d5e7ea1c954b306c7768b7bfa2bb3dd32e64efdf7dc09ee"},
+    {file = "jupyter_bokeh-3.0.7.tar.gz", hash = "sha256:2da8c3ddc734d15737bf06126d9e31e84d30f18ac3da3a3f95be40a95a054c87"},
+]
+
+[package.dependencies]
+bokeh = "==3.*"
+ipywidgets = "==8.*"
+
+[[package]]
 name = "jupyter-client"
 version = "8.6.0"
 description = "Jupyter protocol implementation and client libraries"
@@ -8749,4 +8764,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "722f285c5ab0069243a0e08c52b470d75d1f278024dbb3a58706ae0418953c81"
+content-hash = "8b42d85a516666a3e0b5e1936c1843c6a93f4a971e35757c4e707513e8aafe4e"
