@@ -691,6 +691,24 @@ urllib3 = {version = ">=1.25.4,<2.1", markers = "python_version >= \"3.10\""}
 crt = ["awscrt (==0.19.12)"]
 
 [[package]]
+name = "bqplot"
+version = "0.12.42"
+description = "Interactive plotting for the Jupyter notebook, using d3.js and ipywidgets."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "bqplot-0.12.42-py2.py3-none-any.whl", hash = "sha256:f040951f244b89ccf6a3db835e35c641ceee95906eb3bb8c337da14b56471c0c"},
+    {file = "bqplot-0.12.42.tar.gz", hash = "sha256:99486f74cabcfdff841dfee41ba6d2b47782d85a34ff36a34a223d43ffc0a729"},
+]
+
+[package.dependencies]
+ipywidgets = ">=7.5.0,<9"
+numpy = ">=1.10.4"
+pandas = ">=1.0.0,<3.0.0"
+traitlets = ">=4.3.0"
+traittypes = ">=0.0.6"
+
+[[package]]
 name = "branca"
 version = "0.7.0"
 description = "Generate complex HTML+JS pages with Python"
@@ -7840,6 +7858,23 @@ docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
 test = ["argcomplete (>=3.0.3)", "mypy (>=1.6.0)", "pre-commit", "pytest (>=7.0,<7.5)", "pytest-mock", "pytest-mypy-testing"]
 
 [[package]]
+name = "traittypes"
+version = "0.2.1"
+description = "Scipy trait types"
+optional = false
+python-versions = "*"
+files = [
+    {file = "traittypes-0.2.1-py2.py3-none-any.whl", hash = "sha256:1340af133810b6eee1a2eb2e988f862b0d12b6c2d16f282aaf3207b782134c2e"},
+    {file = "traittypes-0.2.1.tar.gz", hash = "sha256:be6fa26294733e7489822ded4ae25da5b4824a8a7a0e0c2dccfde596e3489bd6"},
+]
+
+[package.dependencies]
+traitlets = ">=4.2.2"
+
+[package.extras]
+test = ["numpy", "pandas", "pytest", "xarray"]
+
+[[package]]
 name = "trio"
 version = "0.22.2"
 description = "A friendly Python library for async concurrency and I/O"
@@ -8764,4 +8799,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "8b42d85a516666a3e0b5e1936c1843c6a93f4a971e35757c4e707513e8aafe4e"
+content-hash = "7b683c9560ae0c3624a099acabb63fcfcb4fa547241e05c906095c4760695967"

@@ -22,6 +22,8 @@
 - [bootstrap](https://github.com/twbs/bootstrap) - The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
 - **[billiard](https://github.com/celery/billiard)** - billiard is a fork of the Python 2.7 multiprocessing package. The multiprocessing package itself is a renamed and updated version of R Oudkerk's pyprocessing package. This standalone variant draws its fixes/improvements from python-trunk and provides additional bug fixes and improvements.
 - [bokeh](https://github.com/bokeh/bokeh) - Interactive Data Visualization in the browser, from Python
+- [bqplot](https://github.com/bqplot/bqplot) - Plotting library for IPython/Jupyter notebooks
+
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
