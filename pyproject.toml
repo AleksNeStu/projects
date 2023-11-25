@@ -207,6 +207,7 @@ jupyter-bokeh = "^3.0.7"
 bqplot = "^0.12.42"
 ipympl = "^0.9.3"
 ipyvolume = "^0.6.3"
+scipy = "^1.11.4"
 
 
 [tool.poetry.dev-dependencies]
