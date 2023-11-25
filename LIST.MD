@@ -231,7 +231,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[web2py](https://github.com/web2py/web2py)** - web2py is a free open source full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications.
 - **[wrapt](https://github.com/GrahamDumpleton/wrapt)** - The aim of the wrapt module is to provide a transparent object proxy for Python, which can be used as the basis for the construction of function wrappers and decorator functions.
 - **[watchman](https://github.com/facebook/watchman)** - Watchman exists to watch files and record when they actually change. It can also trigger actions (such as rebuilding assets) when matching files change.
-
+- **[websockets](https://github.com/python-websockets/websockets)** - Library for building WebSocket servers and clients in Python
 
 
 # X
