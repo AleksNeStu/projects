@@ -110,9 +110,9 @@ Endpoint security
 # J
 - **[JSON](https://www.json.org/json-en.html)** - JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write.
 - **[jupyterlab](https://github.com/jupyterlab/jupyterlab)** - An extensible environment for interactive and reproducible computing, based on the Jupyter Notebook and Architecture.
-- **[jupyter notebook](https://github.com/jupyter/notebook)** - The Jupyter notebook is a web-based notebook environment for interactive computing.
-- 
-
+- **[jupyter notebook](https://github.com/jupyter/notebook)** - The Jupyter notebook is a web-based notebook 
+  environment for interactive computing.
+- **[jupyter server](https://github.com/jupyter-server/jupyter_server)** - The Jupyter Server provides the backend (i.e. the core services, APIs, and REST endpoints) for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila.
 # K
 - **[Kombu](https://github.com/celery/kombu)** - Kombu is a messaging library for Python. The aim of Kombu is to make messaging in Python as easy as possible by providing an idiomatic high-level interface for the AMQ protocol, and also provide proven and tested solutions to common messaging problems.
 
@@ -177,7 +177,7 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[pipx](https://github.com/pypa/pipx)** - Install and Run Python Applications in Isolated Environments
 - **[Pillow](https://github.com/python-pillow/Pillow/)** - This library provides extensive file format support, an efficient internal representation, and fairly powerful image processing capabilities.
 - **[pandoc](https://github.com/jgm/pandoc)** - Pandoc is a Haskell library for converting from one markup format to another, and a command-line tool that uses this library.
-- [panel](https://github.com/holoviz/panel) - 
+- **[panel](https://github.com/holoviz/panel)** - Panel: The powerful data exploration & web app framework for Python
 
 # Q
 
