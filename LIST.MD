@@ -113,6 +113,8 @@ Endpoint security
 - **[jupyter notebook](https://github.com/jupyter/notebook)** - The Jupyter notebook is a web-based notebook 
   environment for interactive computing.
 - **[jupyter server](https://github.com/jupyter-server/jupyter_server)** - The Jupyter Server provides the backend (i.e. the core services, APIs, and REST endpoints) for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila.
+- **[jupyter-ai](https://github.com/jupyterlab/jupyter-ai)** - Jupyter AI connects generative AI with Jupyter notebooks. Jupyter AI provides a user-friendly and powerful way to explore generative AI models in notebooks and improve your productivity in JupyterLab and the Jupyter Notebook
+
 # K
 - **[Kombu](https://github.com/celery/kombu)** - Kombu is a messaging library for Python. The aim of Kombu is to make messaging in Python as easy as possible by providing an idiomatic high-level interface for the AMQ protocol, and also provide proven and tested solutions to common messaging problems.
 
