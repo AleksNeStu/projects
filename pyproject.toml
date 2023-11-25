@@ -205,6 +205,7 @@ voila = "^0.5.5"
 bokeh = "^3.3.1"
 jupyter-bokeh = "^3.0.7"
 bqplot = "^0.12.42"
+ipympl = "^0.9.3"
 
 
 [tool.poetry.dev-dependencies]
