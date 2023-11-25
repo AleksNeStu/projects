@@ -4911,25 +4911,25 @@ opentelemetry = ["Deprecated (>=1.2.6)", "typing-extensions (>=3.7.4)", "zipp (>
 
 [[package]]
 name = "nbclient"
-version = "0.8.0"
+version = "0.7.4"
 description = "A client library for executing notebooks. Formerly nbconvert's ExecutePreprocessor."
 optional = false
-python-versions = ">=3.8.0"
+python-versions = ">=3.7.0"
 files = [
-    {file = "nbclient-0.8.0-py3-none-any.whl", hash = "sha256:25e861299e5303a0477568557c4045eccc7a34c17fc08e7959558707b9ebe548"},
-    {file = "nbclient-0.8.0.tar.gz", hash = "sha256:f9b179cd4b2d7bca965f900a2ebf0db4a12ebff2f36a711cb66861e4ae158e55"},
+    {file = "nbclient-0.7.4-py3-none-any.whl", hash = "sha256:c817c0768c5ff0d60e468e017613e6eae27b6fa31e43f905addd2d24df60c125"},
+    {file = "nbclient-0.7.4.tar.gz", hash = "sha256:d447f0e5a4cfe79d462459aec1b3dc5c2e9152597262be8ee27f7d4c02566a0d"},
 ]
 
 [package.dependencies]
 jupyter-client = ">=6.1.12"
 jupyter-core = ">=4.12,<5.0.dev0 || >=5.1.dev0"
 nbformat = ">=5.1"
-traitlets = ">=5.4"
+traitlets = ">=5.3"
 
 [package.extras]
 dev = ["pre-commit"]
 docs = ["autodoc-traits", "mock", "moto", "myst-parser", "nbclient[test]", "sphinx (>=1.7)", "sphinx-book-theme", "sphinxcontrib-spelling"]
-test = ["flaky", "ipykernel (>=6.19.3)", "ipython", "ipywidgets", "nbconvert (>=7.0.0)", "pytest (>=7.0)", "pytest-asyncio", "pytest-cov (>=4.0)", "testpath", "xmltodict"]
+test = ["flaky", "ipykernel", "ipython", "ipywidgets", "nbconvert (>=7.0.0)", "pytest (>=7.0)", "pytest-asyncio", "pytest-cov (>=4.0)", "testpath", "xmltodict"]
 
 [[package]]
 name = "nbconvert"
@@ -8152,6 +8152,32 @@ files = [
 ]
 
 [[package]]
+name = "voila"
+version = "0.5.5"
+description = "Voilà turns Jupyter notebooks into standalone web applications"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "voila-0.5.5-py3-none-any.whl", hash = "sha256:2d739743d759b1f70d4638f1ef848c81d3ed08a996b6d2d3d8db07be5143de04"},
+    {file = "voila-0.5.5.tar.gz", hash = "sha256:35c7ef6ea4b8beb3e01844f34b6a19d925f69eed1b71e43dd9bf07ced9f0ee39"},
+]
+
+[package.dependencies]
+jupyter-client = ">=7.4.4,<9"
+jupyter-core = ">=4.11.0"
+jupyter-server = ">=2.0.0,<3"
+jupyterlab-server = ">=2.3.0,<3"
+nbclient = ">=0.4.0,<0.8"
+nbconvert = ">=6.4.5,<8"
+traitlets = ">=5.0.3,<6"
+websockets = ">=9.0"
+
+[package.extras]
+dev = ["black", "hatch", "jupyter-releaser", "pre-commit"]
+docs = ["myst-parser", "pydata-sphinx-theme", "sphinx", "sphinx-autobuild", "sphinxcontrib-video"]
+test = ["ipykernel", "ipywidgets", "matplotlib", "mock", "numpy", "pandas", "papermill", "pytest", "pytest-tornasync"]
+
+[[package]]
 name = "waitress"
 version = "2.1.2"
 description = "Waitress WSGI server"
@@ -8690,4 +8716,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "8f74c0cb19fddcf5bc211798fa349e9fea0a5d1a4d34b7cc785717bc2dea0245"
+content-hash = "f0f3e70c68fe75870cda59e2f0a3aa6f661c174bb5c9941f899490269cf36ef5"

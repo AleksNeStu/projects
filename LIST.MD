@@ -218,6 +218,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 
 # V
 - **[vine](https://github.com/celery/vine/)** - This is a special implementation of promises in that it can be used both for promise of a value and lazy evaluation. The biggest upside for this is that everything in a promise can also be a promise, e.g. filters, callbacks and errbacks can all be promises.
+- [voila](https://github.com/voila-dashboards/voila) - Voilà turns Jupyter notebooks into standalone web applications. Unlike the usual HTML-converted notebooks, each user connecting to the Voilà tornado application gets a dedicated Jupyter kernel which can execute the callbacks to changes in Jupyter interactive widgets.
 
 # W
 - **[webbrowser](https://docs.python.org/3/library/webbrowser.html#module-webbrowser)** - module provides a high-level interface to allow displaying web-based documents to users. Under most circumstances, simply calling the open() function from this module will do the right thing.
