@@ -177,6 +177,7 @@ Configure your application to use MailHog for SMTP delivery. View messages in th
 - **[pipx](https://github.com/pypa/pipx)** - Install and Run Python Applications in Isolated Environments
 - **[Pillow](https://github.com/python-pillow/Pillow/)** - This library provides extensive file format support, an efficient internal representation, and fairly powerful image processing capabilities.
 - **[pandoc](https://github.com/jgm/pandoc)** - Pandoc is a Haskell library for converting from one markup format to another, and a command-line tool that uses this library.
+- [panel](https://github.com/holoviz/panel) - 
 
 # Q
 
