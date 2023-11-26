@@ -19,11 +19,11 @@
 # B
 - **[BSON](https://bsonspec.org/)** - BSON is a specification for a rich set of scalar types (int32, int64, decimal, date, etc.) plus containers (object a.k.a. a map, and array) as they might appear in a byte stream. There is no "native" string form of BSON; it is a byte[] spec.
 - **[bulma](https://github.com/jgthms/bulma)** - Bulma is a CSS framework. As such, the sole output is a single CSS file. Bulma can be considered "environment agnostic": it's just the style layer on top of the logic.
-- [bootstrap](https://github.com/twbs/bootstrap) - The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
+- **[bootstrap](https://github.com/twbs/bootstrap)** - The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web.
 - **[billiard](https://github.com/celery/billiard)** - billiard is a fork of the Python 2.7 multiprocessing package. The multiprocessing package itself is a renamed and updated version of R Oudkerk's pyprocessing package. This standalone variant draws its fixes/improvements from python-trunk and provides additional bug fixes and improvements.
-- [bokeh](https://github.com/bokeh/bokeh) - Interactive Data Visualization in the browser, from Python
-- [bqplot](https://github.com/bqplot/bqplot) - Plotting library for IPython/Jupyter notebooks
-
+- **[bokeh](https://github.com/bokeh/bokeh)** - Interactive Data Visualization in the browser, from Python
+- **[bqplot](https://github.com/bqplot/bqplot)** - Plotting library for IPython/Jupyter notebooks
+- **[black](https://github.com/psf/black)** - The uncompromising Python code formatter
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
