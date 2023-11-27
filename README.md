@@ -79,6 +79,12 @@
 - [python](/scripts/python) - Python based solutions and examples
 - [sh](/scripts/sh) - SH based solutions and examples
 
+
+### Sub tree projects
+code/templates/001_fastapi_best_practices/subtree
+code/templates/002_full_stack_fastapi_postgresql/subtree
+
+
 ### Project run locally
 ```sh
 chmod +x ./setup.sh && bash ./setup.sh
