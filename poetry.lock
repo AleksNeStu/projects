@@ -7953,6 +7953,21 @@ timezone = ["python-dateutil"]
 url = ["furl (>=0.4.1)"]
 
 [[package]]
+name = "sqlmodel"
+version = "0.0.12"
+description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "sqlmodel-0.0.12-py3-none-any.whl", hash = "sha256:5a246e184c3b41126e3f862912be732261da5dc2a1f135eb98d6dca9977345f5"},
+    {file = "sqlmodel-0.0.12.tar.gz", hash = "sha256:562306bdabc5231d024bf59784ba740659cbde1c6aa6497c8381256e5c64c36e"},
+]
+
+[package.dependencies]
+pydantic = ">=1.9.0,<2.0.0"
+SQLAlchemy = ">=2.0.0,<2.1.0"
+
+[[package]]
 name = "sqlparse"
 version = "0.4.4"
 description = "A non-validating SQL parser."
@@ -9166,4 +9181,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "727ed45c1f27289370cc328c600494f6078d3ce8c1502e67f2d90325cb67d311"
+content-hash = "03c708bab2fb286b545e434721b40ec94c96df17e1d854fd6c31a93cce62862d"

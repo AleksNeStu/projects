@@ -204,6 +204,7 @@ AMQP 1.0, RabbitMQ Stream Protocol, MQTT 3.1.1, STOMP 1.0 through 1.2.
 - **[sniffio](https://github.com/python-trio/sniffio#sniffio-sniff-out-which-async-library-your-code-is-running-under)** - Sniff out which async library your code is running under
 - **[starlette-graphene3](https://github.com/ciscorn/starlette-graphene3)** - An ASGI app for using Graphene v3 with Starlette / FastAPI
 - **[scipy](https://github.com/scipy/scipy)** - SciPy (pronounced "Sigh Pie") is an open-source software for mathematics, science, and engineering. It includes modules for statistics, optimization, integration, linear algebra, Fourier transforms, signal and image processing, ODE solvers, and more.
+- [sqlmodel](https://github.com/tiangolo/sqlmodel) - SQL databases in Python, designed for simplicity, compatibility, and robustness.
 
 # T
 - **[tensorflow](https://github.com/tensorflow/tensorflow)** - TensorFlow is an end-to-end open source platform for machine learning. TensorFlow was originally developed by researchers and engineers working on the Google Brain team within Google's Machine Intelligence Research organization to conduct machine learning and deep neural networks research.
