@@ -213,6 +213,8 @@ jupyter-server = "^2.10.1"
 websockets = "^12.0"
 black = "^23.11.0"
 sqlmodel = "^0.0.12"
+grpcio = "^1.59.3"
+grpcio-tools = "^1.59.3"
 
 
 [tool.poetry.dev-dependencies]

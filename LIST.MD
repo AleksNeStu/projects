@@ -24,6 +24,7 @@
 - **[bokeh](https://github.com/bokeh/bokeh)** - Interactive Data Visualization in the browser, from Python
 - **[bqplot](https://github.com/bqplot/bqplot)** - Plotting library for IPython/Jupyter notebooks
 - **[black](https://github.com/psf/black)** - The uncompromising Python code formatter
+- **[boto3](https://github.com/boto/boto3)** - AWS SDK for Pythonk
 
 # C
 - **[codetiming](https://github.com/realpython/codetiming)** - A flexible, customizable timer for your Python code
@@ -98,7 +99,7 @@ Endpoint security
 - **[graphene](https://github.com/graphql-python/graphene)** - GraphQL framework for Python
 - **[graphviz](https://gitlab.com/graphviz/graphviz)** - Graphviz - Graph Visualization Tools.
 - **[google-api-python-client](https://github.com/googleapis/google-api-python-client)** - The official Python client library for Google's discovery based APIs.
-
+- **[grpc](https://github.com/grpc/grpc)** - The C based gRPC (C++, Python, Ruby, Objective-C, PHP, C#)
 
 # H
 - **[htmx](https://github.com/bigskysoftware/htmx)** - </> htmx - high power tools for HTML
