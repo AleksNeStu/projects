@@ -215,6 +215,7 @@ black = "^23.11.0"
 sqlmodel = "^0.0.12"
 grpcio = "^1.59.3"
 grpcio-tools = "^1.59.3"
+transformers = "^4.35.2"
 
 
 [tool.poetry.dev-dependencies]
