@@ -216,6 +216,7 @@ sqlmodel = "^0.0.12"
 grpcio = "^1.59.3"
 grpcio-tools = "^1.59.3"
 transformers = "^4.35.2"
+huggingface-hub = "^0.19.4"
 
 
 [tool.poetry.dev-dependencies]

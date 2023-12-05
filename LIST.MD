@@ -103,7 +103,7 @@ Endpoint security
 
 # H
 - **[htmx](https://github.com/bigskysoftware/htmx)** - </> htmx - high power tools for HTML
-
+- **[huggingface-hub](https://github.com/huggingface/huggingface_hub)** - Client library to download and publish models, datasets and other repos on the huggingface.co hub
 
 # I
 - **[iredis](https://github.com/laixintao/iredis)** - Interactive Redis: A Terminal Client for Redis with AutoCompletion and Syntax Highlighting.
