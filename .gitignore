@@ -154,6 +154,8 @@ projectFilesBackup/*
 projectFilesBackup
 .run/*
 .run
+.vscode
+.vscode/*
 
 # Custom
 /api/client/001_allegro_pl/entities/*
