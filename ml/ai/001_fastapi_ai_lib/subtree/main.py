@@ -1,10 +1,10 @@
-from model import model_pipeline
-
-from typing import Union
-
-from fastapi import FastAPI, UploadFile
 import io
+
+import uvicorn
 from PIL import Image
+from fastapi import FastAPI, UploadFile
+
+from model import model_pipeline
 
 app = FastAPI()
 
@@ -23,7 +23,7 @@ def ask(text: str, image: UploadFile):
     
     result = model_pipeline(text, image)
     return {"answer": result}
-    
-    
-    
-    
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

@@ -1,6 +1,6 @@
-from transformers import ViltProcessor, ViltForQuestionAnswering
 import requests
 from PIL import Image
+from transformers import ViltProcessor, ViltForQuestionAnswering
 
 # 470MB
 processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
@@ -30,3 +30,5 @@ idx = logits.argmax(-1).item()
 print("Predicted answer:", model.config.id2label[idx])
 
 # TODO: put above code into a function that accepts image and text as input
+
+# Generate FastAPI endpoints for this module
