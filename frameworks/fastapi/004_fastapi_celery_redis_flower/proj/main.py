@@ -2,17 +2,21 @@ from datetime import timedelta
 
 import bcrypt
 import graphene
-from fastapi import Body, FastAPI
+import uvicorn
+from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from graphql import GraphQLError
 from jwt import PyJWTError
-from starlette.graphql import GraphQLApp
+from starlette_graphene3 import GraphQLApp
 
 import models
 from celery_worker import create_task
 from db_conf import db_session
 from jwt_token import create_access_token, decode_access_token
 from schemas import PostModel, PostSchema, UserSchema
+
+# from starlette.graphql import GraphQLApp
+# https://www.starlette.io/graphql/
 
 db = db_session.session_factory()
 
@@ -157,3 +161,6 @@ class PostMutations(graphene.ObjectType):
 
 
 app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query, mutation=PostMutations)))
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="localhost", port=8000, reload=True, log_level="debug")

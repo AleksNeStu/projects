@@ -119,4 +119,4 @@ if __name__ == '__main__':
       if shapes.count_documents({"id": shape["id"]}) == 0:
           shapes.insert_one(shape)
 
-  uvicorn.run("main:app", host="0.0.0.0", port=5000, reload=True)
+  uvicorn.run("main:app", host="localhost", port=5000, reload=True, log_level="debug")

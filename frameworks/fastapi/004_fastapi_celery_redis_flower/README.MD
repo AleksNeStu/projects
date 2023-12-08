@@ -27,3 +27,5 @@ curl -X 'POST' \
 3) Update tech stack via docker compose
 4) Update packages
 5) Add doc
+
+# pip freeze > requirements.txt

@@ -25,6 +25,24 @@ docs = ["Sphinx (>=1.0)", "sphinx-rtd-theme"]
 test = ["importlib-resources (>=1.3.1)", "pytest", "pytest-xdist", "typing-extensions"]
 
 [[package]]
+name = "aiodataloader"
+version = "0.4.0"
+description = "Asyncio DataLoader implementation for Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    { file = "aiodataloader-0.4.0-py3-none-any.whl", hash = "sha256:2775d8607e1b68ded82efc93c839846d0ae9d9e0421085e444f3c1c541f3c2b6" },
+    { file = "aiodataloader-0.4.0.tar.gz", hash = "sha256:6de9ca0eb75c4eef686754679981ebd45a933391b40473f92419b8a747504169" },
+]
+
+[package.dependencies]
+typing-extensions = ">=4.1.1"
+
+[package.extras]
+lint = ["black", "flake8", "flake8-import-order", "mypy"]
+test = ["coveralls", "mock", "pytest (>=3.6)", "pytest-asyncio", "pytest-cov"]
+
+[[package]]
 name = "aiofiles"
 version = "23.2.1"
 description = "File support for asyncio."
@@ -3237,6 +3255,27 @@ dev = ["black (==22.3.0)", "coveralls (>=3.3,<4)", "flake8 (>=4,<5)", "iso8601 (
 test = ["coveralls (>=3.3,<4)", "iso8601 (>=1,<2)", "mock (>=4,<5)", "pytest (>=6,<7)", "pytest-asyncio (>=0.16,<2)", "pytest-benchmark (>=3.4,<4)", "pytest-cov (>=3,<4)", "pytest-mock (>=3,<4)", "pytz (==2022.1)", "snapshottest (>=0.6,<1)"]
 
 [[package]]
+name = "graphene-sqlalchemy"
+version = "3.0.0rc1"
+description = "Graphene SQLAlchemy integration"
+optional = false
+python-versions = "*"
+files = [
+    { file = "graphene-sqlalchemy-3.0.0rc1.tar.gz", hash = "sha256:f30ab56ec097cde6771f215ab550335248a60823c886fbc64ec358332c08cefb" },
+    { file = "graphene_sqlalchemy-3.0.0rc1-py2.py3-none-any.whl", hash = "sha256:9b32e1386f7677c5dbd86d4340ca8601f29e209a5b1c59bf93c6dfbd79cd4684" },
+]
+
+[package.dependencies]
+aiodataloader = ">=0.2.0,<1.0"
+graphene = ">=3.0.0b7"
+promise = ">=2.3"
+SQLAlchemy = ">=1.1"
+
+[package.extras]
+dev = ["flake8 (==4.0.0)", "pre-commit (==2.19)", "tox (==3.7.0)"]
+test = ["aiosqlite (>=0.17.0)", "greenlet", "nest-asyncio", "pytest (>=6.2.0,<7.0)", "pytest-asyncio (>=0.18.3)", "pytest-benchmark (>=3.4.0,<4.0)", "pytest-cov (>=2.11.0,<3.0)", "sqlalchemy-utils (>=0.37.0,<1.0)"]
+
+[[package]]
 name = "graphql-core"
 version = "3.2.3"
 description = "GraphQL implementation for Python, a port of GraphQL.js, the JavaScript reference implementation for GraphQL."
@@ -6269,6 +6308,22 @@ files = [
 
 [package.extras]
 twisted = ["twisted"]
+
+[[package]]
+name = "promise"
+version = "2.3"
+description = "Promises/A+ implementation for Python"
+optional = false
+python-versions = "*"
+files = [
+    { file = "promise-2.3.tar.gz", hash = "sha256:dfd18337c523ba4b6a58801c164c1904a9d4d1b1747c7d5dbf45b693a49d93d0" },
+]
+
+[package.dependencies]
+six = "*"
+
+[package.extras]
+test = ["coveralls", "futures", "mock", "pytest (>=2.7.3)", "pytest-benchmark", "pytest-cov"]
 
 [[package]]
 name = "prompt-toolkit"
@@ -10047,4 +10102,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "c9edcba9aab30e5969492899c40f156d7297de02676224bdebb15a093c2e9cff"
+content-hash = "e157e4f3ccc19d26699cfc78b85fb2ae6f238d028f6fb422ba072f571bc2ee1b"
