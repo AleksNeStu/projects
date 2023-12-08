@@ -37,7 +37,7 @@ export GIT_DIR="/opt/git"
 export PROJECT_NAME="projects"
 export PROJECT_DIR="$GIT_DIR/$PROJECT_NAME"
 export POETRY_VERSION=1.7.0
-export PYTHON_VERSION=3.12
+export PYTHON_VERSION=3.11
 export PYTHON=python$PYTHON_VERSION
 export REPO_URL="https://github.com/AleksNeStu/projects.git"
 
