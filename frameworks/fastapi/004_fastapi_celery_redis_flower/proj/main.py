@@ -1,4 +1,5 @@
 from datetime import timedelta
+from uuid import uuid4
 
 import bcrypt
 import graphene
@@ -34,7 +35,6 @@ class Post(BaseModel):
 def run_task(data: Post):
     task = create_task.delay(data.amount, data.x, data.y)
     return JSONResponse({"Result": task.get()})
-
 
 class Query(graphene.ObjectType):
 

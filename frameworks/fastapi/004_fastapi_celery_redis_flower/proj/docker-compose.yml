@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
 
@@ -24,9 +24,9 @@ services:
     depends_on:
       - db
   app:
-    #    enabled: false
-    #    profiles:
-    #      - donotstart
+#    # if need to do not run `app` container
+#    entrypoint: [ "echo", "Service app disabled" ]
+
     container_name: app
     build: .
     command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
