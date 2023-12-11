@@ -6,6 +6,8 @@ Pgadmin - http://127.0.0.1:5050/browser/
 
 FastAPI-Swagger: http://127.0.0.1:8000/docs#/default/run_task_ex1_post
 
+https://www.youtube.com/watch?v=mcX_4EvYka4&ab_channel=VeryAcademy
+
 ### Add task
 
 ```curl

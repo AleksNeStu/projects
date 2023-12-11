@@ -163,4 +163,4 @@ class PostMutations(graphene.ObjectType):
 app.add_route("/graphql", GraphQLApp(schema=graphene.Schema(query=Query, mutation=PostMutations)))
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="localhost", port=8000, reload=True, log_level="debug")
+    uvicorn.run("main:app", host="localhost", port=5000, reload=True, log_level="debug")

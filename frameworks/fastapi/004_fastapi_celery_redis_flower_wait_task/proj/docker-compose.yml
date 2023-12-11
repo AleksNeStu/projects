@@ -29,11 +29,11 @@ services:
 
     container_name: app
     build: .
-    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 5000 --reload"
     volumes:
       - .:/app
     ports:
-      - 8000:8000
+      - 5000:5000
 #    restart: always
     depends_on:
       - db
@@ -41,6 +41,8 @@ services:
   redis:
     container_name: redis
     image: redis:6.2-alpine
+    ports:
+      - 6379:6379
 
   celery_worker:
     container_name: celery_worker
@@ -60,7 +62,7 @@ services:
     build: .
     command: celery -A celery_worker.celery flower --port=5555
     ports:
-      - 5556:5555
+      - 5555:5555
     environment:
       - CELERY_BROKER_URL=${CELERY_BROKER_URL}
       - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
