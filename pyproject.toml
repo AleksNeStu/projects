@@ -7,7 +7,6 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 #mysqlclient = "^2.1.0"
-#analyzer = {git = "https://github.com/Gustavcheg/api.git"}
 #poetry-multiproject-plugin = "^1.1.6"
 #sqlacodegen = "^2.3.0"
 #cchardet = "^2.1.7"
@@ -224,6 +223,9 @@ pillow = "^10.1.0"
 python-multipart = "^0.0.6"
 torch = "^2.1.1"
 graphene-sqlalchemy = "3.0.0rc1"
+analyzer = "^0.1.1"
+asyncpgsa = "^0.27.1"
+spacy = "^3.7.2"
 
 [tool.poetry.dev-dependencies]
 
