@@ -7,7 +7,7 @@
 [api](/api) - API solutions
 
 - [client](/api/client) - API clients
-- [openapi](/api/openapi) - Open API standard
+- [openapi](/api/openapi) - Open API standardsssssssss
 - [server](/api/server) - API servers
 - [test](/api/test) - API testsing
 
