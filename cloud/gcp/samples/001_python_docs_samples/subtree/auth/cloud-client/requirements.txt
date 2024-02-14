@@ -1,0 +1,2 @@
+google-cloud-storage==2.9.0; python_version < '3.7'
+google-cloud-storage==2.9.0; python_version > '3.6'
