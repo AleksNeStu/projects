@@ -11,7 +11,8 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # get your token at https://huggingface.co/settings/tokens
 pipe = StableDiffusionPipeline.from_pretrained(
     "CompVis/stable-diffusion-v1-4",
-    revision="fp16",
+    # revision="fp16",
+    variant="fp16",
     # Remove the torch_dtype=torch.float16 argument: If you don't need half-precision computations, you can simply remove this argument. PyTorch will then use torch.float32 by default, which is widely supported on both CPUs and GPUs.
     # torch_dtype=torch.float16,
     use_auth_token=token,

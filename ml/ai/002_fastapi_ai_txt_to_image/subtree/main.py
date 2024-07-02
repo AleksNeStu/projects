@@ -3,7 +3,7 @@ import io
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
-
+import uvicorn
 from ml import obtain_image
 
 app = FastAPI()
@@ -66,3 +66,7 @@ def generate_image_memory(
     image.save(memory_stream, format="PNG")
     memory_stream.seek(0)
     return StreamingResponse(memory_stream, media_type="image/png")
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="localhost", port=5000, reload=True, log_level="debug")

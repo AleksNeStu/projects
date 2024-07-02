@@ -226,6 +226,7 @@ graphene-sqlalchemy = "3.0.0rc1"
 analyzer = "^0.1.1"
 asyncpgsa = "^0.27.1"
 spacy = "^3.7.2"
+accelerate = "^0.31.0"
 
 [tool.poetry.dev-dependencies]
 
