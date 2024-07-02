@@ -6,16 +6,18 @@ from PIL.Image import Image
 
 token_path = Path("token.txt")
 token = token_path.read_text().strip()
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 # get your token at https://huggingface.co/settings/tokens
 pipe = StableDiffusionPipeline.from_pretrained(
     "CompVis/stable-diffusion-v1-4",
     revision="fp16",
-    torch_dtype=torch.float16,
+    # Remove the torch_dtype=torch.float16 argument: If you don't need half-precision computations, you can simply remove this argument. PyTorch will then use torch.float32 by default, which is widely supported on both CPUs and GPUs.
+    # torch_dtype=torch.float16,
     use_auth_token=token,
 )
 
-pipe.to("cuda")
+pipe.to(device)
 
 # prompt = "a photograph of an astronaut riding a horse"
 
@@ -30,7 +32,7 @@ def obtain_image(
     num_inference_steps: int = 50,
     guidance_scale: float = 7.5,
 ) -> Image:
-    generator = None if seed is None else torch.Generator("cuda").manual_seed(seed)
+    generator = None if seed is None else torch.Generator(device).manual_seed(seed)
     print(f"Using device: {pipe.device}")
     image: Image = pipe(
         prompt,
