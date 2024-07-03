@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "projects"
-version = "0.1.0"
+version = "1.0.0"
 description = "Projects common Python interpreter"
 authors = ["Alexander Nesterovich"]
 license = "MIT"

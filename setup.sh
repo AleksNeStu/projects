@@ -42,6 +42,9 @@ export PYTHON=python$PYTHON_VERSION
 export REPO_URL="https://github.com/AleksNeStu/projects.git"
 
 # 3) SYSTEM DEPENDENCIES
+# Install node and dependencies
+sudo dnf install nodejs
+npm install
 # Install system python dependencies and poetry dependency management
 sudo dnf install $PYTHON -y
 sudo dnf install $PYTHON-devel.x86_64 -y # for Cython compilation for IDE
