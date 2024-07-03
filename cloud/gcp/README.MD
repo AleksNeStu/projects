@@ -5,6 +5,12 @@ https://googlecourses.qwiklabs.com/course_templates/60
 **Deploy**\
 https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-service
 
+
+**Build**\
+Builders and buildpacks designed to run on Google Cloud's container platforms
+https://github.com/GoogleCloudPlatform/buildpacks
+
+
 **Run console with git repo**\
 https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/button&cloudshell_git_repo=https://github.com/GoogleCloudPlatform/python-docs-samples&cloudshell_working_dir=run/helloworld
 
