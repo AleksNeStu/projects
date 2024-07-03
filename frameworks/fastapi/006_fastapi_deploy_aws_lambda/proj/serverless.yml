@@ -1,0 +1,23 @@
+service: fastapi-lambda
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: us-east-1
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - http:
+          path: /
+          method: any
+      - http:
+          path: /{proxy+}
+          method: any
+
+package:
+  exclude:
+    - node_modules/**
+    - .serverless/**
+    - .git/**
