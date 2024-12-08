@@ -4,6 +4,7 @@ import os
 import re
 import argparse
 from googleapiclient.discovery import build
+import pyperclip
 
 class YouTubeAPI:
     def __init__(self, api_key):
@@ -66,8 +67,17 @@ def main(api_key, channel_url):
         channel_id = youtube_api.get_channel_id(youtube_channel.name)
         if channel_id:
             playlists = youtube_api.get_channel_playlists(channel_id)
+            print(f'Playlists: {len(playlists)}')
+            print(f'Full info:')
             for playlist in playlists:
-                print(playlist['url'])
+                print(playlist)
+
+            playlist_urls = [playlist['url'] for playlist in playlists]
+            print('URLs:')
+            all_urls = '\n'.join(playlist_urls)
+            print(all_urls)
+            pyperclip.copy(all_urls)
+            return playlist_urls
     except ValueError as e:
         print(e)
 
@@ -79,4 +89,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     api_key = os.getenv('YOUTUBE_API_KEY')
-    main(api_key, args.channel_url)
+    playlists = main(api_key, args.channel_url)
