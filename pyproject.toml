@@ -228,6 +228,8 @@ asyncpgsa = "^0.27.1"
 spacy = "^3.7.2"
 accelerate = "^0.31.0"
 mangum = "^0.17.0"
+youtube-dl = "^2021.12.17"
+yt-dlp = "^2024.11.18"
 
 [tool.poetry.dev-dependencies]
 
