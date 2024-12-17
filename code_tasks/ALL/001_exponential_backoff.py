@@ -21,8 +21,8 @@ def retry_decorator(max_retries=3, initial_delay=1, backoff=2):
     return decorator
 
 @retry_decorator(max_retries=3, initial_delay=1, backoff=2)
-def get_posts(url: int, timeout: int):
-    response = requests.get(url, timeout)
+def get_posts(url: str, timeout: int):
+    response = requests.get(url, timeout=timeout)
     response.raise_for_status()
     return response.json()
 
