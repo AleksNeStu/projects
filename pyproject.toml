@@ -231,6 +231,7 @@ mangum = "^0.17.0"
 youtube-dl = "^2021.12.17"
 yt-dlp = "^2024.11.18"
 pyperclip = "^1.9.0"
+telethon = "^1.38.1"
 
 [tool.poetry.dev-dependencies]
 
